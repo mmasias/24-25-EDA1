@@ -1,8 +1,8 @@
 # Estructura de datos y algoritmos I
 
-Repo de materiales y proyectos de la asignatura **NombreAsignatura** del [Grado de Ingeniería Informática](https://www.uneatlantico.es/escuela-politecnica-superior/estudios-grado-oficial-en-ingenieria-informatica) la [Universidad Europea del Atlántico](https://www.uneatlantico.es).
+Repo de materiales y proyectos de la asignatura **Estructura de datos y algoritmos I** del [Grado de Ingeniería Informática](https://www.uneatlantico.es/escuela-politecnica-superior/estudios-grado-oficial-en-ingenieria-informatica) la [Universidad Europea del Atlántico](https://www.uneatlantico.es).
 
-## Curso *[x][x+1]*
+## Curso *[24][25]*
 
 - [Temario](https://github.com/mmasias/EDA1)
   - [A día de hoy, deberíamos saber...](temario/aDiaDeHoy.md)
@@ -36,4 +36,4 @@ NOTA: *Algunos enlaces podrían requerir **credenciales de acceso al campus** o 
 
 - Hoja de asistencia et-al
 - Libro de la asignatura
-- Este repo, versión de ediciones pasadas
+- Este repo, versión de ediciones pasadas: [[23][24]](https://github.com/mmasias/23-24-EDA1)
