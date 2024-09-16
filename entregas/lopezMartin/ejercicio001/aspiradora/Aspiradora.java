@@ -70,18 +70,14 @@ public class Aspiradora {
     }
 
     static boolean isDirty(int[][] surface) {
-        
-        int suciedad = 0;
         for(int i=0; i<surface.length;i++){
             for(int j=0; j<surface[i].length;j++){
-                suciedad = suciedad + surface[i][j];
+                if(surface[i][i]!=0){
+                    return true;
+                }
             }
         }
-        if(suciedad!=0){
-            return true;
-        }else{
-            return false;
-        }
+        return false;
         
     }
 
