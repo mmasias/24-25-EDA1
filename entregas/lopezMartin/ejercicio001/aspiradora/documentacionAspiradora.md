@@ -1,0 +1,1 @@
+# Documentación del buen uso de referencias, punteros y variables guardadas en memoria (aspiradora)
