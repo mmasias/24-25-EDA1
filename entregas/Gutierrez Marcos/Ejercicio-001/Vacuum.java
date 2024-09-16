@@ -25,7 +25,8 @@ class Vacuum {
 
     static void moveVacuum(int[] vacuumPosition, int[][] surface) {
 
-        int[] previousPosition = new int[] { vacuumPosition[0], vacuumPosition[1] };
+        int[] previousPosition = new int[2];
+        System.arraycopy(vacuumPosition, 0, previousPosition, 0, 2);
 
         int[][] directions = {
                 { -1, 1 }, { 0, 1 }, { 1, 1 },
@@ -38,8 +39,7 @@ class Vacuum {
         vacuumPosition[1] = vacuumPosition[1] + movement[1];
 
         if (invalidPosition(vacuumPosition, surface)) {
-            vacuumPosition[0] = previousPosition[0];
-            vacuumPosition[1] = previousPosition[1];
+            System.arraycopy(previousPosition, 0, vacuumPosition, 0, 2);
         }
     }
 
