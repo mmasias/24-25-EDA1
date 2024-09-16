@@ -55,7 +55,14 @@ class Vacuum {
     }
 
     static boolean isDirty(int[][] surface) {
-        return true;
+        for(int i=0; i<surface.length;i++){
+            for(int j=0; j<surface[i].length;j++){
+                if(surface[i][i]!=0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     static void printWorld(int[][] aMap, int[] vacuumPosition) {
