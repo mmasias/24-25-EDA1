@@ -21,3 +21,13 @@ for(int i=0; i<surface.length;i++){
         }
     return false;
 ```
+- Mejora del metodo de `contaminate` ya que ahora usa constantes definidas en lugar de numeros random
+```
+static void contaminate(int[][] aMap) {
+    for (int row = 0; row < aMap.length; row++) {
+        for (int column = 0; column < aMap[row].length; column++) {
+            aMap[row][column] = (int) (Math.random() * (TILE_EXTREMELY_DIRTY + 1)); // Usa constante
+        }
+    }
+}
+```
