@@ -31,3 +31,12 @@ static void contaminate(int[][] aMap) {
     }
 }
 ```
+- Optimización del método `cleanWorld` En lugar de realizar una resta si el valor es mayor que 0, puedes asegurarte de no tener valores negativos:
+
+```
+static void cleanWorld(int[][] surface, int[] vacuumPosition) {
+    int row = vacuumPosition[0];
+    int col = vacuumPosition[1];
+    surface[row][col] = Math.max(surface[row][col] - 1, TILE_CLEAN); // Evita valores negativos
+}
+```
