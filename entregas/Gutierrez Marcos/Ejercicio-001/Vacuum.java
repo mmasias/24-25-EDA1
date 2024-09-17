@@ -93,10 +93,11 @@ class Vacuum {
     static void contaminate(int[][] aMap) {
         for (int row = 0; row < aMap.length; row++) {
             for (int column = 0; column < aMap[row].length; column++) {
-                aMap[row][column] = (int) (Math.random() * 5);
+                aMap[row][column] = (int) (Math.random() * (TILE_EXTREMELY_DIRTY + 1)); // Usa constante
             }
         }
     }
+
 
     static void cleanScreen() {
         System.out.print("\033[H\033[2J");
