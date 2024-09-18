@@ -24,6 +24,8 @@ class Hamburguesa {
             extras[i].mostrar();
         }
         panes[1].mostrar();
+
+        System.out.println("HashCode de la carne: " + Carne.verHashCode(carne));
     }
 
     public String describir() {

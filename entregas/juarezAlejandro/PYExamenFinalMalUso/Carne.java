@@ -13,4 +13,8 @@ abstract class Carne extends Ingrediente {
 
     public abstract void mostrar();
 
+    public static int verHashCode(Carne carne) {
+        return System.identityHashCode(carne);
+    }
+
 }

@@ -1,4 +1,3 @@
-
 class Res extends Carne {
 
     final String DIBUJO = "::::::::::::";
