@@ -4,7 +4,8 @@
 
 
 - Eliminación de constantes que guardan referencias a valores los cuales no se usan en el código.
-```     final int TILE_CLEAN = 0;
+```java
+        final int TILE_CLEAN = 0;
         final int TILE_DIRTY = 1;
         final int TILE_DIRTIER = 2;
         final int TILE_VERY_DIRTY = 3;
@@ -14,7 +15,7 @@
 ```
 
 - Matriz "surface" declarada pero no inicializada ya que no tiene sentido que la referencia apunte a unos valores los cuales van a volver a ser declarados de manera random inmediatamente después.
-```
+```java
         int[][] surface = {
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -31,7 +32,7 @@
 
 
 - El método "System.arraycopy" realiza la copia directamente de la memoria, lo que significa que evita la gestión de múltiples referencias y logra así una mayor eficiencia.
-```
+```java
          vacuumPosition[0] = vacuumPosition[0] + movement[0];
         vacuumPosition[1] = vacuumPosition[1] + movement[1];
 
