@@ -13,7 +13,7 @@
         final int Y_AXIS = 1;
 ```
 
-- Matriz "surface" declarada pero no inicializada ya que no tiene sentido que la referencia apunte a unos valores los cuales van a ser declarados de manera random inmediatamente después.
+- Matriz "surface" declarada pero no inicializada ya que no tiene sentido que la referencia apunte a unos valores los cuales van a volver a ser declarados de manera random inmediatamente después.
 ```
         int[][] surface = {
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
