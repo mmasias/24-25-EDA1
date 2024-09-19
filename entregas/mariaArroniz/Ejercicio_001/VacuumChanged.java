@@ -41,29 +41,39 @@ class VacuumChanged {
         boolean surfaceIsDirty = true;
 
         while (surfaceIsDirty) {
-            
             moveVacuum(vacuumPosition, surface);
             cleanWorld(surface, vacuumPosition);
-            printWorld(surface, vacuumPosition);
-            printRefencences(surface, surface2);
+            printWorld(surface, vacuumPosition, surface2);
             surfaceIsDirty = isDirty(surface);
             pause(1.0);
-            
         }
     }
+    
+    static void printWorld(int[][] aMap, int[] vacuumPosition, int[][] surface2) {
 
-    static void printRefencences(int[][] surface, int[][] surface2){
-        
-        System.out.println("---".repeat(surface[0].length));
+        System.out.println("---".repeat(aMap[0].length));
+        for (int row = 0; row < aMap.length; row++) {
+            for (int column = 0; column < aMap[row].length; column++) {
+                if (vacuumPosition[0] == row && vacuumPosition[1] == column) {
+                    System.out.print(mapVacuum());
+                } else {
+                    System.out.print(mapValueToTile(aMap[row][column]));
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("---".repeat(aMap[0].length));
+
+        System.out.println("---".repeat(aMap[0].length));
         for (int row = 0; row < 25; row++) {
             for (int column = 0; column < 10; column++) {
                 
-                System.out.print(verHashCode(surface) + "|");
+                System.out.print(verHashCode(aMap) + "|");
 
             }
             System.out.println();
         }
-        System.out.println("---".repeat(surface[0].length));
+        System.out.println("---".repeat(aMap[0].length));
 
         System.out.println("---".repeat(surface2[0].length));
         for (int row = 0; row < 25; row++) {
@@ -77,9 +87,8 @@ class VacuumChanged {
         System.out.println("---".repeat(surface2[0].length));
 
     }
-
+    
     static int verHashCode(int[][] surface){
-
         return System.identityHashCode(surface);
     }
 
@@ -118,21 +127,6 @@ class VacuumChanged {
         return true;
     }
 
-    static void printWorld(int[][] aMap, int[] vacuumPosition) {
-
-        System.out.println("---".repeat(aMap[0].length));
-        for (int row = 0; row < aMap.length; row++) {
-            for (int column = 0; column < aMap[row].length; column++) {
-                if (vacuumPosition[0] == row && vacuumPosition[1] == column) {
-                    System.out.print(mapVacuum());
-                } else {
-                    System.out.print(mapValueToTile(aMap[row][column]));
-                }
-            }
-            System.out.println();
-        }
-        System.out.println("---".repeat(aMap[0].length));
-    }
 
     static String mapVacuum() {
         return "(O)";
