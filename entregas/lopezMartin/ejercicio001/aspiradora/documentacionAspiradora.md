@@ -54,4 +54,16 @@
             vacuumPosition[1] = previousPosition[1];
         }
     }
+
+```
+- Método "isDirty" correctamente formado, ya que antes solo retornaba true.
+```java
+for(int i=0; i<surface.length;i++){
+            for(int j=0; j<surface[i].length;j++){
+                if(surface[i][i]!=0){
+                    return true;
+                }
+            }
+        }
+    return false;
 ```
