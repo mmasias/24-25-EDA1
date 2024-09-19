@@ -2,14 +2,16 @@ public class Habitacion {
 
     private Baldosa[][] baldosas;
     public int largo, ancho;
+    private Baldosa baldosaCompartida;
 
     public Habitacion(int largo, int ancho) {
         this.largo = largo;
         this.ancho = ancho;
         baldosas = new Baldosa[largo][ancho];
+        baldosaCompartida = new Baldosa();
         for (int i = 0; i < this.largo; i++) {
             for (int j = 0; j < this.ancho; j++) {
-                this.baldosas[i][j] = new Baldosa();
+                this.baldosas[i][j] = baldosaCompartida;
             }
         }
     }
@@ -28,6 +30,7 @@ public class Habitacion {
                     vistaBaldosa = " .oO#".charAt(this.baldosas[i][j].ver());
                     System.out.print(" " + vistaBaldosa + " ");
                 }
+                System.out.print("[" + Baldosa.verHashCode(this.baldosaCompartida) + "] ");
             }
             System.out.println();
         }
