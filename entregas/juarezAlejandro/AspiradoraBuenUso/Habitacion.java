@@ -28,6 +28,7 @@ public class Habitacion {
                     vistaBaldosa = " .oO#".charAt(this.baldosas[i][j].ver());
                     System.out.print(" " + vistaBaldosa + " ");
                 }
+                System.out.print("[" + Baldosa.verHashCode(this.baldosas[i][j]) + "] ");
             }
             System.out.println();
         }

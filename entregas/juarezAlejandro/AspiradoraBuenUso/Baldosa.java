@@ -34,7 +34,10 @@ public class Baldosa {
         if (this.baldosa > 0) {
             this.baldosa--;
         }
-        ;
+    }
+
+    public static int verHashCode(Baldosa baldosa) {
+        return System.identityHashCode(baldosa);
     }
 
 }
