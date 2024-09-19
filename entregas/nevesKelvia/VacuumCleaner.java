@@ -6,7 +6,7 @@ public class VacuumCleaner {
 
     public VacuumCleaner(World world) {
         this.world = world;
-        this.position = new int[]{0, 0};
+        this.position = new int[] { 0, 0 };
     }
 
     public void move() {
@@ -34,4 +34,3 @@ public class VacuumCleaner {
         return position;
     }
 }
-

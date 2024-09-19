@@ -25,11 +25,14 @@ public class World {
         for (Tile[] row : surface) {
             for (Tile tile : row) {
                 if (tile.isDirty()) {
-                    return ;
+                    return isDirty();
                 }
             }
         }
+        return false;
     }
+
+   
 
     public void contaminate() {
         for (Tile[] row : surface) {
@@ -53,5 +56,10 @@ public class World {
             System.out.println();
         }
         System.out.println("---".repeat(surface[0].length));
+    }
+
+    private void cleanScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

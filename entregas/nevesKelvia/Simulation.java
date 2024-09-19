@@ -13,4 +13,11 @@ public class Simulation {
             pause(0.5);
         }
     }
+
+    static void pause(double seconds) {
+        try {
+            Thread.sleep((int) (1000 * seconds));
+        } catch (InterruptedException e) {
+        }
+    }
 }
