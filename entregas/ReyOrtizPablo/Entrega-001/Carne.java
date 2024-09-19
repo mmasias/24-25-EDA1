@@ -5,6 +5,6 @@ public abstract class Carne extends Ingrediente {
         this.admiteCocion = admiteCocion;
     } 
     public  String describir(){
-        return nombre + "("+admiteCocion + ")";
+        return nombre + "("+admiteCocion+ ")";
     }
 } 
