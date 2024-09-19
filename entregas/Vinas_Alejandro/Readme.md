@@ -1,1 +1,1 @@
-a
+Se ha modificado la clase cocinero de forma que ahora crea 4 hamburguesas distintas, siendo estas declaradas de forma independiente y se ha creado, tomando como base la clase cocinero original una clase CocineroMal la cual crea las cuatro hambuerguesas asociandolas al mismo nombre que la original, de forma que las sobrescribe
