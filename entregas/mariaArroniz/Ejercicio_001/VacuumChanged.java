@@ -1,4 +1,4 @@
-class Vacuum {
+class VacuumChanged {
     public static void main(String[] args) {
 
         final int TILE_CLEAN = 0;
