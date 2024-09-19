@@ -1,25 +1,10 @@
 class Vacuum {
     public static void main(String[] args) {
 
-        final int TILE_CLEAN = 0;
-        final int TILE_DIRTY = 1;
-        final int TILE_DIRTIER = 2;
-        final int TILE_VERY_DIRTY = 3;
-        final int TILE_EXTREMELY_DIRTY = 4;
-        final int X_AXIS = 0;
-        final int Y_AXIS = 1;
-
         int[][] surface = {
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+                { 0, 0, 0},
+                { 0, 0, 0},
+                { 0, 0, 0},
         };
         int vacuumPosition[] = { 0, 0 };
 
@@ -67,7 +52,13 @@ class Vacuum {
     }
 
     static boolean isDirty(int[][] surface) {
-        return true;
+        for (int row = 0; row < surface.length; row++) {
+            for (int column = 0; column < surface[row].length; column++) {
+                if (surface[row][column] > 0)
+                    return true;
+            }
+        }
+        return false;
     }
 
     static void printWorld(int[][] aMap, int[] vacuumPosition) {
