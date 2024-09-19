@@ -49,9 +49,9 @@ class Vacuum {
     }
 
     static void cleanWorld(int[][] surface, int[] vacuumPosition) {
-        if (surface[vacuumPosition[0]][vacuumPosition[1]] > 0) {
-            surface[vacuumPosition[0]][vacuumPosition[1]]--;
-        }
+        int row = vacuumPosition[0];
+        int col = vacuumPosition[1];
+        surface[row][col] = Math.max(surface[row][col] - 1, TILE_CLEAN);
     }
 
     static boolean isDirty(int[][] surface) {
@@ -93,10 +93,11 @@ class Vacuum {
     static void contaminate(int[][] aMap) {
         for (int row = 0; row < aMap.length; row++) {
             for (int column = 0; column < aMap[row].length; column++) {
-                aMap[row][column] = (int) (Math.random() * 5);
+                aMap[row][column] = (int) (Math.random() * (TILE_EXTREMELY_DIRTY + 1));
             }
         }
     }
+
 
     static void cleanScreen() {
         System.out.print("\033[H\033[2J");
