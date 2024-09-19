@@ -1,4 +1,5 @@
-package Ejercicio001;
+package Ejercicio001.aspiradora;
+
 public class Aspiradora {
 
   public static void main(String[] args) {
