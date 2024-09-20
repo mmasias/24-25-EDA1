@@ -1,26 +1,10 @@
-class Vacuum {
+package entregas.garciaRaul.Ejercicio001.aspiradora;
+
+public class Aspiradora {
+
     public static void main(String[] args) {
 
-        final int TILE_CLEAN = 0;
-        final int TILE_DIRTY = 1;
-        final int TILE_DIRTIER = 2;
-        final int TILE_VERY_DIRTY = 3;
-        final int TILE_EXTREMELY_DIRTY = 4;
-        final int X_AXIS = 0;
-        final int Y_AXIS = 1;
-
-        int[][] surface = {
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-        };
+        int[][] surface = new int[10][25];
         int vacuumPosition[] = { 0, 0 };
 
         contaminate(surface);
@@ -37,7 +21,8 @@ class Vacuum {
 
     static void moveVacuum(int[] vacuumPosition, int[][] surface) {
 
-        int[] previousPosition = new int[] { vacuumPosition[0], vacuumPosition[1] };
+        int[] previousPosition = new int[2];
+        System.arraycopy(vacuumPosition, 0, previousPosition, 0, 2);
 
         int[][] directions = {
                 { -1, 1 }, { 0, 1 }, { 1, 1 },
@@ -50,8 +35,7 @@ class Vacuum {
         vacuumPosition[1] = vacuumPosition[1] + movement[1];
 
         if (invalidPosition(vacuumPosition, surface)) {
-            vacuumPosition[0] = previousPosition[0];
-            vacuumPosition[1] = previousPosition[1];
+            System.arraycopy(previousPosition, 0, vacuumPosition, 0, 2);
         }
     }
 
@@ -67,7 +51,15 @@ class Vacuum {
     }
 
     static boolean isDirty(int[][] surface) {
-        return true;
+        for(int i=0; i<surface.length;i++){
+            for(int j=0; j<surface[i].length;j++){
+                if(surface[i][i]!=0){
+                    return true;
+                }
+            }
+        }
+        return false;
+        
     }
 
     static void printWorld(int[][] aMap, int[] vacuumPosition) {
@@ -114,4 +106,5 @@ class Vacuum {
         } catch (InterruptedException e) {
         }
     }
+    
 }
