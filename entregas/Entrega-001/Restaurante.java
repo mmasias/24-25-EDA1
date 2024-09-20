@@ -1,18 +1,17 @@
 class Restaurante {
 
-    private void atender(Carne laCarne) {
+    private void atender() {
         Cocinero bobEsponja = new Cocinero();
         Camarero calamardo = new Camarero();
 
-        bobEsponja.prepararHamburguesa(laCarne);
+        bobEsponja.prepararHamburguesa();
         calamardo.recibir(bobEsponja.entregar());
 
         calamardo.servir();
     }
 
     public static void main(String[] args) {
-        Carne laCarne = new Res("poco hecha");
         Restaurante crustaceoCrujiente = new Restaurante();
-        crustaceoCrujiente.atender(laCarne);
+        crustaceoCrujiente.atender();
     }
 }
