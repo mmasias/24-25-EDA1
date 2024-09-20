@@ -1,4 +1,4 @@
-# Punteros, referencias y variables almacenadas en memoria.
+# Buen uso de punteros, referencias y variables almacenadas en memoria.
 
 - Eliminación de constantes que almacenan referencias a valores no utilizados en el código:
 

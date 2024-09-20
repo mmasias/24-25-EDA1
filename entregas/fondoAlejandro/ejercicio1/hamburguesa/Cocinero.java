@@ -3,6 +3,9 @@ class Cocinero extends Empleado {
     public void prepararHamburguesa() {
         final int NUMERO_EXTRAS = 4;
         Carne laCarne = new Res("poco hecha");
+        Carne segundaCarne = new Pollo("poco hecha");
+        Azul quesoAzul = new Azul("Queso Azul");
+        new Integral();
         hamburguesa = new Hamburguesa(new Brioche(), new Brioche(), laCarne, NUMERO_EXTRAS);
 
         hamburguesa.agregarExtra(new Cheddar());
