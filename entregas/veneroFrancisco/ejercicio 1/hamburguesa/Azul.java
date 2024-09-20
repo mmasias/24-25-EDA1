@@ -1,7 +1,7 @@
 class Azul extends Queso {
     final String REPRESENTACION = "-.-.-.-.-.-. ";
 
-    public Azul() {
+    public Azul(String string) {
         super("Queso Azul");
     }
 
