@@ -1,4 +1,4 @@
-package entregas.Ejercicio_1maluso;
+package entregas.Ejercicio_1_Buenuso;
 
 abstract class Empleado {
     protected Hamburguesa hamburguesa;

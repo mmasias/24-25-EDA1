@@ -1,4 +1,4 @@
-package entregas.Ejercicio_1;
+package entregas.Ejercicio_1maluso;
 
 public abstract class Carne extends Ingrediente {
     protected String admiteCocion;

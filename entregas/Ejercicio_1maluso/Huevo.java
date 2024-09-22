@@ -1,4 +1,4 @@
-package entregas.Ejercicio_1;
+package entregas.Ejercicio_1maluso;
 
 public class Huevo extends Extras {
     public Huevo() {

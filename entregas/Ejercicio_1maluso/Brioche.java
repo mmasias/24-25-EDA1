@@ -1,4 +1,4 @@
-package entregas.Ejercicio_1;
+package entregas.Ejercicio_1maluso;
 
 public class Brioche extends Pan {
 

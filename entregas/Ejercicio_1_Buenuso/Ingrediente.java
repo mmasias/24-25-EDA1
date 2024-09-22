@@ -1,4 +1,4 @@
-package entregas.Ejercicio_1;
+package entregas.Ejercicio_1_Buenuso;
 
 public abstract class Ingrediente {
     protected String nombre;
