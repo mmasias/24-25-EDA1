@@ -60,6 +60,33 @@ public class CentroComercial {
         }
     }
 
+    public void irseGente(String nombre, int numCaja) {
+        if (numCaja <= 0 || numCaja >= cajas.length) {
+            System.out.println("Número de caja inválido.");
+
+        }
+
+        int index = -1;
+        for (int i = 0; i < contadores[numCaja]; i++) {
+            if (cajas[numCaja][i].equals(nombre)) {
+                index = i;
+
+            }
+        }
+
+        if (index != -1) {
+            System.out.println(nombre + " se ha ido de la fila de la caja " + numCaja);
+
+            for (int i = index + 1; i < contadores[numCaja]; i++) {
+                cajas[numCaja][i - 1] = cajas[numCaja][i];
+            }
+            cajas[numCaja][contadores[numCaja] - 1] = null;
+            contadores[numCaja]--;
+        } else {
+            System.out.println(nombre + " no está en la fila de la caja " + numCaja);
+        }
+    }
+
     public static void main(String[] args) {
         CentroComercial cc = new CentroComercial(3, 5);
         cc.llegaGente("Clara", 1);
@@ -67,7 +94,14 @@ public class CentroComercial {
         cc.llegaGente("Virginia", 1);
         cc.llegaGente("Cecilia", 1);
         cc.mostrarFila();
-        cc.atenderGente(1); 
+        cc.atenderGente(1);
+        cc.mostrarFila();
+        cc.irseGente("Paula", 1);
+        cc.llegaGente("Ricardo", 1);
+        cc.llegaGente("Pablo", 1);
+        cc.irseGente("Virginia", 1);
+        cc.llegaGente("Pepe", 1);
+        cc.llegaGente("Paco", 1);
         cc.mostrarFila();
 
     }
