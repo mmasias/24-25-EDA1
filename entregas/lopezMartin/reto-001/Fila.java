@@ -43,6 +43,7 @@ public class Fila {
 
     public void clienteSeVa(){
         liberarEspacio(clientes, new Random().nextInt(posicionUltimo), posicionUltimo+1);
+        posicionUltimo--;
     }
     
 }
