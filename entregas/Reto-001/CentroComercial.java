@@ -28,7 +28,7 @@ public class CentroComercial {
 
                 }
             }
-            System.out.println("Todas las cajas están llenas. No se puede agregar a " + nombre);
+            
         }
     }
 
@@ -87,6 +87,33 @@ public class CentroComercial {
         }
     }
 
+    public void colarseLicitamente(String nombre, int numCaja, int posicion) {
+        if (numCaja <= 0 || numCaja >= cajas.length) {
+            System.out.println("Número de caja inválido.");
+            return;
+        }
+
+        if (contadores[numCaja] >= tamañoFila) {
+            System.out.println("La fila de la caja " + numCaja + " está llena. No se puede colar.");
+            return;
+        }
+
+        if (posicion < 1 || posicion > contadores[numCaja]) {
+            System.out.println("Posición inválida. No se puede colar.");
+            return;
+        }
+
+        
+        for (int i = contadores[numCaja]; i > posicion; i--) {
+            cajas[numCaja][i] = cajas[numCaja][i - 1];
+        }
+
+       
+        cajas[numCaja][posicion] = nombre;
+        contadores[numCaja]++;
+        System.out.println(nombre + " se ha colado en la posición " + posicion + " en la caja " + numCaja);
+    }
+
     public static void main(String[] args) {
         CentroComercial cc = new CentroComercial(3, 5);
         cc.llegaGente("Clara", 1);
@@ -99,9 +126,13 @@ public class CentroComercial {
         cc.irseGente("Paula", 1);
         cc.llegaGente("Ricardo", 1);
         cc.llegaGente("Pablo", 1);
-        cc.irseGente("Virginia", 1);
         cc.llegaGente("Pepe", 1);
+        cc.mostrarFila();
         cc.llegaGente("Paco", 1);
+        cc.llegaGente("Luis", 2);
+        cc.mostrarFila();
+        cc.colarseLicitamente("Carlos", 2, 1); 
+        
         cc.mostrarFila();
 
     }
