@@ -23,5 +23,8 @@ public class Main {
         fila.colarseLicitamente(p5,p2);
         Persona p6=new Persona(9);
         fila.colarseIlicitamente(p6,3);
+
+        Fila fila2=new Fila();
+        fila.darAOtraFila(fila2);
     }
 }

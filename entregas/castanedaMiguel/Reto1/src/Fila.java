@@ -1,7 +1,7 @@
 public class Fila {
 
     public final int MAX=30;
-    public int separaFilas;
+    public int separaFilas=3;
     public int posicion;
     public Persona[] fila;
 
@@ -78,6 +78,17 @@ public class Fila {
         espacioParaPersona(espacio);
         this.fila[espacio]=p;
 
+    }
+
+    public void darAOtraFila(Fila f){
+        int s=this.separaFilas;
+        int p=this.posicion;
+        while(s<p){
+            f.llegaPersona(this.fila[s]);
+            this.fila[s]=null;
+            this.posicion--;
+            s++;
+        }
     }
 
 
