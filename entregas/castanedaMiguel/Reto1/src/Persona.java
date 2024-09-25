@@ -1,6 +1,6 @@
 public class Persona {
-    public int objetos;
-    Persona(int losObjetos){
-        this.objetos=losObjetos;
+    public int cosas;
+    Persona(int lasCosas){
+        this.cosas=lasCosas;
     }
 }
