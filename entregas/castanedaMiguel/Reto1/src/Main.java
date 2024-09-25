@@ -18,5 +18,8 @@ public class Main {
         Persona p4=new Persona(4);
         fila.llegaPersona(p4);
         fila.personaDaCosas(p3,p4);
+
+        Persona p5=new Persona (1);
+        fila.colarseLicitamente(p5,p2);
     }
 }

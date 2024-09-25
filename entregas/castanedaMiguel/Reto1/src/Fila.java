@@ -33,6 +33,16 @@ public class Fila {
         }
     }
 
+    public void espacioParaPersona(int espacio){
+        this.posicion++;
+        int p=posicion;
+        while(p>espacio){
+            this.fila[p]=this.fila[p-1];
+            p--;
+        }
+        this.fila[espacio]=null;
+    }
+
     public void seAtiendePersona(){
         seVaPersona(0);
     }
@@ -54,6 +64,14 @@ public class Fila {
 
     public void personaDaCosas (Persona p1, Persona p2){
         p1.darCosas(p2);
+    }
+
+    public void colarseLicitamente(Persona p1, Persona p2){
+        int espacio=this.buscaPersona(p2);
+        espacioParaPersona(espacio+1);
+
+        this.fila[espacio+1]=p1;
+
     }
 
 
