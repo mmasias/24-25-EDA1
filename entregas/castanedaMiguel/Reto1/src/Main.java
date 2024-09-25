@@ -6,9 +6,7 @@ public class Main {
         Persona p2=new Persona(3);
         fila.llegaPersona(p1);
         fila.llegaPersona(p2);
+        fila.seAtiendePersona();
 
-
-
-        ;
     }
 }
