@@ -10,14 +10,35 @@ public class Fila {
         this.posicion=0;
     }
 
-    public void llegaPersona(Persona p){
-        this.fila[this.posicion]=p;
-        this.posicion++;
+    public int buscaPersona(Persona p){
+        for(int i=0;i<posicion;i++){
+            if(this.fila[i]==p){
+                return i;
+            }
+        }
+        return -1;
+    }
 
+    public boolean existePersona(Persona p){
+        if(buscaPersona(p)!=-1){
+            return true;
+        }
+        return false;
+    }
+
+    public void llegaPersona(Persona p){
+        if(buscaPersona(p)== -1){
+            this.fila[this.posicion]=p;
+            this.posicion++;
+        }
     }
 
     public void seAtiendePersona(){
-        int i=0;
+        seVaPersona(0);
+    }
+
+    public void seVaPersona(int p){
+        int i=p;
         while(i<posicion-1){
             this.fila[i]=this.fila[i+1];
             i++;
@@ -25,6 +46,10 @@ public class Fila {
         this.posicion--;
         this.fila[this.posicion]=null;
 
+    }
+
+    public void seAburrePersona(Persona p){
+        seVaPersona(buscaPersona(p));
     }
 
 
