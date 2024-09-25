@@ -7,7 +7,7 @@ public class Main {
         supermercado.aburrirseFila2();
 
         supermercado.colarseLicitamenteFila1();
-        supermercado.colarseIlicitamenteFila2();
+        supermercado.colarseIllicitamenteFila2();
 
         supermercado.mostrarFilas();
     }
