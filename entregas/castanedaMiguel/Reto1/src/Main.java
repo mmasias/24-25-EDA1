@@ -21,5 +21,7 @@ public class Main {
 
         Persona p5=new Persona (1);
         fila.colarseLicitamente(p5,p2);
+        Persona p6=new Persona(9);
+        fila.colarseIlicitamente(p6,3);
     }
 }

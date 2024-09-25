@@ -74,5 +74,11 @@ public class Fila {
 
     }
 
+    public void colarseIlicitamente(Persona p, int espacio){
+        espacioParaPersona(espacio);
+        this.fila[espacio]=p;
+
+    }
+
 
 }
