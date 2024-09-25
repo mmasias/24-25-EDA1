@@ -52,5 +52,9 @@ public class Fila {
         seVaPersona(buscaPersona(p));
     }
 
+    public void personaDaCosas (Persona p1, Persona p2){
+        p1.darCosas(p2);
+    }
+
 
 }

@@ -15,5 +15,8 @@ public class Main {
 
         fila.seAburrePersona(p3);
 
+        Persona p4=new Persona(4);
+        fila.llegaPersona(p4);
+        fila.personaDaCosas(p3,p4);
     }
 }

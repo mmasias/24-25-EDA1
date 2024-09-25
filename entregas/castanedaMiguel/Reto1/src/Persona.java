@@ -3,4 +3,9 @@ public class Persona {
     Persona(int lasCosas){
         this.cosas=lasCosas;
     }
+
+    public void darCosas(Persona p){
+        p.cosas+=this.cosas;
+        this.cosas=0;
+    }
 }
