@@ -32,3 +32,37 @@ public void inicializarFilas(int maxClientes) {
     System.out.println("Filas inicializadas.");
     mostrarFilas();
 }
+
+public void atenderFila1() {
+    Object fila1;
+    ((Object) fila1).atenderCliente();
+}
+
+public void atenderFila2() {
+    Object fila2;
+    ((Object) fila2).atenderCliente();
+}
+
+public void aburrirseFila1() {
+    Fila fila1;
+    fila1.clienteAburrido();
+}
+
+public void aburrirseFila2() {
+    Fila fila2;
+    fila2.clienteAburrido();
+}
+
+public void colarseLicitamenteFila1() {
+    Fila fila1;
+    int contadorClientes;
+    fila1.agregarCliente(new Cliente(contadorClientes++));
+    System.out.println("Un cliente se ha colado lícitamente en la fila 1.");
+}
+
+public void colarseIlicitamenteFila2() {
+    Fila fila2;
+    int contadorClientes;
+    fila2.agregarCliente(new Cliente(contadorClientes++));
+    System.out.println("Un cliente se ha colado ilícitamente en la fila 2.");
+}
