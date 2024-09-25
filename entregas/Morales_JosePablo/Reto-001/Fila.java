@@ -18,38 +18,28 @@ public class Fila {
         }
     }
 
-public void clienteAburrido () {
-    if (cantidadClientes > 0) {
-        Cliente atendido = clientes[0];
-        System.arraycopy(clientes, 1, clientes, 0, cantidadClientes - 1);
-        cantidadClientes--;
-        System.out.println(atendido.mostrarCliente() + " ha sido atendido.");
-    } else {
-        System.out.println("La fila está vacía.");
-    }
-}
-public void clienteAburrido() {
-    if (cantidadClientes > 0) {
-        Random random = new Random();
-        int index = random.nextInt(cantidadClientes);
-        Cliente aburrido = clientes[index];
-        System.arraycopy(clientes, index + 1, clientes, index, cantidadClientes - index - 1);
-        cantidadClientes--;
-        System.out.println(aburrido.mostrarCliente() + " se ha aburrido y se fue.");
-    } else {
-        System.out.println("La fila está vacía.");
-    }
-}
-
-public void mostrarFila() {
-    if (cantidadClientes == 0) {
-        System.out.println("La fila está vacía.");
-    } else {
-        System.out.print("Clientes en la fila: ");
-        for (int i = 0; i < cantidadClientes; i++) {
-            System.out.print(clientes[i].mostrarCliente() + " ");
+    public void clienteAburrido() {
+        if (cantidadClientes > 0) {
+            Random random = new Random();
+            int index = random.nextInt(cantidadClientes);
+            Cliente aburrido = clientes[index];
+            System.arraycopy(clientes, index + 1, clientes, index, cantidadClientes - index - 1);
+            cantidadClientes--;
+            System.out.println(aburrido.mostrarCliente() + " se ha aburrido y se fue.");
+        } else {
+            System.out.println("La fila está vacía.");
         }
-        System.out.println();
     }
-}
+
+    public void mostrarFila() {
+        if (cantidadClientes == 0) {
+            System.out.println("La fila está vacía.");
+        } else {
+            System.out.print("Clientes en la fila: ");
+            for (int i = 0; i < cantidadClientes; i++) {
+                System.out.print(clientes[i].mostrarCliente() + " ");
+            }
+            System.out.println();
+        }
+    }
 }
