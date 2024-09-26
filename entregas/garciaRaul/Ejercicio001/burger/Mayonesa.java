@@ -1,4 +1,4 @@
-package src;
+package entregas.garciaRaul.Ejercicio001.burger;
 public class Mayonesa extends Salsa {
     final String REPRESENTACION = " " + "~=~".repeat(4);
     

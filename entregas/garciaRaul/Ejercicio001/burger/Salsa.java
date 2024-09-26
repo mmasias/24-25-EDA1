@@ -1,4 +1,4 @@
-package entregas.garciaRaul.Ejercicio001.burger;s
+package entregas.garciaRaul.Ejercicio001.burger;
 abstract class Salsa extends Extra {
     private String cantidad;
 

@@ -1,4 +1,4 @@
-package src;
+package entregas.garciaRaul.Ejercicio001.burger;
 
 class Cocinero extends Empleado {
 

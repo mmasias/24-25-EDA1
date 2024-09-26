@@ -1,4 +1,4 @@
-package src;
+package entregas.garciaRaul.Ejercicio001.burger;
 class Pollo extends Carne {
     final String REPRESENTACION = " " + ";".repeat(12);
     

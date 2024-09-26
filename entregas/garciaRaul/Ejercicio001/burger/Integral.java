@@ -1,4 +1,4 @@
-package src;
+package entregas.garciaRaul.Ejercicio001.burger;
 class Integral extends Pan {
     final String REPRESENTACION = "|".repeat(14);
     
