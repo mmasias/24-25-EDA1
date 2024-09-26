@@ -77,5 +77,11 @@ public class Fila {
             System.out.println("La fila está llena.");
         }
     }
+
+    public void mensajeMuchaGente() {
+        if (contador > 10) {
+            System.out.println("Pasen por esta caja en orden de fila...");
+        }
+    }
     
 }
