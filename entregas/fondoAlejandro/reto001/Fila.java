@@ -1,7 +1,6 @@
 package entregas.fondoAlejandro.reto001;
-import java.util.Random;
 
-public class Fila {
+class Fila {
     private String[] fila;
     private int tamaño;
     private int longitudFila;
@@ -34,7 +33,6 @@ public class Fila {
         if (tamaño > 0) {
             System.out.println("El primer cliente de la fila ha sido atendido y se marcha.");
             clienteSeMarcha();
-            mostrarFila();
         } else {
             System.out.println("No hay nadie en la fila."+"\n");
         }
@@ -76,10 +74,8 @@ public class Fila {
         }
     }
 
-    public void colarseIlicito(){
-        Random random = new Random();
-        int posicionAleatoria = random.nextInt();
-        if (posicionAleatoria < tamaño && posicionAleatoria >= 0){
+    public void colarseIlicito(int posicion){
+        if (posicion < tamaño && posicion >= 0){
             if (tamaño < longitudFila) {
                 fila[tamaño] = "[O]"; 
                 tamaño++;
@@ -96,6 +92,6 @@ public class Fila {
         for (int i = 0; i < fila.length; i++) {
             System.out.print(fila[i]);
         }
-        System.out.println();
+        System.out.println("\n");
     }
 }
