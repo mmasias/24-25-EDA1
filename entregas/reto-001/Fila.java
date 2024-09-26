@@ -17,3 +17,19 @@ public class Fila {
         contador = 0;
         System.out.println("La fila ha sido abierta.");
     }
+     private boolean existeEnFila(String nombre) {
+        for (int i = 0; i < contador; i++) {
+            if (fila[i].equals(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void llegaGente(String nombre) {
+        if (contador < TAMANO_FILA && !existeEnFila(nombre)) {
+            fila[contador] = nombre;
+            contador++;
+            System.out.println(nombre + " ha llegado a la fila.");
+        }
+    }
