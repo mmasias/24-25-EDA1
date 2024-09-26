@@ -1,22 +1,34 @@
 import java.util.Scanner;
 import java.util.Random;
 
+class Persona {
+    String nombre;
+    int items;
+
+    public Persona(String nombre, int items) {
+        this.nombre = nombre;
+        this.items = items;
+    }
+}
+
 class Supermercado {
     private static final int MAX_PERSONAS = 10;
-    private String[] colaPersonas = new String[MAX_PERSONAS];
+    private Persona[] colaPersonas = new Persona[MAX_PERSONAS];
     private int frente = 0;
     private int fin = 0;
     private int tamano = 0;
     private Random random = new Random();
 
-    public void agregarPersona(String persona) {
+    public void agregarPersona(String nombre) {
         if (tamano == MAX_PERSONAS) {
             System.out.println("La cola está llena. No se pueden unir más personas.");
         } else {
+            int items = random.nextInt(5) + 1;
+            Persona persona = new Persona(nombre, items);
             colaPersonas[fin] = persona;
             fin = (fin + 1) % MAX_PERSONAS;
             tamano++;
-            System.out.println(persona + " se ha unido a la cola.");
+            System.out.println(persona.nombre + " se ha unido a la cola con " + items + " ítems.");
         }
     }
 
@@ -24,7 +36,7 @@ class Supermercado {
         if (tamano == 0) {
             System.out.println("No hay personas en la cola.");
         } else {
-            System.out.println("Se ha atendido a " + colaPersonas[frente]);
+            System.out.println("Se ha atendido a " + colaPersonas[frente].nombre + " con " + colaPersonas[frente].items + " ítems.");
             frente = (frente + 1) % MAX_PERSONAS;
             tamano--;
         }
@@ -37,7 +49,7 @@ class Supermercado {
             System.out.print("Personas en la cola: ");
             for (int i = 0; i < tamano; i++) {
                 int index = (frente + i) % MAX_PERSONAS;
-                System.out.print(colaPersonas[index] + " ");
+                System.out.print(colaPersonas[index].nombre + " (Items: " + colaPersonas[index].items + ") ");
             }
             System.out.println();
         }
@@ -49,7 +61,7 @@ class Supermercado {
             if (tamano > 0) {
                 int indexAbandono = frente + random.nextInt(tamano);
                 indexAbandono = indexAbandono % MAX_PERSONAS;
-                System.out.println(colaPersonas[indexAbandono] + " se ha ido por aburrimiento.");
+                System.out.println(colaPersonas[indexAbandono].nombre + " se ha ido por aburrimiento.");
                 for (int j = indexAbandono; j != fin; j = (j + 1) % MAX_PERSONAS) {
                     colaPersonas[j] = colaPersonas[(j + 1) % MAX_PERSONAS];
                 }
@@ -59,10 +71,12 @@ class Supermercado {
         }
     }
 
-    public void colarseLicitamente(String persona) {
+    public void colarseIlicitamente(String nombre) {
         if (tamano < MAX_PERSONAS) {
+            int items = random.nextInt(5) + 1;
+            Persona persona = new Persona(nombre, items);
             int posColarse = random.nextInt(tamano + 1);
-            System.out.println(persona + " se ha colado licitamente en la posición " + (posColarse + 1) + ".");
+            System.out.println(persona.nombre + " se ha colado ilicitamente en la posición " + (posColarse + 1) + " con " + items + " ítems.");
             for (int i = tamano; i > posColarse; i--) {
                 colaPersonas[(frente + i) % MAX_PERSONAS] = colaPersonas[(frente + i - 1) % MAX_PERSONAS];
             }
@@ -70,7 +84,7 @@ class Supermercado {
             fin = (fin + 1) % MAX_PERSONAS;
             tamano++;
         } else {
-            System.out.println("La cola está llena. No se puede colar " + persona + ".");
+            System.out.println("La cola está llena. No se puede colar " + nombre + ".");
         }
     }
 
@@ -79,8 +93,8 @@ class Supermercado {
         Scanner scanner = new Scanner(System.in);
 
         String[] personas = {"Juan", "Ana", "Pedro", "Lucía", "Carlos"};
-        for (String persona : personas) {
-            supermercado.agregarPersona(persona);
+        for (String nombre : personas) {
+            supermercado.agregarPersona(nombre);
         }
 
         supermercado.mostrarPersonas();
@@ -97,7 +111,7 @@ class Supermercado {
         supermercado.mostrarPersonas();
 
         String nuevaPersona = "Elena";
-        supermercado.colarseLicitamente(nuevaPersona);
+        supermercado.colarseIlicitamente(nuevaPersona);
         supermercado.mostrarPersonas();
 
         scanner.close();
