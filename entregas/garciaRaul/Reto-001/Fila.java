@@ -7,19 +7,27 @@ public class Fila {
 
     public Fila(){
 
-        clientes = new Cliente[150];
+        clientes = new Cliente[200];
         posicionUltimo = 0;
 
     }
 
     public void añadirCliente(){
-        clientes[posicionUltimo] = new Cliente();
-        posicionUltimo++;
+
+        Random random = new Random();
+        int numClientes = random.nextInt(3) + 1;
+    
+        for (int i = 0; i < numClientes; i++) {
+            if (posicionUltimo < clientes.length) {
+            clientes[posicionUltimo] = new Cliente();
+            posicionUltimo++;
+            }
+        }
     }
 
     public void atenderCliente(){
         if(hayClientes()){
-            liberarEspacio(clientes, 0, posicionUltimo+1);
+            moverIzquierda(clientes, 0, posicionUltimo);
             posicionUltimo--;
         }
     }
@@ -28,22 +36,22 @@ public class Fila {
         return clientes[0]!=null;
     }
 
-    private void liberarEspacio(Cliente[] clientes, int indice, int elementosOcupados){
+    private void moverIzquierda(Cliente[] clientes, int indice, int elementosOcupados){
         assert indice >= 0 && indice < elementosOcupados;
 
-        for (int i = indice; i < elementosOcupados - 1; i++) {
+        for (int i = indice; i < elementosOcupados; i++) {
             clientes[i] = clientes[i + 1];
         }
 
-        clientes[elementosOcupados - 1] = null;
+        clientes[elementosOcupados] = null;
 
     }
 
     public void clienteSeVa(){
-        if (posicionUltimo>0) {
-            liberarEspacio(clientes, new Random().nextInt(posicionUltimo), posicionUltimo+1);
-            posicionUltimo--;
-        }
+        assert posicionUltimo>0;
+        moverIzquierda(clientes, new Random().nextInt(posicionUltimo), posicionUltimo);
+        posicionUltimo--;
+        
     }
 
     public void recibirItemsExternos() {
@@ -53,6 +61,20 @@ public class Fila {
             clientes[clienteSeleccionado].añadirItems(itemsExtra);
         }
     }
+
+    public int getPosicionUltimo(){
+        return posicionUltimo;
+    }
+
+    public void moverDerecha(int posicion) {
+        assert posicion >= 0 && posicion < clientes.length; 
+        assert posicionUltimo < clientes.length;
+        for (int i = posicionUltimo; i >= posicion; i--) {
+            clientes[i + 1] = clientes[i]; 
+        }
+        posicionUltimo++;
+        clientes[posicion] = new Cliente();
+        
+    }
     
 }
-
