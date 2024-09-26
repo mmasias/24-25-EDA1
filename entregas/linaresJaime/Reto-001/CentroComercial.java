@@ -60,4 +60,30 @@ public class CentroComercial {
         }
     }
 
+    public void removerPersonaDeFila(String persona, int numeroCaja) {
+        if (numeroCaja <= 0 || numeroCaja >= filasCajas.length) {
+            System.out.println("Número de caja inválido.");
+            return;
+        }
+
+        int indicePersona = -1;
+        for (int i = 0; i < cantidadPersonasEnCaja[numeroCaja]; i++) {
+            if (filasCajas[numeroCaja][i].equals(persona)) {
+                indicePersona = i;
+                break;
+            }
+        }
+
+        if (indicePersona != -1) {
+            System.out.println(persona + " ha salido de la fila de la caja " + numeroCaja);
+            for (int i = indicePersona + 1; i < cantidadPersonasEnCaja[numeroCaja]; i++) {
+                filasCajas[numeroCaja][i - 1] = filasCajas[numeroCaja][i];
+            }
+            filasCajas[numeroCaja][cantidadPersonasEnCaja[numeroCaja] - 1] = null;
+            cantidadPersonasEnCaja[numeroCaja]--;
+        } else {
+            System.out.println(persona + " no está en la fila de la caja " + numeroCaja);
+        }
+    }
+
 }
