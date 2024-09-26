@@ -14,6 +14,6 @@ public class Persona {
     }
 
     public void mostrar(){
-        System.out.print(items + ",");
+        System.out.print("[" + items + "]");
     }
 }

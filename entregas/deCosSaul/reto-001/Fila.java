@@ -10,11 +10,10 @@ public class Fila{
         fila[posicion] = new Persona();
     }
 
-    public void pasaACaja(Caja caja){
+    public void pasaACaja(){
         System.out.println("=".repeat(30));
         mostrarFila();
         System.out.println("\nLa primera persona de la fila pasa a la caja con [" + fila[0].items + "] items");
-        caja.recibe(fila[0]);
         avanzarFila(1);
         mostrarFila();
         System.out.println();
