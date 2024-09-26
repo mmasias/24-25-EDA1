@@ -1,3 +1,5 @@
+package entregas.baquedanoBryan.reto_001;
+
 public class Cliente{
 
     private int numItems;
@@ -27,6 +29,3 @@ public class Cliente{
         return "Cliente con " + numItems + " ítems.";
     }
 }
-
-
-
