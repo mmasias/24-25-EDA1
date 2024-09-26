@@ -86,4 +86,53 @@ public class CentroComercial {
         }
     }
 
+    public void colarsePersonaLicitamente(String persona, int numeroCaja, int posicion) {
+        if (numeroCaja <= 0 || numeroCaja >= filasCajas.length) {
+            System.out.println("Número de caja inválido.");
+            return;
+        }
+
+        if (cantidadPersonasEnCaja[numeroCaja] >= maxPersonasPorFila) {
+            System.out.println("No hay espacio en la fila de la caja " + numeroCaja + ". No se puede colar.");
+            return;
+        }
+
+        if (posicion < 1 || posicion > cantidadPersonasEnCaja[numeroCaja]) {
+            System.out.println("Posición inválida.");
+            return;
+        }
+
+        for (int i = cantidadPersonasEnCaja[numeroCaja]; i > posicion; i--) {
+            filasCajas[numeroCaja][i] = filasCajas[numeroCaja][i - 1];
+        }
+
+        filasCajas[numeroCaja][posicion] = persona;
+        cantidadPersonasEnCaja[numeroCaja]++;
+        System.out.println(persona + " se ha colado lícitamente en la posición " + posicion + " en la caja " + numeroCaja);
+    }
+
+    public void colarsePersonaIlicitamente(String persona, int numeroCaja, int posicion) {
+        if (numeroCaja < 1 || numeroCaja >= filasCajas.length) {
+            System.out.println("Número de caja inválido.");
+            return;
+        }
+
+        if (posicion < 1 || posicion > maxPersonasPorFila) {
+            System.out.println("Posición inválida. No se puede colar.");
+            return;
+        }
+
+        System.out.println(persona + " se ha colado ilícitamente en la caja " + numeroCaja + " en la posición " + posicion);
+
+        for (int i = Math.min(cantidadPersonasEnCaja[numeroCaja], maxPersonasPorFila - 1); i > posicion; i--) {
+            filasCajas[numeroCaja][i] = filasCajas[numeroCaja][i - 1];
+        }
+
+        filasCajas[numeroCaja][posicion] = persona;
+
+        if (cantidadPersonasEnCaja[numeroCaja] < maxPersonasPorFila) {
+            cantidadPersonasEnCaja[numeroCaja]++;
+        }
+    }
+
 }
