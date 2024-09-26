@@ -23,6 +23,6 @@ public class Simulation {
       machine.generateRandomEvent();
       queueManager.showQueue();
     }
-
+    System.out.println("Total clients processed: " + queueManager.getProcessedClientsCount());
   }
 }

@@ -3,6 +3,7 @@ class QueueManager {
   private Client[] queue;
   private int size;
   private static final int MAX_CAPACITY = 100;
+  private int processedClientsCount;
 
   public QueueManager() {
     queue = new Client[MAX_CAPACITY];
@@ -26,6 +27,7 @@ class QueueManager {
         queue[i - 1] = queue[i];
       }
       queue[--size] = null;
+      processedClientsCount++;
     } else {
       System.out.println("The queue is empty.");
     }
@@ -104,6 +106,10 @@ class QueueManager {
     }
     return -1;
 
+  }
+
+  public int getProcessedClientsCount() {
+    return processedClientsCount;
   }
 
   private int generateRandomId() {
