@@ -40,6 +40,24 @@ public class Fila {
         fila[numClientes - 1] = null; 
     }
 
+    public void clienteAburrido() {
+        if (numClientes > 1) {
+            int aburrido = (int) (Math.random() * (numClientes - 1)) + 1; 
+            eliminarClienteEnPosicion(aburrido); 
+        } else if (numClientes == 1) {
+            System.out.println("Solo queda un cliente en la fila, no se puede aburrir."); 
+        } else {
+            System.out.println("No hay clientes en la fila."); 
+        }
+    }
+
+    private void eliminarClienteEnPosicion(int indice) {
+        for (int i = indice; i < numClientes - 1; i++) {
+            fila[i] = fila[i + 1]; 
+        }
+        fila[numClientes - 1] = null; 
+        numClientes--; 
+    }
 
 
 
