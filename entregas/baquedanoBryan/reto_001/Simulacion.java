@@ -24,19 +24,19 @@ public class Simulacion {
         fila.atenderCliente();
         mostrarEstadoFila(fila);
 
-        System.out.println("\nSimulando que un cliente se aburre...");
+        System.out.println("\nSimulando que un cliente se aburre");
         fila.clienteAburrido();
         mostrarEstadoFila(fila);
 
-        System.out.println("\nSimulando que a un cliente le traen ítems...");
+        System.out.println("\nSimulando que a un cliente le traen ítems");
         fila.entregarItems();
         mostrarEstadoFila(fila);
 
-        System.out.println("\nSimulando que alguien se cuela lícitamente...");
+        System.out.println("\nSimulando que alguien se cuela lícitamente");
         fila.cuelaLicita();
         mostrarEstadoFila(fila);
 
-        System.out.println("\nSimulando que alguien se cuela ilícitamente...");
+        System.out.println("\nSimulando que alguien se cuela ilícitamente");
         fila.cuelaIlícita();
         mostrarEstadoFila(fila);
 
