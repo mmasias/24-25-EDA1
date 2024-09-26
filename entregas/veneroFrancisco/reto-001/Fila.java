@@ -22,5 +22,18 @@ public class Fila {
             System.out.println("La fila está llena.");
         }
     }
+
+    public void atenderPersona() {
+        if (contador > 0) {
+            String personaAtendida = personas[0];
+            for (int i = 0; i < contador; i++) {
+                personas[i - 1] = personas[i];
+            }
+            contador--;
+            System.out.println(personaAtendida + " ha sido atendida.");
+        } else {
+            System.out.println("No hay personas en la fila.");
+        }
+    }
 }
 
