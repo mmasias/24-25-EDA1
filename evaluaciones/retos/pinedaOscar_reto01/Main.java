@@ -6,13 +6,13 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         final int TIEMPO_TOTAL = 120;
-        final int CAPACIDAD_COLA = 10;
+        final int CAPACIDAD_Fila = 10;
         int tiempo = 0;
         Random rand = new Random();
 
-        ArrayList<Cola> colas = new ArrayList<>();
-        Cola colaActual = new Cola("Cola1", CAPACIDAD_COLA);
-        colas.add(colaActual);
+        ArrayList<Fila> filas = new ArrayList<>();
+        Fila filaActual = new Fila("Fila1", CAPACIDAD_Fila);
+        filas.add(filaActual);
 
         while (tiempo < TIEMPO_TOTAL) {
             System.out.println("------------------------------------------------------------");
@@ -22,30 +22,30 @@ public class Main {
 
             switch (evento) {
                 case 1:
-                    System.out.println("Evento: Una persona se une a la cola.");
+                    System.out.println("Evento: Una persona se une a la fila.");
                     Persona nuevaPersona = new Persona();
-                    colaActual.agregarPersona(nuevaPersona);
+                    filaActual.agregarPersona(nuevaPersona);
                     break;
                 case 2:
                     System.out.println("Evento: Persona en el frente es atendida.");
-                    if (!colaActual.estaVacia()) {
-                        colaActual.removerPersona();
+                    if (!filaActual.estaVacia()) {
+                        filaActual.removerPersona();
                     } else {
-                        System.out.println("La cola está vacía, nadie para atender.");
+                        System.out.println("La fila está vacía, nadie para atender.");
                     }
                     break;
                 case 3:
                     System.out.println("Evento: Una persona se aburre y se va.");
-                    int tamanoCola = colaActual.getTamano();
+                    int tamanoCola = filaActual.getTamano();
                     if (tamanoCola > 0) {
                         int posicion = rand.nextInt(tamanoCola);
-                        colaActual.removerPersonaEnPosicion(posicion);
+                        filaActual.removerPersonaEnPosicion(posicion);
                     } else {
-                        System.out.println("La cola está vacía, nadie para remover.");
+                        System.out.println("La fila está vacía, nadie para remover.");
                     }
                     break;
                 case 4:
-                    if (!colaActual.estaVacia()) {
+                    if (!filaActual.estaVacia()) {
                         System.out.println("Evento: Alguien trae cosas a una persona en la cola.");
                     } else {
                         System.out.println("No hay nadie en la cola para que le traigan cosas.");
@@ -54,42 +54,42 @@ public class Main {
                 case 5:
                     System.out.println("Evento: Una persona se une a la cola lícitamente.");
                     Persona personaLegitima = new Persona();
-                    colaActual.agregarPersona(personaLegitima);
+                    filaActual.agregarPersona(personaLegitima);
                     break;
                 case 6:
                     System.out.println("Evento: Una persona se cuela en la cola ilícitamente.");
                     int posicionColarse;
-                    if (colaActual.getTamano() > 0) {
-                        posicionColarse = rand.nextInt(colaActual.getTamano());
+                    if (filaActual.getTamano() > 0) {
+                        posicionColarse = rand.nextInt(filaActual.getTamano());
                     } else {
                         posicionColarse = 0;
                     }
                     Persona personaIlicita = new Persona();
-                    colaActual.agregarPersonaEnPosicion(personaIlicita, posicionColarse);
+                    filaActual.agregarPersonaEnPosicion(personaIlicita, posicionColarse);
                     break;
                 default:
                     break;
             }
 
-            if (colaActual.estaLlena()) {
+            if (filaActual.estaLlena()) {
                 System.out.println("Anuncio del centro comercial:");
                 System.out.println("\"Pasen por esta caja en orden de fila...\"");
 
-                ArrayList<Persona> ultimasCincoPersonas = colaActual.obtenerUltimasPersonas(5);
-                colaActual.removerUltimasPersonas(5);
+                ArrayList<Persona> ultimasCincoPersonas = filaActual.obtenerUltimasPersonas(5);
+                filaActual.removerUltimasPersonas(5);
 
-                String nuevoNombreCola = "Cola" + (colas.size() + 1);
-                Cola nuevaCola = new Cola(nuevoNombreCola, CAPACIDAD_COLA);
-                colas.add(nuevaCola);
+                String nuevoNombreCola = "Fila" + (filas.size() + 1);
+                Fila nuevaFila = new Fila(nuevoNombreCola, CAPACIDAD_Fila);
+                filas.add(nuevaFila);
 
                 for (Persona p : ultimasCincoPersonas) {
-                    nuevaCola.agregarPersona(p);
+                    nuevaFila.agregarPersona(p);
                 }
 
-                colaActual = nuevaCola;
+                filaActual = nuevaFila;
             }
 
-            colaActual.imprimirCola();
+            filaActual.imprimirfila();
 
             tiempo++;
             try {
