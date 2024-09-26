@@ -1,8 +1,7 @@
-## Buen Uso vs Mal uso 
+# Retos
 
-En la función `moveVacuum`, es un claro ejemplo de buen uso, debido a que aunque la aspiradora empiece en las coordenadas 0,0, al moverse requerirá una nueva posición. Mejora el código creando así una nueva referencia, de la nueva posión de la aspiradora.
+Los retos se irán proponiendo, habitualmente luego de una disertación teórica. Cada uno tendrá sus reglas de resolución y serán de entrega individual, aunque se puede (y se anima) a trabajarlos en grupo.
 
-![alt text](image.png)
-
-Un mal uso es cuando reemplazamos el pan de abajo y el pan arriba, por uno solo haciendo que el cocinero coloque excatmente el mismo pan en las hamburguesas.
-![alt text](image-1.png)
+|Retos|Fecha de entrega|Rama de entrega
+|-|:-:|:-:|
+|[Reto 001](/evaluaciones/retos/reto001.md)|27/oct 00:00|reto-001
