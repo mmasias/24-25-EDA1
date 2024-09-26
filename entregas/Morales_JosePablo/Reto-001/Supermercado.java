@@ -5,16 +5,15 @@ public class Supermercado {
     private Fila fila1;
     private Fila fila2;
     private int contadorClientes;
-    private Random random;
 
     public Supermercado() {
         fila1 = new Fila(10);
         fila2 = new Fila(10);
         contadorClientes = 1;
-        random = new Random();
     }
 
     public void inicializarFilas(int maxClientes) {
+        Random random = new Random();
         int clientesFila1 = random.nextInt(maxClientes) + 1;
         int clientesFila2 = random.nextInt(maxClientes) + 1;
 
@@ -37,19 +36,29 @@ public class Supermercado {
         fila2.mostrarFila();
     }
 
+    public void atenderFila1() {
+        fila1.atenderCliente();
+        System.out.println("Se ha atendido a un cliente en la fila 1.");
+    }
+
+    public void atenderFila2() {
+        fila2.atenderCliente();
+        System.out.println("Se ha atendido a un cliente en la fila 2.");
+    }
+
+    public void aburrirseFila1() {
+        fila1.clienteAburrido();
+        System.out.println("Un cliente se ha aburrido en la fila 1 y se ha ido.");
+    }
+
+    public void aburrirseFila2() {
+        fila2.clienteAburrido();
+        System.out.println("Un cliente se ha aburrido en la fila 2 y se ha ido.");
+    }
+
     public void colarseLicitamenteFila1() {
         fila1.agregarCliente(new Cliente(contadorClientes++));
         System.out.println("Un cliente se ha colado lícitamente en la fila 1.");
-    }
-
-    public void colarseIlicitamenteFila1() {
-        fila1.agregarCliente(new Cliente(contadorClientes++));
-        System.out.println("Un cliente se ha colado ilícitamente en la fila 1.");
-    }
-
-    public void colarseLicitamenteFila2() {
-        fila2.agregarCliente(new Cliente(contadorClientes++));
-        System.out.println("Un cliente se ha colado lícitamente en la fila 2.");
     }
 
     public void colarseIlicitamenteFila2() {
@@ -57,35 +66,41 @@ public class Supermercado {
         System.out.println("Un cliente se ha colado ilícitamente en la fila 2.");
     }
 
-    public void simularAccionesAleatorias(int iteraciones) {
-        for (int i = 0; i < iteraciones; i++) {
-            int filaSeleccionada = random.nextInt(2) + 1;
-            int tipoColado = random.nextInt(2); 
+    public void simularOperaciones(int numOperaciones) {
+        Random random = new Random();
+        for (int i = 0; i < numOperaciones; i++) {
+            int operacion = random.nextInt(5);
 
-            if (filaSeleccionada == 1) {
-                if (tipoColado == 0) {
+            switch (operacion) {
+                case 0:
+                    atenderFila1();
+                    break;
+                case 1:
+                    atenderFila2();
+                    break;
+                case 2:
                     colarseLicitamenteFila1();
-                } else {
-                    colarseIlicitamenteFila1();
-                }
-            } else {
-                if (tipoColado == 0) {
-                    colarseLicitamenteFila2();
-                } else {
+                    break;
+                case 3:
                     colarseIlicitamenteFila2();
-                }
+                    break;
+                case 4:
+                    if (random.nextBoolean()) {
+                        aburrirseFila1();
+                    } else {
+                        aburrirseFila2();
+                    }
+                    break;
+                default:
+                    System.out.println("Operación desconocida.");
             }
-
-            System.out.println("\nEstado actual de las filas:");
             mostrarFilas();
-            System.out.println("--------------------------------------");
         }
     }
 
     public static void main(String[] args) {
         Supermercado supermercado = new Supermercado();
-        supermercado.inicializarFilas(5);
-        supermercado.mostrarFilas();
-        supermercado.simularAccionesAleatorias(10);
+        supermercado.inicializarFilas(10);
+        supermercado.simularOperaciones(7);
     }
 }
