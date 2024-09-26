@@ -29,9 +29,6 @@ public class CentroComercial {
                 int posicion = new Random().nextInt(fila.getPosicionUltimo()+1);
                 fila.moverDerecha(posicion);
             }
-            if (fila.getPosicionUltimo()>=10) {
-                
-            }
             tiempo++;
             abierto = tiempo==duracion;
         }
