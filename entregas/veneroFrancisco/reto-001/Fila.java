@@ -29,7 +29,7 @@ public class Fila {
             for (int i=1; i < contador; i++) {
                 personas[i - 1] = personas[i];
             }
-            
+
             contador--;
             System.out.println(personaAtendida + " ha sido atendida.");
         } else {
@@ -45,6 +45,15 @@ public class Fila {
                 }
                 contador--;
                 System.out.println(nombre + " se ha ido de la fila.");
+                return;
+            }
+        }
+        System.out.println("No se encuentra " + nombre + " en la fila.");
+    }
+    public void traerCosas(String nombre) {
+        for (int i = 0; i < contador; i++) {
+            if (personas[i].equals(nombre)) {
+                System.out.println(nombre + " ha recibido cosas traídas.");
                 return;
             }
         }
