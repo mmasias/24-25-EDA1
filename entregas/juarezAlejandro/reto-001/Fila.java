@@ -3,11 +3,13 @@ class Fila {
     private Cliente[] fila;
     private int capacidad;
     private int numClientes;
+    private int siguienteId;
 
     public Fila() {
         this.capacidad = 10;
         this.fila = new Cliente[capacidad];
         this.numClientes = 0;
+        this.siguienteId = 1;
     }
 
     public boolean agregarCliente(Cliente cliente) {
@@ -63,6 +65,29 @@ class Fila {
                     + itemsEntregados + " ítems.");
         } else {
             System.out.println("No hay clientes en la fila para entregar ítems.");
+        }
+    }
+
+    public void cuelaLicita(String nombreCliente) {
+        int numItems = (int) (Math.random() * 11);
+        Cliente nuevoCliente = new Cliente(nombreCliente, siguienteId++, numItems);
+        for (int i = numClientes; i > 0; i--) {
+            fila[i] = fila[i - 1];
+        }
+        fila[0] = nuevoCliente;
+        numClientes++;
+        System.out.println(nombreCliente + " se ha colado lícitamente.");
+    }
+
+    public void cuelaIlícita(String nombreCliente) {
+        int numItems = (int) (Math.random() * 11);
+        if (numClientes < capacidad) {
+            Cliente nuevoCliente = new Cliente(nombreCliente, siguienteId++, numItems);
+            fila[numClientes] = nuevoCliente;
+            numClientes++;
+            System.out.println(nombreCliente + " se ha colado ilícitamente.");
+        } else {
+            System.out.println("Fila llena. " + nombreCliente + " no puede colarse ilícitamente.");
         }
     }
 

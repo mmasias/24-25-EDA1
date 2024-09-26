@@ -28,5 +28,17 @@ class Simulacion {
 
         System.out.println("\nFila después de entregar ítems:");
         fila.mostrarFila();
+
+        System.out.println("\nSimulando que alguien se cuela lícitamente...");
+        fila.cuelaLicita("Cliente Lícito");
+
+        System.out.println("\nFila después de cuela lícita:");
+        fila.mostrarFila();
+
+        System.out.println("\nSimulando que alguien se cuela ilícitamente...");
+        fila.cuelaIlícita("Cliente Ilícito");
+
+        System.out.println("\nFila después de cuela ilícita:");
+        fila.mostrarFila();
     }
 }
