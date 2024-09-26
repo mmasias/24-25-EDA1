@@ -93,7 +93,7 @@ class QueueManager {
   }
 
   public boolean shouldOpenNewRegister() {
-    return size >= 7
+    return size >= 7;
   }
 
   private int findClientIndex(int id) {

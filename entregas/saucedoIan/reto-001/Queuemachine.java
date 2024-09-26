@@ -10,6 +10,8 @@ class QueueMachine {
   }
 
   public void generateRandomEvent() {
+
+    queueManager.attendFirstClient();
     if (queueManager.shouldOpenNewRegister()) {
       System.out.println("A new register is opened due to too many clients in the queue.");
       return;
@@ -25,7 +27,7 @@ class QueueMachine {
         queueManager.addClient(new Client(randomClientId, randomItems));
         break;
       case 1:
-        queueManager.attendFirstClient();
+        queueManager.addClient(new Client(randomClientId, randomItems));
         break;
       case 2:
         queueManager.clientLeaves(randomClientId);
