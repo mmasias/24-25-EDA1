@@ -112,3 +112,41 @@ public class Fila {
         } while (existeEnFila(nombre)); 
         return nombre;
     } 
+     
+     public void simularAcciones() {
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) { 
+
+            String nombre = generarNombreAleatorio();
+            int accion = random.nextInt(3); 
+
+            if (accion == 0) {
+                llegaGente(nombre); 
+            } else if (accion == 1 && contador > 0) {
+                atenderPrimero(); 
+            } else if (accion == 2 && contador > 0) {
+                irseDeFila(nombre); 
+            }
+
+            if (contador > 0 && random.nextBoolean()) {
+                traerCosas(fila[random.nextInt(contador)]); 
+            }
+            if (contador > 1 && random.nextBoolean()) {
+                colarseLicitamente(nombre); 
+            }
+            if (contador > 1 && random.nextBoolean()) {
+                int posicion = random.nextInt(contador) + 1;
+                colarseIlicitamente(nombre, posicion); 
+            }
+
+            mensajeMuchaGente(); 
+            mostrarFila(); 
+        }
+    }
+
+    public static void main(String[] args) {
+        Fila fila = new Fila();
+        fila.abrirFila();
+        fila.simularAcciones();
+    }
+}
