@@ -44,3 +44,25 @@ public class Fila {
             contador--;
         }
     }
+    public void irseDeFila(String nombre) {
+        for (int i = 0; i < contador; i++) {
+            if (fila[i].equals(nombre)) {
+                System.out.println(nombre + " se ha ido de la fila.");
+                for (int j = i + 1; j < contador; j++) {
+                    fila[j - 1] = fila[j];
+                }
+                fila[contador - 1] = null; 
+                contador--;
+                break;
+            }
+        }
+    }
+
+    public void traerCosas(String nombre) {
+        for (int i = 0; i < contador; i++) {
+            if (fila[i].equals(nombre)) {
+                System.out.println(nombre + " ha recibido cosas traídas por alguien.");
+                return;
+            }
+        }
+    }
