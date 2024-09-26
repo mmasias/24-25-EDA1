@@ -135,4 +135,57 @@ public class CentroComercial {
         }
     }
 
+    public void unirseAFila(String personaEnFila, String nuevaPersona, int numeroCaja) {
+        if (numeroCaja < 1 || numeroCaja >= filasCajas.length) {
+            System.out.println("Número de caja inválido.");
+            return;
+        }
+
+        int posicionPersona = -1;
+        for (int i = 0; i < cantidadPersonasEnCaja[numeroCaja]; i++) {
+            if (filasCajas[numeroCaja][i].equals(personaEnFila)) {
+                posicionPersona = i;
+                break;
+            }
+        }
+
+        if (posicionPersona == -1) {
+            System.out.println(personaEnFila + " no está en la fila.");
+            return;
+        }
+
+        if (cantidadPersonasEnCaja[numeroCaja] >= maxPersonasPorFila) {
+            System.out.println("Fila llena. No se puede agregar a " + nuevaPersona);
+            return;
+        }
+
+        for (int i = cantidadPersonasEnCaja[numeroCaja]; i > posicionPersona + 1; i--) {
+            filasCajas[numeroCaja][i] = filasCajas[numeroCaja][i - 1];
+        }
+
+        filasCajas[numeroCaja][posicionPersona + 1] = nuevaPersona;
+        cantidadPersonasEnCaja[numeroCaja]++;
+        System.out.println(nuevaPersona + " se ha unido a " + personaEnFila + " en la fila de la caja " + numeroCaja);
+    }
+
+    public static void main(String[] args) {
+        CentroComercial sistema = new CentroComercial(3, 5);
+        sistema.agregarPersonaAFila("Ana", 1);
+        sistema.agregarPersonaAFila("Pedro", 1);
+        sistema.agregarPersonaAFila("Juan", 1);
+        sistema.mostrarFilas();
+        sistema.atenderPrimeraPersona(1);
+        sistema.mostrarFilas();
+        sistema.removerPersonaDeFila("Pedro", 1);
+        sistema.agregarPersonaAFila("Lucía", 1);
+        sistema.agregarPersonaAFila("Carlos", 1);
+        sistema.mostrarFilas();
+        sistema.colarsePersonaLicitamente("Miguel", 1, 1);
+        sistema.mostrarFilas();
+        sistema.colarsePersonaIlicitamente("Sofia", 1, 2);
+        sistema.mostrarFilas();
+        sistema.unirseAFila("Carlos", "Daniel", 1);
+        sistema.mostrarFilas();
+    }
+
 }
