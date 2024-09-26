@@ -7,11 +7,13 @@ public class CentroComercial {
     private Fila fila;
     private boolean abierto;
     private int tiempo;
+    private int clientesAtendidos;
 
     public CentroComercial() {
         this.fila = new Fila();
         this.abierto = true;
         this.tiempo = 0;
+        this.clientesAtendidos = 0;
     }
 
     public void simular(int duracion) {
@@ -27,6 +29,7 @@ public class CentroComercial {
             }
 
             fila.atenderCliente();
+            clientesAtendidos++;
             
             if (clienteSeAburre()) {
                 fila.clienteSeVa();
@@ -45,6 +48,8 @@ public class CentroComercial {
         }
         
         System.out.println("\nCentro comercial cerrado.");
+        System.out.println("Clientes atendidos en total: " + clientesAtendidos);
+        System.out.println("Clientes que quedan en la fila: " + fila.getCantidadClientes());
     }
 
     private boolean llegaCliente() {
