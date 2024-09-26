@@ -24,5 +24,35 @@ public class Fila {
         }
     }
 
+    public void atenderPersona() {
+        if (contador > 0) {
+            String personaAtendida = personas[0];
+            for (int i = 1; i < contador; i++) {
+                personas[i - 1] = personas[i];
+            }
+
+            contador--;
+            System.out.println(personaAtendida + " ha sido atendida.");
+        } else {
+            System.out.println("No hay personas en la fila.");
+        }
+    }
+
+    
+    
+    public void eliminarPersona(String nombre) {
+        for (int i = 0; i < contador; i++) {
+            if (personas[i].equals(nombre)) {
+                for (int j = i + 1; j < contador; j++) {
+                    personas[j - 1] = personas[j];
+                }
+                contador--;
+                System.out.println(nombre + " se ha ido de la fila.");
+                return;
+            }
+        }
+        System.out.println("No se encuentra " + nombre + " en la fila.");
+    }
+
     
 }
