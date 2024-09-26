@@ -32,4 +32,15 @@ public class Fila {
             contador++;
             System.out.println(nombre + " ha llegado a la fila.");
         }
+    } 
+    public void atenderPrimero() {
+        if (contador > 0) {
+            String atendido = fila[0];
+            System.out.println(atendido + " ha sido atendido.");
+            for (int i = 1; i < contador; i++) {
+                fila[i - 1] = fila[i];
+            }
+            fila[contador - 1] = null; 
+            contador--;
+        }
     }
