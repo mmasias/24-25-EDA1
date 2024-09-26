@@ -42,8 +42,18 @@ public class Fila {
     }
 
     public void clienteSeVa(){
-        liberarEspacio(clientes, new Random().nextInt(posicionUltimo), posicionUltimo+1);
-        posicionUltimo--;
+        if (posicionUltimo>0) {
+            liberarEspacio(clientes, new Random().nextInt(posicionUltimo), posicionUltimo+1);
+            posicionUltimo--;
+        }
+    }
+
+    public void recibirItemsExternos() {
+        if(posicionUltimo > 0 && new Random().nextInt(100) < 20){ 
+            int clienteSeleccionado = new Random().nextInt(posicionUltimo); 
+            int itemsExtra = 2 + new Random().nextInt(4);
+            clientes[clienteSeleccionado].añadirItems(itemsExtra);
+        }
     }
     
 }

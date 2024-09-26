@@ -20,11 +20,11 @@ public class CentroComercial {
             if(llegaCliente()){
                 fila.añadirCliente();
             }
-            atenderCliente();
+            fila.atenderCliente();
             if(clienteSeAburre()){
                 fila.clienteSeVa();
             }
-
+            fila.recibirItemsExternos();
             
             
             tiempo++;
@@ -36,12 +36,8 @@ public class CentroComercial {
         return new Random().nextInt(100) < 10;
     }
 
-    private void atenderCliente() {
-        fila.atenderCliente();
-    }
-
     private boolean llegaCliente() {
-        return new Random().nextInt(100) < 50;
+        return new Random().nextInt(100) < 60;
     }
     
 }
