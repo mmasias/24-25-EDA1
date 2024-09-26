@@ -25,8 +25,13 @@ public class CentroComercial {
                 fila.clienteSeVa();
             }
             fila.recibirItemsExternos();
-            
-            
+            if (seCuelaClienteIlicitamente()) {
+                int posicion = new Random().nextInt(fila.getPosicionUltimo()+1);
+                fila.moverDerecha(posicion);
+            }
+            if (fila.getPosicionUltimo()>=10) {
+                
+            }
             tiempo++;
             abierto = tiempo==duracion;
         }
@@ -38,6 +43,10 @@ public class CentroComercial {
 
     private boolean llegaCliente() {
         return new Random().nextInt(100) < 60;
+    }
+
+    private boolean seCuelaClienteIlicitamente() {
+        return new Random().nextInt(100) < 10;
     }
     
 }
