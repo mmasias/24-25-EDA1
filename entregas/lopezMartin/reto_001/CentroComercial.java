@@ -1,4 +1,4 @@
-package entregas.lopezMartin.reto-001;
+package entregas.lopezMartin.reto_001;
 
 import java.util.Random;
 
@@ -14,7 +14,7 @@ public class CentroComercial {
         tiempo = 1;
     }
 
-    private void simular(int duracion) {
+    public void simular(int duracion) {
 
         while(abierto){
             if(llegaCliente()){

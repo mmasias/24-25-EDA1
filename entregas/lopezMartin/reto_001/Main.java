@@ -1,4 +1,4 @@
-package entregas.lopezMartin.reto-001;
+package entregas.lopezMartin.reto_001;
 
 public class Main {
 
