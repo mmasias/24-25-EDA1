@@ -86,4 +86,35 @@ public class Fila {
         }
     }
 
+        
+        public void anunciarCambioDeFila() {
+            System.out.println("Al haber mucha gente en una fila, se abre otra fila"); 
+            int limite = Math.min(8, numClientes); 
+            System.out.println("Clientes en la primera fila:");
+            for (int i = 0; i < limite; i++) {
+                System.out.println(fila[i]); 
+            }
+    
+            if (numClientes > limite) {
+                System.out.println("Clientes en la segunda fila:");
+                for (int i = limite; i < numClientes; i++) {
+                    System.out.println(fila[i]); 
+                }
+            } else {
+                System.out.println("No hay clientes suficientes para una segunda fila."); 
+            }
+        }
+    
+        
+        public void mostrarFila() {
+            if (numClientes == 0) { 
+                System.out.println("Fila vacía."); 
+            } else {
+                System.out.println("Clientes en fila:");
+                for (int i = 0; i < numClientes; i++) {
+                    System.out.println(fila[i]); 
+                }
+            }
+        }
+
 }
