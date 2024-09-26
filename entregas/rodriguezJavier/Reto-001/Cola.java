@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 
 class Supermercado {
     private static final int MAX_PERSONAS = 10;
@@ -6,6 +7,7 @@ class Supermercado {
     private int frente = 0;
     private int fin = 0;
     private int tamano = 0;
+    private Random random = new Random();
 
     public void agregarPersona(String persona) {
         if (tamano == MAX_PERSONAS) {
@@ -41,6 +43,22 @@ class Supermercado {
         }
     }
 
+    public void verificarAbandono() {
+        int personasAbandono = random.nextInt(3);
+        for (int i = 0; i < personasAbandono; i++) {
+            if (tamano > 0) {
+                int indexAbandono = frente + random.nextInt(tamano);
+                indexAbandono = indexAbandono % MAX_PERSONAS;
+                System.out.println(colaPersonas[indexAbandono] + " se ha ido por aburrimiento.");
+                for (int j = indexAbandono; j != fin; j = (j + 1) % MAX_PERSONAS) {
+                    colaPersonas[j] = colaPersonas[(j + 1) % MAX_PERSONAS];
+                }
+                fin = (fin - 1 + MAX_PERSONAS) % MAX_PERSONAS;
+                tamano--;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Supermercado supermercado = new Supermercado();
         Scanner scanner = new Scanner(System.in);
@@ -53,10 +71,10 @@ class Supermercado {
         supermercado.mostrarPersonas();
 
         for (int i = 0; i < 3; i++) {
+            supermercado.verificarAbandono();
             supermercado.atenderPersona();
+            supermercado.mostrarPersonas();
         }
-
-        supermercado.mostrarPersonas();
 
         supermercado.agregarPersona("Marta");
         supermercado.agregarPersona("Luis");
