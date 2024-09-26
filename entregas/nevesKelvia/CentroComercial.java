@@ -22,4 +22,36 @@ class CentroComercial {
             System.out.println("¡Pasen por esta caja en orden de fila! Hay muchas personas en la fila.");
         }
     }
+   
+    public void atenderPersona() {
+        if (ultimo > 0) {
+            System.out.println("La primera persona en la fila ha sido atendida y se va.");
+            moverFila();
+        } else {
+            System.out.println("No hay personas en la fila para atender.");
+        }
+    }
+
+    public void abandonaFila() {
+        if (ultimo > 0) {
+            int posicion = (int) (Math.random() * ultimo);
+            System.out.println("Una persona en la posición " + (posicion + 1) + " se ha aburrido y se ha ido.");
+            for (int i = posicion; i < ultimo - 1; i++) {
+                fila[i] = fila[i + 1];
+            }
+            fila[ultimo - 1] = null;
+            ultimo--;
+        } else {
+            System.out.println("No hay personas en la fila para abandonar.");
+        }
+    }
+  
+    private void moverFila() {
+        for (int i = 0; i < ultimo - 1; i++) {
+            fila[i] = fila[i + 1];
+        }
+        fila[ultimo - 1] = null;
+        ultimo--;
+    }
+
 }
