@@ -20,12 +20,43 @@ public class CentroComercial {
         while (abierto) {
             System.out.println("\nTiempo: " + tiempo + " minuto(s)");
             
-            
             if (llegaCliente()) {
                 Cliente nuevoCliente = new Cliente();
                 fila.añadirCliente(nuevoCliente);
                 System.out.println("Un nuevo cliente ha llegado con " + nuevoCliente.getObjetos() + " objetos.");
             }
+
+            fila.atenderCliente();
+            
+            if (clienteSeAburre()) {
+                fila.clienteSeVa();
+            }
+            
+            fila.recibirObjetosExternos();
+            
+            if (seCuelaCliente()) {
+                fila.colarClienteIllicitamente();
+            }
+            
+            tiempo++;
+            if (tiempo >= duracion) {
+                abierto = false;
+            }
         }
+        
+        System.out.println("\nSimulación terminada. Centro comercial cerrado.");
+    }
+
+    private boolean llegaCliente() {
+        return new Random().nextInt(100) < 80;
+    }
+
+    private boolean clienteSeAburre() {
+        return new Random().nextInt(100) < 10;
+    }
+
+    private boolean seCuelaCliente() {
+        return new Random().nextInt(100) < 20;
     }
 }
+
