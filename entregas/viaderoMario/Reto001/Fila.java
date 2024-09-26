@@ -44,8 +44,22 @@ public class Fila {
 
   public void personaTraeCosas(int posicion) {
     if (posicion < tamaño && posicion >= 0) {
-        System.out.println("A la persona de la posicion " + (posicion +1) + " Le han traido cosas");
+      System.out.println(
+        "A la persona de la posicion " + (posicion + 1) + " Le han traido cosas"
+      );
     }
+  }
 
+  public void personaSeCuela(int posicion) {
+    if (posicion < tamaño && posicion >= 0 && tamaño < fila.length) {
+      for (int i = tamaño; i > posicion; i--) {
+        fila[i] = fila[i - 1];
+      }
+      fila[posicion] = 1;
+      tamaño++;
+      System.out.println("Una persona se ha colado en la posición " + posicion);
+    } else {
+      System.out.println("No es posible colarse en esa posición.");
+    }
   }
 }
