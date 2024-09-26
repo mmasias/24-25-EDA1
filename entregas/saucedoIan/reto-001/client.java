@@ -15,4 +15,12 @@ class Client {
     return items > 0;
   }
 
+  public void setItems(int items) {
+    this.items = items;
+  }
+
+  @Override
+  public String toString() {
+    return "Client{" + "id=" + id + ", items=" + items + '}';
+  }
 }
