@@ -1,1 +1,41 @@
+import java.util.Random;
 
+public class CentroComercial {
+
+    private Fila fila;
+    private boolean abierto;
+    private int tiempo;
+
+    public CentroComercial(){
+        fila = new Fila();
+        abierto = true;
+        tiempo = 1;
+    }
+
+    public void simular(int duracion) {
+
+        while(abierto){
+            if(llegaCliente()){
+                fila.añadirCliente();
+            }
+            fila.atenderCliente();
+            if(clienteSeAburre()){
+                fila.clienteSeVa();
+            }
+            fila.recibirItemsExternos();
+            
+            
+            tiempo++;
+            abierto = tiempo==duracion;
+        }
+    }
+
+    private boolean clienteSeAburre() {
+        return new Random().nextInt(100) < 10;
+    }
+
+    private boolean llegaCliente() {
+        return new Random().nextInt(100) < 60;
+    }
+    
+}
