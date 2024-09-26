@@ -1,11 +1,10 @@
 
-
-class QueueManager (Client Client[])x {
+class QueueManager {
   private Client[] queue;
   private int size;
   private static final int MAX_CAPACITY = 100;
 
-  public QueueManager() { 
+  public QueueManager() {
     queue = new Client[MAX_CAPACITY];
     size = 0;
   }
