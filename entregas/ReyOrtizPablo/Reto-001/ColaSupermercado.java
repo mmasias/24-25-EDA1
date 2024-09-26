@@ -53,6 +53,47 @@ private boolean hayCliente(String cliente) {
             }
         }
     }
+public void entregarProductos(String cliente) {
+    for (int i = 0; i < numClientes; i++) {
+        if (cola[i].equals(cliente)) {
+            System.out.println(cliente + " ha recibido productos.");
+            return;
+        }
+    }
+}
+public void adelantarCliente(String cliente) {
+    if (numClientes < MAX_COLA && !hayCliente(cliente)) {
+        for (int i = numClientes; i > 0; i--) {
+            cola[i] = cola[i - 1];
+        }
+        cola[0] = cliente;
+        numClientes++;
+        System.out.println(cliente + " ha adelantado su lugar en la cola.");
+    }
+}
+public void colarseEnCola(String cliente, int posicion) {
+    if (numClientes < MAX_COLA && !hayCliente(cliente) && posicion > 0 && posicion <= numClientes) {
+        for (int i = numClientes; i > posicion - 1; i--) {
+            cola[i] = cola[i - 1];
+        }
+        cola[posicion - 1] = cliente;
+        numClientes++;
+        System.out.println(cliente + " se ha colado en la posición " + posicion + ".");
+    }
+}
+public void advertirColaLlena() {
+    if (numClientes > 5) {
+        System.out.println("Pasen por esta caja en orden de fila...");
+    }
+}
+public void mostrarCola() {
+    System.out.print("En cola: ");
+    for (int i = 0; i < numClientes; i++) {
+        System.out.print(cola[i] + " ");
+    }
+    System.out.println();
+}
+
 
 
 
