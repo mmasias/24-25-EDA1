@@ -51,6 +51,20 @@ public class Fila {
         }
     }
 
+    public void entregarItems() {
+        if (numClientes > 0) {
+            int clienteDados = (int) (Math.random() * numClientes);
+            Cliente cliente = fila[clienteDados];
+
+            int itemsEntregados = (int) (Math.random() * 11);
+            cliente.aumentarItems(itemsEntregados);
+            System.out.println("Al cliente le han traído "
+                    + itemsEntregados + " ítems.");
+        } else {
+            System.out.println("No hay clientes en la fila para entregar ítems.");
+        }
+    }
+
     private void eliminarClienteEnPosicion(int indice) {
         for (int i = indice; i < numClientes - 1; i++) {
             fila[i] = fila[i + 1]; 
@@ -117,4 +131,7 @@ public class Fila {
             }
         }
 
-}
+        public int getCapacidad() {
+            return capacidad;
+        }
+    }
