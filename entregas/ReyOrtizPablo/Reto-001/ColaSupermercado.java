@@ -22,6 +22,37 @@ private boolean hayCliente(String cliente) {
         }
         return false;
     }
+    public void añadirCliente(String cliente) {
+        if (numClientes < MAX_COLA && !hayCliente(cliente)) {
+            cola[numClientes] = cliente;
+            numClientes++;
+            System.out.println(cliente + " ha ingresado a la cola.");
+        }
+    }
+    public void procesarSiguiente() {
+        if (numClientes > 0) {
+            String atendido = cola[0];
+            System.out.println(atendido + " ha sido atendido.");
+            for (int i = 1; i < numClientes; i++) {
+                cola[i - 1] = cola[i];
+            }
+            cola[numClientes - 1] = null;
+            numClientes--;
+        }
+    }
+    public void abandonarCola(String cliente) {
+        for (int i = 0; i < numClientes; i++) {
+            if (cola[i].equals(cliente)) {
+                System.out.println(cliente + " ha dejado la cola.");
+                for (int j = i + 1; j < numClientes; j++) {
+                    cola[j - 1] = cola[j];
+                }
+                cola[numClientes - 1] = null; 
+                numClientes--;
+                break;
+            }
+        }
+    }
 
 
 
