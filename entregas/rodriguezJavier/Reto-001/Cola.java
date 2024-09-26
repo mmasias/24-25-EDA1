@@ -88,6 +88,18 @@ class Supermercado {
         }
     }
 
+    public void colarseLicitamente(String nombre) {
+        if (tamano < MAX_PERSONAS) {
+            Persona persona = new Persona(nombre, 0);
+            colaPersonas[fin] = persona;
+            fin = (fin + 1) % MAX_PERSONAS;
+            tamano++;
+            System.out.println(persona.nombre + " se ha colado licitamente al final de la cola con 0 ítems.");
+        } else {
+            System.out.println("La cola está llena. No se puede colar " + nombre + ".");
+        }
+    }
+
     public static void main(String[] args) {
         Supermercado supermercado = new Supermercado();
         Scanner scanner = new Scanner(System.in);
@@ -110,8 +122,12 @@ class Supermercado {
 
         supermercado.mostrarPersonas();
 
-        String nuevaPersona = "Elena";
-        supermercado.colarseIlicitamente(nuevaPersona);
+        String nuevaPersonaIlícita = "Elena";
+        supermercado.colarseIlicitamente(nuevaPersonaIlícita);
+        supermercado.mostrarPersonas();
+
+        String nuevaPersonaLícita = "Pedro II";
+        supermercado.colarseLicitamente(nuevaPersonaLícita);
         supermercado.mostrarPersonas();
 
         scanner.close();
