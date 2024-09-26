@@ -9,5 +9,20 @@ public class Fila {
         this.contador = 0;
     }
 
+    public void abrirFila() {
+        System.out.println("La fila ha sido abierta.");
+    }
+
+
+    public void agregarPersona(String nombre) {
+        if (contador < capacidad) {
+            personas[contador] = nombre;
+            contador++;
+            System.out.println(nombre + " ha llegado a la fila.");
+        } else {
+            System.out.println("La fila está llena.");
+        }
+    }
+
     
 }
