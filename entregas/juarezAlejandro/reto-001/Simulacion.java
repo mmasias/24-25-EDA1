@@ -3,7 +3,8 @@ class Simulacion {
         Fila fila = new Fila();
 
         for (int i = 1; i <= 10; i++) {
-            Cliente nuevoCliente = new Cliente("Cliente" + i, i);
+            int numItems = (int) (Math.random() * 11);
+            Cliente nuevoCliente = new Cliente("Cliente" + i, i, numItems);
             fila.agregarCliente(nuevoCliente);
         }
 
@@ -20,6 +21,12 @@ class Simulacion {
         fila.clienteAburrido();
 
         System.out.println("\nFila después de que un cliente se aburre:");
+        fila.mostrarFila();
+
+        System.out.println("\nSimulando que a un cliente le traen ítems...");
+        fila.entregarItems();
+
+        System.out.println("\nFila después de entregar ítems:");
         fila.mostrarFila();
     }
 }

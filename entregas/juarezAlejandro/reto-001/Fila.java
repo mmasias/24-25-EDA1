@@ -52,6 +52,20 @@ class Fila {
         }
     }
 
+    public void entregarItems() {
+        if (numClientes > 0) {
+            int clienteDados = (int) (Math.random() * numClientes);
+            Cliente cliente = fila[clienteDados];
+
+            int itemsEntregados = (int) (Math.random() * 11);
+            cliente.aumentarItems(itemsEntregados);
+            System.out.println("A " + cliente.getNombre() + " (ID: " + cliente.getId() + ") le han traído "
+                    + itemsEntregados + " ítems.");
+        } else {
+            System.out.println("No hay clientes en la fila para entregar ítems.");
+        }
+    }
+
     public void mostrarFila() {
         if (numClientes == 0) {
             System.out.println("Fila vacia");
