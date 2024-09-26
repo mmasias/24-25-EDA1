@@ -7,6 +7,10 @@ class Client {
     this.items = items;
   }
 
+  public int getItems() {
+    return items;
+  }
+
   public int getId() {
     return id;
   }
@@ -17,6 +21,10 @@ class Client {
 
   public void setItems(int items) {
     this.items = items;
+  }
+
+  public void addItems(int additionalItems) {
+    this.items += additionalItems;
   }
 
   @Override

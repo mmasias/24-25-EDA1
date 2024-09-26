@@ -10,10 +10,25 @@ class QueueManager {
   }
 
   public void addClient(Client client) {
-
+    if (size < MAX_CAPACITY) {
+      queue[size++] = client;
+      System.out.println("Client " + client.getId() + " with " + client.getItems() + " items joins the queue.");
+    } else {
+      System.out.println("Queue is full, cannot add client.");
+    }
   }
 
   public void attendFirstClient() {
+    if (size > 0) {
+      Client client = queue[0];
+      System.out.println("Client " + client.getId() + " with " + client.getItems() + " items is being attended.");
+      for (int i = 1; i < size; i++) {
+        queue[i - 1] = queue[i];
+      }
+      queue[--size] = null;
+    } else {
+      System.out.println("The queue is empty.");
+    }
 
   }
 
