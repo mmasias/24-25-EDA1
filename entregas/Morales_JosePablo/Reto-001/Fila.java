@@ -23,7 +23,7 @@ public class Fila {
     public void atenderCliente() {
         if (!fila.isEmpty()) {
             Cliente atendido = fila.poll();
-            System.out.println("Cliente atendido: " + atendido);
+            System.out.println("Cliente atendido: " + atendido.mostrarCliente());
         } else {
             System.out.println("No hay clientes para atender.");
         }
@@ -32,7 +32,7 @@ public class Fila {
     public void clienteAburrido() {
         if (!fila.isEmpty()) {
             Cliente aburrido = fila.poll();
-            System.out.println("Cliente aburrido se ha ido: " + aburrido);
+            System.out.println("Cliente aburrido se ha ido: " + aburrido.mostrarCliente());
         } else {
             System.out.println("No hay clientes en la fila.");
         }
@@ -53,7 +53,7 @@ public class Fila {
     public void mostrarFila() {
         System.out.print("Clientes en la fila: ");
         for (Cliente cliente : fila) {
-            System.out.print(cliente + " ");
+            System.out.print(cliente.mostrarCliente() + " ");
         }
         System.out.println();
     }
