@@ -66,3 +66,49 @@ public class Fila {
             }
         }
     }
+
+     public void colarseLicitamente(String nombre) {
+        if (contador < TAMANO_FILA && !existeEnFila(nombre)) {
+            for (int i = contador; i > 0; i--) {
+                fila[i] = fila[i - 1]; 
+            }
+            fila[0] = nombre;
+            contador++;
+            System.out.println(nombre + " se ha colado lícitamente al inicio de la fila.");
+        }
+    }
+
+    public void colarseIlicitamente(String nombre, int posicion) {
+        if (contador < TAMANO_FILA && !existeEnFila(nombre) && posicion > 0 && posicion <= contador) {
+            for (int i = contador; i > posicion - 1; i--) {
+                fila[i] = fila[i - 1]; 
+            }
+            fila[posicion - 1] = nombre;
+            contador++;
+            System.out.println(nombre + " se ha colado ilícitamente en la posición " + posicion + ".");
+        }
+    }
+
+    public void mensajeMuchaGente() {
+        if (contador > 10) {
+            System.out.println("Pasen por esta caja en orden de fila...");
+        }
+    }
+
+    public void mostrarFila() {
+        System.out.print("Fila actual: ");
+        for (int i = 0; i < contador; i++) {
+            System.out.print(fila[i] + " ");
+        }
+        System.out.println();
+    }
+
+    private String generarNombreAleatorio() {
+        String[] nombres = {"Liam", "Javi", "Pedro", "Ana", "Luis", "Lucía", "Hector", "Elena", "José", "Sofía"};
+        Random random = new Random();
+        String nombre;
+        do {
+            nombre = nombres[random.nextInt(nombres.length)];
+        } while (existeEnFila(nombre)); 
+        return nombre;
+    }
