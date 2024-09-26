@@ -118,5 +118,12 @@ public class Fila {
         }
 
     }
-    
+
+    public static void main(String[] args) {
+        Fila fila = new Fila(10);
+        fila.abrirFila();
+        fila.simularAcciones();
+    }
+
 }
+    
