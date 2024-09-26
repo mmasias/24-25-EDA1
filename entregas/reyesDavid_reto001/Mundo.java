@@ -9,6 +9,19 @@ class Mundo {
             fila.agregarCliente(nuevoCliente);
         }
 
+        System.out.println("Fila inicial");
+        fila.mostrarFila();
+
+        System.out.println("\nAtendiendo al primer cliente");
+        fila.atenderCliente();
+
+        System.out.println("\nFila después de atender al primer cliente:");
+        fila.mostrarFila();
+
+        System.out.println("\nSimulando que un cliente se aburre...");
+        fila.clienteAburrido();
+
+        System.out.println("\nFila después de que un cliente se aburre:");
         fila.mostrarFila();
     }
 }
