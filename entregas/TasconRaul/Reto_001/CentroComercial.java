@@ -44,11 +44,11 @@ public class CentroComercial {
             }
         }
         
-        System.out.println("\nSimulación terminada. Centro comercial cerrado.");
+        System.out.println("\nCentro comercial cerrado.");
     }
 
     private boolean llegaCliente() {
-        return new Random().nextInt(100) < 80;
+        return new Random().nextInt(100) < 60;
     }
 
     private boolean clienteSeAburre() {
