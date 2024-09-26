@@ -59,5 +59,17 @@ public class Fila {
         }
         System.out.println("No se encuentra " + nombre + " en la fila.");
     }
+    public void colarseLicitamente(String nombre) {
+        if (contador < capacidad) {
+            for (int i = contador; i > 0; i--) {
+                personas[i] = personas[i - 1];
+            }
+            personas[0] = nombre;
+            contador++;
+            System.out.println(nombre + " se ha colado lícitamente al inicio de la fila.");
+        } else {
+            System.out.println("La fila está llena.");
+        }
+    }
 }
 
