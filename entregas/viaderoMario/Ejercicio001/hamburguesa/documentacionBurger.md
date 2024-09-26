@@ -8,7 +8,7 @@
     Carne otraCarne = new Pollo("muy hecho");
 ```
 
-- Se crea un puntero que no esta refernciado.
+- Se crea un puntero que no esta referenciado.
 ```java
     new Integral();
 ```
