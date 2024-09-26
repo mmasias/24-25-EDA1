@@ -23,6 +23,25 @@ public class Fila {
         }
     }
 
+    public void atenderCliente() {
+        if (numClientes > 0) { 
+            Cliente atendido = fila[0]; 
+            desplazarClientesIzquierda(); 
+            numClientes--; 
+        } else {
+            System.out.println("No hay clientes en la fila."); 
+        }
+    }
+
+    private void desplazarClientesIzquierda() {
+        for (int i = 1; i < numClientes; i++) {
+            fila[i - 1] = fila[i]; 
+        }
+        fila[numClientes - 1] = null; 
+    }
+
+
+
 
 
     
