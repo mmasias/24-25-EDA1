@@ -48,11 +48,25 @@ public class Fila {
         mostrarFila();
     }
 
+    public void clienteSeAburre(int posicion){
+        if (posicion < tamaño && posicion >= 0){
+            System.out.println("La persona que estaba en la posicion " + (posicion + 1) + " se ha aburrido y se ha marchado.");
+            clienteSeMarcha();
+        }
+    }
+
+    public void clienteRecibeProductos(int posicion){
+        if (posicion < tamaño && posicion >= 0){
+            System.out.println("A la persona en la posicion " + (posicion + 1) + " le han traído productos");
+            mostrarFila();
+        }
+    }
+
     public void mostrarFila(){
         System.out.print("Fila 1: " );
         for (int i = 0; i < fila.length; i++) {
             System.out.print(fila[i]);
         }
-        System.out.println("\n");
+        System.out.println();
     }
 }
