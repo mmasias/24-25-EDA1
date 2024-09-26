@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Fila {
     private int capacidad;
     private String[] personas;
@@ -82,6 +84,39 @@ public class Fila {
         if (contador > 10) {
             System.out.println("Pasen por esta caja en orden de fila...");
         }
+    }
+
+    public void simularAcciones() {
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            int accion = random.nextInt(5);
+            switch (accion) {
+                case 0:
+                    agregarPersona("Persona " + i);
+                    break;
+                case 1:
+                    atenderPersona();
+                    break;
+                case 2:
+                    if (contador > 0) {
+                        int indice = random.nextInt(contador);
+                        eliminarPersona(personas[indice]);
+                    }
+                    break;
+                case 3:
+                    if (contador > 0) {
+                        int indice = random.nextInt(contador);
+                        traerCosas(personas[indice]);
+                    }
+                    break;
+                case 4:
+                    colarseLicitamente("Persona " + i);
+                    break;
+            }
+            mensajeMuchaGente();
+
+        }
+
     }
     
 }
