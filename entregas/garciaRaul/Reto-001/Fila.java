@@ -1,5 +1,3 @@
-import evaluaciones.retos.Cliente;
-
 import java.util.Random;
 
 public class Fila {
