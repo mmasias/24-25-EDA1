@@ -5,15 +5,16 @@ public class Supermercado {
     private Fila fila1;
     private Fila fila2;
     private int contadorClientes;
+    private Random random;
 
     public Supermercado() {
         fila1 = new Fila(10);
         fila2 = new Fila(10);
         contadorClientes = 1;
+        random = new Random();
     }
 
     public void inicializarFilas(int maxClientes) {
-        Random random = new Random();
         int clientesFila1 = random.nextInt(maxClientes) + 1;
         int clientesFila2 = random.nextInt(maxClientes) + 1;
 
@@ -36,38 +37,55 @@ public class Supermercado {
         fila2.mostrarFila();
     }
 
-    public void atenderFila1() {
-        fila1.clienteAburrido();
-    }
-
-    public void atenderFila2() {
-        fila2.clienteAburrido();
-    }
-
-    public void aburrirseFila1() {
-        fila1.clienteAburrido();
-    }
-
-    public void aburrirseFila2() {
-        fila2.clienteAburrido();
-    }
-
     public void colarseLicitamenteFila1() {
         fila1.agregarCliente(new Cliente(contadorClientes++));
         System.out.println("Un cliente se ha colado lícitamente en la fila 1.");
     }
 
-    public void colarseIllicitamenteFila2() {
+    public void colarseIlicitamenteFila1() {
+        fila1.agregarCliente(new Cliente(contadorClientes++));
+        System.out.println("Un cliente se ha colado ilícitamente en la fila 1.");
+    }
+
+    public void colarseLicitamenteFila2() {
+        fila2.agregarCliente(new Cliente(contadorClientes++));
+        System.out.println("Un cliente se ha colado lícitamente en la fila 2.");
+    }
+
+    public void colarseIlicitamenteFila2() {
         fila2.agregarCliente(new Cliente(contadorClientes++));
         System.out.println("Un cliente se ha colado ilícitamente en la fila 2.");
     }
 
+    public void simularAccionesAleatorias(int iteraciones) {
+        for (int i = 0; i < iteraciones; i++) {
+            int filaSeleccionada = random.nextInt(2) + 1;
+            int tipoColado = random.nextInt(2); 
+
+            if (filaSeleccionada == 1) {
+                if (tipoColado == 0) {
+                    colarseLicitamenteFila1();
+                } else {
+                    colarseIlicitamenteFila1();
+                }
+            } else {
+                if (tipoColado == 0) {
+                    colarseLicitamenteFila2();
+                } else {
+                    colarseIlicitamenteFila2();
+                }
+            }
+
+            System.out.println("\nEstado actual de las filas:");
+            mostrarFilas();
+            System.out.println("--------------------------------------");
+        }
+    }
+
     public static void main(String[] args) {
         Supermercado supermercado = new Supermercado();
-        supermercado.inicializarFilas(10);
+        supermercado.inicializarFilas(5);
         supermercado.mostrarFilas();
-        
-        supermercado.colarseIllicitamenteFila2();
-        supermercado.mostrarFilas();
+        supermercado.simularAccionesAleatorias(10);
     }
 }
