@@ -1,4 +1,5 @@
 package entregas.fondoAlejandro.reto001;
+import java.util.Random;
 
 public class Fila {
     private String[] fila;
@@ -59,6 +60,34 @@ public class Fila {
         if (posicion < tamaño && posicion >= 0){
             System.out.println("A la persona en la posicion " + (posicion + 1) + " le han traído productos");
             mostrarFila();
+        }
+    }
+
+    public void colarseLicito(int posicion){
+        if (posicion < tamaño && posicion >= 0){
+            if (tamaño < longitudFila) {
+                fila[tamaño] = "[O]"; 
+                tamaño++;
+                System.out.println("Una persona se ha colado licitamente en la fila.");
+                mostrarFila();
+            } else {
+                System.out.println("La fila esta llena.");
+            }
+        }
+    }
+
+    public void colarseIlicito(){
+        Random random = new Random();
+        int posicionAleatoria = random.nextInt();
+        if (posicionAleatoria < tamaño && posicionAleatoria >= 0){
+            if (tamaño < longitudFila) {
+                fila[tamaño] = "[O]"; 
+                tamaño++;
+                System.out.println("Una persona se ha colado ilicitamente en la fila.");
+                mostrarFila();
+            } else {
+                System.out.println("La fila esta llena.");
+            }
         }
     }
 
