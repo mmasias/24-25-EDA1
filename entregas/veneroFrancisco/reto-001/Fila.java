@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Fila {
     private int capacidad;
     private String[] personas;
@@ -26,7 +28,7 @@ public class Fila {
     public void atenderPersona() {
         if (contador > 0) {
             String personaAtendida = personas[0];
-            for (int i=1; i < contador; i++) {
+            for (int i = 1; i < contador; i++) {
                 personas[i - 1] = personas[i];
             }
 
@@ -50,6 +52,7 @@ public class Fila {
         }
         System.out.println("No se encuentra " + nombre + " en la fila.");
     }
+
     public void traerCosas(String nombre) {
         for (int i = 0; i < contador; i++) {
             if (personas[i].equals(nombre)) {
@@ -59,6 +62,7 @@ public class Fila {
         }
         System.out.println("No se encuentra " + nombre + " en la fila.");
     }
+
     public void colarseLicitamente(String nombre) {
         if (contador < capacidad) {
             for (int i = contador; i > 0; i--) {
@@ -71,5 +75,44 @@ public class Fila {
             System.out.println("La fila está llena.");
         }
     }
-}
 
+    public void mensajeMuchaGente() {
+        if (contador > 10) {
+            System.out.println("Pasen por esta caja en orden de fila...");
+        }
+    }
+
+    public void simularAcciones() {
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            int accion = random.nextInt(5);
+            switch (accion) {
+                case 0:
+                    agregarPersona("Persona " + i);
+                    break;
+                case 1:
+                    atenderPersona();
+                    break;
+                case 2:
+                    if (contador > 0) {
+                        int indice = random.nextInt(contador);
+                        eliminarPersona(personas[indice]);
+                    }
+                    break;
+                case 3:
+                    if (contador > 0) {
+                        int indice = random.nextInt(contador);
+                        traerCosas(personas[indice]);
+                    }
+                    break;
+                case 4:
+                    colarseLicitamente("Persona " + i);
+                    break;
+            }
+            mensajeMuchaGente();
+
+        }
+
+    }
+
+}
