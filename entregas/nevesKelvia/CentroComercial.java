@@ -54,4 +54,39 @@ class CentroComercial {
         ultimo--;
     }
 
+    public void verEstado(int minutoActual) {
+        System.out.println("Minuto actual: " + minutoActual);
+        System.out.println(ultimo + " personas en la fila.");
+    }
+
+    public void colarseLicito(Persona persona) {
+        if (ultimo < fila.length) {
+            
+            for (int i = ultimo; i > 0; i--) {
+                fila[i] = fila[i - 1];
+            }
+            fila[0] = persona;
+            ultimo++;
+            System.out.println("Una persona se ha colado lícitamente en la primera posición.");
+        } else {
+            System.out.println("La fila está llena.");
+        }
+    }
+
+    public void colarseIlicito(Persona persona) {
+        if (ultimo < fila.length) {
+            int posicion = (int) (Math.random() * ultimo);  
+            for (int i = ultimo; i > posicion; i--) {
+                fila[i] = fila[i - 1];
+            }
+            fila[posicion] = persona;
+            ultimo++;
+            System.out.println("Una persona se ha colado ilícitamente en la posición " + (posicion + 1) + ".");
+        } else {
+            System.out.println("La fila está llena.");
+        }
+    }
 }
+
+
+
