@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public class ColaSupermercado {
     private static final int MAX_COLA = 12;
@@ -82,7 +83,7 @@ public void colarseEnCola(String cliente, int posicion) {
     }
 }
 public void advertirColaLlena() {
-    if (numClientes > 5) {
+    if (numClientes > 4) {
         System.out.println("Pasen por esta caja en orden de fila...");
     }
 }
@@ -93,6 +94,46 @@ public void mostrarCola() {
     }
     System.out.println();
 }
+ private String clienteAleatorio() {
+        String[] nombres = {"Laura", "Claudia", "Javier", "Juan", "Lucas", "Paula", "Alvaro", "Sara", "Romeo", "Manuel", "Fran", "Pablo"};
+        Random random = new Random();
+        String cliente;
+        do {
+            cliente = nombres[random.nextInt(nombres.length)];
+        } while (hayCliente(cliente));
+        return cliente;
+    }
+    public void ejecutarSimulacion() {
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+
+            String cliente = clienteAleatorio();
+            int accion = random.nextInt(3);
+
+            if (accion == 0) {
+                añadirCliente(cliente);
+            } else if (accion == 1 && numClientes > 0) {
+                procesarSiguiente();
+            } else if (accion == 2 && numClientes > 0) {
+                abandonarCola(cliente);
+            }
+            if (numClientes > 0 && random.nextBoolean()) {
+                entregarProductos(cola[random.nextInt(numClientes)]);
+            }
+            if (numClientes > 1 && random.nextBoolean()) {
+                adelantarCliente(cliente);
+            }
+            if (numClientes > 1 && random.nextBoolean()) {
+                int posicion = random.nextInt(numClientes) + 1;
+                colarseEnCola(cliente, posicion);
+            }
+
+            advertirColaLlena();
+            mostrarCola();
+        }
+    }
+
+
 
 
 
