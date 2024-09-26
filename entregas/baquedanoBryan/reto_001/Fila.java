@@ -59,8 +59,31 @@ public class Fila {
         numClientes--; 
     }
 
-
-
+    public void cuelaLicita() {
+        if (numClientes < capacidad) { 
+            desplazarClientesDerecha(); 
+            fila[0] = new Cliente((int) (Math.random() * 11)); 
+            numClientes++; 
+        } else {
+            System.out.println("Fila llena."); 
+        }
+    }
 
     
+    private void desplazarClientesDerecha() {
+        for (int i = numClientes; i > 0; i--) {
+            fila[i] = fila[i - 1]; 
+        }
+    }
+
+    
+    public void cuelaIlícita() {
+        if (numClientes < capacidad) { 
+            fila[numClientes] = new Cliente((int) (Math.random() * 15)); 
+            numClientes++; 
+        } else {
+            System.out.println("Fila llena. No se puede colar ilícitamente."); 
+        }
+    }
+
 }
