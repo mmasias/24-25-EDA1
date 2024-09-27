@@ -9,6 +9,6 @@ class Carrefour{
         fila.seleccionarCliente().añadirItems();
         Cliente cliente=new Cliente();
         cliente.colarse(fila);
-        Fila fila2=new Fila("Pasen por esta caja en orden de fila");
+        Fila fila2=new Fila("Pasen por esta caja en orden de fila",fila);
     }
 }
