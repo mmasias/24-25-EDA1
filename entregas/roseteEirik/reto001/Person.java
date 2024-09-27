@@ -14,4 +14,8 @@ public class Person {
     public int getQuantityOfItems() {
         return quantityOfItems;
     }
+
+    public void addMoreItems(){
+        quantityOfItems += (int)((Math.random())*15) + 1;
+    }
 }
