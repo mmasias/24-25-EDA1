@@ -91,5 +91,13 @@ public class Fila {
         }
     }
 
+    public void mostrarFila(){
+        System.out.println("La fila está formada por:");
+        for(int i=0;i<posicion;i++) {
+            System.out.println("-Persona con " + this.fila[i].cosas + "cosas");
+        }
+        System.out.println("");
+    }
+
 
 }
