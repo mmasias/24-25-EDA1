@@ -5,19 +5,12 @@ public class Main {
         fila1.entraPersona();
         fila1.entraPersona();
         fila1.entraPersona();
-
         fila1.aburrimientoPersona(0);
-
         fila1.entraPersona();
-
         fila1.atender();
-
         fila1.personaSeCuela(1);
-
         fila1.personaTraeCosas(1);
-
         fila1.entraPersona();
-
         fila1.atender();
 
     }
