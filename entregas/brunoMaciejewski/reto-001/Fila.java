@@ -9,12 +9,18 @@ public class Fila {
 
     public Fila(String anuncio, Fila filaAntigua) {
         System.out.println(anuncio);
-        fila = new Cliente[0];
-        int corte=filaAntigua.fila.length/2;
-        for (int i = 0; i < fila.length; i++) {
-            this.añadirCliente(filaAntigua.fila[i+corte]);
+        int mitad = filaAntigua.fila.length / 2;
+        fila=new Cliente[mitad+1];
+        Cliente[] filaTemporal=new Cliente[filaAntigua.fila.length-mitad-1];
+        for (int i = 0; i < filaAntigua.fila.length; i++) {
+            if (i<mitad){
+                filaTemporal[i]=filaAntigua.fila[i];
+            }
+            else {
+                fila[i-mitad]=filaAntigua.fila[i];
+            }
         }
-        
+        filaAntigua.fila=filaTemporal;
     }
 
     public void añadirCliente() {
@@ -25,6 +31,7 @@ public class Fila {
         }
         filaTemporal[fila.length] = nuevoCliente;
         fila = filaTemporal;
+        System.out.println("Ha llegado un cliente");
     }
 
     public void añadirCliente(Cliente nuevoCliente) {
@@ -34,16 +41,19 @@ public class Fila {
         }
         filaTemporal[fila.length] = nuevoCliente;
         fila = filaTemporal;
+        System.out.println("Ha llegado un cliente");
     }
 
-    public void atenderPrimero() {
-        System.out.println("Total: " + fila[0].getItems() + " items");
+    public Cliente atenderPrimero() {
+        Cliente cliente = fila[0];
 
         Cliente[] filaTemporal = new Cliente[fila.length - 1];
         for (int i = 0; i < fila.length - 1; i++) {
             filaTemporal[i] = fila[i + 1];
         }
         fila = filaTemporal;
+        System.out.println("Cliente atendido");
+        return cliente;
     }
 
     public Cliente seleccionarCliente() {
@@ -60,6 +70,7 @@ public class Fila {
             }
         }
         fila = filaTemporal;
+        System.out.println("Un cliente se ha ido");
     }
 
     public void colarCliente(Cliente cliente) {
@@ -75,6 +86,17 @@ public class Fila {
             }
         }
         fila = filaTemporal;
+        System.out.println("Un cliente se ha colado");
+    }
+
+    public void imprimir() {
+        String mensaje = "";
+        for (Cliente cliente : fila) {
+            mensaje += cliente.toString();
+            mensaje += "||";
+        }
+        System.out.println(this);
+        System.out.println(mensaje);
     }
 
 }

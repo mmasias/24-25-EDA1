@@ -3,12 +3,12 @@ import java.util.Random;
 public class Cliente {
     private int items;
 
-    public Cliente(){
-        items=new Random().nextInt(1,20);
+    public Cliente() {
+        items = new Random().nextInt(1, 20);
     }
 
     public void añadirItems() {
-        items+=new Random().nextInt(1,5);
+        items += new Random().nextInt(1, 5);
     }
 
     public void colarse(Fila fila) {
@@ -18,4 +18,10 @@ public class Cliente {
     public int getItems() {
         return items;
     }
+
+    @Override
+    public String toString() {
+        return " [" + items + "] ";
+    }
+
 }
