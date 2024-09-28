@@ -87,6 +87,7 @@ public class Fila {
             f.llegaPersona(this.fila[s]);
             this.fila[s]=null;
             this.posicion--;
+            f.posicion++;
             s++;
         }
     }
