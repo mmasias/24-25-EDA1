@@ -2,32 +2,32 @@ package entregas.roseteEirik.reto001;
 
 class Carrefour{
     public static void main(String[] args) {
-        ShoppinnLine carrefour = new ShoppinnLine();
-        System.out.println("Fila: ");
-        carrefour.showShoppingLine();
+        new ShoppingLine();
+        ShoppingLine.showAllShoppingLines();
         System.out.println("\nEliminando primera persona...");
-        carrefour.popPerson();
+        ShoppingLine.popPersonFromAnyLine();
         System.out.println();
 
-        System.out.println("Fila: ");
-        carrefour.showShoppingLine();
+        ShoppingLine.showAllShoppingLines();
         System.out.println("\nEliminando persona aleatoria...");
-        carrefour.popRandomPerson();
+        ShoppingLine.popRandomPersonFromAnyLine();
         System.out.println();
         
-        System.out.println("Fila: ");
-        carrefour.showShoppingLine();
+        ShoppingLine.showAllShoppingLines();
         System.out.println("\nAñadiendo productos a persona aleatoria...");
-        carrefour.setItemsToRandomPerson();
+        ShoppingLine.setItemsToRandomPersonInAnyLine();
         System.out.println();
 
-        System.out.println("Fila: ");
-        carrefour.showShoppingLine();
+        ShoppingLine.showAllShoppingLines();
+        System.out.println("\nllega un nuevo cliente...");
+        ShoppingLine.addNewPersonToAnyLine();
+        System.out.println();
+
+        ShoppingLine.showAllShoppingLines();
         System.out.println("\nUn cliente se cuela en la fila...");
-        carrefour.newRandomPerson();
+        ShoppingLine.addRandomPersonToAnyLine();
         System.out.println();
 
-        System.out.println("Fila: ");
-        carrefour.showShoppingLine();
+        ShoppingLine.showAllShoppingLines();
     }
 }
