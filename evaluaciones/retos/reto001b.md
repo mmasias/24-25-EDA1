@@ -29,7 +29,7 @@ Supongamos que queremos establecer el siguiente orden: `A` -> `C` -> `B`.
 
 Con el planteamiento propuesto, establezca el orden a `B` -> `C` -> `A`.
 
-*NOTA:* Si le hace falta, adapte el planteamiento.
+*NOTA:* A partir de aquí, y para cada uno de los puntos siguientes, si le hace falta, adapte el planteamiento respetando las consideraciones anteriores.
 
 ## Reto 3: la eliminación
 
@@ -54,7 +54,7 @@ Ahora, agregamos dos nuevos elementos:
 Y luego, eliminamos `C`
 
 - ¿Cómo maneja su solución la inserción de estos nuevos elementos en el orden `A` -> `D` -> `E`, respetando la regla de que físicamente siempre se agregan al final?
-- Después de "eliminar" `C`, ¿cómo representarías el nuevo orden `A` -> `D` -> `E` en tu estructura?
+- Después de "eliminar" `C`, ¿cómo representaría el nuevo orden `A` -> `D` -> `E` en su estructura?
 
 ## Reto 5: la flexibilidad
 
