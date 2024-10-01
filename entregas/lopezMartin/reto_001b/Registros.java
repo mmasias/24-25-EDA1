@@ -82,4 +82,20 @@ public class Registros {
         }
     }
 
+    public void mostrarAlReves(){
+
+        System.out.println("+------------------+------------------+");
+        System.out.println("|       ID         |      VALOR       |");
+        System.out.println("+------------------+------------------+");
+    
+        for (int i = ultimaPosicion - 1; i >= 0; i--) {
+            if (datos[i].isActivo()) { 
+                System.out.printf("| %-16d | %-16s |\n", datos[i].getId(), datos[i].getValor());
+            }
+        }
+    
+        System.out.println("+------------------+------------------+\n");
+
+    }
+
 }

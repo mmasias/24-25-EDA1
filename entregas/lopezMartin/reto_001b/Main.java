@@ -25,6 +25,9 @@ public class Main {
         registros.añadir("E");
         registros.eliminar("C");
         registros.mostrar();
+        
+        System.out.println("RECORRER ELEMENTOS HACIA ATRÁS:");
+        registros.mostrarAlReves();
 
     }
     
