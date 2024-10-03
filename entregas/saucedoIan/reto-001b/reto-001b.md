@@ -52,3 +52,4 @@ En este ejemplo:
 - Físicamente, los elementos siguen presentes, pero se omiten al recorrer la lista.
 
 ## Diagrama UML del Algoritmo
+![UML Diagram](./diagram.png)
