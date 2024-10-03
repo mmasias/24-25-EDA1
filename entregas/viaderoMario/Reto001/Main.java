@@ -1,18 +1,31 @@
-public class Main {
+public class Main{
     public static void main(String[] args) {
-        Fila fila1 = new Fila(15);
-
-        fila1.entraPersona();
-        fila1.entraPersona();
-        fila1.entraPersona();
-        fila1.aburrimientoPersona(0);
-        fila1.entraPersona();
-        fila1.atender();
-        fila1.personaSeCuela(1);
-        fila1.personaTraeCosas(1);
-        fila1.entraPersona();
-        fila1.atender();
-
+        Fila centroComercial = new Fila(10);
+    
+        centroComercial.agregarPersona("Alice");
+        centroComercial.agregarPersona("Bob");
+        centroComercial.agregarPersona("Charlie");
+        centroComercial.mostrarFila();
+    
+        centroComercial.atenderPersona();
+        centroComercial.mostrarFila();
+    
+        centroComercial.agregarPersona("David");
+        centroComercial.mostrarFila();
+    
+        centroComercial.colarse("Eve");
+        centroComercial.mostrarFila();
+    
+        centroComercial.irse("Charlie");
+        centroComercial.mostrarFila();
+    
+        centroComercial.traerCosas("Bob", "David");
+        centroComercial.traerCosas("Alice", "Eve");
+    
+        centroComercial.atenderPersona();
+        centroComercial.atenderPersona();
+        centroComercial.atenderPersona(); 
+    
+        centroComercial.mostrarFila();
+     }
     }
-}
-

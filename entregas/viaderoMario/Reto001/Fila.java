@@ -1,65 +1,95 @@
 public class Fila {
 
+  private String[] fila;
+  private int maxPersonas;
   private int tamaño;
-  private int[] fila;
 
-  public Fila(int capacidad) {
-    this.tamaño = 0;
-    this.fila = new int[capacidad];
+  public Fila(int maxPersonas) {
+    this.maxPersonas = maxPersonas;
+    fila = new String[maxPersonas];
+    tamaño = 0;
   }
 
-  public void entraPersona() {
-    if (tamaño < fila.length) {
-      fila[tamaño] = 1;
+  public void agregarPersona(String nombre) {
+    if (tamaño < maxPersonas) {
+      fila[tamaño] = nombre;
       tamaño++;
+      System.out.println(nombre + " se ha unido a la fila.");
     } else {
-      System.out.println("No entra nadie mas, la fila esta llena");
+      System.out.println(
+        "La fila está llena. No se puede agregar más personas."
+      );
     }
   }
 
-  public void atender() {
+  public void atenderPersona() {
     if (tamaño > 0) {
-      System.out.println("Atendiendo a la primera persona en la fila.");
+      String atendido = fila[0];
 
-      for (int i = 0; i < tamaño; i++) {
-        fila[i] = fila[i + 1];
+      for (int i = 1; i < tamaño; i++) {
+        fila[i - 1] = fila[i];
       }
-    } else {
-      System.out.println("No hay personas en la fila para atender");
-    }
-  }
-
-  public void aburrimientoPersona(int posicion) {
-    if (posicion < tamaño && posicion >= 0) {
-      System.out.println(
-        "La persona " + (posicion + 1) + " se va de la cola por aburrimiento"
-      );
-    }
-
-    for (int i = 1; i < tamaño; i++) {
-      fila[i - 1] = fila[i];
       tamaño--;
+      System.out.println(atendido + " ha sido atendido.");
+    } else {
+      System.out.println("No hay nadie en la fila.");
     }
   }
 
-  public void personaTraeCosas(int posicion) {
-    if (posicion < tamaño && posicion >= 0) {
-      System.out.println(
-        "A la persona de la posicion " + (posicion + 1) + " Le han traido cosas"
-      );
+  public void mostrarFila() {
+    if (tamaño == 0) {
+      System.out.println("La fila está vacía.");
+    } else {
+      System.out.print("Personas en la fila:");
+      for (int i = 0; i < tamaño; i++) {
+        System.out.print("  " + (i + 1) + "-" + fila[i] + "     ");
+      }
+      System.out.println();
     }
   }
 
-  public void personaSeCuela(int posicion) {
-    if (posicion < tamaño && posicion >= 0 && tamaño < fila.length) {
-      for (int i = tamaño; i > posicion; i--) {
+  public void colarse(String nombre) {
+    if (tamaño < maxPersonas) {
+      for (int i = tamaño; i > 0; i--) {
         fila[i] = fila[i - 1];
       }
-      fila[posicion] = 1;
+      fila[0] = nombre;
       tamaño++;
-      System.out.println("Una persona se ha colado en la posición " + posicion);
+      System.out.println(nombre + " se ha colado en la fila.");
     } else {
-      System.out.println("No es posible colarse en esa posición.");
+      System.out.println("La fila está llena. No se puede colar más personas.");
+    }
+  }
+
+  public void irse(String nombre) {
+    for (int i = 0; i < tamaño; i++) {
+      if (fila[i].equals(nombre)) {
+        for (int j = i; j < tamaño - 1; j++) {
+          fila[j] = fila[j + 1];
+        }
+        tamaño--;
+        System.out.println(nombre + " se ha ido porque se aburrió.");
+        return;
+      }
+    }
+    System.out.println(nombre + " no se encuentra en la fila.");
+  }
+
+  public void traerCosas(String deQuien, String paraQuien) {
+    boolean encontradoDe = false;
+    boolean encontradoPara = false;
+
+    for (int i = 0; i < tamaño; i++) {
+      if (fila[i] == deQuien) {
+        encontradoDe = true;
+      }
+      if (fila[i] == paraQuien) {
+        encontradoPara = true;
+      }
+    }
+
+    if (encontradoDe && encontradoPara) {
+      System.out.println(deQuien + " le trae cosas a " + paraQuien + ".");
     }
   }
 }
