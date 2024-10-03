@@ -12,14 +12,12 @@ class Fila {
         this.siguienteId = 1;
     }
 
-    public boolean agregarCliente(Cliente cliente) {
+    public void agregarCliente(Cliente cliente) {
         if (numClientes < capacidad) {
             fila[numClientes] = cliente;
             numClientes++;
-            return true;
         } else {
             System.out.println("Fila llena");
-            return false;
         }
     }
 
