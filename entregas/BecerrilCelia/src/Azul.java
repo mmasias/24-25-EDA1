@@ -1,13 +1,8 @@
 package src;
- class Azul extends Queso {
-    final String REPRESENTACION = " " + "-·".repeat(6);
-
-    public Azul() {
-        super("Queso Azul");
-    }
-
-    @Override
-    public void mostrar() {
-        System.out.println(REPRESENTACION);
+class Azul extends Extra{
+    public Azul(){
+        this.tipo = "queso azul";
+        this.cantidad = "";
+        this.impresion = " -.-.-.-.-.-.";
     }
 }

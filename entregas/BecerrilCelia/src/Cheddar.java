@@ -1,13 +1,11 @@
 package src;
- class Cheddar extends Queso {
-    final String REPRESENTACION = " " + "=".repeat(12);
-    
-    public Cheddar() {
-        super("Cheddar");
+
+class Cheddar extends Extra{
+
+    public Cheddar(){
+        this.tipo = "queso cheddar";
+        this.cantidad = "";
+        this.impresion = " ============";
     }
 
-    @Override
-    public void mostrar() {
-        System.out.println(REPRESENTACION);
-    }
 }

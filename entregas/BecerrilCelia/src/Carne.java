@@ -1,15 +1,16 @@
 package src;
-abstract class Carne extends Ingrediente {
-    private String coccion;
 
-    public Carne(String nombre, String coccion) {
-        this.nombre = nombre;
-        this.coccion = coccion;
+abstract class Carne {
+    protected String tipo;
+    protected String coccion;
+    protected String impresion;
+
+
+    public String nombrar(){
+        return tipo + " " + coccion;
     }
 
-    public String describir() {
-        return nombre + " (" + coccion + ")";
+    public String mostrar(){
+        return impresion;
     }
-
-    public abstract void mostrar();    
 }
