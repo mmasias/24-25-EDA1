@@ -61,7 +61,7 @@ public class Fila {
             }
         }
         System.out.println("No se encuentra " + nombre + " en la fila.");
-    }
+    }   
 
     public void colarseLicitamente(String nombre) {
         if (contador < capacidad) {
