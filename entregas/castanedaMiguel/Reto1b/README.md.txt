@@ -35,7 +35,7 @@ Tampoco se podría mantener un orden específico.
 2Think
 ¿Qué ventajas ofrece su solución en comparación con simplemente reordenar o eliminar físicamente los elementos?
 
-Reordenarlo puede llevar un tiempo sumamamente innecesario, ya que es buscar y recolocar constantemente.
+Reordenarlo puede llevar un tiempo sumamente innecesario, ya que es buscar y recolocar constantemente.
 
 ¿Puede identificar alguna desventaja en su enfoque?
 Podría haber más de un orden por error.
