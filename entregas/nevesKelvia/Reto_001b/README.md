@@ -34,7 +34,7 @@ Eliminación del elemento `B`.
 
 ### Solución:
 
-1. Eliminamos la referencia al ID 2 (`B`) en la lista de orden lógico.
+1. Eliminé la referencia al ID 2 (`B`) en la lista de orden lógico.
 2. Si queremos el orden `A -> C`, la lista de referencias sería `1 -> 3`.
 
 Enlace a la hoja de cálculo:
@@ -48,7 +48,7 @@ Se agrega dos nuevos elementos `D` y `E` y luego se elimina `C`.
 ### Solución:
 
 1. Los nuevos elementos se agregan al final con los IDs 4 (`D`) y 5 (`E`).
-2. Eliminamos la referencia al ID 3 (`C`).
+2. Eliminé la referencia al ID 3 (`C`).
 3. El nuevo orden sería `1 -> 4 -> 5` (A -> D -> E).
 
 Enlace a la hoja de cálculo:
@@ -77,7 +77,7 @@ Se controla mediante la lista de referencias, permitiendo un orden flexible e in
 
 ### Desventajas:
 
-- Necesitamos una estructura adicional para las referencias, lo que consume más memoria.
+- Se necesita una estructura adicional para las referencias, lo que consume más memoria.
 - La complejidad puede aumentar a medida que se agregan más elementos y se eliminan otros.
 
 ### Impacto de la eliminación:
