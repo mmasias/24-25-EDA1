@@ -61,6 +61,10 @@ public class List {
         }
     }
 
+    public void deleteAll() {
+        this.first = null;
+    }
+
     public String[] listAll() {
         String[] list = new String[this.size()];
         Node iterator = this.first;
