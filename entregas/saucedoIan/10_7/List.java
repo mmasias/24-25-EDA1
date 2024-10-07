@@ -1,8 +1,8 @@
-package listas.basica;
 
 public class List {
 
     private Node first = null;
+    private int size = 0;
 
     public int size() {
         if (this.first == null) {
@@ -32,6 +32,7 @@ public class List {
             }
             iterator.setNext(newNode);
         }
+        size++;
     }
 
     public void insertFront(String value) {
@@ -42,9 +43,10 @@ public class List {
             n.setNext(this.first);
             this.first = n;
         }
+        size++;
     }
 
-    public void delete() {
+    public void deleteEnd() {
         if (this.first != null) {
             Node iterator = this.first;
             Node previous = null;
@@ -54,6 +56,39 @@ public class List {
             }
             previous.setNext(null);
         }
+    }
+
+    public void deleteFront() {
+        if (this.first != null) {
+            this.first = this.first.getNext();
+            size--;
+        }
+    }
+
+    public Node[] find(String value) {
+        Node iterator = this.first;
+        int matchCount = 0;
+
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                matchCount++;
+            }
+            iterator = iterator.getNext();
+        }
+
+        Node[] matches = new Node[matchCount];
+        iterator = this.first;
+        int index = 0;
+
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                matches[index] = iterator;
+                index++;
+            }
+            iterator = iterator.getNext();
+        }
+
+        return matches;
     }
 
     public String[] listAll() {

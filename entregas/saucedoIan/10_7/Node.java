@@ -1,4 +1,3 @@
-package listas.basica;
 
 public class Node {
 
