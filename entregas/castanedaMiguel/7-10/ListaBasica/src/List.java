@@ -73,7 +73,7 @@ public class List {
     }
 
     public Node[] find(String value){
-        Node[] resultado= new Node[100];
+        Node[] resultado= new Node[this.tamaño];
         int i=0;
         if(this.first!=null){
             Node node=this.first;
