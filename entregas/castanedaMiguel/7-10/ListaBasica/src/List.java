@@ -62,7 +62,22 @@ public class List {
         }
     }
 
-    public Node[] find(String value){}
+    public Node[] find(String value){
+        Node[] resultado= new Node[100];
+        int i=0;
+        if(this.first!=null){
+            Node node=this.first;
+            while(node.getNext()!=null){
+                if(node.getValue().equals(value)){
+                    resultado[i]=node;
+                    i++;
+                }
+                    node=node.getNext();
+            }
+        }
+        return resultado;
+
+    }
 
     public String[] listAll() {
         String[] list = new String[this.size()];
