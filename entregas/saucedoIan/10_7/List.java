@@ -17,6 +17,11 @@ public class List {
         return count;
     }
 
+    public void drop() {
+        this.first = null;
+        this.size = 0;
+    }
+
     public boolean isEmpty() {
         return this.size() > 0 ? false : true;
     }

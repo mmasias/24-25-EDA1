@@ -25,6 +25,9 @@ class Ejemplo {
         viewLine(nephews);
         Node[] foundNodes = nephews.find("Pepito");
         System.out.println("Nodos encontrados con valor 'Pepito': " + foundNodes.length);
+        nephews.drop();
+        System.out.println("Tamaño después de limpiar la lista: " + nephews.size());
+        viewLine(nephews);
     }
 
     static void viewLine(List filaDeSobrinos) {
