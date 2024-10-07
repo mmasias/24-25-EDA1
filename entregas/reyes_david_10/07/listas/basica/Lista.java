@@ -1,6 +1,6 @@
-import java.util.ArrayList;
+import org.w3c.dom.Node;
 
-public class List {
+public class Lista {
 
     private Node first = null;
 
@@ -10,15 +10,15 @@ public class List {
         }
         int count = 1;
         Node iterator = first;
-        while (iterator.getNext() != null) {
+        while (iterator.getNextSibling() != null) {
             count++;
-            iterator = iterator.getNext();
+            iterator = iterator.getNextSibling();
         }
         return count;
     }
 
     public boolean isEmpty() {
-        return this.size() == 0;
+        return this.size() > 0 ? false : true;
     }
 
     public void insertEnd(String value) {
@@ -27,10 +27,10 @@ public class List {
             this.first = newNode;
         else {
             Node iterator = this.first;
-            while (iterator.getNext() != null) {
-                iterator = iterator.getNext();
+            while (iterator.getNextSibling() != null) {
+                iterator = iterator.getNextSibling();
             }
-            iterator.setNext(newNode);
+            ((Object) iterator).setNext(newNode);
         }
     }
 
@@ -48,29 +48,48 @@ public class List {
         if (this.first != null) {
             Node iterator = this.first;
             Node previous = null;
-            while (iterator.getNext() != null) {
+            while (iterator.getNextSibling() != null) {
                 previous = iterator;
-                iterator = iterator.getNext();
+                iterator = iterator.getNextSibling();
             }
-            if (previous != null) {
-                previous.setNext(null);
-            } else {
-                this.first = null;
-            }
+            previous.setNext(null);
         }
     }
 
     public void deleteFront() {
         if (this.first != null) {
-            this.first = this.first.getNext();
+            this.first = this.first.getNextSibling();
         }
     }
 
+    public void deleteAll() {
+        this.first = null;
+    }
+
     public Node[] find(String value) {
-      
+        int count = 0;
+        Node iterator = this.first;
+
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                count++;
+            }
+            iterator = iterator.getNextSibling();
         }
 
-        return foundNodes.toArray(new Node[0]);
+        Node[] matches = new Node[count];
+
+        iterator = this.first;
+        int index = 0;
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                matches[index] = iterator;
+                index++;
+            }
+            iterator = iterator.getNextSibling();
+        }
+
+        return matches;
     }
 
     public String[] listAll() {
@@ -82,7 +101,7 @@ public class List {
         while (iterator != null) {
             list[count] = iterator.getValue();
             count++;
-            iterator = iterator.getNext();
+            iterator = iterator.getNextSibling();
         }
         return list;
     }
