@@ -28,6 +28,22 @@ class Ejemplo {
 
         viewLine(nephews);
 
+        String searchValue = "Juanito";
+        Node[] finalResults = nephews.find(searchValue);
+        for (int i = 0; i < finalResults.length; i++) {
+            if (finalResults[i] != null) {
+                System.out.println("Sobrinos encontrados con el nombre " + searchValue + ": " + finalResults[i].getValue());
+            }
+        }
+
+        String searchValue2 = "Anita";
+        Node[] finalResults2 = nephews.find(searchValue2);
+        for (int i = 0; i < finalResults2.length; i++) {
+            if (finalResults2[i] != null) {
+                System.out.println("Sobrinos encontrados con el nombre " + searchValue2 + ": " + finalResults2[i].getValue());
+            }
+        }
+
         nephews.deleteAll();
         System.out.println("Tamaño: " + nephews.size());
 

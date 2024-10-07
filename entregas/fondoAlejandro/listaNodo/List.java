@@ -66,6 +66,23 @@ class List {
         }
     }
 
+    public Node[] find(String value){
+        Node[] results = new Node[this.size()];
+        int count = 0;
+        Node iterator = this.first;
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                results[count++] = iterator;
+            }
+            iterator = iterator.getNext();
+        }
+        Node[] finalResults = new Node[count];
+        for (int i = 0; i < count; i++) {
+            finalResults[i] = results[i];
+        }
+        return finalResults;
+    }
+
     public String[] listAll() {
         String[] list = new String[this.size()];
         Node iterator = this.first;
