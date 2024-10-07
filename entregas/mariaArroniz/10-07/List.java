@@ -3,16 +3,7 @@ class List {
     private Node first = null;
 
     public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
-            count++;
-            iterator = iterator.getNext();
-        }
-        return count;
+        return size;
     }
 
     public boolean isEmpty() {
@@ -21,24 +12,28 @@ class List {
 
     public void insertEnd(String value) {
         Node newNode = new Node(value);
-        if (this.first == null)
+        if (this.first == null){
             this.first = newNode;
-        else {
+            size++;
+        }else {
             Node iterator = this.first;
             while (iterator.getNext() != null) {
                 iterator = iterator.getNext();
             }
             iterator.setNext(newNode);
+            size++;
         }
     }
     
     public void insertFront(String value) {
         Node n = new Node(value);
-        if (this.first == null)
+        if (this.first == null){
             this.first = n;
-        else {
+            size++;
+        }else {
             n.setNext(this.first);
             this.first = n;
+            size++;
         }
     }
 
@@ -51,12 +46,14 @@ class List {
                 iterator = iterator.getNext();
             }
             previous.setNext(null);
+            size--;
         }
     }
 
     public void deleteFront(){
         if(this.first != null){
             first = first.getNext();
+            size--;
         }
 
     }
