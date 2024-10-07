@@ -5,12 +5,9 @@ public class List {
     private Node first = null;
 
     public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
+        int count = 0;
+        Node iterator = this.first;
+        while (iterator != null) {
             count++;
             iterator = iterator.getNext();
         }
@@ -25,7 +22,7 @@ public class List {
         Node newNode = new Node(value);
         if (this.first == null)
         this.first = newNode;
-        else {
+        else { 
             Node iterator = this.first;
             while (iterator.getNext() != null) {
                 iterator = iterator.getNext();
