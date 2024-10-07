@@ -1,18 +1,10 @@
 public class List {
 
     private Node first = null;
+    private int size = 0;
 
     public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
-            count++;
-            iterator = iterator.getNext();
-        }
-        return count;
+        return this.size;
     }
 
     public boolean isEmpty() {
@@ -55,10 +47,24 @@ public class List {
     }
 
     public void deleteFront() {
+        if (this.first != null) {
+            this.first = this.first.getNext();
+            size--;
+        }
     }
 
     public Node[] find(String value) {
-
+        Node iterator = this.first;
+        Node[] nodes = new Node[this.size()];
+        int count = 0;
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                nodes[count] = iterator;
+                count++;
+            }
+            iterator = iterator.getNext();
+        }
+        return nodes;
     }
 
     public String[] listAll() {
