@@ -8,54 +8,66 @@ public class List {
     }
 
     public boolean isEmpty() {
-        return this.size() > 0 ? false : true;
+        return this.size == 0;
     }
 
     public void insertEnd(String value) {
         Node newNode = new Node(value);
-        if (this.first == null)
+        if (this.first == null) {
             this.first = newNode;
-        else {
+        } else {
             Node iterator = this.first;
             while (iterator.getNext() != null) {
                 iterator = iterator.getNext();
             }
             iterator.setNext(newNode);
         }
+        this.size++;
     }
 
     public void insertFront(String value) {
-        Node n = new Node(value);
-        if (this.first == null)
-            this.first = n;
-        else {
-            n.setNext(this.first);
-            this.first = n;
+        Node newNode = new Node(value);
+        if (this.first == null) {
+            this.first = newNode;
+        } else {
+            newNode.setNext(this.first);
+            this.first = newNode;
         }
+        this.size++;
     }
 
     public void deleteEnd() {
         if (this.first != null) {
-            Node iterator = this.first;
-            Node previous = null;
-            while (iterator.getNext() != null) {
-                previous = iterator;
-                iterator = iterator.getNext();
+            if (this.first.getNext() == null) {
+                this.first = null;
+            } else {
+                Node iterator = this.first;
+                Node previous = null;
+                while (iterator.getNext() != null) {
+                    previous = iterator;
+                    iterator = iterator.getNext();
+                }
+                previous.setNext(null);
             }
-            previous.setNext(null);
+            this.size--;
         }
     }
 
     public void deleteFront() {
         if (this.first != null) {
             this.first = this.first.getNext();
-            size--;
+            this.size--;
         }
+    }
+
+    public void clearList() {
+        this.first = null;
+        this.size = 0;
     }
 
     public Node[] find(String value) {
         Node iterator = this.first;
-        Node[] nodes = new Node[this.size()];
+        Node[] nodes = new Node[this.size];
         int count = 0;
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
@@ -70,8 +82,6 @@ public class List {
     public String[] listAll() {
         String[] list = new String[this.size()];
         Node iterator = this.first;
-        if (iterator == null)
-            return list;
         int count = 0;
         while (iterator != null) {
             list[count] = iterator.getValue();
