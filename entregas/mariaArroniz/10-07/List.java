@@ -12,10 +12,10 @@ class List {
 
     public void insertEnd(String value) {
         Node newNode = new Node(value);
-        if (this.first == null){
+        if (this.first == null) {
             this.first = newNode;
             size++;
-        }else {
+        } else {
             Node iterator = this.first;
             while (iterator.getNext() != null) {
                 iterator = iterator.getNext();
@@ -24,13 +24,13 @@ class List {
             size++;
         }
     }
-    
+
     public void insertFront(String value) {
         Node n = new Node(value);
-        if (this.first == null){
+        if (this.first == null) {
             this.first = n;
             size++;
-        }else {
+        } else {
             n.setNext(this.first);
             this.first = n;
             size++;
@@ -50,15 +50,21 @@ class List {
         }
     }
 
-    public void deleteFront(){
-        if(this.first != null){
+    public void deleteFront() {
+        if (this.first != null) {
             first = first.getNext();
             size--;
         }
-
     }
 
-    public Node[] find(String value){}
+    public void deleteEverything() {
+        if (this.first != null) {
+            first = null;
+        }
+    }
+
+    public Node[] find(String value) {
+    }
 
     public String[] listAll() {
         String[] list = new String[this.size()];
