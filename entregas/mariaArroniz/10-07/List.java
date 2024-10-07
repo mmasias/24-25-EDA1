@@ -54,7 +54,12 @@ class List {
         }
     }
 
-    public void deleteFront(){}
+    public void deleteFront(){
+        if(this.first != null){
+            first = first.getNext();
+        }
+
+    }
 
     public Node[] find(String value){}
 
