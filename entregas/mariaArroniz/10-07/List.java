@@ -64,13 +64,27 @@ class List {
     }
 
     public Node[] find(String value) {
+        Node[] list = new Node[this.size()];
+        Node iterator = this.first;
+        int position = 0;
+        while (iterator != null) {
+            if (iterator.getValue(value)) {
+                list[position] = iterator;
+                position++;
+            } else {
+                iterator = iterator.getNext();
+            }
+        }
+        return list;
+
     }
 
     public String[] listAll() {
         String[] list = new String[this.size()];
         Node iterator = this.first;
-        if (iterator == null)
+        if (iterator == null) {
             return list;
+        }
         int count = 0;
         while (iterator != null) {
             list[count] = iterator.getValue();
