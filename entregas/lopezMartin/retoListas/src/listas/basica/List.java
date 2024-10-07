@@ -60,6 +60,10 @@ public class List {
         
     }
 
+    public void deleteAll(){
+        this.first = null;
+    }
+
     public List find(String value){
 
         List foundList = new List();
