@@ -2,6 +2,7 @@
 public class List {
 
     private Node first = null;
+    private int tamaño = 0;
 
     public int size() {
         if (this.first == null) {
@@ -31,6 +32,7 @@ public class List {
             }
             iterator.setNext(newNode);
         }
+        this.tamaño++;
     }
 
     public void insertFront(String value) {
@@ -41,6 +43,7 @@ public class List {
             n.setNext(this.first);
             this.first = n;
         }
+        this.tamaño++;
     }
 
     public void deleteEnd() {
@@ -53,6 +56,7 @@ public class List {
             }
             previous.setNext(null);
         }
+        this.tamaño--;
     }
 
     public void deleteFront(){
@@ -60,6 +64,12 @@ public class List {
             Node secondNode=this.first.getNext();
             this.first=secondNode;
         }
+        this.tamaño--;
+    }
+
+    public void deleteAll(){
+        this.first=null;
+        this.tamaño=0;
     }
 
     public Node[] find(String value){
