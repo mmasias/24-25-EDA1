@@ -3,19 +3,19 @@ public class List {
     private Node first = null;
     private int size = 0;
 
-    public int size() {
-        return size;
-    }
-
     public boolean isEmpty() {
         return this.size > 0;
     }
 
+    public int getSize(){
+        return size;
+    }
+
     public void insertEnd(String value) {
         Node newNode = new Node(value);
-        if (this.first == null){
+        if (this.first == null)
             this.first = newNode;
-        }else {
+        else {
             Node iterator = this.first;
             while (iterator.getNext() != null) {
                 iterator = iterator.getNext();
@@ -27,12 +27,12 @@ public class List {
     
     public void insertFront(String value) {
         Node n = new Node(value);
-        if (this.first == null) {
+        if (this.first == null)
             this.first = n;
-        }else {
+        else {
             n.setNext(this.first);
             this.first = n;
-        } 
+        }
         size++;
     }
 
@@ -50,34 +50,32 @@ public class List {
     }
 
     public void deleteFront(){
-
-        if (this.first !=null) {
-            this.first = this.first.getNext();
+        if (this.first != null){
+            first = first.getNext();
             size--;
         }
-        
     }
 
-    public List find(String value){
+    public void deleteAll(){
+        first = null;
+    }
 
-        List foundList = new List();
-        if (this.first != null) {
-            Node iterator = this.first;
-    
-            while (iterator != null) {
-                if (iterator.getValue().equals(value)) {
-                        foundList.insertEnd(iterator.getValue());
-                }
-                iterator = iterator.getNext();
+    public Node[] find(String value){
+        Node[] list = new Node[this.size];
+        int index = 0;
+        Node iterator = first;
+        while(iterator != null){
+            if(iterator.getValue().equals(value){
+                list[index]=iterator;
+                index++;
             }
-    
-            return foundList;
+            iterator=iterator.getNext();
         }
-        return foundList;
+        return list;
     }
 
     public String[] listAll() {
-        String[] list = new String[this.size()];
+        String[] list = new String[this.size];
         Node iterator = this.first;
         if (iterator == null)
             return list;
