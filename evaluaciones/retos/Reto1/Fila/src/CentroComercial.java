@@ -2,7 +2,7 @@ public class CentroComercial {
 
     public static void main(String[] args) {
 
-        Fila fila = new Fila(5); 
+        Fila fila = new Fila(5);
 
         fila.abrirFila();
 
