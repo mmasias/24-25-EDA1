@@ -65,6 +65,17 @@ public class List {
         this.first = null;
     }
 
+    public boolean searchValue(String value) {
+        Node iterator = this.first;
+        while (iterator != null) {
+            if (value != null && value.equals(iterator.getValue())) {
+                return true;
+            }
+            iterator = iterator.getNext();
+        }
+        return false;
+    }
+
     public String[] listAll() {
         String[] list = new String[this.size()];
         Node iterator = this.first;
