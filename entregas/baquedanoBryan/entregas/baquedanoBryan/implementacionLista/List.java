@@ -3,7 +3,7 @@ package entregas.baquedanoBryan.implementacionLista;
 public class List {
 
     private Node first = null;
-    private int size = 0;
+    public int size = 0;
 
 
     public boolean isEmpty( ) {
@@ -53,7 +53,6 @@ public class List {
 
     }
 
-    public void deleteFront(){}
 
     public List find(String value){
         
