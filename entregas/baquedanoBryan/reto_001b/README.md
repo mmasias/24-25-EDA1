@@ -110,7 +110,9 @@ Reflexione sobre cómo su solución maneja la combinación de agregar nuevos ele
 
  - Creo que el comprobar el anterior y siguiente, es aún mas eficiente que solo comprobar uno de los dos, en este punto sabes exactamente a quien tienes detrás y adelante, eso hace fácil la eliminación de registros en medio de la relación. Y el agregar elementos al final, como ya se vió, es un trabajo sumamente sencillo para esta aproximación.
 
-   
+
+
+
 
 
 
