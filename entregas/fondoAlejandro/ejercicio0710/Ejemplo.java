@@ -1,3 +1,5 @@
+package entregas.fondoAlejandro.ejercicio0710;
+
 class Ejemplo {
     public static void main(String[] args) {
 
@@ -46,8 +48,10 @@ class Ejemplo {
 
         nephews.deleteAll();
         System.out.println("Tamaño: " + nephews.size());
-
+        
         viewLine(nephews);
+        
+        System.out.println("Esta vacia? " + nephews.isEmpty());
     }
 
     static void viewLine(List filaDeSobrinos) {

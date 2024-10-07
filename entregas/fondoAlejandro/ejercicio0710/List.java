@@ -1,3 +1,5 @@
+package entregas.fondoAlejandro.ejercicio0710;
+
 class List {
 
     private Node first = null;
