@@ -63,19 +63,34 @@ public class List {
                 }
         }
     
-        public Node[] find(String value){
-                Node iterator = this.first;
-                int index= 0;
-                while (iterator != null) {
-                    if (iterator.equals(value)) {
-                        return index;
-                    }
-                    iterator = iterator.getNext();
-                    index++;
+        public Node[] find(String value) {
+            Node iterator = this.first;
+            int matchCount = 0;
+            while (iterator != null) {
+                if (iterator.getValue().equals(value)) {
+                    matchCount++;
                 }
-            
+                iterator = iterator.getNext();
+            }
+        
+            if (matchCount == 0) {
                 return null;
             }
+            Node[] result = new Node[matchCount];
+            iterator = this.first;
+            int index = 0;
+        
+            while (iterator != null) {
+                if (iterator.getValue().equals(value)) {
+                    result[index] = iterator;
+                    index++;
+                }
+                iterator = iterator.getNext();
+            }
+        
+            return result;
+        }
+        
     
         public String[] listAll() {
             String[] list = new String[this.size()];
