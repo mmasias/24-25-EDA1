@@ -53,26 +53,57 @@ public class List {
 
     }
 
+    public void deleteFront(){
+        if (this.first != null){
+            first = first.getNext();
+            size--;
+        }
+    }
 
-    public List find(String value){
+    public Node[] find(String value) {
+        Node[] list = new Node[this.size];
+        int index = 0;
+        Node iterator = first;
+            
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                list[index] = iterator;
+                index++;
+            }
+            iterator = iterator.getNext();
+        }
+    
+        if (index == 0) {
+            System.out.println("No se encontró el valor '" + value + "' en la lista.");
+        } else {
+            System.out.println("Se encontraron " + index + " nodo(s) con el valor '" + value + "'.");
+        }
         
-        
-        
-        return null;}
+        return list;
+    }
 
     public String[] listAll() {
         String[] list = new String[this.size];
         Node iterator = this.first;
-        if (iterator == null)
+        
+        if (iterator == null) {
+            System.out.println("La lista está vacía.");
             return list;
+        }
+    
         int count = 0;
         while (iterator != null) {
             list[count] = iterator.getValue();
             count++;
             iterator = iterator.getNext();
         }
+        System.out.println("Elementos actuales en la lista: " + java.util.Arrays.toString(list));    
         return list;
     }
 
-    public void deleteAll(){}
+    public void deleteAll(){
+     this.first = null;  
+     this.size = 0;      
+        
+    }
 }

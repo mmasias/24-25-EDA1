@@ -18,14 +18,27 @@ public class Main {
         
         list.insertEnd("C");
         System.out.println("Se insertó 'C' al final");
-        System.out.println("Tamaño actual: " + list.size);   
-        
-        list.deleteEnd();
-        System.out.println("Se eliminó el último elemento");
-        System.out.println("Tamaño actual: " + list.size);   
-        
-        list.deleteFront();
-        System.out.println("Se eliminó el primer elemento");
         System.out.println("Tamaño actual: " + list.size);  
+
+        list.insertEnd("C");
+        System.out.println("Se insertó 'C' al final");
+        System.out.println("Tamaño actual: " + list.size); 
+
+        list.insertEnd("C");
+        System.out.println("Se insertó 'C' al final");
+        System.out.println("Tamaño actual: " + list.size); 
+        
+        list.insertEnd("C");
+        System.out.println("Se insertó 'C' al final");
+        System.out.println("Tamaño actual: " + list.size); 
+
+        list.insertFront("B");
+        System.out.println("Se insertó 'B' al frente");
+        System.out.println("Tamaño actual: " + list.size);   
+        
+        list.find("C");
+        list.listAll();
+        
+
     }
 }
