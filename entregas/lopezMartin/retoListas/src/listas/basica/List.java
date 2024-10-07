@@ -62,6 +62,7 @@ public class List {
 
     public void deleteAll(){
         this.first = null;
+        size = 0;
     }
 
     public List find(String value){
