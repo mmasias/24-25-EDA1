@@ -1,5 +1,7 @@
 package listas.basica;
 
+import org.w3c.dom.Node;
+
 public class List {
 
     private Node first = null;
@@ -33,7 +35,7 @@ public class List {
             iterator.setNext(newNode);
         }
     }
-    
+
     public void insertFront(String value) {
         Node n = new Node(value);
         if (this.first == null)
@@ -56,14 +58,40 @@ public class List {
         }
     }
 
-    public void deleteFront(){
-        if (this.first != null){
+    public void deleteFront() {
+        if (this.first != null) {
             this.first = this.first.getNext();
         }
     }
 
-    public Node[] find(String value){
+    public void deleteAll() {
+        this.first = null;
+    }
 
+    public Node[] find(String value) {
+        int count = 0;
+        Node iterator = this.first;
+
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                count++;
+            }
+            iterator = iterator.getNext();
+        }
+
+        Node[] matches = new Node[count];
+
+        iterator = this.first;
+        int index = 0;
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                matches[index] = iterator;
+                index++;
+            }
+            iterator = iterator.getNext();
+        }
+
+        return matches;
     }
 
     public String[] listAll() {
