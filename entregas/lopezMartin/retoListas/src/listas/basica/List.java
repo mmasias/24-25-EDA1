@@ -3,45 +3,39 @@ package listas.basica;
 public class List {
 
     private Node first = null;
+    private int size = 0;
 
     public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
-            count++;
-            iterator = iterator.getNext();
-        }
-        return count;
+        return size;
     }
 
     public boolean isEmpty() {
-        return this.size() > 0 ? false : true;
+        return this.size > 0;
     }
 
     public void insertEnd(String value) {
         Node newNode = new Node(value);
-        if (this.first == null)
+        if (this.first == null){
             this.first = newNode;
-        else {
+        }else {
             Node iterator = this.first;
             while (iterator.getNext() != null) {
                 iterator = iterator.getNext();
             }
             iterator.setNext(newNode);
         }
+        size++;
     }
     
     public void insertFront(String value) {
         Node n = new Node(value);
-        if (this.first == null)
+        if (this.first == null) {
             this.first = n;
-        else {
+        }else {
             n.setNext(this.first);
             this.first = n;
-        }
+        } 
+        size++;
     }
 
     public void deleteEnd() {
@@ -53,38 +47,35 @@ public class List {
                 iterator = iterator.getNext();
             }
             previous.setNext(null);
+            size--;
         }
     }
 
     public void deleteFront(){
 
         if (this.first !=null) {
-            Node next = this.first.getNext();
-            this.first.setNext(null);
-            this.first = next;
+            this.first = this.first.getNext();
+            size--;
         }
         
     }
 
-    public Lista find(String value){
+    public List find(String value){
 
-        public Lista find(String value) {
-            Lista foundList = new Lista();
-            if (this.first != null) {
-                Node iterator = this.first;
+        List foundList = new List();
+        if (this.first != null) {
+            Node iterator = this.first;
     
-                while (iterator != null) {
-                    if (iterator.getValue().equals(value)) {
+            while (iterator != null) {
+                if (iterator.getValue().equals(value)) {
                         foundList.insertEnd(iterator.getValue());
-                    }
-                    iterator = iterator.getNext();
                 }
-    
-                return foundList;
+                iterator = iterator.getNext();
             }
+    
             return foundList;
         }
-
+        return foundList;
     }
 
     public String[] listAll() {
