@@ -1,8 +1,8 @@
-package listas.basica;
+package ListNodo;
 
 public class List {
 
-    private Node first = null;
+    Node first = null;
 
     public int size() {
         if (this.first == null) {
@@ -18,7 +18,7 @@ public class List {
     }
 
     public boolean isEmpty() {
-        return this.size() > 0 ? false : true;
+        return this.first == null;
     }
 
     public void insertEnd(String value) {
@@ -46,25 +46,58 @@ public class List {
 
     public void deleteEnd() {
         if (this.first != null) {
-            Node iterator = this.first;
-            Node previous = null;
-            while (iterator.getNext() != null) {
-                previous = iterator;
-                iterator = iterator.getNext();
+            if (this.first.getNext() == null) {
+                // Solo hay un nodo
+                this.first = null;
+            } else {
+                Node iterator = this.first;
+                Node previous = null;
+                while (iterator.getNext() != null) {
+                    previous = iterator;
+                    iterator = iterator.getNext();
+                }
+                previous.setNext(null);
             }
-            previous.setNext(null);
         }
     }
 
-    public void deleteFront(){}
+    public void deleteFront() {
+        if (this.first != null) {
+            this.first = this.first.getNext(); // Elimina el primer nodo
+        }
+    }
 
-    public Node[] find(String value){}
+    public Node[] find(String value) {
+        Node iterator = this.first;
+        int count = 0;
+
+       
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                count++;
+            }
+            iterator = iterator.getNext();
+        }
+
+        
+        Node[] result = new Node[count];
+        iterator = this.first; 
+
+        
+        int index = 0;
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                result[index++] = iterator;
+            }
+            iterator = iterator.getNext();
+        }
+
+        return result;
+    }
 
     public String[] listAll() {
         String[] list = new String[this.size()];
         Node iterator = this.first;
-        if (iterator == null)
-            return list;
         int count = 0;
         while (iterator != null) {
             list[count] = iterator.getValue();

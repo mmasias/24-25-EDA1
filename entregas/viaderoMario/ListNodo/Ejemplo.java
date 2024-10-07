@@ -1,39 +1,48 @@
-package listas.basica;
+package ListNodo;
 
 class Ejemplo {
     public static void main(String[] args) {
-
         List nephews = new List();
 
-        viewLine(nephews);
-        System.out.println("Esta vacia? " + nephews.isEmpty());
-
+       
         nephews.insertEnd("Juanito");
         nephews.insertEnd("Pepito");
         nephews.insertEnd("Anita");
-
-        System.out.println("Esta vacia? " + nephews.isEmpty());
-
-        viewLine(nephews);
-
         nephews.insertEnd("Luisito");
 
-        System.out.println("Tamaño: " + nephews.size());
+       
+        viewList(nephews);
+        System.out.println("PRIMERO: " + nephews.first.getValue());
+        System.out.println("ULTIMO: " + getLastValue(nephews));
 
-        nephews.deleteEnd();
-        System.out.println("Tamaño: " + nephews.size());
+        
+        List numbers = new List();
+        numbers.insertEnd("5");
+        numbers.insertEnd("6");
+        numbers.insertEnd("7");
+        numbers.insertEnd("8");
 
-        viewLine(nephews);
+      
+        viewList(numbers);
+        System.out.println("PRIMERO: " + numbers.first.getValue());
+        System.out.println("ULTIMO: " + getLastValue(numbers));
     }
 
-    static void viewLine(List filaDeSobrinos) {
-        
-        String[] larray = filaDeSobrinos.listAll();
-        System.out.println("LA FILA" + "-".repeat(18));
-        for (String sobrino : larray){
-            System.out.println(sobrino);
+    static void viewList(List list) {
+        String[] larray = list.listAll();
+        System.out.println("LA LISTA" + "-".repeat(18));
+        for (String item : larray) {
+            System.out.println(item);
         }
         System.out.println("-".repeat(25));
     }
+
+    static String getLastValue(List list) {
+        if (list.first == null) return null;
+        Node iterator = list.first;
+        while (iterator.getNext() != null) {
+            iterator = iterator.getNext();
+        }
+        return iterator.getValue(); 
+    }
 }
- 

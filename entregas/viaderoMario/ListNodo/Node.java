@@ -1,4 +1,4 @@
-package listas.basica;
+package ListNodo;
 
 public class Node {
 
