@@ -44,19 +44,33 @@ public class List {
 
     public void deleteEnd() {
         if (this.first != null) {
-            Node iterator = this.first;
-            Node previous = null;
-            while (iterator.getNext() != null) {
-                previous = iterator;
-                iterator = iterator.getNext();
+            if(this.first.getNext() == null){
+                this.first = null;
+            } else {
+                Node iterator = this.first;
+                Node previous = null;
+                while (iterator.getNext() != null) {
+                    previous = iterator;
+                    iterator = iterator.getNext();
+                }
+                previous.setNext(null);
             }
-            previous.setNext(null);
         }
     }
 
-    public void deleteFront(){}
+    public void deleteStart() {
+        if(this.first != null){
+            this.first = this.first.getNext();
+        }
+    }
 
-    public Node[] find(String value){}
+    public Node[] find(String value){
+        if (this.first!=null){
+            for(int i=0;int<){
+
+            }
+        }
+    }
 
     public String[] listAll() {
         String[] list = new String[this.size()];
