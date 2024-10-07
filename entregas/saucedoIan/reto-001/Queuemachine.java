@@ -14,6 +14,10 @@ class QueueMachine {
     queueManager.attendFirstClient();
     if (queueManager.shouldOpenNewRegister()) {
       System.out.println("A new register is opened due to too many clients in the queue.");
+      queueManager.attendFirstClient();
+      queueManager.attendFirstClient();
+      queueManager.attendFirstClient();
+      queueManager.attendFirstClient();
       return;
     }
 

@@ -48,9 +48,9 @@ class QueueManager {
   }
 
   public void bringItemsToClient(int id, int extraItems) {
-    int index = findClientIndex(id);
+    int index = findClientIndex(10);
     if (index != -1) {
-      queue[index].addItems(5); // Add 5 items, for example
+      queue[index].addItems(5);
       System.out.println("Client " + id + " receives additional items.");
 
       addClient(new Client(generateRandomId(), 5));
