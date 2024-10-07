@@ -60,29 +60,21 @@ public class Lista {
         }
     }
 
-    public Node[] find(String value) {
-        int count = 0;
-        Node iterator = this.first;
-        while (iterator != null) {
-            if (iterator.getValue().equals(value)) {
-                count++;
+    public Lista find(String value) {
+        Lista foundList = new Lista();
+        if (this.first != null) {
+            Node iterator = this.first;
+
+            while (iterator != null) {
+                if (iterator.getValue().equals(value)) {
+                    foundList.insertEnd(iterator.getValue());
+                }
+                iterator = iterator.getNext();
             }
-            iterator = iterator.getNext();
+
+            return foundList;
         }
-
-        Node[] foundNodes = new Node[count];
-
-        iterator = this.first;
-        int index = 0;
-        while (iterator != null) {
-            if (iterator.getValue().equals(value)) {
-                foundNodes[index] = iterator;
-                index++;
-            }
-            iterator = iterator.getNext();
-        }
-
-        return foundNodes;
+        return foundList;
     }
 
     public String[] listAll() {
