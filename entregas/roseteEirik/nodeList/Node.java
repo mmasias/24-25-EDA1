@@ -1,4 +1,4 @@
-package listas.basica;
+package entregas.roseteEirik.nodeList;
 
 public class Node {
 

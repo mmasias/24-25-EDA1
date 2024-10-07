@@ -1,4 +1,4 @@
-package listas.basica;
+package entregas.roseteEirik.nodeList;
 
 public class List {
 
@@ -57,10 +57,10 @@ public class List {
     }
 
     public void deleteFront() {
-        if (this.first != null) {
+        if (this.first == null) {
             return;
         } else {
-            this.first = null;
+            this.first = this.first.getNext();
         }
     }
 
