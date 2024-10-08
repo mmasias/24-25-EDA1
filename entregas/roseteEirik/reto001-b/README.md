@@ -27,7 +27,11 @@ Supongamos que queremos establecer el siguiente orden: `A` -> `C` -> `B`.
 
 **R:** Expandimos colocando una nueva columna a la derecha llamada "Posición", cuyo fin es el de establecer un orden entre los elementos de la lista.
 
+<div align=center>
+
 > [![Reto1-reto001-b](./images/reto1-reto001-b.png)](https://docs.google.com/spreadsheets/d/11sGSWUzhUCH3bWG6lcpf7bnY5raKTb67yYyY_vYtxyw/edit?usp=sharing)
+
+</div>
 
 ## Reto 2: prueba de *el orden*
 
@@ -37,7 +41,11 @@ Con el planteamiento propuesto, establezca el orden a `B` -> `C` -> `A`.
 
 **R:** En este caso, cambiamos la posición y los elementos no se mueven.
 
+<div align=center>
+
 > [![Reto2-reto001-b](./images/reto2-reto001-b.png)](https://docs.google.com/spreadsheets/d/11sGSWUzhUCH3bWG6lcpf7bnY5raKTb67yYyY_vYtxyw/edit?gid=1281006311#gid=1281006311)
+
+</div>
 
 ## Reto 3: la eliminación
 
@@ -48,7 +56,11 @@ Después de resolver el reto 2, supongamos que deseamos "eliminar" el elemento `
 
 **R:** Se pierde la referencia del elemento `B`, por lo que su ID se mantiene aunque su contenido no. Por esa misma razón, la posición se recorre y se actualiza, por lo que ahora se muestra a `C` en la posición "2", con su ID "3".
 
+<div align=center>
+
 > [![Reto3-reto001-b](./images/reto3-reto001-b.png)](https://docs.google.com/spreadsheets/d/11sGSWUzhUCH3bWG6lcpf7bnY5raKTb67yYyY_vYtxyw/edit?gid=1113239975#gid=1113239975)
+
+</div>
 
 ## Reto 4: la escalabilidad
 
@@ -70,6 +82,8 @@ Y luego, eliminamos `C`
 
 **R:** Ahora, se pierde la referencia del elemento `C`, y como se ha dicho anteriormente, su ID se mantiene aunque su contenido no. Después de que la posición sea como se nos ha indicado, los elementos nuevos tienen dicha posición asignada, por lo que ahora quedarían tal que así (como se muestra en la imagen):
 
+<div align=center>
+
 |ID|DATO|POSICIÓN|
 |:-:|:-:|:-:|
 |1|`A`|1|
@@ -77,6 +91,8 @@ Y luego, eliminamos `C`
 |5|`E`|3|
 
 > [![Reto4-reto001-b](./images/reto4-reto001-b.png)](https://docs.google.com/spreadsheets/d/11sGSWUzhUCH3bWG6lcpf7bnY5raKTb67yYyY_vYtxyw/edit?gid=414334954#gid=414334954)
+
+</div>
 
 ## Reto 5: la flexibilidad
 
@@ -108,4 +124,8 @@ Piense en cómo podría modificar su solución para permitir recorrer los elemen
 
 **R:** Se recorre mediante la asignación y apuntar a la referencia anterior y posterior de los elementos que conforman la lista de datos, incluso manteniendo las restricciones dadas.
 
+<div align=center>
+
 > [![RetoBonus-reto001-b](./images/reto5-reto001-b.png)](https://docs.google.com/spreadsheets/d/11sGSWUzhUCH3bWG6lcpf7bnY5raKTb67yYyY_vYtxyw/edit?gid=716387536#gid=716387536)
+
+</div>
