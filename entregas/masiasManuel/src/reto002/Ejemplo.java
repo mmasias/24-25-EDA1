@@ -15,9 +15,11 @@ class Ejemplo {
 
         System.out.println("Tamaño: " + nephews.size());
 
-        nephews.delete();
+        nephews.deleteEnd();
 
         System.out.println("Tamaño: " + nephews.size());
+        nephews.showInConsole();
+        nephews.deleteFront();
         nephews.showInConsole();
     }
 }
