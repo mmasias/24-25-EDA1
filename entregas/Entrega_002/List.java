@@ -107,7 +107,13 @@ public class List {
     public FoundNodeList find(String value) {
         FoundNodeList foundList = new FoundNodeList();
         Node iterator = this.first;
-
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                foundList.insert(iterator);
+            }
+            iterator = iterator.getNext();
         }
+        return foundList;
+    }
 
 }

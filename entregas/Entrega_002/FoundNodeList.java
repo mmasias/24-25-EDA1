@@ -12,5 +12,20 @@ public class FoundNodeList {
         return list;
     }
 
-    
+    private FoundNode first = null;
+    public int size = 0;
+
+    public void insert(Node node) {
+        FoundNode newNode = new FoundNode(node);
+        if (this.first == null)
+            this.first = newNode;
+        else {
+            FoundNode iterator = this.first;
+            while (iterator.getNext() != null) {
+                iterator = iterator.getNext();
+            }
+            iterator.setNext(newNode);
+        }
+        size++;
+    }
 }
