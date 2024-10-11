@@ -63,8 +63,7 @@ public class List {
       ListResponse list= new ListResponse();
       while (iterator != null) {
          if (iterator.getValue().equals(value)) {
-            NodeWrapper newNode = new NodeWrapper(iterator);
-            list.insertEnd(newNode);
+            list.insertEnd(iterator);
          }
          iterator = iterator.getNext();
       }

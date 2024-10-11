@@ -4,6 +4,21 @@ class Main {
       myList.insertEnd("A");
       myList.insertEnd("B");
       myList.insertEnd("C");
-      System.out.println(myList.listAll());
+
+      String[] list = myList.listAll();
+      printList(list);
+
+      ListResponse response = myList.find("A");
+      printList(response.listAll());
+
+      list = myList.listAll();
+      printList(list);
+   }
+
+   public static void printList(String[] list) {
+      for(int i = 0; i < list.length; i++) {
+         System.out.print("" + list[i] + " ");
+      }
+      System.out.println();
    }
 }

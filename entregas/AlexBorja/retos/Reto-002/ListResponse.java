@@ -26,7 +26,7 @@ public class ListResponse {
       }
    }
 
-   public void insertFront(NodeWrapper value) {
+   public void insertFront(Node value) {
       NodeWrapper n = new NodeWrapper(value);
       if (this.first == null) {
          this.first = n;
@@ -65,7 +65,7 @@ public class ListResponse {
          return list;
       int count = 0;
       while (iterator != null) {
-         list[count] = iterator.getValue();
+         list[count] = iterator.getValue().getValue();
          count++;
          iterator = iterator.getNext();
       }
