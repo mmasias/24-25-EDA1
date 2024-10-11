@@ -1,5 +1,3 @@
-package listas.basica;
-
 public class List {
 
     private Node first = null;
