@@ -65,22 +65,18 @@ public class List {
         size = 0;
     }
 
-    public List find(String value){
+    public FoundNodeList find(String value) {
 
-        List foundList = new List();
-        if (this.first != null) {
-            Node iterator = this.first;
+        FoundNodeList foundNodes = new FoundNodeList();
+        Node iterator = this.first;
     
-            while (iterator != null) {
-                if (iterator.getValue().equals(value)) {
-                        foundList.insertEnd(iterator.getValue());
-                }
-                iterator = iterator.getNext();
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                foundNodes.insertEnd(iterator.getValue());
             }
-    
-            return foundList;
+            iterator = iterator.getNext();
         }
-        return foundList;
+        return foundNodes;
     }
 
     public String[] listAll() {
