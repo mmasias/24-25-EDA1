@@ -1,39 +1,20 @@
 package entregas.ReyOrtizPablo.Reto0710;
 
-class Ejemplo {
-    public static void main(String[] args) {
+public class Ejemplo {
+    public static void main(String[] args) {
+        List nephews = new List();
 
-        List nephews = new List();
+        nephews.insertEnd("Juanito");
+        nephews.insertEnd("Pepito");
+        nephews.insertEnd("Anita");
+        nephews.insertEnd("Juanito");
 
-        viewLine(nephews);
-        System.out.println("Esta vacia? " + nephews.isEmpty());
+        // Buscar nodos con el valor "Juanito"
+        Node[] foundNodes = nephews.find("Juanito");
 
-        nephews.insertEnd("Juanito");
-        nephews.insertEnd("Pepito");
-        nephews.insertEnd("Anita");
-
-        System.out.println("Esta vacia? " + nephews.isEmpty());
-
-        viewLine(nephews);
-
-        nephews.insertEnd("Luisito");
-
-        System.out.println("Tamaño: " + nephews.size());
-
-        nephews.deleteEnd();
-        System.out.println("Tamaño: " + nephews.size());
-
-        viewLine(nephews);
-    }
-
-    static void viewLine(List filaDeSobrinos) {
-        
-        String[] larray = filaDeSobrinos.listAll();
-        System.out.println("LA FILA" + "------------------");
-        for (String sobrino : larray){
-            System.out.println(sobrino);
-        }
-        System.out.println("-------------------------");
-    }
+        System.out.println("Nodos encontrados con el valor 'Juanito': " + foundNodes.length);
+        for (Node node : foundNodes) {
+            System.out.println("Nodo encontrado: " + node.getValue());
+        }
+    }
 }
-
