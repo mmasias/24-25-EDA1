@@ -103,4 +103,12 @@ public class List {
         }
         return list;
     }
+
+    public void mostrar(){
+        Node iterator = this.first;
+            do{
+                iterator.show();
+                iterator = iterator.getNext();
+            }while (iterator != null);
+    }
 }
