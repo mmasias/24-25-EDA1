@@ -82,6 +82,7 @@ public class List {
                 if (iterator.getValue().equals(value)){
                     foundList.insertEnd(iterator);
                 }
+                iterator = iterator.getNext();
             }
             return foundList;
         } else {

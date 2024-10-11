@@ -19,4 +19,11 @@ class FoundList {
     public int getSize(){
         return size;
     }
+    public void mostrar(){
+        NodeWrapper iterator = this.first;
+            while (iterator.getNext() != null) {
+                iterator.show();
+                iterator = iterator.getNext();
+            }
+    }
 }

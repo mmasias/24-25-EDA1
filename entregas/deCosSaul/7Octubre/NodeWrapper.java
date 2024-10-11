@@ -12,4 +12,7 @@ class NodeWrapper {
     public void setNext(NodeWrapper next){
         this.next = next;
     }
+    public void show(){
+        this.matchNode.show();
+    }
 }
