@@ -1,18 +1,10 @@
 public class List {
 
     private Node first = null;
+    private int size = 0;
 
     public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
-            count++;
-            iterator = iterator.getNext();
-        }
-        return count;
+        return this.size;
     }
 
     public boolean isEmpty() {
@@ -65,11 +57,7 @@ public class List {
     }
 
     public Node[] find(String value){
-        if (this.first!=null){
-            for(int i=0;int<){
-
-            }
-        }
+        
     }
 
     public String[] listAll() {
