@@ -1,4 +1,4 @@
-package entregas.roseteEirik.nodeList;
+package entregas.roseteEirik.reto002;
 
 public class Node {
 
