@@ -1,18 +1,10 @@
 class List {
 
     private Node first = null;
+    private int size = 0;
 
     public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
-            count++;
-            iterator = iterator.getNext();
-        }
-        return count;
+        return size;
     }
 
     public boolean isEmpty() {
@@ -30,6 +22,7 @@ class List {
             }
             iterator.setNext(newNode);
         }
+        size++;
     }
     
     public void insertFront(String value) {
@@ -40,6 +33,7 @@ class List {
             n.setNext(this.first);
             this.first = n;
         }
+        size++;
     }
 
     public void deleteEnd() {
@@ -51,18 +45,21 @@ class List {
                 iterator = iterator.getNext();
             }
             previous.setNext(null);
+            size--;
         }
     }
 
     public void deleteFront(){
         if (this.first != null) {
             this.first = this.first.getNext();
+            size--;
         }
     }
 
     public void deleteAll() {
         if (this.first != null) {
             this.first = null;
+            size = 0;
         }
     }
 
@@ -71,7 +68,7 @@ class List {
         Node iterator = this.first;
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
-                foundNodes.insert(new Node(iterator.getValue()));
+                foundNodes.insertEnd(iterator.getValue());
             }
             iterator = iterator.getNext();
         }
