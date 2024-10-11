@@ -25,6 +25,7 @@ public class List {
             }
             iterator.setNext(newNode);
         }
+        size++;
     }
 
     public void insertFront(String value) {
@@ -35,6 +36,7 @@ public class List {
             n.setNext(this.first);
             this.first = n;
         }
+        size++;
     }
 
     public void deleteEnd() {
@@ -47,12 +49,14 @@ public class List {
             }
             previous.setNext(null);
         }
+        size --;
     }
 
     public void deleteFront() {
         if (this.first != null) {
             this.first = this.first.getNext();
         }
+        size --;
     }
 
     public void deleteAll() {
@@ -101,15 +105,9 @@ public class List {
 
 
     public FoundNodeList find(String value) {
-        FoundNodeList foundNodes = new FoundNodeList();
+        FoundNodeList foundList = new FoundNodeList();
         Node iterator = this.first;
-        while(iterator != null){
-            if(iterator.getvalue().equals(value)){
-                foundNodes.getNodes(iterator);
-            }
-        } else()
-        return list;
-        
+
         }
-    }
+
 }
