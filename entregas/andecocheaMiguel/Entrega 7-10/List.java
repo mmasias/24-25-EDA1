@@ -7,17 +7,9 @@ public class List {
     
 
     public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
-            count++;
-            iterator = iterator.getNext();
-        }
-        return count;
+        return this.size;
     }
+
 
     public boolean isEmpty() {
         return this.size() > 0 ? false : true;
@@ -34,7 +26,7 @@ public class List {
             }
             iterator.setNext(newNode);
         }
-        size ++;
+        this.size++;
     }
     
     public void insertFront(String value) {
@@ -45,7 +37,7 @@ public class List {
             n.setNext(this.first);
             this.first = n;
         }
-        size++;
+        this.size++;
     }
 
     public void deleteEnd() {
@@ -57,14 +49,14 @@ public class List {
                 iterator = iterator.getNext();
             }
             previous.setNext(null);
-            size--;
+            this.size--;
         }
     }
 
     public void deleteFront(){
         if(this.first != null){
             this.first = this.first.getNext();
-            size--;
+            this.size--;
         }
     }
 
