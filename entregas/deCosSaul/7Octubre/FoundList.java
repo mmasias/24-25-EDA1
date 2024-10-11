@@ -21,9 +21,9 @@ class FoundList {
     }
     public void mostrar(){
         NodeWrapper iterator = this.first;
-            while (iterator.getNext() != null) {
+            do{
                 iterator.show();
                 iterator = iterator.getNext();
-            }
+            }while (iterator != null);
     }
 }

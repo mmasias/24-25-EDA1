@@ -78,7 +78,7 @@ public class List {
         FoundList foundList = new FoundList();
         if (this.first != null){
             Node iterator = first;
-            while (iterator.getNext() != null){
+            while (iterator != null){
                 if (iterator.getValue().equals(value)){
                     foundList.insertEnd(iterator);
                 }
