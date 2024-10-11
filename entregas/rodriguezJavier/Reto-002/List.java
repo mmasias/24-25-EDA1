@@ -89,6 +89,7 @@ public class List {
 
         Node[] finalResults = new Node[index];
         System.arraycopy(results, 0, finalResults, 0, index);
+
         return finalResults;
     }
 }
