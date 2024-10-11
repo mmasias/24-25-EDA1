@@ -1,4 +1,5 @@
-package entregas.grizoniManuela.reto002;
+package entregas.grizoniManuela.Ejercicio710;
+
 
 class Ejemplo {
     public static void main(String[] args) {
@@ -9,7 +10,6 @@ class Ejemplo {
         System.out.println("Esta vacia? " + nephews.isEmpty());
 
         nephews.insertEnd("Juanito");
-        nephews.insertEnd("Pepito");
         nephews.insertEnd("Pepito");
         nephews.insertEnd("Anita");
 
@@ -26,16 +26,6 @@ class Ejemplo {
 
         System.out.println("Tamaño: " + nephews.size());
         viewLine(nephews);
-      
-        System.out.println("Buscando nodos con valor 'Pepito':");
-        FoundNodeList foundNodes = nephews.find("Pepito");
-        
-        if (foundNodes.isEmpty()) {
-            System.out.println("No se encontraron nodos con el valor 'Pepito'.");
-        } else {
-            System.out.println("Se encontraron " + foundNodes.size() + " nodo(s) con el valor 'Pepito':");
-            viewLine(foundNodes);
-        }
 
         nephews.clear();
         System.out.println("Tamaño: " + nephews.size());
@@ -43,20 +33,13 @@ class Ejemplo {
     }
 
     static void viewLine(List filaDeSobrinos) {
+        
         String[] larray = filaDeSobrinos.listAll();
         System.out.println("LA FILA" + "-".repeat(18));
-        for (String sobrino : larray) {
-            System.out.println(sobrino);
-        }
-        System.out.println("-".repeat(25));
-    }
-
-    static void viewLine(FoundNodeList foundNodes) {
-        String[] larray = foundNodes.listAll();
-        System.out.println("LA FILA" + "-".repeat(18));
-        for (String sobrino : larray) {
+        for (String sobrino : larray){
             System.out.println(sobrino);
         }
         System.out.println("-".repeat(25));
     }
 }
+ 

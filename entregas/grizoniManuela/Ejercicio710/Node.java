@@ -1,4 +1,4 @@
-package entregas.grizoniManuela.reto002;
+package entregas.grizoniManuela.Ejercicio710;
 
 public class Node {
     private String value;
@@ -21,4 +21,3 @@ public class Node {
         this.next = next;
     }
 }
-

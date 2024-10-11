@@ -1,4 +1,4 @@
-package entregas.grizoniManuela.reto002;
+package entregas.grizoniManuela.Ejercicio710;
 
 public class List {
 
@@ -15,7 +15,7 @@ public class List {
     }
 
     public boolean isEmpty() {
-        return this.size() == 0;
+        return this.size() > 0 ? false : true;
     }
 
     public void insertEnd(String value) {
@@ -30,6 +30,16 @@ public class List {
             iterator.setNext(newNode);
         }
     }
+    
+    public void insertFront(String value) {
+        Node n = new Node(value);
+        if (this.first == null)
+            this.first = n;
+        else {
+            n.setNext(this.first);
+            this.first = n;
+        }
+    }
 
     public void deleteEnd() {
         if (this.first != null) {
@@ -39,11 +49,7 @@ public class List {
                 previous = iterator;
                 iterator = iterator.getNext();
             }
-            if (previous != null) {
-                previous.setNext(null);
-            } else {
-                this.first = null; 
-            }
+            previous.setNext(null);
         }
     }
 
@@ -57,16 +63,20 @@ public class List {
         this.first = null;
     }
 
-    public FoundNodeList find(String value) {
-        FoundNodeList foundNodes = new FoundNodeList();
+    public Node[] find(String value) {
+        Node[] result = new Node[this.size()];
         Node iterator = this.first;
+        int count = 0;
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
-                foundNodes.add(iterator);
+                result[count] = iterator;
+                count++;
             }
             iterator = iterator.getNext();
         }
-        return foundNodes;
+        Node[] filteredResult = new Node[count];
+        System.arraycopy(result, 0, filteredResult, 0, count);
+        return filteredResult;
     }
 
     public String[] listAll() {
