@@ -3,34 +3,29 @@ package entregas.reto11_10;
 public class List {
 
     private Node first = null;
-    private Node last = null; 
-    private int size = 0;  
+    private Node last = null;
+    private int size = 0;
 
     public int size() {
         return this.size;
     }
 
-   
     public boolean isEmpty() {
         return this.size == 0;
     }
 
-   
     public void insertEnd(String value) {
         Node newNode = new Node(value);
         if (this.first == null) {
-           
             this.first = newNode;
             this.last = newNode;
         } else {
-            
             this.last.setNext(newNode);
-            this.last = newNode;  
+            this.last = newNode;
         }
-        this.size++;  
+        this.size++;
     }
 
-    
     public void insertFront(String value) {
         Node newNode = new Node(value);
         if (this.first == null) {
@@ -40,7 +35,7 @@ public class List {
             newNode.setNext(this.first);
             this.first = newNode;
         }
-        this.size++;  
+        this.size++;
     }
 
     public void deleteEnd() {
@@ -53,16 +48,16 @@ public class List {
                 while (iterator.getNext() != this.last) {
                     iterator = iterator.getNext();
                 }
-                iterator.setNext(null); 
-                this.last = iterator;  
+                iterator.setNext(null);
+                this.last = iterator;
             }
-            this.size--; 
+            this.size--;
         }
     }
 
     public void deleteFront() {
         if (this.first != null) {
-            this.first = this.first.getNext(); 
+            this.first = this.first.getNext();
             if (this.first == null) {
                 this.last = null;
             }
@@ -88,7 +83,7 @@ public class List {
 
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
-                return index;  
+                return index;
             }
             iterator = iterator.getNext();
             index++;
@@ -102,11 +97,25 @@ public class List {
 
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
-                return iterator;  
+                return iterator;
             }
             iterator = iterator.getNext();
         }
 
         return null;  
+    }
+
+    public FoundNodeList find(String value) {
+        FoundNodeList foundNodes = new FoundNodeList();
+        Node iterator = this.first;
+
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                foundNodes.add(iterator); 
+            }
+            iterator = iterator.getNext();
+        }
+
+        return foundNodes; 
     }
 }
