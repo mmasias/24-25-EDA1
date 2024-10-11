@@ -22,4 +22,8 @@ public class Node {
     public void setNext(Node next) {
         this.next = next;
     }
+
+    public void showInConsole(){
+        System.out.println(value);
+    }
 }

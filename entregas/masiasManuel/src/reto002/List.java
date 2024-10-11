@@ -22,7 +22,7 @@ public class List {
     public void insertEnd(String value) {
         Node newNode = new Node(value);
         if (this.first == null)
-        this.first = newNode;
+            this.first = newNode;
         else {
             Node iterator = this.first;
             while (iterator.getNext() != null) {
@@ -31,7 +31,7 @@ public class List {
             iterator.setNext(newNode);
         }
     }
-    
+
     public void insertFront(String value) {
         Node n = new Node(value);
         if (this.first == null)
@@ -66,5 +66,18 @@ public class List {
             iterator = iterator.getNext();
         }
         return list;
+    }
+
+    public void showInConsole() {
+        System.out.println("Fila de " + this.size());
+        System.out.println("-".repeat(25));
+        if (this.first != null) {
+            Node iterator = this.first;
+            while (iterator != null) {
+                System.out.print(iterator.getValue() + " / ");
+                iterator = iterator.getNext();
+            }
+        }
+        System.out.println("\n" + "=".repeat(25));
     }
 }
