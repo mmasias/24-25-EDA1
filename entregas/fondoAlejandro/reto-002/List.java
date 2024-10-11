@@ -1,5 +1,3 @@
-package entregas.fondoAlejandro.ejercicio0710;
-
 class List {
 
     private Node first = null;
@@ -68,21 +66,16 @@ class List {
         }
     }
 
-    public Node[] find(String value){
-        Node[] results = new Node[this.size()];
-        int count = 0;
+    public FoundNodeList find(String value){
+        FoundNodeList foundNodes = new FoundNodeList();
         Node iterator = this.first;
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
-                results[count++] = iterator;
+                foundNodes.insert(new Node(iterator.getValue()));
             }
             iterator = iterator.getNext();
         }
-        Node[] finalResults = new Node[count];
-        for (int i = 0; i < count; i++) {
-            finalResults[i] = results[i];
-        }
-        return finalResults;
+        return foundNodes;
     }
 
     public String[] listAll() {

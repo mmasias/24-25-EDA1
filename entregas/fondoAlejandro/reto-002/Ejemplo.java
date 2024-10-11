@@ -1,5 +1,3 @@
-package entregas.fondoAlejandro.ejercicio0710;
-
 class Ejemplo {
     public static void main(String[] args) {
 
