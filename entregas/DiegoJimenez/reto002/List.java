@@ -35,7 +35,7 @@ public class List {
             newNode.setNext(this.first);
             this.first = newNode;
         }
-        count++; // 
+        count++; 
     }
 
     public void deleteEnd() {
@@ -62,19 +62,19 @@ public class List {
         }
     }   
 
-    public List findAndWrap(String value) {
-        List newList = new List(); 
+    public FoundNodeList find(String value) {
+        FoundNodeList foundList = new FoundNodeList(); 
         Node iterator = this.first;
 
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
                 NodeWrapper wrappedNode = new NodeWrapper(iterator); 
-                newList.insertEnd(wrappedNode.getValue()); 
+                foundList.add(wrappedNode); 
             }
             iterator = iterator.getNext();
         }
 
-        return newList; 
+        return foundList; 
     }
 
 
