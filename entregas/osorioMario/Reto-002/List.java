@@ -1,7 +1,4 @@
-package listas.basica;
-
-import java.util.List;
-
+import java.util.LinkedList;
 public class List {
     private Node first = null;
     private int count = 0;
@@ -68,23 +65,23 @@ public class List {
         count = 0;
     }
 
-    public List find(String value) {
-        List matches = new List();
+    public NodeWrapper find(String value) {
+        NodeWrapper matches = new NodeWrapper();
         Node iterator = this.first;
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
-                matches.insertEnd(iterator.getValue());
+                matches.add(iterator);
             }
             iterator = iterator.getNext();
         }
         return matches;
     }
 
-    public List listAll() {
-        List list = new List();
+    public java.util.List<String> listAll() {
+        java.util.List<String> list = new LinkedList<>();
         Node iterator = this.first;
         while (iterator != null) {
-            list.insertEnd(iterator.getValue());
+            list.add(iterator.getValue());
             iterator = iterator.getNext();
         }
         return list;
