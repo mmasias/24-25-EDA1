@@ -47,7 +47,7 @@ public class List {
     public void deleteEnd() {
         if (this.first != null) {
             if (this.first.getNext() == null) {
-                // Solo hay un nodo
+                
                 this.first = null;
             } else {
                 Node iterator = this.first;
@@ -63,36 +63,24 @@ public class List {
 
     public void deleteFront() {
         if (this.first != null) {
-            this.first = this.first.getNext(); // Elimina el primer nodo
+            this.first = this.first.getNext(); 
         }
     }
 
-    public Node[] find(String value) {
+    public FoundNodeList find(String value) {
+        FoundNodeList foundNodes = new FoundNodeList();
         Node iterator = this.first;
-        int count = 0;
 
        
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
-                count++;
+                foundNodes.insertEnd(iterator.getValue());
             }
+        
             iterator = iterator.getNext();
         }
-
+            return foundNodes;
         
-        Node[] result = new Node[count];
-        iterator = this.first; 
-
-        
-        int index = 0;
-        while (iterator != null) {
-            if (iterator.getValue().equals(value)) {
-                result[index++] = iterator;
-            }
-            iterator = iterator.getNext();
-        }
-
-        return result;
     }
 
     public String[] listAll() {
