@@ -1,6 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "src/reto001",
-        "src/ejercicio-01/aspiradora",
+        "entregas/masiasManuel/src/reto001",
+        "entregas/masiasManuel/src/reto002"
     ]
 }
