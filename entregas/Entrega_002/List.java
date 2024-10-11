@@ -5,18 +5,9 @@ import org.w3c.dom.Node;
 public class List {
 
     private Node first = null;
-
+    private int size = 0;
     public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
-            count++;
-            iterator = iterator.getNext();
-        }
-        return count;
+        return size;
     }
 
     public boolean isEmpty() {
@@ -106,5 +97,19 @@ public class List {
             iterator = iterator.getNext();
         }
         return list;
+    }
+
+
+    public FoundNodeList find(String value) {
+        FoundNodeList foundNodes = new FoundNodeList();
+        Node iterator = this.first;
+        while(iterator != null){
+            if(iterator.getvalue().equals(value)){
+                foundNodes.getNodes(iterator);
+            }
+        } else()
+        return list;
+        
+        }
     }
 }
