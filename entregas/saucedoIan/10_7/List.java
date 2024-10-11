@@ -2,28 +2,14 @@
 public class List {
 
     private Node first = null;
-    private int size = 0;
+    public int size = 0;
 
     public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
-            count++;
-            iterator = iterator.getNext();
-        }
-        return count;
-    }
-
-    public void drop() {
-        this.first = null;
-        this.size = 0;
+        return size;
     }
 
     public boolean isEmpty() {
-        return this.size() > 0 ? false : true;
+        return this.size == 0;
     }
 
     public void insertEnd(String value) {
@@ -53,13 +39,20 @@ public class List {
 
     public void deleteEnd() {
         if (this.first != null) {
-            Node iterator = this.first;
-            Node previous = null;
-            while (iterator.getNext() != null) {
-                previous = iterator;
-                iterator = iterator.getNext();
+            if (this.first.getNext() == null) {
+                this.first = null;
+            } else {
+                Node iterator = this.first;
+                Node previous = null;
+                while (iterator.getNext() != null) {
+                    previous = iterator;
+                    iterator = iterator.getNext();
+                }
+                if (previous != null) {
+                    previous.setNext(null);
+                }
             }
-            previous.setNext(null);
+            size--;
         }
     }
 
@@ -70,30 +63,23 @@ public class List {
         }
     }
 
-    public Node[] find(String value) {
+    public FoundNodeList find(String value) {
+        FoundNodeList foundList = new FoundNodeList();
         Node iterator = this.first;
-        int matchCount = 0;
 
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
-                matchCount++;
+                foundList.insert(iterator);
             }
             iterator = iterator.getNext();
         }
 
-        Node[] matches = new Node[matchCount];
-        iterator = this.first;
-        int index = 0;
+        return foundList;
+    }
 
-        while (iterator != null) {
-            if (iterator.getValue().equals(value)) {
-                matches[index] = iterator;
-                index++;
-            }
-            iterator = iterator.getNext();
-        }
-
-        return matches;
+    public void clear() {
+        this.first = null;
+        size = 0;
     }
 
     public String[] listAll() {
