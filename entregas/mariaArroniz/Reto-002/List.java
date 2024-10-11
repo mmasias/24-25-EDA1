@@ -1,6 +1,7 @@
 class List {
 
     private Node first = null;
+    private int size = 0;
 
     public int size() {
         return size;
@@ -14,27 +15,25 @@ class List {
         Node newNode = new Node(value);
         if (this.first == null) {
             this.first = newNode;
-            size++;
         } else {
             Node iterator = this.first;
             while (iterator.getNext() != null) {
                 iterator = iterator.getNext();
             }
             iterator.setNext(newNode);
-            size++;
         }
+        size++;
     }
 
     public void insertFront(String value) {
         Node n = new Node(value);
         if (this.first == null) {
             this.first = n;
-            size++;
         } else {
             n.setNext(this.first);
             this.first = n;
-            size++;
         }
+        size++;
     }
 
     public void deleteEnd() {
@@ -77,6 +76,19 @@ class List {
         }
         return list;
 
+    }
+
+    public NewList findNewList(String value){
+        NewList newList = new NodeWrap();
+        Node iterator = this.first;
+        while(iterator != null){
+            if(iterator.getValue(value)){
+                newList.addNode(iterator);
+            }else {
+                iterator = iterator.getNext();
+            }
+        }
+        return newList;
     }
 
     public String[] listAll() {
