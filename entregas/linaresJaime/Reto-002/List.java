@@ -1,4 +1,3 @@
-package entregas.linaresJaime.ListaBasica;
 
 public class List {
 
