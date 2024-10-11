@@ -74,6 +74,20 @@ public class List {
         this.first = null;
     }
 
+    public FoundList find(String value){
+        FoundList foundList = new FoundList();
+        if (this.first != null){
+            Node iterator = first;
+            while (iterator.getNext() != null){
+                if (iterator.getValue().equals(value)){
+                    foundList.insertEnd(iterator);
+                }
+            }
+            return foundList;
+        } else {
+            return foundList;
+        }
+    }
 
     public String[] listAll() {
         String[] list = new String[this.size()];
