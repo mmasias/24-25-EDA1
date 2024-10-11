@@ -1,6 +1,6 @@
 public class FoundNodeList {
     
-    private Node first = null;
+    private NodeWrapper first = null;
     private int size = 0;
 
     public int size() {
@@ -12,15 +12,15 @@ public class FoundNodeList {
     }
 
     public void insertEnd(String value) {
-        Node newNode = new Node(value);
+        NodeWrapper newNodeWrapper = new NodeWrapper(value);
         if (this.first == null){
-            this.first = newNode;
+            this.first = newNodeWrapper;
         }else {
-            Node iterator = this.first;
+            NodeWrapper iterator = this.first;
             while (iterator.getNext() != null) {
                 iterator = iterator.getNext();
             }
-            iterator.setNext(newNode);
+            iterator.setNext(newNodeWrapper);
         }
         size++;
     }
