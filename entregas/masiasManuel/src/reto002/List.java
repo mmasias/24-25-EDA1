@@ -83,6 +83,7 @@ public class List {
     }
 
     public void showInConsole() {
+        System.out.println("=".repeat(25));
         System.out.println("Fila de " + this.size());
         System.out.println("-".repeat(25));
         if (this.first != null) {
@@ -92,6 +93,6 @@ public class List {
                 iterator = iterator.getNext();
             }
         }
-        System.out.println("\n" + "=".repeat(25));
+        System.out.println();
     }
 }
