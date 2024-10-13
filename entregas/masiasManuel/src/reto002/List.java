@@ -4,8 +4,7 @@ public class List {
     private int size;
 
     public List() {
-        this.first = null;
-        size = 0;
+        this.clear();
     }
 
     public int size() {
@@ -61,6 +60,10 @@ public class List {
     }
 
     public void deleteAll(){
+        this.clear();
+    }
+
+    private void clear(){
         this.first = null;
         this.size=0;
     }
