@@ -2,8 +2,10 @@
 
 ## Vista pública clases List, Node, FoundNodeList & FoundNodeWrapper
 
-|[List](List.java)|[Node](Node.java)|[FoundNodeList](FoundNodeList.java)|[FoundNodeWrapper](FoundNodeWrapper.java)|
-|-|-|-|-|
+<div align=center>
+
+|[List](List.java)|[Node](Node.java)|
+|-|-|
 |`public List()`|`public Node(String value)`|`public FoundNodeList()`|`public FoundNodeWrapper(Node foundNode)`|
 |`public int size()`|`public String getValue()`|`public void add(Node node)`|`public Node getFoundNode()`|
 |`public boolean isEmpty()`|`public void setValue(String newValue)`|`public FoundNodeWrapper getFirst()`|`public FoundNodeWrapper getNext()`|
@@ -16,6 +18,16 @@
 |`public FoundNodeList find(String value)`||||
 |`public void showInConsole()`||||
 
+|[FoundNodeList](FoundNodeList.java)|[FoundNodeWrapper](FoundNodeWrapper.java)|
+|-|-|
+|`public FoundNodeList()`|`public FoundNodeWrapper(Node foundNode)`|
+|`public void add(Node node)`|`public Node getFoundNode()`|
+|`public FoundNodeWrapper getFirst()`|`public FoundNodeWrapper getNext()`|
+|`public int size()`|`public void setNext(FoundNodeWrapper next)`|
+|`public void showInConsole()`||
+
 |||
 |-|-|
 |![](/images/modelosUML/unaLista-dC.svg)|![](/images/modelosUML/unaLista-dO.svg)
+
+</div>
