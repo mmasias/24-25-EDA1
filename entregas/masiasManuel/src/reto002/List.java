@@ -53,19 +53,19 @@ public class List {
         size--;
     }
 
-    public void deleteFront(){
+    public void deleteFront() {
         if (this.first != null) {
             this.first = this.first.getNext();
         }
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         this.clear();
     }
 
-    private void clear(){
+    private void clear() {
         this.first = null;
-        this.size=0;
+        this.size = 0;
     }
 
     public String[] listAll() {
@@ -89,7 +89,7 @@ public class List {
         if (this.first != null) {
             Node iterator = this.first;
             while (iterator != null) {
-                System.out.print(iterator.getValue() + " / ");
+                System.out.print("[" + iterator.getValue() + "]" + iterator + " / ");
                 iterator = iterator.getNext();
             }
         }
