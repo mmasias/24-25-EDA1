@@ -95,4 +95,21 @@ public class List {
         }
         System.out.println();
     }
+
+    public List find(String value) {
+        List foundList = new List();
+        if (this.first != null) {
+            Node iterator = this.first;
+
+            while (iterator != null) {
+                if (iterator.getValue().equals(value)) {
+                    foundList.insertEnd(iterator.getValue());
+                }
+                iterator = iterator.getNext();
+            }
+
+            return foundList;
+        }
+        return foundList;
+    }
 }

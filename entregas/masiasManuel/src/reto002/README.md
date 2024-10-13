@@ -11,5 +11,7 @@
 |`public void insertFront(String value)`|`public void setNext(Node next)`|
 |`public void deleteEnd()`|`public void showInConsole()`|
 |`public void deleteFront()`||
+|`public void deleteAll()`||
 |`public String[] listAll()`||
+|`public List find(String value)`||
 |`public void showInConsole()`||

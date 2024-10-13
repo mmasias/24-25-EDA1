@@ -10,13 +10,13 @@ class Ejemplo {
         nephews.insertEnd("A");
         nephews.insertEnd("B");
         nephews.insertEnd("A");
+
         nephews.showInConsole();
 
-        nephews.deleteFront();
-        nephews.deleteEnd();
+        List theAList = new List();
+        theAList = nephews.find("A");
+
+        theAList.showInConsole();
         nephews.showInConsole();
-
-
     }
 }
- 
