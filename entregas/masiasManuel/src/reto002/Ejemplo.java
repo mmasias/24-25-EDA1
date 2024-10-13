@@ -13,7 +13,7 @@ class Ejemplo {
 
         nephews.showInConsole();
 
-        List theAList = new List();
+        FoundNodeList theAList = new FoundNodeList();
         theAList = nephews.find("A");
 
         theAList.showInConsole();

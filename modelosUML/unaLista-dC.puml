@@ -1,0 +1,26 @@
+@startuml
+
+class List {
+    -first: Node
+    -size: int
+}
+class Node {
+    -value: String
+    -next: Node
+}
+class FoundNodeList {
+    -first: FoundNodeWrapper
+    -size: int
+}
+class FoundNodeWrapper {
+    -foundNode: Node
+    -next: FoundNodeWrapper
+}
+
+List "1" --> "0..*" Node : contains
+Node --> Node : next
+FoundNodeList "1" --> "0..*" FoundNodeWrapper : contains
+FoundNodeWrapper --> FoundNodeWrapper : next
+FoundNodeWrapper -u-> Node : references
+
+@enduml

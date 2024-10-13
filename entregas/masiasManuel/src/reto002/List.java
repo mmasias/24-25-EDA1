@@ -96,20 +96,17 @@ public class List {
         System.out.println();
     }
 
-    public List find(String value) {
-        List foundList = new List();
+    public FoundNodeList find(String value) {
+        FoundNodeList resultList = new FoundNodeList();
         if (this.first != null) {
-            Node iterator = this.first;
-
-            while (iterator != null) {
-                if (iterator.getValue().equals(value)) {
-                    foundList.insertEnd(iterator.getValue());
+            Node node = this.first;
+            while (node != null) {
+                if (node.getValue().equals(value)) {
+                    resultList.add(node);
                 }
-                iterator = iterator.getNext();
+                node = node.getNext();
             }
-
-            return foundList;
         }
-        return foundList;
-    }
+        return resultList;
+    }    
 }

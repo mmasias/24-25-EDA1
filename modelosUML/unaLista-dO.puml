@@ -1,0 +1,41 @@
+object ":List" as ListA {
+    first = Node(1)
+}
+
+object "1 : Node" as Node1 {
+    value: "A"
+    next -> Node(2)
+}
+
+object "2 : Node" as Node2 {
+    value: "B"
+    next -> Node(3)
+}
+object "3 : Node" as Node3 {
+    value: "A"
+    next -> null
+}
+
+object ":FoundNodeList" as ListF {
+    first = Node(p1)
+}
+
+object "p1 : FoundNodeWrapper" as p1 {
+    value: 
+    next -> null
+}
+
+object "p2 : FoundNodeWrapper" as p2 {
+    value: 
+    next -> null
+}
+
+ListA --> Node1
+Node1 --> Node2
+Node2 --> Node3
+
+ListF --> p1
+p1 --> p2
+
+p1 .l.> Node1
+p2 .l.> Node3
