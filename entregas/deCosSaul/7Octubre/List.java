@@ -107,6 +107,7 @@ public class List {
     public void mostrar(){
         Node iterator = this.first;
             do{
+                System.out.print(iterator + " ");
                 iterator.show();
                 iterator = iterator.getNext();
             }while (iterator != null);

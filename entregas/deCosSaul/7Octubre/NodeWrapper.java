@@ -15,4 +15,7 @@ class NodeWrapper {
     public void show(){
         this.matchNode.show();
     }
+    public Node returnNode(){
+        return matchNode;
+    }
 }

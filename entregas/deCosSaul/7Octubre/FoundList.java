@@ -22,6 +22,7 @@ class FoundList {
     public void mostrar(){
         NodeWrapper iterator = this.first;
             do{
+                System.out.print(iterator.returnNode() + " ");
                 iterator.show();
                 iterator = iterator.getNext();
             }while (iterator != null);
