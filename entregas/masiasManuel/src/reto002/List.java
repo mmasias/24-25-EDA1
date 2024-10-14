@@ -56,6 +56,7 @@ public class List {
     public void deleteFront() {
         if (this.first != null) {
             this.first = this.first.getNext();
+            size--;
         }
     }
 

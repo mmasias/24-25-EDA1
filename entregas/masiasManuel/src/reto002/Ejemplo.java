@@ -13,6 +13,8 @@ class Ejemplo {
 
         nephews.showInConsole();
 
+        nephews.deleteFront();
+
         FoundNodeList theAList = new FoundNodeList();
         theAList = nephews.find("A");
 
@@ -20,3 +22,4 @@ class Ejemplo {
         nephews.showInConsole();
     }
 }
+
