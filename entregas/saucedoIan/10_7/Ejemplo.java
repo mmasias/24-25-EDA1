@@ -12,6 +12,8 @@ class Ejemplo {
         nephews.insertEnd("Anita");
         nephews.insertEnd("Pepito");
         System.out.println("Esta vacia? " + nephews.isEmpty());
+        viewLine(nephews);
+        System.out.println("Tamaño: " + nephews.size());
 
         viewLine(nephews);
 
@@ -20,6 +22,7 @@ class Ejemplo {
         System.out.println("Tamaño: " + nephews.size());
 
         nephews.deleteEnd();
+        viewLine(nephews);
         System.out.println("Tamaño: " + nephews.size());
 
         viewLine(nephews);
