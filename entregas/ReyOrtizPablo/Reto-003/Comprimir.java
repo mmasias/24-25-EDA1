@@ -1,55 +1,114 @@
 public class Comprimir {
-    public static void main(String[] args) {
-        String texto = "abababcbdc";
-        comprimirTextoLZ77(texto);
+
+    static class Par {
+        int numero;
+        char letra;
+
+        Par(int p, char c) {
+            this.numero = p;
+            this.letra = c;
+        }
+
+        public String toString() {
+            return "(" + numero + "," + letra + ")";
+        }
     }
 
-    public static void comprimirTextoLZ77(String texto) {
-        // Convertir el texto en un array de caracteres
-        char[] chars = texto.toCharArray();
-        
-        // Matrices para almacenar los índices de desplazamiento y caracteres
-        int[] offsets = new int[texto.length()];
-        char[] caracteres = new char[texto.length()];
+    public static Par[] comprimir(String cadena) {
+        String[] diccionario = new String[1];
+        int[] valores = new int[1];
+        Par[] salida = new Par[1];
+        int valor = 1;
+        int contadorSalida = 0;
+        int contadorDiccionario = 0;
 
-        int posicion = 0;  // Posición actual en el texto
-        while (posicion < chars.length) {
-            int offset = 0;  // Para almacenar la distancia al patrón más reciente
-            int longitudCoincidencia = 0;  // Longitud de la coincidencia más larga encontrada
+        String w = "";
 
-            // Buscar coincidencias anteriores en el texto
-            for (int i = 0; i < posicion; i++) {
-                int j = 0;
+        System.out.println("Diccionario inicial: ");
 
-                // Verificar si hay coincidencia sin sobrepasar los límites del array
-                while (i + j < posicion && posicion + j < chars.length && chars[i + j] == chars[posicion + j]) {
-                    j++;
-                }
+        for (int i = 0; i < cadena.length(); i++) {
+            char c = cadena.charAt(i);
+            String wc = w + c;
 
-                // Actualizar el desplazamiento y longitud si es mayor
-                if (j > longitudCoincidencia) {
-                    offset = posicion - i;
-                    longitudCoincidencia = j;
-                }
-            }
+            int indice = buscarEnDiccionario(diccionario, contadorDiccionario, wc);
 
-            // Si no hay coincidencia previa, el offset es 0
-            if (longitudCoincidencia == 0) {
-                offset = 0;
-                caracteres[posicion] = chars[posicion];  // Guardar el carácter actual
+            if (indice == -1) {
+                int p = w.isEmpty() ? 0 : buscarEnDiccionario(diccionario, contadorDiccionario, w);
+                salida = expandirArraySalida(salida, contadorSalida);
+                salida[contadorSalida++] = new Par(p, c);
+
+                diccionario = expandirArrayDiccionario(diccionario, contadorDiccionario);
+                valores = expandirArrayValores(valores, contadorDiccionario);
+                diccionario[contadorDiccionario] = wc;
+                valores[contadorDiccionario] = valor;
+                System.out.println("Agregado al diccionario: " + wc + " -> " + valor);
+                valor++;
+                contadorDiccionario++;
+
+                w = "";
             } else {
-                // Guardar el carácter siguiente a la coincidencia más larga
-                caracteres[posicion] = chars[posicion + longitudCoincidencia];
+                w = wc;
             }
+        }
 
-            // Guardar el desplazamiento
-            offsets[posicion] = offset;
+        Par[] salidaFinal = new Par[contadorSalida];
+        for (int i = 0; i < contadorSalida; i++) {
+            salidaFinal[i] = salida[i];
+        }
 
-            // Mostrar el resultado comprimido (desplazamiento, carácter)
-            System.out.print("(" + offsets[posicion] + "," + caracteres[posicion] + ")");
+        return salidaFinal;
+    }
 
-            // Avanzar la posición al siguiente segmento
-            posicion += longitudCoincidencia + 1;
+    public static int buscarEnDiccionario(String[] diccionario, int contador, String secuencia) {
+        for (int i = 0; i < contador; i++) {
+            if (diccionario[i].equals(secuencia)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static String[] expandirArrayDiccionario(String[] diccionario, int contador) {
+        if (contador >= diccionario.length) {
+            String[] nuevoDiccionario = new String[diccionario.length * 2];
+            for (int i = 0; i < diccionario.length; i++) {
+                nuevoDiccionario[i] = diccionario[i];
+            }
+            return nuevoDiccionario;
+        }
+        return diccionario;
+    }
+
+    public static int[] expandirArrayValores(int[] valores, int contador) {
+        if (contador >= valores.length) {
+            int[] nuevoValores = new int[valores.length * 2];
+            for (int i = 0; i < valores.length; i++) {
+                nuevoValores[i] = valores[i];
+            }
+            return nuevoValores;
+        }
+        return valores;
+    }
+
+    public static Par[] expandirArraySalida(Par[] salida, int contador) {
+        if (contador >= salida.length) {
+            Par[] nuevoSalida = new Par[salida.length * 2];
+            for (int i = 0; i < salida.length; i++) {
+                nuevoSalida[i] = salida[i];
+            }
+            return nuevoSalida;
+        }
+        return salida;
+    }
+
+    public static void main(String[] args) {
+        String cadena = "abababcbdc"; 
+        Par[] resultado = comprimir(cadena);
+
+        System.out.println("\nCadena original: " + cadena);
+        System.out.println("Compresión: ");
+        for (Par p : resultado) {
+            System.out.print(p + " ");
         }
     }
 }
