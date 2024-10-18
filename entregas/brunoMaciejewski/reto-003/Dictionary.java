@@ -33,4 +33,13 @@ public class Dictionary {
         }
     }
 
+    public String getSegmentAt(int index) {
+        for(int i=0;i<dictionary.length;i++){
+           if (dictionary[i].getIndex()==index){
+            return dictionary[i].getElement();
+           } 
+        }
+        return "";
+    }
+
 }
