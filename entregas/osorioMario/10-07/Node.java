@@ -1,5 +1,3 @@
-package listas.basica;
-
 public class Node {
 
     private String value;

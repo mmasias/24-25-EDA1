@@ -1,5 +1,3 @@
-package listas.basica;
-
 class Ejemplo {
     public static void main(String[] args) {
 

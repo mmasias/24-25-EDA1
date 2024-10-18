@@ -1,5 +1,3 @@
-package listas.basica;
-
 import java.util.List;
 
 public class List {
