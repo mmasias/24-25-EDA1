@@ -1,30 +1,35 @@
 package entregas.naranjoDylan.reto003;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class Diccionario {
-    private HashMap<String, Integer> diccionario;
-    private ArrayList<String> lista;
 
-    public Diccionario() {
-        diccionario = new HashMap<>();
-        lista = new ArrayList<>();
+    private String[] subCadenas;
+    private int[] indices;
+    private int tamanioActual;
+
+    public Diccionario(int capacidadMaxima) {
+        subCadenas = new String[capacidadMaxima];
+        indices = new int[capacidadMaxima];
+        tamanioActual = 0;
     }
 
     public int verificarYRegistrar(String subCadena) {
-        if (!diccionario.containsKey(subCadena)) {
-            diccionario.put(subCadena, diccionario.size() + 1);
-            lista.add(subCadena);
+        for (int i = 0; i < tamanioActual; i++) {
+            if (subCadenas[i].equals(subCadena)) {
+                return indices[i];
+            }
         }
-        return diccionario.get(subCadena);
+
+        subCadenas[tamanioActual] = subCadena;
+        indices[tamanioActual] = tamanioActual + 1;
+        tamanioActual++;
+
+        return indices[tamanioActual - 1];
     }
 
-    public HashMap<String, Integer> getDiccionario() {
-        return diccionario;
-    }
-
-    public ArrayList<String> getLista() {
-        return lista;
+    public void imprimirDiccionario() {
+        System.out.println("Diccionario:");
+        for (int i = 0; i < tamanioActual; i++) {
+            System.out.println((i + 1) + ": " + subCadenas[i]);
+        }
     }
 }
