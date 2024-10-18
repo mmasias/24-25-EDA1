@@ -19,7 +19,7 @@ A continuación se describe un algoritmo de compresión, que trabaja sobre la ca
 
 ## Reto
 
-Desarrolle el método `.comprime(String cadena)` que devuelva el resultado comprimido y el diccionario utilizado para comprimirlo.
+Desarrolle el método `.comprime(String cadena)` que devuelva el resultado comprimido y el diccionario utilizado para comprimirlo. Use el  método en un programa que devuelva una salida como la presentada a continuación:
 
 ```text
 c:\>Comprimir
