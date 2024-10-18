@@ -1,1 +1,1 @@
-#Reto realizado en equipo con Marcos Gutiérrez Delgado
+# Reto realizado en equipo con Marcos Gutiérrez Delgado
