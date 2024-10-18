@@ -1,6 +1,6 @@
 # Reto 003
 
-> Basado en el algoritmo de Lempel Ziv y Welch, o abreviadamente (y como mejor se le conoce) Algoritmo LZW, algoritmo de compresión sin pérdida basado en diccionario. ***[Wikipedia](https://es.wikipedia.org/wiki/LZW)***
+> Basado en el algoritmo de Lempel Ziv y Welch, o abreviadamente (y como mejor se le conoce) Algoritmo LZW, algoritmo de compresión sin pérdidas basado en diccionario. ***[Wikipedia](https://es.wikipedia.org/wiki/LZW)***
 
 A continuación se describe un algoritmo de compresión, que trabaja sobre la cadena `abababc`
 
