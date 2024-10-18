@@ -8,7 +8,7 @@ public class CompresorLZW {
 
     public String comprimir(String cadena) {
         StringBuilder salida = new StringBuilder();
-
+        
         return salida.toString();
     }
 }
