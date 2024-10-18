@@ -27,33 +27,6 @@ public class List {
         size++;
     }
 
-    public void deleteEnd() {
-        if (this.first != null) {
-            Node iterator = this.first;
-            Node previous = null;
-            while (iterator.getNext() != null) {
-                previous = iterator;
-                iterator = iterator.getNext();
-            }
-            previous.setNext(null);
-            size--;
-        }
-    }
-
-    public void deleteFront(){
-
-        if (this.first !=null) {
-            this.first = this.first.getNext();
-            size--;
-        }
-        
-    }
-
-    public void deleteAll(){
-        this.first = null;
-        size = 0;
-    }
-
     public boolean incluye(String value) {
 
         Node iterator = this.first;
