@@ -2,7 +2,7 @@ package entregas.lopezMartin.reto_003;
 
 public class CompresorLZ {
 
-    List diccionario;
+    private List diccionario;
     
     public CompresorLZ(){
         this.diccionario = new List();
