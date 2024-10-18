@@ -1,3 +1,4 @@
+package romeroAngel.reto003;
 public class Node {
 
     private String value;

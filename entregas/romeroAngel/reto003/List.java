@@ -1,3 +1,4 @@
+package romeroAngel.reto003;
 public class List {
 
     private Node first;
@@ -109,5 +110,37 @@ public class List {
             }
         }
         return resultList;
+    }
+
+    public Node encontrarPrimer(String letra) {
+        Node actual = this.first;
+
+        while (actual!=null) {
+            if (actual.getValue().equals(letra)) {
+                return actual;
+            }
+            actual = actual.getNext();
+        }
+
+        return null;
     }    
+
+    public int obtenerIndice(Node nodo) {
+        Node actual = this.first; 
+        int indice = 1;
+        
+        while (actual != null) {
+            if (actual == nodo) {
+                return indice; // Devolvemos el índice cuando encontramos el nodo
+            }
+            actual = actual.getNext(); // Avanzamos al siguiente nodo
+            indice++;
+        }
+        
+        return -1; 
+    }
+
+    public Node getFirst() {
+        return this.first; // Retorna el primer nodo de la lista
+    }
 }
