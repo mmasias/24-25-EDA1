@@ -1,1 +1,1 @@
-
+He elegido que tanto el diccionario como la compresión del texto sean listas porque lo he pensado para casos muy grandes. Llegué a la suposición de que indicar el tamaño de un array llevaría a algun caso en el que el tamaño no fuera suficiente.
