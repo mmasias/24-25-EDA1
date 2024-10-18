@@ -7,7 +7,8 @@ public class Diccionario {
 
     public boolean contiene(String string) {
        for(int i = 0; i < secuencias.size(); i++){
-        if(string == secuencias.valor()){
+        System.out.println(string + secuencias.valor());
+        if(string.equals(secuencias.valor())){
             return true;
         }
        }
