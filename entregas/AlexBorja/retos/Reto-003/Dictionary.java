@@ -39,4 +39,8 @@ class Dictionary {
       }
       return result;
    }
+
+   public String getSequenceByIndex(int idx) {
+      return dictionary[idx - 1];
+   }
 }

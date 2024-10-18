@@ -12,8 +12,7 @@ class Compressor {
             if (dictionary.isOnDictionary(newMatch)) {
                lastKnownSequence += currenSequence;
                continue;
-            }
-            {
+            } else {
                dictionary.addToDictionary(newMatch);
                int idx = dictionary.getIndexOfSequence(lastKnownSequence);
                compressed += "(" + idx + "," + currenSequence + ") ";
@@ -31,11 +30,10 @@ class Compressor {
          }
       }
 
-      String dic = dictionary.getDictionary();
-      return compressed + "\n" + dic;
+      return compressed;
+   }
+
+   public Dictionary getDictionary() {
+      return dictionary;
    }
 }
-
-// EXPECTEC OUTPUT:
-// (0,a) (0,b) (1,0) (3,c) (2,d) (0,c)
-// 1:a 2:b 3:ab 4:abc 5: bd 6: c
