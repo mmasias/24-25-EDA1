@@ -1,10 +1,12 @@
 public class Node {
 
     private String value;
+    private int indice;
     private Node next;
 
-    public Node(String value) {
+    public Node(String value, int indice) {
         this.setValue(value);
+        this.indice = indice;
     }
 
     public String getValue() {
@@ -21,5 +23,9 @@ public class Node {
 
     public void setNext(Node next) {
         this.next = next;
+    }
+
+    public int getIndice(){
+        return this.indice;
     }
 }

@@ -1,7 +1,7 @@
 public class List {
 
     private Node first = null;
-    private int size = 0;
+    private int size = 1;
 
     public int size() {
         return size;
@@ -12,7 +12,7 @@ public class List {
     }
 
     public void insertEnd(String value) {
-        Node newNode = new Node(value);
+        Node newNode = new Node(value, size);
         if (this.first == null){
             this.first = newNode;
         }else {
@@ -24,78 +24,71 @@ public class List {
         }
         size++;
     }
-    
-    public void insertFront(String value) {
-        Node n = new Node(value);
-        if (this.first == null) {
-            this.first = n;
-        }else {
-            n.setNext(this.first);
-            this.first = n;
-        } 
-        size++;
-    }
 
-    public void deleteEnd() {
-        if (this.first != null) {
-            Node iterator = this.first;
-            Node previous = null;
-            while (iterator.getNext() != null) {
-                previous = iterator;
-                iterator = iterator.getNext();
+    public boolean incluye(String value) {
+
+        Node iterator = this.first;
+    
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                return true;
             }
-            previous.setNext(null);
-            size--;
+            iterator = iterator.getNext();
         }
+        return false;
     }
 
-    public void deleteFront(){
-
-        if (this.first !=null) {
-            this.first = this.first.getNext();
-            size--;
-        }
-        
-    }
-
-    public void deleteAll(){
-        this.first = null;
-        size = 0;
-    }
-
-    public List find(String value){
-
-        List foundList = new List();
-        if (this.first != null) {
-            Node iterator = this.first;
-    
-            while (iterator != null) {
-                if (iterator.getValue().equals(value)) {
-                        foundList.insertEnd(iterator.getValue());
-                }
-                iterator = iterator.getNext();
-            }
-    
-            return foundList;
-        }
-        return foundList;
-    }
-
-    public String valor(){
-       return first.getValue();
-    }
-
-    public String[] listAll() {
-        String[] list = new String[this.size()];
+    public String mostrar() {
+        String list = "";
         Node iterator = this.first;
         if (iterator == null)
             return list;
-        int count = 0;
         while (iterator != null) {
-            list[count] = iterator.getValue();
-            count++;
+            list += "(" + iterator.getIndice() + "," + iterator.getValue() + ")";
             iterator = iterator.getNext();
         }
         return list;
+    }
+
+    public Node obtenerUltimo(){
+        
+        if (this.first == null) {
+        return null;
+        }  
+    
+        Node iterator = this.first;
+        while (iterator.getNext() != null) {
+            iterator = iterator.getNext();
+        }
+    
+        return iterator;
+    }
+
+    public String getIndiceOf(String value) {
+        
+        Node iterator = this.first;
+    
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                return Integer.toString(iterator.getIndice());
+            }
+            iterator = iterator.getNext();
+        }
+        return "0";
+
+    }
+
+    public String getValueOf(String value) {
+
+        Node iterator = this.first;
+    
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                return iterator.getValue();
+            }
+            iterator = iterator.getNext();
+        }
+        return null;
+        
     }
 }

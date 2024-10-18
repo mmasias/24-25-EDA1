@@ -1,6 +1,12 @@
 public class Main {
+
     public static void main(String[] args) {
-        CompresorLZW compresor = new CompresorLZW();
-        compresor.comprimir("aaaa");
+        
+        String cadena = "abababcbdc";
+        CompresorLZ compresor = new CompresorLZ();
+
+        System.out.println(compresor.comprime(cadena));
+
     }
+    
 }
