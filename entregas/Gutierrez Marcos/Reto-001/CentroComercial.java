@@ -16,7 +16,7 @@ public class CentroComercial {
 
         while(abierto){
             if(llegaCliente()){
-                fila.aÃ±adirCliente();
+                fila.añadirCliente();
             }
             fila.atenderCliente();
             if(clienteSeAburre()){
