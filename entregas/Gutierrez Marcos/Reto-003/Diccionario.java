@@ -6,26 +6,16 @@ public class Diccionario {
     }
 
     public boolean contiene(String string) {
-        String[] elementos = secuencias.listAll();
-        for (int i = 0; i < elementos.length; i++) {
-            if (elementos[i].equals(string)) {
-                return true;
-            }
+       for(int i = 0; i < secuencias.size(); i++){
+        if(string == secuencias.valor()){
+            return true;
         }
-        return false;
+       }
+       return false;
     }
 
     public void agregar(String valueOf) {
         secuencias.insertEnd(valueOf);
     }
 
-    public int buscar(String secuencia) {
-        String[] elementos = secuencias.listAll();
-        for (int i = 0; i < elementos.length; i++) {
-            if (elementos[i].equals(secuencia)) {
-                return i;
-            }
-        }
-        return -1;
-    }
 }

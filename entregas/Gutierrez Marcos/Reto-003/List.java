@@ -81,6 +81,10 @@ public class List {
         return foundList;
     }
 
+    public String valor(){
+       return first.getValue();
+    }
+
     public String[] listAll() {
         String[] list = new String[this.size()];
         Node iterator = this.first;
