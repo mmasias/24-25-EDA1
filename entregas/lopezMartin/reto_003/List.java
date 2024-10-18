@@ -3,7 +3,7 @@ package entregas.lopezMartin.reto_003;
 public class List {
 
     private Node first = null;
-    private int size = 0;
+    private int size = 1;
 
     public int size() {
         return size;
@@ -14,7 +14,7 @@ public class List {
     }
 
     public void insertEnd(String value) {
-        Node newNode = new Node(value, this.size);
+        Node newNode = new Node(value, size);
         if (this.first == null){
             this.first = newNode;
         }else {
@@ -40,15 +40,13 @@ public class List {
         return false;
     }
 
-    public String[] listAll() {
-        String[] list = new String[this.size()];
+    public String mostrar() {
+        String list = "";
         Node iterator = this.first;
         if (iterator == null)
             return list;
-        int count = 0;
         while (iterator != null) {
-            list[count] = iterator.getValue();
-            count++;
+            list += "(" + iterator.getIndice() + "," + iterator.getValue() + ")";
             iterator = iterator.getNext();
         }
         return list;
@@ -78,7 +76,7 @@ public class List {
             }
             iterator = iterator.getNext();
         }
-        return null;
+        return "0";
 
     }
 

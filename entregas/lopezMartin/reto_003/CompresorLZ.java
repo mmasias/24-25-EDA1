@@ -11,22 +11,51 @@ public class CompresorLZ {
     public String comprime(String cadena) {
 
         String compresion = "";
-        String diccionarioEnTexto= "";
+        boolean cadenaRecorrida = false;
+    
+        int indice = 0;
+    
+        while (!cadenaRecorrida) {
 
-        for(int i = 0; i<cadena.length();i++){
-            if (diccionario.incluye(String.valueOf(cadena.charAt(i)))) {
-                compresion = compresion + "(" + diccionario.getIndiceOf(String.valueOf(cadena.charAt(i))) + "," + diccionario.getValueOf(String.valueOf(cadena.charAt(i))) + ") ";
-                
-            }else{
-                diccionario.insertEnd(String.valueOf(cadena.charAt(i)));
-                compresion = compresion + "(" + Integer.toString(diccionario.obtenerUltimo().getIndice()) + "," + diccionario.obtenerUltimo().getValue() + ") , ";
-                //diccionarioEnTexto = diccionarioEnTexto + diccionario.;
-                
+            String caracteresParaAnalizar = String.valueOf(cadena.charAt(indice));
+            String indiceCompresion = "0"; 
+
+            while (diccionario.incluye(caracteresParaAnalizar)) {
+                indiceCompresion = diccionario.getIndiceOf(caracteresParaAnalizar);
+                indice++;
+                if (indice < cadena.length()) {
+                    caracteresParaAnalizar += String.valueOf(cadena.charAt(indice));
+                } else {
+                    break;
+                }
             }
+    
+            diccionario.insertEnd(caracteresParaAnalizar);
+    
+            compresion += "(" + indiceCompresion + "," + ultimoChar(cadena, caracteresParaAnalizar) + ") ";
+            indice++;
+            cadenaRecorrida = comprobarCadena(cadena.length(), indice);
         }
+    
+        return compresion + "\n" + diccionario.mostrar();
+    }
+    
 
-        return compresion + "\n" + diccionarioEnTexto;
+    private String ultimoChar(String cadena, String caracteresParaAnalizar){
+        if(caracteresParaAnalizar.length() > 1){
+            return String.valueOf(caracteresParaAnalizar.charAt(caracteresParaAnalizar.length() - 1));
+        }else{
+            return caracteresParaAnalizar;
+        }
         
+    }
+
+    private boolean comprobarCadena(int longitudCadena, int indice) {
+        if(indice >= longitudCadena){
+            return true;
+        }else{
+            return false;
+        }
     }
     
 }
