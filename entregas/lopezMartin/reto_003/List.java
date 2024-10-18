@@ -94,4 +94,32 @@ public class List {
     
         return iterator;
     }
+
+    public String getIndiceOf(String value) {
+        
+        Node iterator = this.first;
+    
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                return Integer.toString(iterator.getIndice());
+            }
+            iterator = iterator.getNext();
+        }
+        return null;
+
+    }
+
+    public String getValueOf(String value) {
+
+        Node iterator = this.first;
+    
+        while (iterator != null) {
+            if (iterator.getValue().equals(value)) {
+                return iterator.getValue();
+            }
+            iterator = iterator.getNext();
+        }
+        return null;
+        
+    }
 }
