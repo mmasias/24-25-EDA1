@@ -1,0 +1,14 @@
+@startuml
+class StringStorage {
+  - String[] strings
+  - int size
+  - {static} final int INITIAL_CAPACITY
+
+  + StringStorage()
+  + void addString(String str)
+  + boolean contains(String str)
+  + int findString(String str)
+  - void expandCapacity()
+  + int getSize()
+}
+@enduml
