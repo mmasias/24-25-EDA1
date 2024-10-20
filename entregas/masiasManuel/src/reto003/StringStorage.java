@@ -28,7 +28,7 @@ public class StringStorage {
     public int findString(String str) {
         for (int i = 0; i < size; i++) {
             if (strings[i].equals(str)) {
-                return i;
+                return i+1;
             }
         }
         throw new IllegalArgumentException("String no encontrado");
@@ -48,16 +48,26 @@ public class StringStorage {
         StringStorage storage = new StringStorage();
         storage.addString("Hola");
         storage.addString("Mundo");
-        
+
         if (storage.contains("Hola")) {
             int index = storage.findString("Hola");
             System.out.println("'Hola' encontrado: " + index);
         }
-        
+
         if (storage.contains("Java")) {
             System.out.println("'Java' está en el almacenamiento");
         } else {
             System.out.println("'Java' no está en el almacenamiento");
         }
+
+        storage.showContents();
+    }
+
+    public void showContents() {
+        System.out.print("DICCIONARIO: ");
+        for (int i = 0; i < size; i++) {
+            System.out.print("(" + (i+1) + ":[" + strings[i] + "])");
+        }
+        System.out.println();
     }
 }
