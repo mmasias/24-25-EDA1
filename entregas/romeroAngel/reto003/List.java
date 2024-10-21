@@ -131,9 +131,9 @@ public class List {
         
         while (actual != null) {
             if (actual == nodo) {
-                return indice; // Devolvemos el índice cuando encontramos el nodo
+                return indice; 
             }
-            actual = actual.getNext(); // Avanzamos al siguiente nodo
+            actual = actual.getNext(); 
             indice++;
         }
         
@@ -141,6 +141,6 @@ public class List {
     }
 
     public Node getFirst() {
-        return this.first; // Retorna el primer nodo de la lista
+        return this.first; 
     }
 }
