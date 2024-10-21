@@ -27,3 +27,6 @@ Este metodo requisita una entrada tipo String para comprimir, compresión que se
 - Se recorre cada posición de la cadena con ___actualPosition___.
     - Se empieza una ventana de busqueda de un solo caracter (___windowLength=1___) y se crea ___searchWindow___ que inicialmente contiene un unico caracter.
     - Se verifica si la cadena almacenada en ___searchWindow___ ya está en el diccionario.
+    - **SI ESTA EN EL DICCIONARIO** se expande la ventana de busqueda y se sigue buscando una subcadena que también este almacenada.
+    - Cuando se encuentra la secuencia más larga posible en el diccionario, se guarda el indicie correspondiente a esta y el siguiente caracter (que no esta en el diccionario) 
+    - **SI NO ESTA EN EL DICCIONARIO** se agrega como una nueva entrada y se almacena una tupla (0, caracter) en el resultado comprimido.
