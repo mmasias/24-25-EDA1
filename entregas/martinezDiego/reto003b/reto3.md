@@ -1,4 +1,4 @@
-# Documentación del Compresor LZW
+# Documentación del reto003 de Alejandro Viñas
 
 ## Descripción General
 
