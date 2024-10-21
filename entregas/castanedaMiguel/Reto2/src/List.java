@@ -84,7 +84,7 @@ public class List {
             return list;
         int count = 0;
         while (iterator != null) {
-            list[count] = iterator.getValue();
+            list[count] = iterator.getValue()+iterator.hashCode();
             count++;
             iterator = iterator.getNext();
         }

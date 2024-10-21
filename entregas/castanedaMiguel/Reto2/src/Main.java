@@ -9,6 +9,8 @@ public class Main {
 
         NodeWrapperList listaNodos= lista.find("Pedro");
 
+        //System.out.println(listaNodos.listAll());
+
 
 
 
