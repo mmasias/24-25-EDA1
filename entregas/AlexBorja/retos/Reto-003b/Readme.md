@@ -41,20 +41,6 @@ La clase utiliza un objeto `Dictionary` para almacenar y recuperar segmentos de 
 - Reconstruye la cadena original agregando caracteres y segmentos.
 - Añade cada nuevo segmento al diccionario para su uso futuro.
 
-### Métodos Auxiliares
-
-1. `String generateSegment(int index, char actualChar)`
-   - Genera la representación del segmento comprimido en el formato `(índice,carácter)`.
-
-2. `String deleteFirstSegment(String zipped)`
-   - Elimina el primer segmento comprimido de la cadena de entrada.
-
-3. `char getNextCharacter(String zipped)`
-   - Recupera el siguiente carácter en el segmento comprimido.
-
-4. `int getNextIndex(String zipped)`
-   - Extrae el índice del segmento de la representación comprimida.
-
 ## Dependencias
 
 - **Clase [`Dictionary`](https://github.com/mmasias/24-25-EDA1/blob/4f94d08c76d97fcbe3045a3da8457933c2fedf6b/entregas/brunoMaciejewski/reto-003/Dictionary.java#L1)**: La clase `Compressor` depende de una clase `Dictionary` para gestionar los segmentos de las cadenas durante el proceso de compresión y descompresión. Esta clase debe proporcionar métodos como `getSegmentIndex`, `getSegmentAt` y `addElement`.
