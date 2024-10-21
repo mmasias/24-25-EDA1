@@ -1,4 +1,4 @@
-package entregas.lopezMartin.reto_003.reto_003b;
+package entregas.lopezMartin.reto_003b;
 
 import java.util.ArrayList;
 import java.util.List;
