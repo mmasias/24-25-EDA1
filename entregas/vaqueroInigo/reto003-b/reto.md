@@ -1,0 +1,7 @@
+https://github.com/Andecochea/24-25-EDA1/blob/a79db68193ae1080eb6b8055a9e206353248f483/entregas/andecocheaMiguel/reto-003/Compresor.java
+
+Este código implementa un algoritmo de compresión de cadenas que utiliza un diccionario para identificar y almacenar patrones repetidos. El método principal, comprime, recibe una cadena de texto y la procesa caracter por caracter, buscando subcadenas que ya hayan sido encontradas previamente y almacenadas en un diccionario. Si encuentra una coincidencia, guarda un par (índice, carácter) donde el índice hace referencia a la posición de la subcadena en el diccionario y el carácter es el siguiente símbolo de la cadena que no está en el diccionario.
+
+Si no se encuentra una coincidencia en el diccionario, se agrega el nuevo carácter como una nueva entrada, con su respectivo índice. Este proceso permite reducir el tamaño de la cadena al reemplazar las subcadenas repetidas por referencias al diccionario, evitando duplicaciones en la salida comprimida. El método devuelve una representación comprimida de la cadena original, junto con el diccionario que contiene los patrones encontrados.
+
+La clase interna Resultado encapsula la salida comprimida, el diccionario de claves y sus correspondientes valores (subcadenas). También incluye un método toString que genera una representación legible del resultado comprimido y del diccionario para su fácil visualización.
