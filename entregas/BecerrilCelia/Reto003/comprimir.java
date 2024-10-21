@@ -5,38 +5,38 @@ import java.util.Scanner;
 public class comprimir {
 
     public static String comprimirCadena(String cadena) {
-        String[] diccionario = new String[100];
-        int indice = 0;
-        StringBuilder resultado = new StringBuilder();
-        String buffer = "";
-        int i = 0;
+        String[] diccionario = new String[100]; //inicializa diccionario con tamaño 100
+        int indice = 0; //indice que controla la posicion en el diccionario
+        StringBuilder resultado = new StringBuilder(); //construir cadena comprimida
+        String buffer = ""; //almacena la secuencia de caracteress que se estan procesando en ese momento 
+        int i = 0; //indice que recorre la cadena de entrada
 
         while (i < cadena.length()) {
-            buffer += cadena.charAt(i);
+            buffer += cadena.charAt(i); //se recorre la cadena original y se va construyendo el buffer
 
-            int posicionDiccionario = buscarEnDiccionario(diccionario, indice, buffer);
+            int posicionDiccionario = buscarEnDiccionario(diccionario, indice, buffer); //verificar si el contenido del buffer ya esta en el diccionario
 
-            if (posicionDiccionario == -1) {
-                if (buffer.length() == 1) {
+            if (posicionDiccionario == -1) { //si no se enecuentra en el diccionario
+                if (buffer.length() == 1) { //si solo es un caracter
 
-                    diccionario[indice] = buffer;
-                    resultado.append("(0,").append(buffer).append(")");
+                    diccionario[indice] = buffer; //añadir caracter al diccionario 
+                    resultado.append("(0,").append(buffer).append(")"); //añadir resultado como un nuevo caracter 
                 } else {
 
-                    String prefijo = buffer.substring(0, buffer.length() - 1);
-                    posicionDiccionario = buscarEnDiccionario(diccionario, indice, prefijo);
-                    resultado.append("(").append(posicionDiccionario + 1).append(",")
-                            .append(buffer.charAt(buffer.length() - 1)).append(")");
+                    String prefijo = buffer.substring(0, buffer.length() - 1); // Obtiene la parte del buffer sin el último carácter
+                    posicionDiccionario = buscarEnDiccionario(diccionario, indice, prefijo); // Busca el prefijo en el diccionario
+                    resultado.append("(").append(posicionDiccionario + 1).append(",") 
+                            .append(buffer.charAt(buffer.length() - 1)).append(")"); // Añade el prefijo y el carácter final al resultado
 
-                    diccionario[indice] = buffer;
+                    diccionario[indice] = buffer; // Añade el buffer completo al diccionario
                 }
-                indice++;
-                buffer = "";
+                indice++; //incrementa el indice del diccionario
+                buffer = ""; //limpia el buffer
             }
             i++;
         }
 
-        if (!buffer.isEmpty()) {
+        if (!buffer.isEmpty()) { //si el buffer no esta vacio
             int posicionDiccionario = buscarEnDiccionario(diccionario, indice, buffer);
             if (buffer.length() == 1) {
                 resultado.append("(0,").append(buffer).append(")");
@@ -49,6 +49,9 @@ public class comprimir {
             diccionario[indice] = buffer;
         }
 
+        //Esta parte garantiza que si al final del bucle queda alguna secuencia en el buffer,
+        //esta se procese correctamente. Se comprime como el resto de las secuencias y 
+        //se añade al resultado.
         return resultado.toString();
     }
 
@@ -66,22 +69,27 @@ public class comprimir {
 
             char character = comprimida.charAt(commaIndex + 1);
 
+            //El bucle recorre la cadena comprimida, extrayendo los índices
+            // del diccionario y los caracteres almacenados.
             if (index == 0) {
-                resultado.append(character);
-                diccionario[indice] = String.valueOf(character);
+                resultado.append(character); // Si el índice es 0, solo añade el carácter
+                diccionario[indice] = String.valueOf(character); //añade el caracter al diccionario
             } else {
-                String entry = diccionario[index - 1] + character;
+                String entry = diccionario[index - 1] + character; // Si no, añade la entrada del diccionario más el carácter
                 resultado.append(entry);
-                diccionario[indice] = entry;
+                
+                diccionario[indice] = entry; // Añade la nueva secuencia al diccionario
             }
 
-            i = comprimida.indexOf(')', commaIndex) + 1;
-            indice++;
+            i = comprimida.indexOf(')', commaIndex) + 1; // Mueve el índice al siguiente
+            indice++;  // Incrementa el índice del diccionario
         }
 
         return resultado.toString();
     }
 
+
+    //Este método busca una secuencia en el diccionario y devuelve su posición si la encuentra.
     public static int buscarEnDiccionario(String[] diccionario, int limite, String secuencia) {
         for (int i = 0; i < limite; i++) {
             if (diccionario[i] != null && diccionario[i].equals(secuencia)) {
