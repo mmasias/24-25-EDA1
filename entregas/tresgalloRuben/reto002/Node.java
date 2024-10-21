@@ -1,4 +1,4 @@
-package entregas.reto0710;
+package entregas.tresgalloRuben.reto002;
 
 public class Node {
 

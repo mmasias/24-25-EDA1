@@ -1,4 +1,4 @@
-package entregas.reto002;
+package entregas.tresgalloRuben.reto002;
 
 class Ejemplo {
     public static void main(String[] args) {

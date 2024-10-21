@@ -1,4 +1,4 @@
-package entregas.reto002;
+package entregas.tresgalloRuben.reto002;
 
 public class List {
 
