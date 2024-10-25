@@ -1,0 +1,84 @@
+package h;
+class List {
+
+	private Nodo primero;
+	private Nodo ultimo;
+
+	public List() {
+		this.primero = null;
+		this.ultimo = null;
+	}
+
+	public Nodo getPrimero() {
+		return this.primero;
+	}
+
+	public Nodo getultimo() {
+		return this.ultimo;
+	}
+
+	public boolean isEmpty() {
+		return this.primero == null;
+	}
+
+	public void insertPrimero(Persona persona) {
+		this.primero = new Nodo(null, persona, this.primero);
+		if (this.ultimo == null) {
+			this.ultimo = this.primero;
+		}
+	}
+
+	public void insertUltimo(Persona persona) {
+		this.ultimo = new Nodo(this.ultimo, persona, null);
+		if (this.primero == null) {
+			this.primero = this.ultimo;
+		}
+	}
+
+	public Persona removePrimero() {
+		Persona persona = this.primero;
+		this.primero = this.primero.getSiguiente();
+		if (this.primero == null) {
+			this.ultimo = null;
+		} else {
+			this.primero.setAnterior(null);
+		}
+		return persona;
+	}
+
+	public Persona removeUltimo() {
+		Persona persona = this.ultimo;
+		this.ultimo = this.ultimo.getAnterior();
+		if (this.ultimo == null) {
+			this.primero = null;
+		} else {
+			this.ultimo.setSiguiente(null);
+		}
+		return persona;
+	}
+
+	public boolean incluye(Persona persona) {
+		if (this.isEmpty())
+			return false;
+		Nodo current = this.primero;
+		while (current.getSiguiente() != null &&
+				!current.equals(persona)) {
+			current = current.getSiguiente();
+		}
+		return current.equals(persona);
+	}
+	
+	public void writeln() {
+        System.out.println("LISTA");
+		if (this.isEmpty()){
+            System.out.println("Lista vacía");
+		}
+		Nodo current = this.primero;
+		while (current!= null) {
+			current.muestrate();
+			current = current.getSiguiente();
+		}
+        System.out.println("========");
+	}
+
+}

@@ -1,7 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "entregas/masiasManuel/src/reto002",
-        "entregas/masiasManuel/src/reto001",
-        "entregas/masiasManuel/src/reto003"
+        "entregas/masiasManuel/src/reto003",
+        "entregas/masiasManuel/src/ejercicio-02"
     ]
 }
