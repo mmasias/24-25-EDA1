@@ -14,14 +14,14 @@ class Lista {
 		return this.primero == null;
 	}
 
-	public void insertFirst(Persona persona) {
+	public void insertPrimero(Persona persona) {
 		this.primero = new Nodo(persona, this.primero);
 		if (this.ultimo == null) {
 			this.ultimo = this.primero;
 		}
 	}
 
-	public void insertLast(Persona persona) {
+	public void insertUltimo(Persona persona) {
 		this.ultimo = new Nodo(this.ultimo, persona);
 		if (this.primero == null) {
 			this.primero = this.ultimo;

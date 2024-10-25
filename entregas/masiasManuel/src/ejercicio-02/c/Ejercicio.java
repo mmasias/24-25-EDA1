@@ -9,19 +9,17 @@ public class Ejercicio {
         Persona juan = new Persona("Juan", "8888");
         
         juan.muestrate();
+
+        Lista lista = new Lista();
+        lista.insertPrimero(manuel);
+        lista.insertPrimero(juan);
+        lista.insertPrimero(manuel);
+        lista.insertPrimero(manuel);
+        lista.insertPrimero(manuel);
+        lista.insertPrimero(manuel);
+        lista.writeln();
+
         
-        Persona persona;
-        persona = juan;
 
-        manuel.presentate(juan);
-
-        System.out.println("Aqui hay alguien que dice que es:");
-        persona.muestrate();
-        System.out.println("¿Es verdad? " + juan.equals(persona));
-
-        persona = new Persona("Manuel", "666");
-        System.out.println("Aqui hay alguien que dice que es:");
-        persona.muestrate();
-        System.out.println("¿Es verdad? " + manuel.equals(persona));
     }
 }

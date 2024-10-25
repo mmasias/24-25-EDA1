@@ -12,6 +12,10 @@ public class Ejercicio {
         List lista = new List();
         lista.insertPrimero(manuel);
         lista.insertPrimero(juan);
+        lista.insertPrimero(manuel);
+        lista.insertPrimero(manuel);
+        lista.insertPrimero(manuel);
+        lista.insertPrimero(manuel);
         lista.writeln();
         
         Persona persona = juan;
@@ -20,7 +24,7 @@ public class Ejercicio {
         persona.muestrate();
         System.out.println("¿Está en la lista?" + lista.incluye(persona));
 
-        persona = new Persona("Manuel", "666");
+        persona = new Persona("Manuel", "1234");
         System.out.println("Aqui hay alguien que dice que es:");
         persona.muestrate();
         System.out.println("¿Está en la lista?" + lista.incluye(persona));

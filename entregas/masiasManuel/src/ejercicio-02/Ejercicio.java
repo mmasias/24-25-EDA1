@@ -5,13 +5,12 @@ public class Ejercicio {
         Persona manuel = new Persona("Manuel", "1234");
         manuel.muestrate();
         Persona juan = new Persona("Juan", "8888");
-        
         juan.muestrate();
         
         Persona persona;
-        persona = juan;
+        persona = manuel;
 
-        manuel.presentate(juan);
+        manuel.presentate(persona);
 
         System.out.println("Aqui hay alguien que dice que es:");
         persona.muestrate();

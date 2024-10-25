@@ -10,6 +10,10 @@ public class Nodo extends Persona {
         this.siguiente = siguiente;
     }
 
+    public Nodo(Nodo anterior, Persona persona, Nodo siguiente){
+
+	}
+
 	public Nodo getAnterior() {
 		return this.anterior;
 	}
