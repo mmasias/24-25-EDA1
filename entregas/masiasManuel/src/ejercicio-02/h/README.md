@@ -62,6 +62,8 @@ class Persona {
 }
 ```
 
+> Profundizamos esto en: **[JavaScript vs Java](jsvsj.md)**
+
 ### PHP
 
 - Proporciona un operador `clone` nativo
