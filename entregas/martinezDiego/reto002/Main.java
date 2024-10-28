@@ -2,7 +2,7 @@ package entregas.martinezDiego.reto002;
 
 public class Main {
     public static void main(String[] args) {
-        Lista lista = new Lista();
+        Reproduccion lista = new Reproduccion();
         lista.agregar("Apple");
         lista.agregar("Banana");
         lista.agregar("Avocado");

@@ -32,7 +32,7 @@ class FoundNodeList {
     }
 
     
-    public static FoundNodeList find(Lista lista, String value) {
+    public static FoundNodeList find(Reproduccion lista, String value) {
         FoundNodeList encontrados = new FoundNodeList();
         Nodo actual = lista.getCabeza();
 
