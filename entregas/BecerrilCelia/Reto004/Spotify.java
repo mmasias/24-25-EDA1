@@ -1,22 +1,45 @@
 package Reto004;
 
+import java.util.Scanner;
+
 public class Spotify {
-    
+
+    public static void mostrarMenu() {
+        System.out.println("=== MENÚ PRINCIPAL ===");
+        System.out.println("1. Reproducción");
+        System.out.println("2. Biblioteca");
+        System.out.println("3. Salir");
+        System.out.print("Seleccione una opción: ");
+    }
+
+    public static void manejarOpcion(int opcion) {
+        switch (opcion) {
+            case 1:
+                System.out.println("Opción de Reproducción seleccionada.");
+                // Aquí puedes agregar la lógica para la opción de Reproducción
+                break;
+            case 2:
+                System.out.println("Opción de Biblioteca seleccionada.");
+                // Aquí puedes agregar la lógica para la opción de Biblioteca
+                break;
+            case 3:
+                System.out.println("Saliendo...");
+                break;
+            default:
+                System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+        }
+    }
 
     public static void main(String[] args) {
-        Album album = new Album("Album 1", "Artista 1", 2024);
+        Scanner scanner = new Scanner(System.in);
+        int opcion = 0;
 
-        album.agregarCancion(new Cancion("Demoliendo Hoteles", "Charly García", 258));
-        album.agregarCancion(new Cancion("Los Dinosaurios", "Charly García", 234));
-        album.agregarCancion(new Cancion("Rasguña Las Piedras", "Sui Generis", 285));
-        album.agregarCancion(new Cancion("Canción Para Mi Muerte", "Sui Generis", 342));
-        album.agregarCancion(new Cancion("No Soy Un Extraño", "Charly García", 295));
-        album.agregarCancion(new Cancion("Seminare", "Serú Girán", 238));
-        album.agregarCancion(new Cancion("Promesas Sobre El Bidet", "Charly García", 243));
-        album.agregarCancion(new Cancion("Rezo Por Vos", "Charly García & Luis Alberto Spinetta", 266));
-        album.agregarCancion(new Cancion("Película sordomuda", "Charly García", 235));
-        album.agregarCancion(new Cancion("¿Qué se puede hacer salvo ver películas?", "La máquina de hacer pájaros", 325));
+        while (opcion != 3) {
+            mostrarMenu();
+            opcion = scanner.nextInt();
+            manejarOpcion(opcion);
+        }
 
-        System.out.println(album);
+        scanner.close();
     }
 }
