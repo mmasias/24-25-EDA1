@@ -3,9 +3,14 @@ import java.util.Scanner;
 
 public class Spotify {
 
-    private static ListaCanciones cancionesDisponibles = new ListaCanciones();
-    private static ListaCanciones cancionesFavoritas = new ListaCanciones();
+    private static ListaCircularCanciones cancionesDisponibles = new ListaCircularCanciones();
+    private static ListaCircularCanciones cancionesFavoritas = new ListaCircularCanciones();
     private static ListaPlaylists playlists = new ListaPlaylists();
+    private static ColaCanciones colaReproduccion = new ColaCanciones();
+    private static PilaCanciones historialReproduccion = new PilaCanciones();
+    private static Cancion cancionActual = null;
+    private static boolean modoAleatorio = false;
+    private static boolean modoRepeticion = false;
     private static Scanner scanner = new Scanner(System.in);
 
     public static void inicializarCanciones() {
@@ -19,6 +24,13 @@ public class Spotify {
         cancionesDisponibles.agregarCancion(new Cancion("Rezo Por Vos", "Charly García & Luis Alberto Spinetta", 266));
         cancionesDisponibles.agregarCancion(new Cancion("Película sordomuda", "Charly García", 235));
         cancionesDisponibles.agregarCancion(new Cancion("¿Qué se puede hacer salvo ver películas?", "La máquina de hacer pájaros", 325));
+
+        // Poner la primera canción en reproducción por defecto
+        cancionActual = cancionesDisponibles.obtenerCancionActual();
+        System.out.println("Reproduciendo por defecto: " + cancionActual);
+
+        // Encolar las siguientes 5 canciones
+        cancionesDisponibles.encolarSiguientes(colaReproduccion, 5);
     }
 
     public static void mostrarBibliotecaInicial() {
@@ -50,6 +62,18 @@ public class Spotify {
         System.out.print("Seleccione una opción: ");
     }
 
+    public static void mostrarMenuReproduccion() {
+        System.out.println("\n=== MENÚ REPRODUCCIÓN ===");
+        System.out.println("1. Ver canción actual");
+        System.out.println("2. Reproducir siguiente");
+        System.out.println("3. Reproducir anterior");
+        System.out.println("4. Ver cola de reproducción");
+        System.out.println("5. Ver historial de reproducción");
+        System.out.println("6. Activar/desactivar modo aleatorio");
+        System.out.println("7. Activar/desactivar repetición");
+        System.out.println("8. Volver al menú principal");
+        System.out.print("Seleccione una opción: ");
+    }
     public static void manejarOpcionBiblioteca(int opcion) {
         switch (opcion) {
             case 1:
@@ -72,7 +96,7 @@ public class Spotify {
                 int indexEliminarFavorito = scanner.nextInt();
                 Cancion cancionEliminarFavorito = cancionesFavoritas.obtenerCancion(indexEliminarFavorito);
                 if (cancionEliminarFavorito != null) {
-                    cancionesFavoritas.eliminarCancion(cancionEliminarFavorito.getTitulo());
+                    cancionesFavoritas.eliminar(cancionEliminarFavorito.getTitulo());
                     System.out.println("Canción eliminada de favoritos.");
                 } else {
                     System.out.println("Canción no encontrada.");
@@ -155,11 +179,64 @@ public class Spotify {
         }
     }
 
+    public static void manejarOpcionReproduccion(int opcion) {
+        switch (opcion) {
+            case 1:
+                if (cancionActual != null) {
+                    System.out.println("Canción actual: " + cancionActual);
+                } else {
+                    System.out.println("No hay canción en reproducción.");
+                }
+                break;
+            case 2:
+                // Avanzar a la siguiente canción
+                historialReproduccion.apilar(cancionActual);
+                cancionesDisponibles.avanzar();
+                cancionActual = cancionesDisponibles.obtenerCancionActual();
+                System.out.println("Reproduciendo: " + cancionActual);
+                break;
+            case 3:
+                if (!historialReproduccion.estaVacia()) {
+                    cancionesDisponibles.retroceder();
+                    cancionActual = historialReproduccion.desapilar();
+                    System.out.println("Reproduciendo: " + cancionActual);
+                } else {
+                    System.out.println("No hay canciones en el historial de reproducción.");
+                }
+                break;
+            case 4:
+                System.out.println("Cola de reproducción:");
+                colaReproduccion.mostrarCola();
+                break;
+            case 5:
+                System.out.println("Historial de reproducción:");
+                historialReproduccion.mostrarPila();
+                break;
+            case 6:
+                modoAleatorio = !modoAleatorio;
+                System.out.println("Modo aleatorio " + (modoAleatorio ? "activado" : "desactivado") + ".");
+                break;
+            case 7:
+                modoRepeticion = !modoRepeticion;
+                System.out.println("Modo repetición " + (modoRepeticion ? "activado" : "desactivado") + ".");
+                break;
+            case 8:
+                System.out.println("Volviendo al menú principal...");
+                break;
+            default:
+                System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+        }
+    }
+
     public static void manejarOpcion(int opcion) {
         switch (opcion) {
             case 1:
-                System.out.println("Opción de Reproducción seleccionada.");
-                
+                int opcionReproduccion = 0;
+                while (opcionReproduccion != 8) {
+                    mostrarMenuReproduccion();
+                    opcionReproduccion = scanner.nextInt();
+                    manejarOpcionReproduccion(opcionReproduccion);
+                }
                 break;
             case 2:
                 int opcionBiblioteca = 0;

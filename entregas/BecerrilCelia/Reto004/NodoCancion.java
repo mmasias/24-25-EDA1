@@ -1,5 +1,4 @@
 package Reto004;
-
 public class NodoCancion {
     Cancion cancion;
     NodoCancion siguiente;

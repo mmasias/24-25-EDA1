@@ -1,14 +1,14 @@
 package Reto004;
 
 
-    
+
 public class Playlist {
     private String nombre;
-    private ListaCanciones canciones;
+    private ListaCircularCanciones canciones;
 
     public Playlist(String nombre) {
         this.nombre = nombre;
-        this.canciones = new ListaCanciones();
+        this.canciones = new ListaCircularCanciones();
     }
 
     public String getNombre() {
@@ -20,7 +20,7 @@ public class Playlist {
     }
 
     public void eliminarCancion(String titulo) {
-        canciones.eliminarCancion(titulo);
+        canciones.eliminar(titulo);
     }
 
     public void mostrarCanciones() {
@@ -28,7 +28,7 @@ public class Playlist {
     }
 
     public Cancion obtenerCancion(int index) {
-        return canciones.obtenerCancion(index);
+        return canciones.obtenerCancionActual();
     }
 
     public String toString() {
