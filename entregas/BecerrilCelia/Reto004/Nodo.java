@@ -1,5 +1,5 @@
 package Reto004;
-import Reto004.Cancion;
+
 
 public class Nodo {
    Cancion cancion;

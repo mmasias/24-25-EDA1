@@ -1,16 +1,12 @@
 package Reto004;
 public class Album {
 
-    private String titulo;
-    private String artista;
-    private int año;
+    
     private Nodo inicio;
     private Nodo fin;
     
     public Album(String titulo, String artista, int año) {
-        this.titulo = titulo;
-        this.artista = artista;
-        this.año = año;
+       
         this.inicio = null;
         this.fin = null;
     }
