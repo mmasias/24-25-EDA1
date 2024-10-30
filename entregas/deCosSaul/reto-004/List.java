@@ -3,20 +3,8 @@ public class List {
     private int size = 0;
     private Node first = null;
 
-    public int size() {
-        if (this.first == null) {
-            return 0;
-        }
-        int count = 1;
-        Node iterator = first;
-        while (iterator.getNext() != null) {
-            count++;
-            iterator = iterator.getNext();
-        }
-        return count;
-    }
     
-    public int betterSize(){
+    public int size(){
         return this.size;
     }
 
@@ -24,7 +12,7 @@ public class List {
         return this.size() > 0 ? false : true;
     }
 
-    public void insertEnd(String value) {
+    public void insertEnd(Cancion value) {
         Node newNode = new Node(value);
         if (this.first == null){
             this.first = newNode;
@@ -39,7 +27,7 @@ public class List {
         this.size++;
     }
 
-    public void insertFront(String value) {
+    public void insertFront(Cancion value) {
         Node n = new Node(value);
         if (this.first == null)
             this.first = n;
@@ -90,8 +78,8 @@ public class List {
         }
     }
 
-    public String[] listAll() {
-        String[] list = new String[this.size()];
+    public Cancion[] listAll() {
+        Cancion[] list = new Cancion[this.size()];
         Node iterator = this.first;
         if (iterator == null)
             return list;
@@ -107,7 +95,6 @@ public class List {
     public void mostrar(){
         Node iterator = this.first;
             do{
-                System.out.print(iterator + " ");
                 iterator.show();
                 iterator = iterator.getNext();
             }while (iterator != null);
