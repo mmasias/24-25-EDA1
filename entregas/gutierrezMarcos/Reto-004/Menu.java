@@ -6,9 +6,11 @@ public class Menu {
     int eleccion;
     String eleccionString;
     Cancion cancionActual;
+    Canciones canciones;
 
-    public Menu(Cancion cancionActual) {
+    public Menu(Cancion cancionActual, Canciones canciones) {
         this.cancionActual = cancionActual;
+        this.canciones = canciones;
         cleanScreen();
         menuPrincipal();
     }
@@ -115,10 +117,10 @@ public class Menu {
 
     private void verCancionActual() {
         if(cancionActual == null){
-            System.out.println("No hay canciones en reproducción");
+            System.out.println("No hay canciones en reproducción\n");
             System.out.print("¿Desea comenzar a reproducir? (S/N): ");
             eleccionString = scanner.nextLine();
-            scanner.nextLine();
+            System.out.println();
         }else{
             System.out.println("Estas reproduciendo " + cancionActual);
         }
@@ -135,8 +137,13 @@ public class Menu {
     }
 
     private void reproducirCancion() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reproducirCancion'");
+        System.out.println("Eljije la canción que quieres reproducir:\n");
+        System.out.println(canciones.todasLasCanciones().mostrar());
+
+        eleccion = scanner.nextInt();
+        scanner.nextLine();
+
+        cancionActual = canciones.todasLasCanciones().
     }
 
     static void cleanScreen() {

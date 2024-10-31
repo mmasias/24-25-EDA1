@@ -11,8 +11,8 @@ public class List {
         return this.size > 0;
     }
 
-    public void insertEnd(String value) {
-        Node newNode = new Node(value, size);
+    public void insertEnd(Cancion cancion) {
+        Node newNode = new Node(cancion, size);
         if (this.first == null){
             this.first = newNode;
         }else {
@@ -44,7 +44,7 @@ public class List {
         if (iterator == null)
             return list;
         while (iterator != null) {
-            list += "(" + iterator.getIndice() + "," + iterator.getValue() + ")";
+            list += iterator.getIndice() + ". " + iterator.getValue() + "\n";
             iterator = iterator.getNext();
         }
         return list;
@@ -76,6 +76,10 @@ public class List {
         }
         return "0";
 
+    }
+
+    public Cancion getCancion(int indice){
+        Node iterator = indice;
     }
 
     public String getValueOf(String value) {

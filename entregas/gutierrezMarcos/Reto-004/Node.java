@@ -4,8 +4,8 @@ public class Node {
     private int indice;
     private Node next;
 
-    public Node(String value, int indice) {
-        this.setValue(value);
+    public Node(Cancion cancion, int indice) {
+        this.setValue(cancion.toString());
         this.indice = indice;
     }
 
