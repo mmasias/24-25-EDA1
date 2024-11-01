@@ -1,6 +1,8 @@
 class Cancion {
     private String titulo;
     private String artista;
+    private int id;
+    private static int counter = 0;
     private int duracion;    
     private boolean favorita;
     
@@ -9,9 +11,15 @@ class Cancion {
         this.artista = artista;
         this.duracion = duracion;
         this.favorita = false;
+        this.id = getId();
     }    
-
-    public void favorita(){
+        
+    private int getId() {
+        counter++;
+        return counter;
+    }
+        
+            public void favorita(){
         if(this.favorita = false){
             this.favorita = true;
         } else {
@@ -20,6 +28,6 @@ class Cancion {
     }
 
     public String toString(){
-        return artista + " - " + titulo + " [" + duracion + "s]";
+        return id + ". " + artista + " - " + titulo + " [" + duracion + "s]";
     }
 }
