@@ -1,9 +1,12 @@
 class Spotify {
-   private boolean appRunning = true;
+   private boolean appRunning;
    private SpotifyLibrary library;
+   private SpotifyPlayer player;
 
    public Spotify() {
+      this.appRunning = true;
       this.library = new SpotifyLibrary();
+      this.player = new SpotifyPlayer();
    }
 
    public void init() {
@@ -14,6 +17,7 @@ class Spotify {
                library.run();
                break;
             case 2:
+               player.run();
                break;
             case 3:
                this.appRunning = false;

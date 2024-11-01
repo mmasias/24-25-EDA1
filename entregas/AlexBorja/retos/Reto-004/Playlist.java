@@ -108,4 +108,8 @@ class Playlist {
    public SongNode getTail() {
       return this.tail;
    }
+
+   public boolean isEmpty() {
+      return this.size == 0;
+   }
 }

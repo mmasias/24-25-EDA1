@@ -58,7 +58,6 @@ class SpotifyLibrary {
       this.availableSongs[7] = new Song("Rezo Por Vos", "Charly García & Luis Alberto Spinetta", 266);
       this.availableSongs[8] = new Song("Película sordomuda", "Charly García", 235);
       this.availableSongs[9] = new Song("¿Qué se puede hacer salvo ver películas?", "La máquina de hacer pájaros", 325);
-
    }
 
    private int getChoice() {
