@@ -70,10 +70,8 @@ class SpotifyPlayer {
       availableSongs[7] = new Song("Rezo Por Vos", "Charly García & Luis Alberto Spinetta", 266);
       availableSongs[8] = new Song("Película sordomuda", "Charly García", 235);
       availableSongs[9] = new Song("¿Qué se puede hacer salvo ver películas?", "La máquina de hacer pájaros", 325);
-      this.playerList = new PlayerList();
-      for (int i = 0; i < availableSongs.length; i++) {
-         this.playerList.addSong(availableSongs[i]);
-      }
+      this.playerList = new PlayerList("Lista de reproducción");
+      this.playerList.addSongs(availableSongs);
    }
 
    private int getChoice() {
@@ -109,8 +107,7 @@ class SpotifyPlayer {
          this.history.push(this.currentSong);
       }
       this.currentSong = this.shuffle ? this.playerList.shuffle() : this.playerList.getNextSong();
-      System.out.println("\nReproduciendo siguiente canción: " + this.currentSong.toString());
-      System.out.println();
+      System.out.println("\nReproduciendo siguiente canción: " + this.currentSong.toString() + "\n");
    }
 
    private void playPreviousSong() {
@@ -122,8 +119,7 @@ class SpotifyPlayer {
          this.history.push(this.currentSong);
       }
       this.currentSong = this.playerList.getPreviousSong();
-      System.out.println("\nReproduciendo canción anterior: " + this.currentSong.toString());
-      System.out.println();
+      System.out.println("\nReproduciendo canción anterior: " + this.currentSong.toString() + "\n");
    }
 
    private void displayPlayerList() {

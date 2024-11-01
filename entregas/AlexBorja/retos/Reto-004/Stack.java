@@ -1,5 +1,4 @@
 class Stack {
-   // make the stack to store the history of songs
    private Song[] songs;
    private int size;
    private int capacity;

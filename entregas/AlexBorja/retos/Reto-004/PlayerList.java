@@ -1,40 +1,9 @@
-class PlayerList {
-   private SongNode head;
-   private SongNode tail;
+class PlayerList extends Playlist {
    private SongNode current;
-   private int size;
 
-   public PlayerList() {
-      this.head = null;
-      this.tail = null;
+   public PlayerList(String name) {
+      super(name);
       this.current = null;
-      this.size = 0;
-   }
-
-   public void addSong(Song song) {
-      SongNode newNode = new SongNode(song);
-      if (this.head == null) {
-         this.head = newNode;
-         this.tail = newNode;
-      } else {
-         this.tail.setNext(newNode);
-         newNode.setPrevious(this.tail);
-         this.tail = newNode;
-      }
-      this.size++;
-   }
-
-   public Song removeSong() {
-      if (this.head == null) {
-         return null;
-      }
-      Song song = this.head.getSong();
-      this.head = this.head.getNext();
-      if (this.head != null) {
-         this.head.setPrevious(null);
-      }
-      this.size--;
-      return song;
    }
 
    public Song getSong() {
@@ -80,10 +49,6 @@ class PlayerList {
       return current.getSong();
    }
 
-   public boolean isEmpty() {
-      return this.head == null;
-   }
-
    public void display() {
       SongNode current = this.head;
       int idx = 1;
@@ -95,23 +60,5 @@ class PlayerList {
          idx++;
          current = current.getNext();
       }
-   }
-
-   public int getSize() {
-      return this.size;
-   }
-
-   public SongNode getHead() {
-      return this.head;
-   }
-
-   public SongNode getTail() {
-      return this.tail;
-   }
-
-   public void clear() {
-      this.head = null;
-      this.tail = null;
-      this.size = 0;
    }
 }

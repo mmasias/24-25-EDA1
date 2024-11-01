@@ -1,8 +1,8 @@
 class Playlist {
-   private SongNode head;
-   private SongNode tail;
-   private int size;
-   private String name;
+   protected SongNode head;
+   protected SongNode tail;
+   protected int size;
+   protected String name;
 
    public Playlist(String name) {
       this.name = name;
@@ -26,6 +26,12 @@ class Playlist {
          this.tail = newNode;
       }
       this.size++;
+   }
+
+   public void addSongs(Song[] songs) {
+      for (Song song : songs) {
+         this.addSong(song);
+      }
    }
 
    public void removeSong(String title) {

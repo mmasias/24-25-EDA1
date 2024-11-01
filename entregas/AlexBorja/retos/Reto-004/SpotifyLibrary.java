@@ -14,7 +14,7 @@ class SpotifyLibrary {
    public void run() {
       while (true) {
          displayMenu();
-         int choice = getChoice();
+         int choice = getUserInput("", 9);
          switch (choice) {
             case 1:
                addFavoriteSong();
@@ -60,21 +60,6 @@ class SpotifyLibrary {
       this.availableSongs[9] = new Song("¿Qué se puede hacer salvo ver películas?", "La máquina de hacer pájaros", 325);
    }
 
-   private int getChoice() {
-      int choice;
-      while (true) {
-         try {
-            choice = Integer.parseInt(System.console().readLine());
-            if (choice < 1 || choice > 9) {
-               throw new NumberFormatException();
-            }
-            return choice;
-         } catch (NumberFormatException e) {
-            System.out.println("Por favor, introduce un número válido");
-         }
-      }
-   }
-
    public void displayMenu() {
       System.out.println("=== MENÚ BIBLIOTECA ===");
       System.out.println("1. Añadir canción a favoritos");
@@ -90,8 +75,7 @@ class SpotifyLibrary {
 
    private void addFavoriteSong() {
       displayAvailableSongs();
-      System.out.print("Introduce el número de la canción: ");
-      int songIdx = Integer.parseInt(System.console().readLine()) - 1;
+      int songIdx = getUserInput("Introduce el número de la canción: ", this.availableSongs.length) - 1;
       Song song = this.availableSongs[songIdx];
 
       this.favoriteSongs = Arrays.copyOf(this.favoriteSongs, this.favoriteSongs.length + 1);
@@ -100,33 +84,27 @@ class SpotifyLibrary {
    }
 
    private void removeFavoriteSong() {
-      displayFavoriteSongs();
-      System.out.print("Introduce el número de la canción a eliminar: ");
-
-      int songIdx = Integer.parseInt(System.console().readLine()) - 1;
-      if (songIdx > this.favoriteSongs.length || songIdx < 0) {
-         System.out.println("\nNo se encontró la canción\n");
-         return;
+      if (this.favoriteSongs.length > 0) {
+         displayFavoriteSongs();
+         int songIdx = getUserInput("Introduce el número de la canción a eliminar: ", this.favoriteSongs.length) - 1;
+         Song song = this.favoriteSongs[songIdx];
+         this.favoriteSongs = Arrays.copyOf(this.favoriteSongs, this.favoriteSongs.length - 1);
+         System.out.println("\n" + song.getTitle() + " eliminada de favoritos con éxito\n");
       }
-      Song song = this.favoriteSongs[songIdx];
-
-      this.favoriteSongs = Arrays.copyOf(this.favoriteSongs, this.favoriteSongs.length - 1);
-      System.out.println("\n" + song.getTitle() + " eliminada de favoritos con éxito\n");
 
    }
 
    private void displayFavoriteSongs() {
-      if(this.favoriteSongs.length == 0) {
+      if (this.favoriteSongs.length > 0) {
+         System.out.println();
+         for (int i = 0; i < this.favoriteSongs.length; i++) {
+            Song song = this.favoriteSongs[i];
+            System.out.println("" + (i + 1) + ". " + song.toString());
+         }
+         System.out.println();
+      } else {
          System.out.println("\nNo hay canciones favoritas\n");
-         return;
       }
-
-      System.out.println();
-      for (int i = 0; i < this.favoriteSongs.length; i++) {
-         Song song = this.favoriteSongs[i];
-         System.out.println("" + (i + 1) + ". " + song.toString());
-      }
-      System.out.println();
    }
 
    private void createPlaylist() {
@@ -140,19 +118,20 @@ class SpotifyLibrary {
    }
 
    private void addSongToPlaylist() {
+      if (playlists.length == 0) {
+         System.out.println("\nNo hay playlists disponibles\n");
+         return;
+      }
+
       System.out.println("\nPlaylists disponibles:");
       displayPlaylists();
-
-      System.out.print("Seleccione playlist: ");
-      int playlistIdx = Integer.parseInt(System.console().readLine()) - 1;
+      int playlistIdx = getUserInput("Seleccione playlist: ", this.playlists.length) - 1;
       Playlist playlist = this.playlists[playlistIdx];
 
       displayAvailableSongs();
-      System.out.print("Introduce el número de la canción: ");
-      int songIdx = Integer.parseInt(System.console().readLine()) - 1;
+      int songIdx = getUserInput("Introduce el número de la canción: ", this.availableSongs.length) - 1;
       Song song = this.availableSongs[songIdx];
       playlist.addSong(song);
-
       System.out.println("\n" + song.getTitle() + " añadida a " + playlist.getName() + " con éxito\n");
    }
 
@@ -165,15 +144,19 @@ class SpotifyLibrary {
    }
 
    private void removeSongFromPlaylist() {
+      if (playlists.length == 0) {
+         System.out.println("\nNo hay playlists disponibles\n");
+         return;
+      }
+
+      System.out.println("\nPlaylists disponibles:");
       displayPlaylists();
-      System.out.print("Introduce el número de la playlist: ");
-      int playlistIdx = Integer.parseInt(System.console().readLine()) - 1;
+      int playlistIdx = getUserInput("Seleccione playlist: ", this.playlists.length) - 1;
       Playlist playlist = this.playlists[playlistIdx];
 
       System.out.println();
       playlist.displaySongs();
-      System.out.print("Introduce el número de la canción a eliminar: ");
-      int songIdx = Integer.parseInt(System.console().readLine()) - 1;
+      int songIdx = getUserInput("Introduce el número de la canción a eliminar: ", playlist.getSize()) - 1;
       Song song = playlist.getSong(songIdx);
       playlist.removeSong(song);
       System.out.println("\n" + song.getTitle() + " eliminada de " + playlist.getName() + " con éxito\n");
@@ -194,9 +177,13 @@ class SpotifyLibrary {
    }
 
    private void displayPlaylistSongs() {
+      if(this.playlists.length == 0) {
+         System.out.println("\nNo hay playlists disponibles\n");
+         return;
+      }
+
       displayPlaylists();
-      System.out.print("Introduce el número de la playlist: ");
-      int playlistIdx = Integer.parseInt(System.console().readLine()) - 1;
+      int playlistIdx = getUserInput("Introduce el número de la playlist: ", this.playlists.length) - 1;
       Playlist playlist = this.playlists[playlistIdx];
 
       System.out.println();
@@ -204,4 +191,15 @@ class SpotifyLibrary {
       System.out.println();
    }
 
+   private int getUserInput(String prompt, int maxOpt) {
+      while (true) {
+         System.out.print(prompt);
+         int opt = Integer.parseInt(System.console().readLine());
+         if (opt > 0 && opt <= maxOpt) {
+            return opt;
+         } else {
+            System.out.println("Introduce una opción válida");
+         }
+      }
+   }
 }
