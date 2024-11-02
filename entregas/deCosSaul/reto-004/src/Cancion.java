@@ -19,12 +19,16 @@ class Cancion {
         return counter;
     }
         
-            public void favorita(){
-        if(this.favorita = false){
+    public void favorita(){
+        if(this.favorita == false){
             this.favorita = true;
         } else {
             this.favorita = false;
         }
+    }
+
+    public void enFavoritos(){
+        System.out.println(this.favorita == true ? "Si" : "No");
     }
 
     public String toString(){

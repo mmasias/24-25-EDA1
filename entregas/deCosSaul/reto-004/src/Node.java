@@ -23,6 +23,6 @@ public class Node {
         this.next = next;
     }
     public void show(){
-        System.out.println(" [" + cancion.toString() + " ]");
+        System.out.println(cancion.toString());
     }
 }
