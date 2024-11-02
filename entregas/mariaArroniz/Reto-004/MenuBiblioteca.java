@@ -3,7 +3,6 @@ import java.util.Scanner;
 class MenuBiblioteca {
 
     public void imprimir() {
-
         System.out.print("""
                 === MENÚ BIBLIOTECA ===
                 1. Añadir canción a favoritos
@@ -16,26 +15,26 @@ class MenuBiblioteca {
                 8. Ver canciones de una playlist
                 9. Volver al menú principal
                 """);
-
     }
 
     public void seleccionar() {
 
         Biblioteca biblioteca = new Biblioteca();
+        Favoritos favoritos = new Favoritos();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Seleccione una opcion: ");
         int seleccion = scanner.nextInt();
-        
+
         switch (seleccion) {
             case 1:
-                biblioteca.añadirCancionFavoritos();
+                favoritos.añadirCancion();
                 break;
             case 2:
-                biblioteca.eliminarCancionFavoritos();
+                favoritos.eliminarCancion();
                 break;
             case 3:
-                biblioteca.imprimirFavoritos();
+                favoritos.imprimir();
                 break;
             case 4:
                 biblioteca.crearPlaylist();
@@ -47,7 +46,7 @@ class MenuBiblioteca {
                 biblioteca.eliminarCancionPlaylist();
                 break;
             case 7:
-                biblioteca.imprimir();
+                biblioteca.imprimirBiblioteca();
                 break;
             case 8:
                 biblioteca.imprimirPlaylist();
