@@ -3,12 +3,14 @@ package entregas.lopezMartin.reto_004;
 public class Cancion {
 
     private String titulo;
+    private int id;
     private String artista;
     private int duracion;    
     private boolean favorita;
     
-    public Cancion(String titulo, String artista, int duracion) {
+    public Cancion(int id, String titulo, String artista, int duracion) {
         this.titulo = titulo;
+        this.id = id;
         this.artista = artista;
         this.duracion = duracion;
         this.favorita = false;
@@ -37,6 +39,10 @@ public class Cancion {
 
     public boolean esFavorita(){
         return this.favorita;
+    }
+
+    public int getId(){
+        return this.id;
     }
     
 }
