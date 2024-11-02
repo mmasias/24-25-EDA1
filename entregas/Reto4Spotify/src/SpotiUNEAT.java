@@ -37,7 +37,8 @@ public class SpotiUNEAT {
             System.out.println("7. Eliminar canción de playlist");
             System.out.println("8. Ver playlists");
             System.out.println("9. Ver canciones de una playlist");
-            System.out.println("10. Volver al menú principal");
+            System.out.println("10. Añadir canción a la cola de reproducción"); // Nueva opción para agregar a la cola
+            System.out.println("11. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
 
@@ -106,11 +107,24 @@ public class SpotiUNEAT {
                     Playlist playlist = biblioteca.playlists.obtener(indicePlaylist - 1);
                     biblioteca.verCancionesDePlaylist(playlist);
                 }
-                case 10 -> System.out.println("Volviendo al menú principal...");
+                case 10 -> { // Nueva opción para añadir una canción a la cola
+                    biblioteca.mostrarCanciones();
+                    System.out.print("Seleccione la canción a añadir a la cola de reproducción (índice): ");
+                    int indiceCancion = scanner.nextInt();
+                    Cancion cancion = biblioteca.canciones.obtener(indiceCancion - 1);
+                    if (cancion != null) {
+                        sistemaReproduccion.agregarACola(cancion);
+                        System.out.println("Añadida a la cola de reproducción: " + cancion);
+                    } else {
+                        System.out.println("Índice inválido.");
+                    }
+                }
+                case 11 -> System.out.println("Volviendo al menú principal...");
                 default -> System.out.println("Opción no válida.");
             }
-        } while (opcion != 10);
+        } while (opcion != 11);
     }
+
 
     private static void menuReproduccion() {
         int opcion;
