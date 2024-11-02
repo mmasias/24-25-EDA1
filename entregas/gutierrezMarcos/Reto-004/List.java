@@ -21,6 +21,7 @@ public class List {
                 iterator = iterator.getNext();
             }
             iterator.setNext(newNode);
+            newNode.setPrevious(iterator);
         }
         size++;
     }
@@ -124,6 +125,21 @@ public class List {
             iterator = iterator.getNext();
         }
 
+        return null;
+    }
+
+    public Cancion previous(Cancion currentSong) {
+        Node iterator = this.first;
+        Node previousNode = null;
+    
+        while (iterator != null) {
+            if (iterator.getSong().equals(currentSong)) {
+                return previousNode != null ? previousNode.getSong() : null;
+            }
+            previousNode = iterator;
+            iterator = iterator.getNext();
+        }
+    
         return null;
     }
 }

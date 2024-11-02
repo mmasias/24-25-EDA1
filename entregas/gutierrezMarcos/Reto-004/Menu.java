@@ -67,7 +67,7 @@ public class Menu {
                 break;
             case 3:
                 cleanScreen();
-                menuBiblioteca();
+                reproducirAnterior();
                 break;
             case 4:
                 cleanScreen();
@@ -133,6 +133,19 @@ public class Menu {
 
         if (currentSong != null) {
             currentSong = canciones.next(currentSong);
+            System.out.println("Estas reproduciendo " + currentSong.toString());
+        } else {
+            System.out.println("No hay más canciones en la lista.");
+        }
+        pause(3);
+        cleanScreen();
+        menuReproduccion();
+    }
+
+    private void reproducirAnterior(){
+
+        if (currentSong != null) {
+            currentSong = canciones.previous(currentSong);
             System.out.println("Estas reproduciendo " + currentSong.toString());
         } else {
             System.out.println("No hay más canciones en la lista.");

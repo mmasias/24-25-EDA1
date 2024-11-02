@@ -3,6 +3,7 @@ public class Node {
     private String value;
     private int indice;
     private Node next;
+    private Node previous; // Enlace al nodo anterior
     private Cancion cancion;
 
     public Node(Cancion cancion, int indice) {
@@ -27,11 +28,19 @@ public class Node {
         this.next = next;
     }
 
-    public int getIndice(){
+    public Node getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Node previous) {
+        this.previous = previous;
+    }
+
+    public int getIndice() {
         return this.indice;
     }
 
-    public Cancion getSong(){
+    public Cancion getSong() {
         return cancion;
     }
 }
