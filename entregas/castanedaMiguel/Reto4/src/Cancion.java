@@ -11,6 +11,16 @@ class Cancion {
         this.favorita = false;
     }
 
+    public void cambiarFavorita(){
+        this.favorita=true;
+    }
+
+    public void cambiarNoFavorita(){
+        this.favorita=false;
+    }
+
+
+
     public String toString(){
         return titulo+" - "+artista+" ("+duracion+"s)";
     }

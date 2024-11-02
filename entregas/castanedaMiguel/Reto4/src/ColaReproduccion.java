@@ -6,19 +6,26 @@ public class ColaReproduccion {
         int size ;
         int cancionActual;
 
+        String nombre;
+
 
        
 
-        public ColaReproduccion (){
+        public ColaReproduccion (String newNombre){
             size=0;
             cola=null;
+            nombre=newNombre;
         }
 
-        public ColaReproduccion(Cancion[] newCola){
+        public ColaReproduccion(String newNombre ,Cancion[] newCola){
             cola=newCola;
             size=cola.length;
+            nombre=newNombre;
         }
 
+        public String getNombre(){
+            return nombre;
+        }
 
 
 
@@ -82,6 +89,16 @@ public class ColaReproduccion {
         }
         cola[size]=cancion;
         size++;
+    }
+
+
+    public void quitar(int cancion){
+        int i=cancion;
+        while(i< size-1){
+            cola[i]=cola[i+1];
+            i++;
+        }
+        size--;
     }
 
 
