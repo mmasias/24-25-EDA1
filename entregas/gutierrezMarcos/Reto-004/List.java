@@ -131,7 +131,7 @@ public class List {
     public Cancion previous(Cancion currentSong) {
         Node iterator = this.first;
         Node previousNode = null;
-    
+
         while (iterator != null) {
             if (iterator.getSong().equals(currentSong)) {
                 return previousNode != null ? previousNode.getSong() : null;
@@ -139,7 +139,27 @@ public class List {
             previousNode = iterator;
             iterator = iterator.getNext();
         }
-    
+
         return null;
+    }
+
+    public String mostrarDesde(String value) {
+        Node iterator = this.first;
+        StringBuilder result = new StringBuilder();
+        boolean found = false;
+        int colaIndex = 1;
+
+        while (iterator != null) {
+            if (!found && iterator.getValue().equals(value)) {
+                result.append("Sonando: ").append(iterator.getValue()).append("\n\n");
+                found = true;
+            } else if (found) {
+                result.append(colaIndex).append(" - ").append(iterator.getValue()).append("\n");
+                colaIndex++;
+            }
+            iterator = iterator.getNext();
+        }
+
+        return result.toString();
     }
 }

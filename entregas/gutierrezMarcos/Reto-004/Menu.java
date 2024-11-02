@@ -71,7 +71,7 @@ public class Menu {
                 break;
             case 4:
                 cleanScreen();
-                menuBiblioteca();
+                mostrarCola();
                 break;
             case 5:
                 cleanScreen();
@@ -129,7 +129,7 @@ public class Menu {
         menuReproduccion();
     }
 
-    private void reproducirSiguiente(){
+    private void reproducirSiguiente() {
 
         if (currentSong != null) {
             currentSong = canciones.next(currentSong);
@@ -142,8 +142,7 @@ public class Menu {
         menuReproduccion();
     }
 
-    private void reproducirAnterior(){
-
+    private void reproducirAnterior() {
         if (currentSong != null) {
             currentSong = canciones.previous(currentSong);
             System.out.println("Estas reproduciendo " + currentSong.toString());
@@ -151,6 +150,18 @@ public class Menu {
             System.out.println("No hay más canciones en la lista.");
         }
         pause(3);
+        cleanScreen();
+        menuReproduccion();
+    }
+
+    private void mostrarCola() {
+        if(currentSong != null){
+            System.out.println(canciones.mostrarDesde(currentSong.toString()));
+            scanner.nextLine();
+        }else{
+            System.out.println("No tienes ninguna canción ni ninguna lista en reproducción");
+            pause(3);
+        }
         cleanScreen();
         menuReproduccion();
     }
