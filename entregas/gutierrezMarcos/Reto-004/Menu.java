@@ -63,7 +63,7 @@ public class Menu {
                 break;
             case 2:
                 cleanScreen();
-                menuBiblioteca();
+                reproducirSiguiente();
                 break;
             case 3:
                 cleanScreen();
@@ -126,7 +126,20 @@ public class Menu {
         System.out.println("Estas reproduciendo " + currentSong.toString());
         pause(3);
         cleanScreen();
-        mainMenu();
+        menuReproduccion();
+    }
+
+    private void reproducirSiguiente(){
+
+        if (currentSong != null) {
+            currentSong = canciones.next(currentSong);
+            System.out.println("Estas reproduciendo " + currentSong.toString());
+        } else {
+            System.out.println("No hay más canciones en la lista.");
+        }
+        pause(3);
+        cleanScreen();
+        menuReproduccion();
     }
 
     public void menuBiblioteca() {

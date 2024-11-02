@@ -109,4 +109,21 @@ public class List {
         return null;
 
     }
+
+    public Cancion next(Cancion currentSong) {
+        Node iterator = this.first;
+
+        while (iterator != null) {
+            if (iterator.getSong().equals(currentSong)) {
+                if (iterator.getNext() != null) {
+                    return iterator.getNext().getSong();
+                } else {
+                    return null;
+                }
+            }
+            iterator = iterator.getNext();
+        }
+
+        return null;
+    }
 }
