@@ -43,6 +43,7 @@ public class ListaCanciones {
         NodoCancion current = this.primero;
         while (current != null) {
             if (current.getId() == cancion.getId()) {
+                System.out.println("se ejecuta");
                 if (current.getAnterior() != null) {
                     current.getAnterior().setSiguiente(current.getSiguiente());
                 } else {

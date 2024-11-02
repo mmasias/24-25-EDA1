@@ -17,6 +17,7 @@ public class Cancion {
     }    
 
     public Cancion(Cancion cancion) {
+        this.id = cancion.getId();
         this.titulo = cancion.titulo;
         this.artista = cancion.artista;
         this.duracion = cancion.duracion;
@@ -25,7 +26,7 @@ public class Cancion {
 
     public String toString(){
 
-        return this.titulo + " - " + this.artista + " (" + this.duracion + "s)";
+        return this.id + ". " + this.titulo + " - " + this.artista + " (" + this.duracion + "s)";
 
     }
 

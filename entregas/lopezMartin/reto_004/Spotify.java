@@ -20,13 +20,14 @@ public class Spotify {
             new Cancion(10, "Capo", "NLE Choppa", 192)
         };
         ListaPlaylists playlists = new ListaPlaylists();
+        Reproductor reproductor = new Reproductor();
         
         while(true){
             System.out.println("\n=== SPOTIFY === \n");
             System.out.println("BIBLIOTECA INICIAL \n");
             System.out.println("Canciones disponibles: \n");
             for(int i= 0; i<cancionesDisponibles.length;i++){
-                System.out.println(i+1 + ". " +cancionesDisponibles[i].toString());
+                System.out.println(cancionesDisponibles[i].toString());
             }
             System.out.println("\n=== MENÚ PRINCIPAL ===");
             System.out.println("1. Reproducción");
@@ -51,18 +52,38 @@ public class Spotify {
                         int eleccionMenuReproduccion = sc.nextInt();
                         switch (eleccionMenuReproduccion){
                             case 1:
+                                Cancion actual = reproductor.getCancionActual();
+                                if (actual != null) {
+                                    reproductor.reproducirCancion(actual);
+                                }else{
+                                    System.out.println("No hay canción en reproducción.");
+                                    System.out.println("¿Desea comenzar a reproducir? (S/N): ");
+                                    String respuesta = sc.next();
+                                    if(respuesta.equalsIgnoreCase("S")) {
+                                        System.out.println("Seleccione canción (1-10):");
+                                        int idCancion = sc.nextInt();
+                                        assert idCancion >= 1 && idCancion <= 10;
+                                        reproductor.reproducirCancion(cancionesDisponibles[idCancion-1]);
+                                    }
+                                }
                                 break;
                             case 2:
+                                reproductor.siguienteCancion();
                                 break;
                             case 3:
+                                reproductor.cancionAnterior();
                                 break;
                             case 4:
+                                reproductor.verCola();
                                 break;
                             case 5:
+                                reproductor.verHistorial();
                                 break;
                             case 6:
+                                reproductor.activarDesactivarAleatorio();
                                 break;
                             case 7:
+                                reproductor.activarDesactivarRepeticion();
                                 break;
                             case 8:
                                 enReproduccion = false;
@@ -133,7 +154,7 @@ public class Spotify {
                                     int playlistID = sc.nextInt();
                                     System.out.println("Canciones disponibles: \n");
                                     for(int i= 0; i<cancionesDisponibles.length;i++){
-                                        System.out.println(i+1 + ". " + cancionesDisponibles[i].toString());
+                                        System.out.println(cancionesDisponibles[i].toString());
                                     }
                                     System.out.println("\nSeleccione canción a añadir: ");
                                     int idCancion = sc.nextInt();
