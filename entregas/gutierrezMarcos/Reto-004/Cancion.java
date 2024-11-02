@@ -9,9 +9,9 @@ public class Cancion {
         this.artista = artista;
         this.duracion = duracion;
         this.favorita = false;
-    }
+    }    
 
     public String toString(){
-        return titulo;
+        return titulo + " " + duracion; 
     }
 }

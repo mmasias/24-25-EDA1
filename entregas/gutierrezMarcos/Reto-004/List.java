@@ -44,7 +44,7 @@ public class List {
         if (iterator == null)
             return list;
         while (iterator != null) {
-            list += iterator.getIndice() + ". " + iterator.getValue() + "\n";
+            list += "(" + iterator.getIndice() + "," + iterator.getValue() + ")";
             iterator = iterator.getNext();
         }
         return list;
@@ -76,10 +76,6 @@ public class List {
         }
         return "0";
 
-    }
-
-    public Cancion getCancion(int indice){
-        Node iterator = indice;
     }
 
     public String getValueOf(String value) {
