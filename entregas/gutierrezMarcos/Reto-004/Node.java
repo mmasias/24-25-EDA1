@@ -3,8 +3,10 @@ public class Node {
     private String value;
     private int indice;
     private Node next;
+    private Cancion cancion;
 
     public Node(Cancion cancion, int indice) {
+        this.cancion = cancion;
         this.setValue(cancion.toString());
         this.indice = indice;
     }
@@ -27,5 +29,9 @@ public class Node {
 
     public int getIndice(){
         return this.indice;
+    }
+
+    public Cancion getSong(){
+        return cancion;
     }
 }

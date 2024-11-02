@@ -95,28 +95,38 @@ public class Menu {
     }
 
     private void verCancionActual() {
-        if(currentSong == null){
+        if (currentSong == null) {
             System.out.println("No hay canciones en reproducción\n");
             System.out.print("¿Desea comenzar a reproducir? (S/N): ");
             eleccionString = scanner.nextLine();
             System.out.println();
-        }else{
-            System.out.println("Estas reproduciendo " + currentSong);
+        } else {
+            System.out.println("Estas reproduciendo " + currentSong.toString());
         }
 
-        switch (eleccionString) {
-            case "s":
+        switch (eleccionString.toUpperCase()) {
+            case "S":
                 reproducirCancion();
                 break;
-        
+
             default:
                 mainMenu();
                 break;
         }
     }
 
-    private void reproducirCancion(){
+    private void reproducirCancion() {
         System.out.println(canciones.mostrar());
+
+        eleccion = scanner.nextInt();
+        scanner.nextLine();
+
+        currentSong = canciones.getCancion(eleccion);
+
+        System.out.println("Estas reproduciendo " + currentSong.toString());
+        pause(3);
+        cleanScreen();
+        mainMenu();
     }
 
     public void menuBiblioteca() {
@@ -128,4 +138,10 @@ public class Menu {
         System.out.flush();
     }
 
+    static void pause(int segundos) {
+        try {
+            Thread.sleep(1000 * segundos);
+        } catch (InterruptedException e) {
+        }
+    }
 }

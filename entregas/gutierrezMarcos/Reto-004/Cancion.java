@@ -12,6 +12,6 @@ public class Cancion {
     }    
 
     public String toString(){
-        return titulo + " " + duracion; 
+        return titulo + " " + duracion + "s"; 
     }
 }

@@ -5,7 +5,6 @@ public class App {
     List canciones = new List();
 
     public App(){
-        new Menu(currentSong, canciones);
         String[][] cancionesIniciales = {
             {"Bryant Myers ft. Anonimus, Anuel AA y Almighty - Esclava Remix", "Bryant Myers", "285"},
             {"De La Ghetto, Arcángel, Ozuna, Anuel AA - La Ocasión", "De La Ghetto", "240"},
@@ -22,6 +21,7 @@ public class App {
             Cancion cancion = new Cancion(datos[0], datos[1], Integer.parseInt(datos[2]));
             canciones.insertEnd(cancion);
         }
+        new Menu(currentSong, canciones);
     }
     public static void main(String[] args) {
         new App();
