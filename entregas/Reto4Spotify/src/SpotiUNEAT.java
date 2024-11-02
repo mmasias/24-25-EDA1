@@ -107,7 +107,7 @@ public class SpotiUNEAT {
                     Playlist playlist = biblioteca.playlists.obtener(indicePlaylist - 1);
                     biblioteca.verCancionesDePlaylist(playlist);
                 }
-                case 10 -> { 
+                case 10 -> {
                     biblioteca.mostrarCanciones();
                     System.out.print("Seleccione la canción a añadir a la cola de reproducción (índice): ");
                     int indiceCancion = scanner.nextInt();
