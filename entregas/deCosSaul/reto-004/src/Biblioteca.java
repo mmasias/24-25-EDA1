@@ -17,22 +17,22 @@ class Biblioteca {
         }
     }
 
-    public void eliminarDeFavoritos(Cancion cancion) {
-        if (cancionEsFavorita(cancion)) {
-            cancion.favorita();
-            Lista nuevaLista = new Lista();
-            Node current = cancionesFavoritas.getFirst();
-            while (current != null) {
-                if (!current.getValue().equals(cancion)) {
-                    nuevaLista.insertEnd(current.getValue());
-                }
-                current = current.getNext();
+    public void eliminarDeFavoritos(int indiceCancion) {
+        Node iterator = cancionesFavoritas.getFirst();
+        int count = 0;
+
+        while (iterator != null) {
+            if (count == indiceCancion) {
+                Cancion cancionAEliminar = (Cancion) iterator.getValue();
+                // Aquí puedes implementar la lógica para eliminar de la lista
+                cancionesFavoritas.deleteNode(iterator); // Asumiendo que tienes este método
+                System.out.println("Canción eliminada de favoritos: " + cancionAEliminar);
+                return;
             }
-            cancionesFavoritas = nuevaLista;
-            System.out.println("Canción eliminada de favoritos.");
-        } else {
-            System.out.println("La canción no está en favoritos.");
+            count++;
+            iterator = iterator.getNext();
         }
+        System.out.println("Índice de canción inválido.");
     }
 
     public void verCancionesFavoritas() {
@@ -79,6 +79,24 @@ class Biblioteca {
         System.out.println("Índice de playlist inválido.");
     }
 
+    public void crearCancionYAnadir(int indicePlaylist, String titulo, String artista, int duracion) {
+        Node iterator = playlists.getFirst();
+        int count = 0;
+        Cancion cancion = new Cancion(titulo, artista, duracion);
+
+        while (iterator != null) {
+            if (count == indicePlaylist) {
+                Playlist playlist = (Playlist) iterator.getValue();
+                playlist.anadirCancion(cancion);
+                System.out.println("Canción añadida a la playlist '" + playlist.getTitulo() + "'.");
+                return;
+            }
+            count++;
+            iterator = iterator.getNext();
+        }
+        System.out.println("Índice de playlist inválido.");
+    }
+
     public void eliminarCancionDePlaylist(int indicePlaylist, int indiceCancion) {
         Node iterator = playlists.getFirst();
         int count = 0;
@@ -104,7 +122,6 @@ class Biblioteca {
         while (iterator != null) {
             Playlist playlist = (Playlist) iterator.getValue();
             System.out.println(count + ". " + playlist.getTitulo() + ":");
-            System.out.println(playlist.getCanciones().listAll());
             iterator = iterator.getNext();
             count++;
         }

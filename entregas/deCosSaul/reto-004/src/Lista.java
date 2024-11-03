@@ -38,13 +38,37 @@ public class Lista {
 
     public void mostrar() {
         Node iterator = this.first;
+        int indice = 0;
         while (iterator != null) {
+            System.out.print(indice + ". ");
             iterator.show();
             iterator = iterator.getNext();
+            indice++;
         }
     }
 
     public Node getFirst() {
         return first;
+    }
+
+    public void deleteNode(Node nodeToDelete) {
+        if (first == null || nodeToDelete == null) return; // Lista vacía o nodo nulo
+
+        // Si el nodo a eliminar es el primero
+        if (first == nodeToDelete) {
+            first = first.getNext();
+            size--;
+            return;
+        }
+
+        Node current = first;
+        while (current != null) {
+            if (current.getNext() == nodeToDelete) {
+                current.setNext(nodeToDelete.getNext());
+                size--;
+                return;
+            }
+            current = current.getNext();
+        }
     }
 }

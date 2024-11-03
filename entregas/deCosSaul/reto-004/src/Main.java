@@ -65,6 +65,7 @@ public class Main {
                                 } else {
                                     System.out.println(resultado);
                                 }
+
                                 pausaYLimpia();
                                 break;
                             case 2:
@@ -124,56 +125,101 @@ public class Main {
 
                         switch (opcionBiblioteca) {
                             case 1:
-                                System.out.print("Introduzca el título de la canción: ");
-                                scanner.nextLine();
-                                String tituloFavorito = scanner.nextLine();
+                                biblioteca.verPlaylists();
+                                System.out.println();
+                                System.out.print("Introduzca el indice de la playlist: ");
+                                int seleccion = scanner.nextInt();
+                                Playlist playlistSeleccionada = biblioteca.obtenerPlaylist(seleccion);
+
+                                limpiarPantalla();
+
+                                System.out.println("=== Canciones ===");
+                                playlistSeleccionada.getCanciones().mostrar();
+                                System.out.println();
+
+                                System.out.print("Introduce el indice de la cancion:");
+                                seleccion = scanner.nextInt();
+                                Cancion cancionSeleccionada = playlistSeleccionada.getCancionByIndex(seleccion);
+                                biblioteca.anadirAFavoritos(cancionSeleccionada);
+
+                                pausaYLimpia();
+
                                 break;
                             case 2:
-                                // Lógica para eliminar canción de favoritos
-                                System.out.print("Introduzca el título de la canción: ");
-                                scanner.nextLine();
-                                String tituloEliminarFavorito = scanner.nextLine();
-                                // Aquí deberías buscar la canción en tus favoritos y eliminarla
+                                biblioteca.verCancionesFavoritas();
+                                System.out.print("Introduce el indice de la cancion:");
+                                seleccion = scanner.nextInt();
+                                biblioteca.eliminarDeFavoritos(seleccion-1);
+                                pausaYLimpia();
                                 break;
                             case 3:
                                 System.out.println("Canciones favoritas:");
                                 biblioteca.verCancionesFavoritas();
+                                pausaYLimpia();
                                 break;
                             case 4:
-                                // Crear nueva playlist
                                 System.out.print("Introduzca el título de la nueva playlist: ");
-                                scanner.nextLine();
                                 String nuevoTituloPlaylist = scanner.nextLine();
                                 biblioteca.crearPlaylist(nuevoTituloPlaylist);
+                                pausaYLimpia();
                                 break;
                             case 5:
-                                // Añadir canción a playlist
-                                System.out.print("Introduzca el título de la canción a añadir: ");
-                                String tituloCancionAgregar = scanner.nextLine();
-                                // Aquí deberías buscar la canción en tu biblioteca
-                                System.out.print("Introduzca el índice de la playlist: ");
-                                int indicePlaylistAgregar = scanner.nextInt();
-                                // Aquí deberías añadir la canción a la playlist indicada
+                                biblioteca.verPlaylists();
+                                System.out.println();
+                                System.out.print("Introduzca el indice de la playlist: ");
+                                int playlist = scanner.nextInt();
+                                scanner.nextLine();
+                                limpiarPantalla();
+
+                                System.out.print("Introduce el titulo de la cancion: ");
+                                String titulo = scanner.nextLine();
+
+                                System.out.print("Introduce el autor de la cancion: ");
+                                String autor = scanner.nextLine();
+
+                                System.out.print("Introduce la duracion: ");
+                                int duracion = scanner.nextInt();
+
+                                biblioteca.crearCancionYAnadir(playlist, titulo, autor, duracion);
+
+                                limpiarPantalla();
                                 break;
+
+                                
                             case 6:
-                                // Eliminar canción de playlist
-                                System.out.print("Introduzca el título de la canción a eliminar: ");
-                                int indiceCancion = scanner.nextInt();
-                                System.out.print("Introduzca el índice de la playlist: ");
-                                int indicePlaylist = scanner.nextInt();
-                                biblioteca.eliminarCancionDePlaylist(indicePlaylist, indiceCancion);
+                                biblioteca.verPlaylists();
+                                System.out.println();
+                                System.out.print("Introduzca el indice de la playlist: ");
+                                playlist = scanner.nextInt();
+                                scanner.nextLine();
+                                limpiarPantalla();
+                                
+                                biblioteca.obtenerPlaylist(playlist).getCanciones().mostrar();
+                                System.out.println();
+                                System.out.print("Introduzca el indice de la cancion: ");
+                                int cancionEliminar = scanner.nextInt();
+
+                                biblioteca.eliminarCancionDePlaylist(playlist, cancionEliminar);
+
+
                                 break;
                             case 7:
                                 System.out.println("Playlists disponibles:");
                                 biblioteca.verPlaylists();
+                                pausaYLimpia();
                                 break;
                             case 8:
+                                biblioteca.verPlaylists();
+                                System.out.println();
+
                                 System.out.print("Introduzca el índice de la playlist: ");
                                 int indicePlaylistVer = scanner.nextInt();
+                                limpiarPantalla();
                                 System.out.println(biblioteca.verCancionesDePlaylist(indicePlaylistVer));
+                                pausaYLimpia();
                             break;
                             case 9:
-                                break; // Volver al menú principal
+                                break;
                             default:
                                 System.out.println("Opción no válida.");
                         }

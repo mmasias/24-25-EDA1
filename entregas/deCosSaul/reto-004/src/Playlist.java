@@ -11,6 +11,20 @@ class Playlist {
         return titulo;
     }
 
+    public Cancion getCancionByIndex(int index) {
+        Node iterator = canciones.getFirst();
+        int count = 0;
+
+        while (iterator != null) {
+            if (count == index) {
+                return (Cancion) iterator.getValue(); // Asegúrate de que el valor sea de tipo Cancion
+            }
+            count++;
+            iterator = iterator.getNext();
+        }
+        return null; // Retorna null si no encuentra la canción
+    }
+    
     public Lista getCanciones() {
         return canciones;
     }
@@ -25,7 +39,6 @@ class Playlist {
             System.out.println("Índice de canción inválido.");
             return;
         }
-        
         Lista nuevaLista = new Lista();
         Node iterator = canciones.getFirst();
         int count = 0;
