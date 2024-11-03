@@ -281,6 +281,15 @@ public class Menu {
         menuBiblioteca();
     }
 
+    private void verCancionesFavoritas() {
+        System.out.println("=== Canciones Favoritas ===");
+        System.out.println(canciones.mostrarFavoritas());
+
+        scanner.nextLine();
+        cleanScreen();
+        menuBiblioteca();
+    }
+
     static void cleanScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();

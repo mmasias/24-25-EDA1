@@ -162,4 +162,18 @@ public class List {
 
         return result.toString();
     }
+
+    public String mostrarFavoritas() {
+        StringBuilder result = new StringBuilder();
+        Node current = first;
+        
+        while (current != null) {
+            if (current.getSong().isFavorita()) { // Verifica si la canción es favorita
+                result.append(current.getIndice()).append(" - ").append(current.getSong().toString()).append("\n");
+            }
+            current = current.getNext();
+        }
+        
+        return result.length() > 0 ? result.toString() : "No tienes canciones favoritas.\n";
+    }
 }
