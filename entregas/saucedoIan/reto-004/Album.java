@@ -9,6 +9,18 @@ class Album {
     this.año = año;
   }
 
+  public String getTitulo() {
+    return titulo;
+  }
+
+  public String getArtista() {
+    return artista;
+  }
+
+  public int getAño() {
+    return año;
+  }
+
   public String toString() {
     return "Album{" +
         "titulo='" + titulo + '\'' +
