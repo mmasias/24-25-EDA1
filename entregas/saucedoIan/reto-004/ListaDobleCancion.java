@@ -16,6 +16,28 @@ public class ListaDobleCancion {
     }
   }
 
+  public void eliminar(Cancion cancion) {
+    NodoDoble actual = cabeza;
+    if (actual == null)
+      return;
+
+    do {
+      if (actual.cancion.equals(cancion)) {
+        if (actual.anterior != null) {
+          actual.anterior.siguiente = actual.siguiente;
+        }
+        if (actual.siguiente != null) {
+          actual.siguiente.anterior = actual.anterior;
+        }
+        if (actual == cabeza) {
+          cabeza = actual.siguiente;
+        }
+        return;
+      }
+      actual = actual.siguiente;
+    } while (actual != cabeza);
+  }
+
   public Cancion obtenerSiguiente() {
     if (cabeza != null) {
       Cancion cancion = cabeza.cancion;

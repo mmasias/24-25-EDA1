@@ -19,12 +19,12 @@ public class Playlist {
     canciones.agregar(cancion);
   }
 
+  public void eliminarCancion(Cancion cancion) {
+    canciones.eliminar(cancion);
+  }
+
   public void verCanciones() {
     System.out.println("=== Playlist: " + nombre + " ===");
     canciones.imprimirLista();
-  }
-
-  public void añadirCancionAPlaylist(Playlist playlist, Cancion cancion) {
-    playlist.añadirCancion(cancion);
   }
 }

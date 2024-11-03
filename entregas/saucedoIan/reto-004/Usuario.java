@@ -31,6 +31,26 @@ public class Usuario {
     cancion.setFavorita(true);
   }
 
+  public void eliminarCancionDeFavoritos(Cancion cancion) {
+    NodoDoble actual = cancionesFavoritas;
+    while (actual != null) {
+      if (actual.cancion.equals(cancion)) {
+        if (actual.anterior != null) {
+          actual.anterior.siguiente = actual.siguiente;
+        }
+        if (actual.siguiente != null) {
+          actual.siguiente.anterior = actual.anterior;
+        }
+        if (actual == cancionesFavoritas) {
+          cancionesFavoritas = actual.siguiente;
+        }
+        cancion.setFavorita(false);
+        return;
+      }
+      actual = actual.siguiente;
+    }
+  }
+
   public void verCancionesFavoritas() {
     System.out.println("=== Canciones Favoritas de " + nombre + " ===");
     NodoDoble actual = cancionesFavoritas;
@@ -44,6 +64,18 @@ public class Usuario {
     NodoPlaylist nuevoNodo = new NodoPlaylist(playlist);
     nuevoNodo.siguiente = playlists;
     playlists = nuevoNodo;
+  }
+
+  public void eliminarCancionDePlaylist(String nombrePlaylist, Cancion cancion) {
+    NodoPlaylist actual = playlists;
+    while (actual != null) {
+      if (actual.playlist.getNombre().equals(nombrePlaylist)) {
+        actual.playlist.eliminarCancion(cancion);
+        return;
+      }
+      actual = actual.siguiente;
+    }
+    System.out.println("Playlist no encontrada: " + nombrePlaylist);
   }
 
   public void verPlaylists() {

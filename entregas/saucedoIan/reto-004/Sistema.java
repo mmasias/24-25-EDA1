@@ -35,8 +35,6 @@ public class Sistema {
       System.out
           .println("Reproduciendo: " + siguienteCancion.getTitulo() + " - " + siguienteCancion.getAlbum().getArtista());
       historial.push(siguienteCancion);
-    } else {
-      System.out.println("No hay canciones en la lista.");
     }
   }
 
@@ -59,12 +57,20 @@ public class Sistema {
     usuario.añadirCancionAFavoritos(cancion);
   }
 
+  public void eliminarCancionDeFavoritos(Cancion cancion) {
+    usuario.eliminarCancionDeFavoritos(cancion);
+  }
+
   public void verCancionesFavoritas() {
     usuario.verCancionesFavoritas();
   }
 
   public void añadirPlaylist(Playlist playlist) {
     usuario.añadirPlaylist(playlist);
+  }
+
+  public void eliminarCancionDePlaylist(String nombrePlaylist, Cancion cancion) {
+    usuario.eliminarCancionDePlaylist(nombrePlaylist, cancion);
   }
 
   public void verPlaylists() {

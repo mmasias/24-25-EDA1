@@ -17,7 +17,6 @@ public class Napster2 {
       scanner.nextLine();
       switch (opcion) {
         case 1:
-
           int opcionReproduccion;
           do {
             System.out.println("=== MENÚ REPRODUCCIÓN ===");
@@ -28,7 +27,8 @@ public class Napster2 {
             System.out.println("5. Ver historial");
             System.out.println("6. Reproducir favoritos");
             System.out.println("7. Reproducir playlist");
-            System.out.println("8. Volver al menú principal");
+            System.out.println("8. Dar me gusta a la canción actual");
+            System.out.println("9. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             opcionReproduccion = scanner.nextInt();
             scanner.nextLine();
@@ -57,12 +57,12 @@ public class Napster2 {
                 String nombrePlaylist = scanner.nextLine();
                 sistema.reproducirPlaylist(nombrePlaylist);
                 break;
+
             }
-          } while (opcionReproduccion != 8);
+          } while (opcionReproduccion != 9);
           break;
 
         case 2:
-
           int opcionBiblioteca;
           do {
             System.out.println("=== MENÚ BIBLIOTECA ===");
@@ -70,7 +70,9 @@ public class Napster2 {
             System.out.println("2. Ver canciones favoritas");
             System.out.println("3. Ver playlists");
             System.out.println("4. Ver canciones de una playlist");
-            System.out.println("5. Volver al menú principal");
+            System.out.println("5. Eliminar canción de favoritos");
+            System.out.println("6. Eliminar canción de playlist");
+            System.out.println("7. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             opcionBiblioteca = scanner.nextInt();
             scanner.nextLine();
@@ -101,8 +103,34 @@ public class Napster2 {
                 String nombrePlaylist = scanner.nextLine();
                 sistema.verCancionesDePlaylist(nombrePlaylist);
                 break;
+
+              case 5:
+                System.out.print("Ingrese el nombre de la canción para eliminar de favoritos: ");
+                String nombreCancionEliminar = scanner.nextLine();
+                Cancion cancionEliminarFavoritos = sistema.buscarCancion(nombreCancionEliminar);
+                if (cancionEliminarFavoritos != null) {
+                  sistema.eliminarCancionDeFavoritos(cancionEliminarFavoritos);
+                  System.out.println("Canción eliminada de favoritos.");
+                } else {
+                  System.out.println("Canción no encontrada.");
+                }
+                break;
+
+              case 6:
+                System.out.print("Ingrese el nombre de la playlist: ");
+                String nombrePlaylistEliminar = scanner.nextLine();
+                System.out.print("Ingrese el nombre de la canción para eliminar de la playlist: ");
+                String nombreCancionEliminarPlaylist = scanner.nextLine();
+                Cancion cancionEliminarPlaylist = sistema.buscarCancion(nombreCancionEliminarPlaylist);
+                if (cancionEliminarPlaylist != null) {
+                  sistema.eliminarCancionDePlaylist(nombrePlaylistEliminar, cancionEliminarPlaylist);
+                  System.out.println("Canción eliminada de la playlist.");
+                } else {
+                  System.out.println("Canción no encontrada.");
+                }
+                break;
             }
-          } while (opcionBiblioteca != 5);
+          } while (opcionBiblioteca != 7);
           break;
       }
     } while (opcion != 3);
