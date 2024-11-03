@@ -127,6 +127,21 @@ class Biblioteca {
         return obtenerPlaylist(indice);
     }
 
+    public String verCancionesDePlaylist(int indicePlaylist) {
+        Node iterator = playlists.getFirst();
+        int count = 0;
+
+        while (iterator != null) {
+            if (count == indicePlaylist) {
+                Playlist playlist = (Playlist) iterator.getValue();
+                return playlist.toString(); // Asegúrate de que Playlist tenga este método
+            }
+            count++;
+            iterator = iterator.getNext();
+        }
+        return "Índice de playlist inválido.";
+    }
+
     private boolean cancionEsFavorita(Cancion cancion) {
         Node iterator = cancionesFavoritas.getFirst();
         while (iterator != null) {
