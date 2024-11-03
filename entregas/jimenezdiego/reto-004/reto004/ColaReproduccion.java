@@ -26,11 +26,19 @@ public class ColaReproduccion {
         return cancion;
     }
 
-    public void mostrarCola() {
+    public void mostrarCola(Cancion cancionActual) {
         NodoCancion actual = inicio;
+        int index = 1;
         while (actual != null) {
-            System.out.println(actual.cancion);
+            if (actual.cancion.equals(cancionActual)) {
+                System.out.println(index + ". ▶ " + actual.cancion + " (ACTUAL)");
+            } else {
+                System.out.println(index + ". " + actual.cancion);
+            }
             actual = actual.siguiente;
+            index++;
         }
     }
+    
+    
 }

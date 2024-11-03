@@ -5,10 +5,13 @@ import java.util.Scanner;
 public class SpotifyApp {
     private static Scanner scanner = new Scanner(System.in);
     private static ListaCanciones biblioteca = new ListaCanciones();
-    private static ColaReproduccion colaReproduccion = new ColaReproduccion();
     private static ListaCanciones favoritos = new ListaCanciones();
+    private static ColaReproduccion colaReproduccion = new ColaReproduccion();
     private static PilaHistorial historial = new PilaHistorial();
     private static ListaPlaylists playlists = new ListaPlaylists();
+    private static boolean modoAleatorio = false;
+    private static boolean modoRepeticion = false;
+    private static Cancion cancionActual = null;
 
     public static void main(String[] args) {
         inicializarBiblioteca();
@@ -39,6 +42,12 @@ public class SpotifyApp {
             }
         } while (opcionPrincipal != 3);
     }
+    
+    private static void mostrarBibliotecaInicial() {
+        System.out.println("\n=== BIBLIOTECA INICIAL ===");
+        biblioteca.mostrarCanciones();
+    }
+    
 
     private static void inicializarBiblioteca() {
         biblioteca.agregarCancion(new Cancion("Smell like teen spirit", "Nirvana", 290));
@@ -236,4 +245,155 @@ public class SpotifyApp {
             System.out.println("Playlist no válida.");
         }
     }
+
+    private static void menuReproduccion() {
+        int opcionReproduccion;
+        do {
+            System.out.println("\n=== MENÚ REPRODUCCIÓN ===");
+            System.out.println("1. Ver canción actual");
+            System.out.println("2. Reproducir siguiente");
+            System.out.println("3. Reproducir anterior");
+            System.out.println("4. Ver cola de reproducción");
+            System.out.println("5. Ver historial");
+            System.out.println("6. Activar/desactivar aleatorio");
+            System.out.println("7. Activar/desactivar repetición");
+            System.out.println("8. Añadir canciones a la cola de reproducción");
+            System.out.println("9. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            opcionReproduccion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar buffer
+    
+            switch (opcionReproduccion) {
+                case 1:
+                    verCancionActual();
+                    break;
+                case 2:
+                    reproducirSiguiente();
+                    break;
+                case 3:
+                    reproducirAnterior();
+                    break;
+                case 4:
+                    verColaReproduccion();
+                    break;
+                case 5:
+                    verHistorial();
+                    break;
+                case 6:
+                    activarDesactivarAleatorio();
+                    break;
+                case 7:
+                    activarDesactivarRepeticion();
+                    break;
+                case 8:
+                    añadirCancionesACola();
+                    break;
+                case 9:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
+        } while (opcionReproduccion != 9);
+    }
+
+    private static void verCancionActual() {
+        if (cancionActual == null) {
+            System.out.println("No hay canción en reproducción.");
+            System.out.print("¿Desea comenzar a reproducir? (S/N): ");
+            String respuesta = scanner.nextLine().trim().toUpperCase();
+            if (respuesta.equals("S")) {
+                iniciarReproduccion();
+            }
+        } else {
+            System.out.println("▶ Reproduciendo: " + cancionActual);
+        }
+    }
+    
+    private static void iniciarReproduccion() {
+        System.out.println("Seleccione una canción para reproducir:");
+        biblioteca.mostrarCanciones();
+        System.out.print("Seleccione canción (1-" + biblioteca.getTamaño() + "): ");
+        int index = scanner.nextInt() - 1;
+        scanner.nextLine();
+        NodoCancion nodo = biblioteca.getNodo(index);
+        if (nodo != null) {
+            cancionActual = nodo.cancion;
+            colaReproduccion.encolar(cancionActual);
+            System.out.println("▶ Reproduciendo: " + cancionActual);
+        } else {
+            System.out.println("Selección inválida.");
+        }
+    }
+
+    private static void reproducirSiguiente() {
+        if (modoRepeticion && cancionActual != null) {
+            System.out.println("▶ Reproduciendo de nuevo: " + cancionActual);
+        } else {
+            cancionActual = colaReproduccion.desencolar();
+            if (cancionActual != null) {
+                historial.apilar(cancionActual);
+                System.out.println("▶ Reproduciendo: " + cancionActual);
+            } else {
+                System.out.println("No hay más canciones en la cola.");
+            }
+        }
+    }
+    
+    private static void reproducirAnterior() {
+        Cancion anterior = historial.desapilar();
+        if (anterior != null) {
+            cancionActual = anterior;
+            colaReproduccion.encolar(cancionActual);
+            System.out.println("▶ Reproduciendo: " + cancionActual);
+        } else {
+            System.out.println("No hay canciones anteriores en el historial.");
+        }
+    }
+    
+    private static void verColaReproduccion() {
+        System.out.println("COLA DE REPRODUCCIÓN:");
+        colaReproduccion.mostrarCola(cancionActual);  // Pasar cancionActual como parámetro
+        System.out.println("Estado: Reproducción normal | Repetición: " + (modoRepeticion ? "ON" : "OFF") + " | Aleatorio: " + (modoAleatorio ? "ON" : "OFF"));
+    }
+    
+    private static void verHistorial() {
+        System.out.println("HISTORIAL DE REPRODUCCIÓN:");
+        historial.mostrarHistorial();
+    }
+    
+    private static void activarDesactivarAleatorio() {
+        modoAleatorio = !modoAleatorio;
+        System.out.println("Modo aleatorio: " + (modoAleatorio ? "Activado" : "Desactivado"));
+    }
+                    
+    private static void activarDesactivarRepeticion() {
+        modoRepeticion = !modoRepeticion;
+        System.out.println("Modo repetición: " + (modoRepeticion ? "Activado" : "Desactivado"));
+    }
+    
+    private static void añadirCancionesACola() {
+        System.out.println("Canciones en la biblioteca:");
+        biblioteca.mostrarCanciones();
+    
+        while (true) {
+            System.out.print("Seleccione una canción para añadir a la cola (1-" + biblioteca.getTamaño() + ", o 0 para finalizar): ");
+            int index = scanner.nextInt() - 1;
+            scanner.nextLine();
+    
+            if (index == -1) {
+                // Salir del bucle si el usuario elige 0
+                System.out.println("Finalizando adición a la cola de reproducción.");
+                break;
+            }
+    
+            NodoCancion nodo = biblioteca.getNodo(index);
+            if (nodo != null) {
+                colaReproduccion.encolar(nodo.cancion);
+                System.out.println("Canción añadida a la cola: " + nodo.cancion);
+            } else {
+                System.out.println("Selección inválida.");
+            }
+        }
+    }    
 }

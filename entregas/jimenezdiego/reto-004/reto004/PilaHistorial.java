@@ -23,9 +23,12 @@ public class PilaHistorial {
 
     public void mostrarHistorial() {
         NodoCancion actual = tope;
+        int index = 1;
         while (actual != null) {
-            System.out.println(actual.cancion);
+            System.out.println(index + ". " + actual.cancion);
             actual = actual.siguiente;
+            index++;
         }
     }
+    
 }

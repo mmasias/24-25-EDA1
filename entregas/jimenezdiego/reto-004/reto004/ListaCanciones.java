@@ -64,5 +64,10 @@ public class ListaCanciones {
         }
         return actual;
     }
+
+    public int getTamaño() {
+        return tamaño;
+    }
+    
 }
 
