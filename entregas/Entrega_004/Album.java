@@ -4,7 +4,6 @@ public class Album {
     public String titulo;
     public String artista;
     public int año;
-
     public Album(String titulo, String artista, int año) {
         this.titulo = titulo;
         this.artista = artista;
@@ -26,4 +25,5 @@ public class Album {
     public int getAño() {
         return año;
     }
+
 }
