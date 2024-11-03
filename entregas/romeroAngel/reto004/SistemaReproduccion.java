@@ -108,8 +108,21 @@ public class SistemaReproduccion {
     }
 
     private void verHistorial() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verHistorial'");
+        if (historial.isEmpty()) {
+            System.out.println("El historial esta vacío.");
+            return;
+        }   
+
+        System.out.println("=== HISTORIAL DE REPRODUCCIÓN ===");
+        int index = 1;
+        Node iterator = historial.getFirst();
+
+        while (iterator != null) {
+            Cancion cancion = iterator.getCancion();
+            System.out.println(index + ". " + cancion.toString());
+            iterator = iterator.getNext();
+            index++;
+        }
     }
 
     private void verColaReproduccion() {
