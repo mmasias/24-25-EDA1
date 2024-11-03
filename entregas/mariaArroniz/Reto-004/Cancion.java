@@ -25,4 +25,7 @@ class Cancion {
         this.next = next;
     }
 
+    public void repetición() {
+    
+    }
 }

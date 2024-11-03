@@ -105,4 +105,7 @@ class Playlist {
         this.next = next;
     }
 
+    public void aleatorio() {
+        
+    }
 }

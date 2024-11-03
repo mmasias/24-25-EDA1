@@ -31,11 +31,12 @@ class MenuReproduccion {
             switch (seleccion) {
                 case 1:
                     cola.añadirCancion();
+                    break;
                 case 2:
-                    cola.getFirst();
+                    cola.sonando();
                     break;
                 case 3:
-                    cola.getNext();
+                    cola.siguiente();
                     break;
                 case 4:
                     cola.getPrevious();
@@ -50,14 +51,11 @@ class MenuReproduccion {
                     playlistPrueba.aleatorio();
                     break;
                 case 8:
-                    cancionPrueba.aleatorio();
+                    cancionPrueba.repetición();
                     break;
                 case 9:
                     break;
             }
-
         } while (seleccion != 9);
-
     }
-
 }
