@@ -184,6 +184,14 @@ public class Menu {
         }
     }
 
+    private void toggleAleatorio() {
+        aleatorioActivado = !aleatorioActivado;
+        System.out.println("Aleatorio " + (aleatorioActivado ? "activado" : "desactivado"));
+        pause(2);
+        cleanScreen();
+        menuReproduccion();
+    }
+
     public void menuBiblioteca() {
 
     }
