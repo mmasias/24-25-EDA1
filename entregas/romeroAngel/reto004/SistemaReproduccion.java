@@ -126,8 +126,27 @@ public class SistemaReproduccion {
     }
 
     private void verColaReproduccion() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verColaReproduccion'");
+        if (colaReproduccion.isEmpty()) {
+            System.out.println("La cola de reproduccion esta vacía.");
+            return;
+        }
+
+        System.out.println("=== COLA DE REPRODUCCIÓN ===");
+        int index = 1;
+        Node iterator = colaReproduccion.getFirst();
+
+        while (iterator != null) {
+            Cancion cancion = iterator.getCancion();
+            if (cancion.equals(cancionActual)) {
+                System.out.println(index + ". ▶ " + cancion.toString() + " (ACTUAL)");
+            } else {
+                System.out.println(index + ". " + cancion.toString());
+            }
+            iterator = iterator.getNext();
+            index++;
+        }
+
+        System.out.println("\nEstado: Reproducción " + (aleatorio ? "aleatoria" : "normal") + " | Repetición: " + (repeticion ? "ON" : "OFF"));
     }
 
     private void reproducirAnterior() {
