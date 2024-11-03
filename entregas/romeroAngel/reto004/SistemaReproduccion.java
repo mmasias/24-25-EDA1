@@ -110,6 +110,54 @@ public class SistemaReproduccion {
         } while (opcion != 9);
     }
 
+    private void añadirCancionAFavoritos() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Canciones disponibles:");
+        for (int i = 0; i < canciones.size(); i++) {
+            Cancion cancion = (Cancion) canciones.obtener(i); 
+            System.out.println((i + 1) + ". " + cancion.toString());
+        }
+
+        System.out.print("Seleccione el número de la canción que desea añadir a favoritos: ");
+        int seleccion = scanner.nextInt();
+    }
+
+    private void eliminarCancionDeFavoritos() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'eliminarCancionDeFavoritos'");
+    }
+
+    private void verCancionesFavoritas() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'verCancionesFavoritas'");
+    }
+
+    private void crearNuevaPlaylist() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'crearNuevaPlaylist'");
+    }
+
+    private void añadirCancionAPlaylist() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'añadirCancionAPlaylist'");
+    }
+
+    private void eliminarCancionDePlaylist() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'eliminarCancionDePlaylist'");
+    }
+
+    private void verPlaylists() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'verPlaylists'");
+    }
+
+    private void verCancionesDePlaylist() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'verCancionesDePlaylist'");
+    }
+
     private void mostrarMenuReproduccion() {
         Scanner scanner = new Scanner(System.in);
         int opcion; 
