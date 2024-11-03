@@ -2,6 +2,7 @@ public class Node {
 
     private String value;
     private Node next;
+    public Node siguiente;
 
     public Node(String value) {
         this.setValue(value);
