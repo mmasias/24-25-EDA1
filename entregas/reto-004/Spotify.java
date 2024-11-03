@@ -193,3 +193,33 @@ class Reproductor {
             System.out.println((i + 1) + ". " + playlists[i].getNombre());
         }
     }
+    public void añadirCancionAPlaylist(int indicePlaylist, Cancion cancion) {
+        if (indicePlaylist >= 0 && indicePlaylist < numPlaylists) {
+            playlists[indicePlaylist].agregarCancion(cancion);
+            System.out.println("\"" + cancion + "\" añadida a " + playlists[indicePlaylist].getNombre());
+        } else {
+            System.out.println("Playlist no válida.");
+        }
+    }
+
+    public void mostrarCancionesDisponibles() {
+        System.out.println("Canciones disponibles:");
+        for (int i = 0; i < Main.cancionesDisponibles.length; i++) {
+            System.out.println((i + 1) + ". " + Main.cancionesDisponibles[i]);
+        }
+    }
+    
+    public void mostrarCola() {
+        if (cola.estaVacia()) {
+            System.out.println("La cola de reproducción está vacía.");
+            return;
+        }
+        NodoCancion actual = cola.frente; // Aquí asumimos que tienes acceso a "frente"
+        int i = 1;
+        while (actual != null) {
+            System.out.println(i + ". " + actual.cancion + (actual == cola.frente ? " (ACTUAL)" : ""));
+            actual = actual.siguiente;
+            i++;
+        }
+    }
+}
