@@ -7,6 +7,7 @@ public class Menu {
     Cancion currentSong;
     List canciones;
     List historial;
+    List favoritos;
     String eleccionString;
     boolean aleatorioActivado = false;
     boolean repetirActivado = false;
@@ -14,6 +15,7 @@ public class Menu {
     public Menu(Cancion currentSong, List canciones) {
         this.canciones = canciones;
         this.historial = new List();
+        this.favoritos = new List();
         this.currentSong = currentSong;
         cleanScreen();
         mainMenu();
@@ -202,7 +204,61 @@ public class Menu {
     }
 
     public void menuBiblioteca() {
+        System.out.println("=== MENÚ BIBLIOTECA ===\n" + //
+                "1. Añadir canción a favoritos\n" + //
+                "2. Eliminar canción de favoritos\n" + //
+                "3. Ver canciones favoritas\n" + //
+                "4. Crear nueva playlist\n" + //
+                "5. Añadir canción a playlist\n" + //
+                "6. Eliminar canción de playlist\n" + //
+                "7. Ver playlists\n" + //
+                "8. Ver canciones de una playlist\n" + //
+                "9. Volver al menú principal");
 
+        System.out.print("Seleccione una opción: ");
+        eleccion = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (eleccion) {
+            case 1:
+                cleanScreen();
+                añadirCancionAFavoritos();
+                break;
+            case 2:
+                cleanScreen();
+                eliminarCancionDeFavoritos();
+                break;
+            case 3:
+                cleanScreen();
+                verCancionesFavoritas();
+                break;
+            case 4:
+                cleanScreen();
+                crearPlaylist();
+                break;
+            case 5:
+                cleanScreen();
+                añadirCancionAPlaylist();
+                break;
+            case 6:
+                cleanScreen();
+                eliminarCancionDePlaylist();
+                break;
+            case 7:
+                cleanScreen();
+                verPlaylists();
+                break;
+            case 8:
+                cleanScreen();
+                verCancionesDePlaylist();
+                break;
+            case 9:
+                cleanScreen();
+                mainMenu();
+                break;
+            default:
+                break;
+        }
     }
 
     static void cleanScreen() {
