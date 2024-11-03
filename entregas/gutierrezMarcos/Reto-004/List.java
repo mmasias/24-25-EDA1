@@ -40,7 +40,6 @@ public class List {
     }
 
     public boolean incluye(String value) {
-
         Node iterator = this.first;
 
         while (iterator != null) {
@@ -69,7 +68,6 @@ public class List {
     }
 
     public String getIndiceOf(String value) {
-
         Node iterator = this.first;
 
         while (iterator != null) {
@@ -83,7 +81,6 @@ public class List {
     }
 
     public String getValueOf(String value) {
-
         Node iterator = this.first;
 
         while (iterator != null) {
@@ -98,7 +95,6 @@ public class List {
 
     public Cancion getCancion(int index) {
         index--;
-
         Node iterator = this.first;
         int currentIndex = 0;
 
@@ -116,7 +112,6 @@ public class List {
 
     public Cancion next(Cancion currentSong) {
         Node iterator = this.first;
-
         while (iterator != null) {
             if (iterator.getSong().equals(currentSong)) {
                 if (iterator.getNext() != null) {
@@ -182,6 +177,7 @@ public class List {
 
     public void add(Cancion cancion) {
         Node newNode = new Node(cancion);
+
         if (first == null) {
             first = newNode;
             last = newNode;
@@ -203,7 +199,6 @@ public class List {
     }
 
     public void remove(int index) {
-
         Node current = first;
         Node previous = null;
 

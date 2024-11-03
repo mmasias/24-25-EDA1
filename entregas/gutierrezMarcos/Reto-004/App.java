@@ -1,7 +1,6 @@
 public class App {
 
     Cancion currentSong;
-
     List canciones = new List();
 
     public App(){
