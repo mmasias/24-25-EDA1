@@ -81,10 +81,10 @@ public class Main {
                     reproductor.siguiente();
                     break;
                 case 3:
-                    reproductor.anterior(); // Implementa lógica si es necesario
+                    reproductor.anterior();
                     break;
                 case 4:
-                    reproductor.mostrarCola(); // Acceso correcto a mostrar cola
+                    reproductor.mostrarCola();
                     break;
                 case 5:
                     reproductor.mostrarHistorial();
@@ -121,17 +121,31 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    // Lógica para añadir canción a favoritos
+                    reproductor.mostrarCancionesDisponibles();
+                    System.out.print("Seleccione la canción a añadir a favoritos: ");
+                    int favoritaIndex = scanner.nextInt() - 1;
+                    if (favoritaIndex >= 0 && favoritaIndex < cancionesDisponibles.length) {
+                        reproductor.añadirCancionAFavoritos(cancionesDisponibles[favoritaIndex]);
+                    } else {
+                        System.out.println("Índice de canción no válido.");
+                    }
                     break;
                 case 2:
-                    // Lógica para eliminar canción de favoritos
+                    reproductor.verCancionesFavoritas();
+                    System.out.print("Seleccione la canción a eliminar de favoritos: ");
+                    int eliminarFavoritaIndex = scanner.nextInt() - 1;
+                    if (eliminarFavoritaIndex >= 0 && eliminarFavoritaIndex < reproductor.numFavoritas) {
+                        reproductor.eliminarCancionDeFavoritos(reproductor.getCancionesFavoritas()[eliminarFavoritaIndex]);
+                    } else {
+                        System.out.println("Índice de canción no válido.");
+                    }
                     break;
                 case 3:
-                    // Lógica para ver canciones favoritas
+                    reproductor.verCancionesFavoritas();
                     break;
                 case 4:
                     System.out.print("Nombre de la nueva playlist: ");
-                    scanner.nextLine(); // Limpiar el buffer
+                    scanner.nextLine();
                     String nombrePlaylist = scanner.nextLine();
                     reproductor.crearPlaylist(nombrePlaylist);
                     break;
@@ -145,13 +159,34 @@ public class Main {
                     reproductor.añadirCancionAPlaylist(playlistIndex, cancionesDisponibles[cancionIndex]);
                     break;
                 case 6:
-                    // Lógica para eliminar canción de playlist
+                    reproductor.verPlaylists();
+                    System.out.print("Seleccione playlist: ");
+                    int eliminarPlaylistIndex = scanner.nextInt() - 1;
+                    if (eliminarPlaylistIndex >= 0 && eliminarPlaylistIndex < reproductor.numPlaylists) {
+                        reproductor.playlists[eliminarPlaylistIndex].mostrarCanciones();
+                        System.out.print("Seleccione canción a eliminar: ");
+                        int cancionEliminarIndex = scanner.nextInt() - 1;
+                        if (cancionEliminarIndex >= 0 && cancionEliminarIndex < Main.cancionesDisponibles.length) {
+                            reproductor.playlists[eliminarPlaylistIndex].eliminarCancion(Main.cancionesDisponibles[cancionEliminarIndex]);
+                            System.out.println("Canción eliminada de la playlist.");
+                        } else {
+                            System.out.println("Índice de canción no válido.");
+                        }
+                    } else {
+                        System.out.println("Índice de playlist no válido.");
+                    }
                     break;
                 case 7:
                     reproductor.verPlaylists();
                     break;
                 case 8:
-                    // Lógica para ver canciones de una playlist
+                    System.out.print("Seleccione playlist: ");
+                    int verPlaylistIndex = scanner.nextInt() - 1;
+                    if (verPlaylistIndex >= 0 && verPlaylistIndex < reproductor.numPlaylists) {
+                        reproductor.playlists[verPlaylistIndex].mostrarCanciones();
+                    } else {
+                        System.out.println("Índice de playlist no válido.");
+                    }
                     break;
                 case 9:
                     return;
