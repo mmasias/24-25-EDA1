@@ -20,7 +20,7 @@ public class Spotify {
             new Cancion(10, "Capo", "NLE Choppa", 192)
         };
         ListaPlaylists playlists = new ListaPlaylists();
-        Reproductor reproductor = new Reproductor();
+        Reproductor reproductor = new Reproductor(cancionesDisponibles);
         
         while(true){
             System.out.println("\n=== SPOTIFY === \n");
@@ -47,7 +47,8 @@ public class Spotify {
                         System.out.println("5. Ver historial");
                         System.out.println("6. Activar/desactivar aleatorio");
                         System.out.println("7. Activar/desactivar repetición");
-                        System.out.println("8. Volver al menú principal");
+                        System.out.println("8. Añadir canción a cola de reproducción");
+                        System.out.println("9. Volver al menú principal");
                         System.out.println("\nSeleccione una opción:");
                         int eleccionMenuReproduccion = sc.nextInt();
                         switch (eleccionMenuReproduccion){
@@ -86,6 +87,12 @@ public class Spotify {
                                 reproductor.activarDesactivarRepeticion();
                                 break;
                             case 8:
+                                System.out.println("Seleccione canción (1-10):");
+                                int idCancion = sc.nextInt();
+                                assert idCancion >= 1 && idCancion <= 10;
+                                reproductor.añadirCancionCola(idCancion);
+                                break;
+                            case 9:
                                 enReproduccion = false;
                                 break;
                             default:

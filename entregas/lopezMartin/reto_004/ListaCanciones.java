@@ -74,4 +74,8 @@ public class ListaCanciones {
             return mensaje;
         }
     }
+
+    public NodoCancion getUltimoNodo() {
+        return this.ultimo;
+    }
 }

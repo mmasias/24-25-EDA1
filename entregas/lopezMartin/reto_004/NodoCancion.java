@@ -26,4 +26,8 @@ public class NodoCancion extends Cancion {
         this.anterior = anterior;
     }
 
+    public Cancion getCancion() {
+        return this;
+    }
+
 }
