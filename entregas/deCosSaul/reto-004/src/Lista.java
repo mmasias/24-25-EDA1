@@ -6,7 +6,7 @@ public class Lista {
         return this.size;
     }
 
-    public void insertEnd(Object value) {  // Cambiado a Object
+    public void insertEnd(Object value) {
         Node newNode = new Node(value);
         if (this.first == null) {
             this.first = newNode;
@@ -44,7 +44,6 @@ public class Lista {
         }
     }
 
-    // Método para obtener el primer nodo (nuevo)
     public Node getFirst() {
         return first;
     }

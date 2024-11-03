@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         Biblioteca biblioteca = new Biblioteca();
+        Reproductor reproductor = new Reproductor();
         Album album = new Album("Hybrid Theory", "Linkin Park", 2000);
         Cancion cancion = new Cancion("Papercut", "Linkin Park", 300);
         Cancion cancion2 = new Cancion("Papercut2", "Linkin Park", 300);
@@ -28,5 +29,24 @@ public class Main {
         biblioteca.verPlaylists();
         biblioteca.eliminarCancionDePlaylist(0, 4-1);
         biblioteca.verPlaylists();
+        reproductor.seleccionarPlaylist(biblioteca.seleccionarPlaylistParaReproduccion(0));
+        reproductor.activarModoAleatorio();
+        reproductor.reproducirCancionActual();
+        reproductor.siguienteCancion();
+        reproductor.siguienteCancion();
+        reproductor.cancionAnterior();
+        reproductor.siguienteCancion();
+        reproductor.siguienteCancion();
+        reproductor.siguienteCancion();
+        reproductor.siguienteCancion();
+        reproductor.siguienteCancion();
+        reproductor.siguienteCancion();
+        reproductor.siguienteCancion();
+        reproductor.siguienteCancion();
+        reproductor.siguienteCancion();
+        reproductor.verColaDeReproduccion();
+        reproductor.mostrarHistorial();
+
+
     }
 }

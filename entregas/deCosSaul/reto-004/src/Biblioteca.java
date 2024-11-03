@@ -110,6 +110,23 @@ class Biblioteca {
         }
     }
 
+    public Playlist obtenerPlaylist(int indice) {
+        Node iterator = playlists.getFirst();
+        int count = 0;
+        while (iterator != null) {
+            if (count == indice) {
+                return (Playlist) iterator.getValue();
+            }
+            count++;
+            iterator = iterator.getNext();
+        }
+        return null;
+    }
+
+    public Playlist seleccionarPlaylistParaReproduccion(int indice) {
+        return obtenerPlaylist(indice);
+    }
+
     private boolean cancionEsFavorita(Cancion cancion) {
         Node iterator = cancionesFavoritas.getFirst();
         while (iterator != null) {
