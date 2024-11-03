@@ -12,13 +12,13 @@ class Biblioteca {
     }
 
     public void agregarCancion(Cancion cancion) {
-        cancionesDisponibles.agregarAlFinal(cancion);
+        cancionesDisponibles.agregar(cancion);
     }
 
     public void marcarComoFavorita(Cancion cancion) {
         if (!cancion.esFavorita()) { 
             cancion.marcarFavorita();
-            cancionesFavoritas.agregarAlFinal(cancion);
+            cancionesFavoritas.agregar(cancion);
             System.out.println(cancion.getTitulo() + " se ha añadido a favoritos.");
         }
     }
@@ -33,7 +33,7 @@ class Biblioteca {
 
     public void crearPlaylist(String nombre) {
         Playlist nuevaPlaylist = new Playlist(nombre);
-        playlists.agregarAlFinal(nuevaPlaylist);
+        playlists.agregar(nuevaPlaylist);
         System.out.println("Playlist \"" + nombre + "\" creada con éxito.");
     }
 
@@ -70,17 +70,17 @@ class Biblioteca {
 
     public void mostrarCancionesDisponibles() {
         System.out.println("Canciones disponibles en la biblioteca:");
-        cancionesDisponibles.mostrarLista();
+        cancionesDisponibles.mostrar();
     }
 
     public void mostrarCancionesFavoritas() {
         System.out.println("Canciones favoritas:");
-        cancionesFavoritas.mostrarLista();
+        cancionesFavoritas.mostrar();
     }
 
     public void mostrarPlaylists() {
         System.out.println("Playlists:");
-        playlists.mostrarLista();
+        playlists.mostrar();
     }
 
     public void mostrarCancionesDePlaylist(String nombrePlaylist) {

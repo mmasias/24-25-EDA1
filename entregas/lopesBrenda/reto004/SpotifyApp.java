@@ -70,14 +70,109 @@ public class SpotifyApp {
         biblioteca.mostrarCancionesDisponibles();
         System.out.print("Seleccione el número de la canción a añadir a favoritos: ");
         int numeroCancion = scanner.nextInt() - 1;
-        scanner.nextLine(); // limpiar buffer
+        scanner.nextLine();
         Cancion cancion = biblioteca.getCancionesDisponibles().get(numeroCancion);
         biblioteca.marcarComoFavorita(cancion);
+    } 
+
+    private void eliminarCancionDeFavoritos() {
+        System.out.println("Canciones favoritas:");
+        biblioteca.mostrarCancionesFavoritas();
+        System.out.print("Seleccione el número de la canción a eliminar de favoritos: ");
+        int numeroCancion = scanner.nextInt() - 1;
+        scanner.nextLine(); 
+        Cancion cancion = biblioteca.getCancionesFavoritas().get(numeroCancion);
+        biblioteca.desmarcarFavorita(cancion);
+    }   
+
+    private void crearPlaylist() {
+        System.out.print("Nombre de la nueva playlist: ");
+        String nombre = scanner.nextLine();
+        biblioteca.crearPlaylist(nombre);
+    }
+
+    private void añadirCancionAPlaylist() {
+        biblioteca.mostrarPlaylists();
+        System.out.print("Seleccione la playlist: ");
+        String nombrePlaylist = scanner.nextLine();
+        
+        System.out.println("Canciones disponibles:");
+        biblioteca.mostrarCancionesDisponibles();
+        System.out.print("Seleccione el número de la canción a añadir: ");
+        int numeroCancion = scanner.nextInt() - 1;
+        scanner.nextLine(); // limpiar buffer
+        Cancion cancion = biblioteca.getCancionesDisponibles().get(numeroCancion);
+        biblioteca.añadirCancionAPlaylist(nombrePlaylist, cancion);
+    }
+
+    private void eliminarCancionDePlaylist() {
+        biblioteca.mostrarPlaylists();
+        System.out.print("Seleccione la playlist: ");
+        String nombrePlaylist = scanner.nextLine();
+        
+        System.out.println("Canciones en la playlist:");
+        biblioteca.mostrarCancionesDePlaylist(nombrePlaylist);
+        System.out.print("Seleccione el número de la canción a eliminar: ");
+        int numeroCancion = scanner.nextInt() - 1;
+        scanner.nextLine(); 
+        Cancion cancion = biblioteca.getPlaylists().get(nombrePlaylist).getCanciones().get(numeroCancion);
+        biblioteca.eliminarCancionDePlaylist(nombrePlaylist, cancion);
+    }
+
+    private void verCancionesDePlaylist() {
+        biblioteca.mostrarPlaylists();
+        System.out.print("Seleccione la playlist: ");
+        String nombrePlaylist = scanner.nextLine();
+        biblioteca.mostrarCancionesDePlaylist(nombrePlaylist);
     }
 
     private void menuReproduccion() {
-        // Este método será expandido para gestionar la reproducción
+        int opcion;
+        do {
+            System.out.println("\n=== MENÚ REPRODUCCIÓN ===");
+            System.out.println("1. Ver canción actual");
+            System.out.println("2. Reproducir siguiente");
+            System.out.println("3. Reproducir anterior");
+            System.out.println("4. Ver cola de reproducción");
+            System.out.println("5. Ver historial");
+            System.out.println("6. Activar/desactivar aleatorio");
+            System.out.println("7. Activar/desactivar repetición");
+            System.out.println("8. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // limpiar buffer
+
+            switch (opcion) {
+                case 1 -> verCancionActual();
+                case 2 -> reproductor.siguienteCancion();
+                case 3 -> reproductor.anteriorCancion();();
+                case 4 -> reproductor.verColaReproduccion();
+                case 5 -> reproductor.verHistorial();
+                case 6 -> toggleAleatorio();
+                case 7 -> toggleRepeticion();
+                case 8 -> System.out.println("Volviendo al menú principal...");
+                default -> System.out.println("Opción no válida.");
+            }
+        } while (opcion != 8);
     }
+
+    private void verCancionActual() {
+        Cancion cancionActual = reproductor.verCancionActual();
+        if (cancionActual == null) {
+            System.out.print("No hay canción en reproducción. ¿Desea comenzar a reproducir? (S/N): ");
+            String respuesta = scanner.nextLine();
+            if (respuesta.equalsIgnoreCase("S")) {
+                System.out.println("Seleccione canción (1-" + biblioteca.getCancionesDisponibles().size() + "): ");
+                int numeroCancion = scanner.nextInt() - 1;
+                scanner.nextLine(); // limpiar buffer
+                Cancion cancion = biblioteca.getCancionesDisponibles().get(numeroCancion);
+                reproductor.reproducirCancion(cancionActual);(cancion);
+            }
+        } else {
+            System.out.println("▶ Reproduciendo: " + cancionActual);
+        }
+    }
+
 
     public static void main(String[] args) {
         SpotifyApp app = new SpotifyApp();
