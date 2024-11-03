@@ -73,7 +73,7 @@ public class Napster2 {
             System.out.println("5. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             opcionBiblioteca = scanner.nextInt();
-            scanner.nextLine();2
+            scanner.nextLine();
 
             switch (opcionBiblioteca) {
               case 1:
