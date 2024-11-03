@@ -25,12 +25,16 @@ class Cancion {
         return duracion;
     }
 
-    public boolean isFavorita(){
-        return favorita;
+    public void marcarFavorita() {
+        this.favorita = true;
     }
 
-    public void setFavorita(boolean favorita){
-        this.favorita = favorita;
+    public void desmarcarFavorita() {
+        this.favorita = false;
+    }
+
+    public boolean esFavorita() {
+        return favorita;
     }
     
     @Override
