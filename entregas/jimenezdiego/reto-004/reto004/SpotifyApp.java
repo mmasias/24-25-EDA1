@@ -50,4 +50,11 @@ public class SpotifyApp {
         biblioteca.agregarCancion(new Cancion("American Idiot", "Green Day", 235));
         biblioteca.agregarCancion(new Cancion("Bloody Valentine", "MGK", 325));
     }
+
+    private static void mostrarBibliotecaInicial() {
+        System.out.println("\n=== SPOTIFY  ===");
+        System.out.println("\nBIBLIOTECA INICIAL\n");
+        System.out.println("Canciones disponibles:\n");
+        biblioteca.mostrarCanciones();
+    }
 }
