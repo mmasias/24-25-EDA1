@@ -11,7 +11,15 @@ class Song {
         this.author = author;
         this.length = length;
         this.starred = false;
-    }    
+    }
+
+    public void starred(){
+        this.starred = true;
+    }
+
+    public void unstarred(){
+        this.starred = false;
+    }
 
     public String toString(){
         
