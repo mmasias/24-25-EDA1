@@ -5,16 +5,14 @@ public class Song {
     public String artista;
     public int duracion;    
     public boolean favorita;
-    public String value;
     public Song next;
     public Song previous;
     
-    public Song(String titulo, String artista, int duracion, String value) {
+    public Song(String titulo, String artista, int duracion) {
         this.titulo = titulo;
         this.artista = artista;
         this.duracion = duracion;
         this.favorita = false;
-        this.value= value;
         this.next = null;
         this.previous = null;
     }    
@@ -47,11 +45,6 @@ public void setNext(Song newSong) {
     this.next = next;
 }
 
-
-
-public String getValue() {
-    return value;
-}
 
 public void setPrevious(Song last) {
    this.previous = previous;
