@@ -80,7 +80,7 @@ public class SpotAlejo {
                     biblioteca.verPlaylists();
                     System.out.print("Seleccione una playlist (número): ");
                     int indicePlaylist = scanner.nextInt();
-                    Playlist playlistSeleccionada = biblioteca.playlists.obtenerPlaylist(indicePlaylist - 1);
+                    Playlist playlistSeleccionada = biblioteca.playlist.obtenerPlaylist(indicePlaylist - 1);
                     biblioteca.mostrarCanciones();
                     System.out.print("Seleccione una canción para añadir (número): ");
                     int indiceCancion = scanner.nextInt();
@@ -91,7 +91,7 @@ public class SpotAlejo {
                     biblioteca.verPlaylists();
                     System.out.print("Seleccione una playlist (número): ");
                     int indiceEliminarPlaylist = scanner.nextInt();
-                    Playlist playlistEliminar = biblioteca.playlists.obtenerPlaylist(indiceEliminarPlaylist - 1);
+                    Playlist playlistEliminar = biblioteca.playlist.obtenerPlaylist(indiceEliminarPlaylist - 1);
                     playlistEliminar.mostrarCanciones();
                     System.out.print("Seleccione una canción para eliminar (número): ");
                     int indiceCancionEliminar = scanner.nextInt();
@@ -105,7 +105,7 @@ public class SpotAlejo {
                     biblioteca.verPlaylists();
                     System.out.print("Seleccione una playlist (número): ");
                     int indiceVerPlaylist = scanner.nextInt();
-                    Playlist playlistVer = biblioteca.playlists.obtenerPlaylist(indiceVerPlaylist - 1);
+                    Playlist playlistVer = biblioteca.playlist.obtenerPlaylist(indiceVerPlaylist - 1);
                     biblioteca.verCancionesDePlaylist(playlistVer);
                     break;
                 case 10:

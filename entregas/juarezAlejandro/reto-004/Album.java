@@ -8,7 +8,7 @@ class Album {
     }
 
     public void agregarCancion(Cancion cancion) {
-        canciones.agregar(cancion);
+        canciones.agregarCancion(cancion);
     }
 
     public void mostrarCanciones() {
