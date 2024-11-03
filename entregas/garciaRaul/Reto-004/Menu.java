@@ -7,27 +7,14 @@ public class Menu {
     Cancion currentSong;
     List canciones;
     String eleccionString;
-    Cancion cancionActual;
-    Canciones canciones;
 
-    public Menu(Cancion cancionActual, Canciones canciones) {
-        this.cancionActual = cancionActual;
     public Menu(Cancion currentSong, List canciones) {
         this.canciones = canciones;
         this.currentSong = currentSong;
         cleanScreen();
-        menuPrincipal();
         mainMenu();
     }
-}
 
-    public void menuPrincipal() {
-        System.out.println(
-                        "=== MENÚ PRINCIPAL ===\n" + //
-                        "1. Reproducción\n" + //
-                        "2. Biblioteca\n" + //
-                        "3. Salir"
-                        );
     public void mainMenu() {
         System.out.println("=== MENÚ PRINCIPAL ===\n" + //
                 "1. Reproducción\n" + //
@@ -47,33 +34,14 @@ public class Menu {
                 cleanScreen();
                 menuBiblioteca();
                 break;
-        
+
             default:
                 break;
         }
     }
-}
 
-    public void menuBiblioteca(){
-        System.out.println(
-                        "=== MENÚ BIBLIOTECA ===\n" + //
-                        "1. Añadir canción a favoritos\n" + //
-                        "2. Eliminar canción de favoritos\n" + //
-                        "3. Ver canciones favoritas\n" + //
-                        "4. Crear nueva playlist\n" + //
-                        "5. Añadir canción a playlist\n" + //
-                        "6. Eliminar canción de playlist\n" + //
-                        "7. Ver playlists\n" + //
-                        "8. Ver canciones de una playlist\n" + //
-                        "9. Volver al menú principal"
-                        );
-        System.out.print("Seleccione una opción: ");
-        eleccion = scanner.nextInt();
-    }
-    
     public void menuReproduccion() {
         System.out.println(
-                        "=== MENÚ REPRODUCCIÓN ===\n" + //
                 "=== MENÚ REPRODUCCIÓN ===\n" + //
                         "1. Ver canción actual\n" + //
                         "2. Reproducir siguiente\n" + //
@@ -82,8 +50,6 @@ public class Menu {
                         "5. Ver historial\n" + //
                         "6. Activar/desactivar aleatorio\n" + //
                         "7. Activar/desactivar repetición\n" + //
-                        "8. Volver al menú principal"
-                        );
                         "8. Volver al menú principal");
 
         System.out.print("Seleccione una opción: ");
@@ -98,6 +64,7 @@ public class Menu {
             case 2:
                 cleanScreen();
                 menuBiblioteca();
+                reproducirSiguiente();
                 break;
             case 3:
                 cleanScreen();
@@ -121,7 +88,6 @@ public class Menu {
                 break;
             case 8:
                 cleanScreen();
-                menuPrincipal();
                 mainMenu();
                 break;
             default:
@@ -130,42 +96,54 @@ public class Menu {
     }
 
     private void verCancionActual() {
-        if(cancionActual == null){
-        if(currentSong == null){
+        if (currentSong == null) {
             System.out.println("No hay canciones en reproducción\n");
             System.out.print("¿Desea comenzar a reproducir? (S/N): ");
             eleccionString = scanner.nextLine();
             System.out.println();
-        }else{
-            System.out.println("Estas reproduciendo " + cancionActual);
-            System.out.println("Estas reproduciendo " + currentSong);
+        } else {
+            System.out.println("Estas reproduciendo " + currentSong.toString());
         }
 
-        switch (eleccionString) {
-            case "s":
+        switch (eleccionString.toUpperCase()) {
+            case "S":
                 reproducirCancion();
                 break;
 
             default:
-                menuPrincipal();
                 mainMenu();
                 break;
         }
     }
 
     private void reproducirCancion() {
-        System.out.println("Eljije la canción que quieres reproducir:\n");
-        System.out.println(canciones.todasLasCanciones().mostrar());
-    private void reproducirCancion(){
         System.out.println(canciones.mostrar());
-    }
-
 
         eleccion = scanner.nextInt();
         scanner.nextLine();
+
+        currentSong = canciones.getCancion(eleccion);
+
+        System.out.println("Estas reproduciendo " + currentSong.toString());
+        pause(3);
+        cleanScreen();
+        mainMenu();
+        menuReproduccion();
+    }
+    private void reproducirSiguiente(){
+        if (currentSong != null) {
+            currentSong = canciones.next(currentSong);
+            System.out.println("Estas reproduciendo " + currentSong.toString());
+        } else {
+            System.out.println("No hay más canciones en la lista.");
+        }
+        pause(3);
+        cleanScreen();
+        menuReproduccion();
+    }
+
     public void menuBiblioteca() {
 
-        cancionActual = canciones.todasLasCanciones().
     }
 
     static void cleanScreen() {
@@ -173,5 +151,10 @@ public class Menu {
         System.out.flush();
     }
 
-}
+    static void pause(int segundos) {
+        try {
+            Thread.sleep(1000 * segundos);
+        } catch (InterruptedException e) {
+        }
+    }
 }

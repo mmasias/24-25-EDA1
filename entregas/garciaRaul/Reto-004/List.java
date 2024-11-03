@@ -13,9 +13,9 @@ public class List {
 
     public void insertEnd(Cancion cancion) {
         Node newNode = new Node(cancion, size);
-        if (this.first == null){
+        if (this.first == null) {
             this.first = newNode;
-        }else {
+        } else {
             Node iterator = this.first;
             while (iterator.getNext() != null) {
                 iterator = iterator.getNext();
@@ -28,7 +28,7 @@ public class List {
     public boolean incluye(String value) {
 
         Node iterator = this.first;
-    
+
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
                 return true;
@@ -44,30 +44,30 @@ public class List {
         if (iterator == null)
             return list;
         while (iterator != null) {
-            list += iterator.getIndice() + ". " + iterator.getValue() + "\n";
+            list += "" + iterator.getIndice() + ". " + iterator.getValue() + "\n";
             iterator = iterator.getNext();
         }
         return list;
     }
 
-    public Node obtenerUltimo(){
-        
+    public Node obtenerUltimo() {
+
         if (this.first == null) {
-        return null;
-        }  
-    
+            return null;
+        }
+
         Node iterator = this.first;
         while (iterator.getNext() != null) {
             iterator = iterator.getNext();
         }
-    
+
         return iterator;
     }
 
     public String getIndiceOf(String value) {
-        
+
         Node iterator = this.first;
-    
+
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
                 return Integer.toString(iterator.getIndice());
@@ -78,14 +78,10 @@ public class List {
 
     }
 
-    public Cancion getCancion(int indice){
-        Node iterator = indice;
-    }
-
     public String getValueOf(String value) {
 
         Node iterator = this.first;
-    
+
         while (iterator != null) {
             if (iterator.getValue().equals(value)) {
                 return iterator.getValue();
@@ -93,6 +89,38 @@ public class List {
             iterator = iterator.getNext();
         }
         return null;
-        
+
+    }
+
+    public Cancion getCancion(int index) {
+        index--;
+
+        Node iterator = this.first;
+        int currentIndex = 0;
+
+        while (iterator != null) {
+            if (currentIndex == index) {
+                return iterator.getSong();
+            }
+            iterator = iterator.getNext();
+            currentIndex++;
+        }
+
+        return null;
+
+    }
+    public Cancion next(Cancion currentSong) {
+        Node iterator = this.first;
+        while (iterator != null) {
+            if (iterator.getSong().equals(currentSong)) {
+                if (iterator.getNext() != null) {
+                    return iterator.getNext().getSong();
+                } else {
+                    return null;
+                }
+            }
+            iterator = iterator.getNext();
+        }
+        return null;
     }
 }
