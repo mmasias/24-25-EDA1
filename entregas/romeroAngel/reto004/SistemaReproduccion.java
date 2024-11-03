@@ -57,6 +57,59 @@ public class SistemaReproduccion {
         } while (opcion != 3);
     }
 
+    private void mostrarMenuBiblioteca() {
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+    
+        do {
+            System.out.println("=== MENÚ BIBLIOTECA ===");
+            System.out.println("1. Añadir canción a favoritos");
+            System.out.println("2. Eliminar canción de favoritos");
+            System.out.println("3. Ver canciones favoritas");
+            System.out.println("4. Crear nueva playlist");
+            System.out.println("5. Añadir canción a playlist");
+            System.out.println("6. Eliminar canción de playlist");
+            System.out.println("7. Ver playlists");
+            System.out.println("8. Ver canciones de una playlist");
+            System.out.println("9. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+    
+            switch (opcion) {
+                case 1:
+                    añadirCancionAFavoritos();
+                    break;
+                case 2:
+                    eliminarCancionDeFavoritos();
+                    break;
+                case 3:
+                    verCancionesFavoritas();
+                    break;
+                case 4:
+                    crearNuevaPlaylist();
+                    break;
+                case 5:
+                    añadirCancionAPlaylist();
+                    break;
+                case 6:
+                    eliminarCancionDePlaylist();
+                    break;
+                case 7:
+                    verPlaylists();
+                    break;
+                case 8:
+                    verCancionesDePlaylist();
+                    break;
+                case 9:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Intente de nuevo.");
+                    break;
+            }
+        } while (opcion != 9);
+    }
+
     private void mostrarMenuReproduccion() {
         Scanner scanner = new Scanner(System.in);
         int opcion; 
