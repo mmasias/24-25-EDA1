@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Biblioteca {
 
 
@@ -11,8 +13,15 @@ public class Biblioteca {
         size=0;
     }
 
+    public ColaReproduccion getFavoritas(){
+        return favoritas;
+    }
+    public ColaReproduccion adquirirCola(int n){
+        return conjuntoColas[n];
+    }
 
-    public void nuevaCola(ColaReproduccion newCola){
+
+    public void nuevaCola(String nombre){
         size ++;
         if(size== conjuntoColas.length){
             ColaReproduccion[] nuevoConjunto=new ColaReproduccion[conjuntoColas.length+10];
@@ -21,7 +30,7 @@ public class Biblioteca {
             }
             conjuntoColas=nuevoConjunto;
         }
-        conjuntoColas[size]=newCola;
+        conjuntoColas[size]=new ColaReproduccion(nombre);
         size++;
     }
     public void nuevaFavorita(Cancion cancion){
@@ -42,6 +51,8 @@ public class Biblioteca {
         }
 
     }
+
+
 
 
 

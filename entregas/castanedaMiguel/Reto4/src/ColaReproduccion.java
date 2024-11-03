@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class ColaReproduccion {
 
@@ -7,7 +8,8 @@ public class ColaReproduccion {
         int cancionActual;
 
         String nombre;
-
+        boolean shuffle=false;
+        boolean repeat=false;
 
        
 
@@ -15,16 +17,32 @@ public class ColaReproduccion {
             size=0;
             cola=null;
             nombre=newNombre;
+            cancionActual=0;
         }
 
         public ColaReproduccion(String newNombre ,Cancion[] newCola){
             cola=newCola;
             size=cola.length;
             nombre=newNombre;
+            cancionActual=0;
         }
 
         public String getNombre(){
             return nombre;
+        }
+
+        public Cancion devolverCancion(int n){
+                return cola[n];
+        }
+
+        public void changeShuffle(){
+            shuffle= !shuffle;
+            System.out.println("Estado de shuffle: "+shuffle);
+        }
+
+        public void changeRepeat(){
+            repeat=!repeat;
+            System.out.println("Estado de repeat: "+repeat);
         }
 
 
@@ -39,11 +57,10 @@ public class ColaReproduccion {
 
 
 
-    boolean shuffle=false;
-    boolean repeat=false;
 
-    public void reproducirCancion(int cancion){
-        System.out.println("▶ Reproduciendo: "+ cola[cancion].toString());
+
+    public String reproducirCancion(int cancion){
+        return"▶ Reproduciendo: "+ cola[cancion].toString();
 
     }
 
@@ -53,11 +70,11 @@ public class ColaReproduccion {
         reproducirCancion(cancionActual);
 
     }
-    public void siguienteCancion(){
+    public void cancionSiguiente(){
         Random r=new Random();
         int i=r.nextInt(size);
         if(repeat){
-            reproducirCancion(cancionActual);
+            //reproducirCancion(cancionActual);
         }else{
             if(shuffle) {
                 cancionActual=i;
@@ -99,6 +116,53 @@ public class ColaReproduccion {
             i++;
         }
         size--;
+    }
+
+    public String mostrarCancion(){
+        return cola[cancionActual].toString();
+    }
+
+    public String mostrarCancion(int i){
+        if(i<size) {
+            return cola[i].toString();
+        }
+        return "Espacio vacío";
+
+    }
+
+    public void mostrarCola(){
+        int i=cancionActual;
+        while(i<size){
+            System.out.println(i+". "+mostrarCancion(i));
+            i++;
+        }
+    }
+
+    public void mostrarRestoCola(){
+        int i=cancionActual;
+        System.out.println("▶ "+ mostrarCancion(i));
+        i++;
+        while(i<size){
+            mostrarCancion(i);
+            i++;
+        }
+
+
+    }
+
+    public void elegirCancion(){
+            Scanner s=new Scanner(System.in);
+            int i=-1;
+           mostrarCola();
+           System.out.println("Elige una cancion");
+           while(i<0||i>=size) {
+               i = s.nextInt();
+               cancionActual = i;
+           }
+
+
+
+
     }
 
 
