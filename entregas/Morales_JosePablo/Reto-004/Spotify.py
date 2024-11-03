@@ -176,3 +176,8 @@ playlist_sabaton.agregar_cancion("The Last Battle", "3:12")
 playlist_sabaton.agregar_cancion("The Final Solution", "4:56")
 playlist_sabaton.agregar_cancion("Midway", "2:29")
 playlist_sabaton.agregar_cancion("Hearts of Iron", "4:28")
+
+playlist_sinatra = Playlist("Frank Sinatra", "Frank Sinatra")
+playlist_sinatra.duracion_total = "1 hora y 16 minutos"
+playlist_sinatra.agregar_cancion("That's Life", "3:07")
+playlist_sinatra.agregar_cancion("Fly Me To The Moon (in other words)", "2:27")
