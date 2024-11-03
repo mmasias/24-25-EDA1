@@ -299,3 +299,9 @@ playlist_un_poco_de_todo.agregar_cancion("Venite Volando - Los Iracundos", "2:36
 playlist_un_poco_de_todo.agregar_cancion("Alto al Fuego - Alux Nahual", "3:37")
 playlist_un_poco_de_todo.agregar_cancion("Como un Duende - Alux Nahual", "4:36")
 playlist_un_poco_de_todo.agregar_cancion("Thank You For The Music - ABBA", "3:49")
+
+sistema = SistemaReproduccionMusica()
+sistema.agregar_playlist(playlist_sabaton)
+sistema.agregar_playlist(playlist_sinatra)
+sistema.agregar_playlist(playlist_lost_in_the_rhythm)
+sistema.agregar_playlist(playlist_de_todo)
