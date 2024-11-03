@@ -47,7 +47,12 @@ class Biblioteca {
 
     public ListaEnlazada<Cancion> getCanciones() {
         return canciones;
-    }    
+    }
+    
+    public ListaEnlazada<Cancion> getCancionesFavoritas() {
+        return favoritas;
+    }
+    
 
     public ListaEnlazada<Playlist> obtenerPlaylists() {
         return playlists;

@@ -9,17 +9,18 @@ public class Main {
         Biblioteca biblioteca = new Biblioteca();
         Reproductor reproductor = new Reproductor();
 
-        // Ejemplo de canciones en la biblioteca
-        biblioteca.añadirCancion(new Cancion("Demoliendo Hoteles", "Charly García", 258));
-        biblioteca.añadirCancion(new Cancion("Los Dinosaurios", "Charly García", 234));
-        biblioteca.añadirCancion(new Cancion("Rasguña Las Piedras", "Sui Generis", 285));
-        biblioteca.añadirCancion(new Cancion("Canción Para Mi Muerte", "Sui Generis", 342));
-        biblioteca.añadirCancion(new Cancion("No Soy Un Extraño", "Charly García", 295));
-        biblioteca.añadirCancion(new Cancion("Seminare", "Serú Girán", 238));
-        biblioteca.añadirCancion(new Cancion("Promesas Sobre El Bidet", "Charly García", 243));
-        biblioteca.añadirCancion(new Cancion("Rezo Por Vos", "Charly García & Luis Alberto Spinetta", 266));
-        biblioteca.añadirCancion(new Cancion("Película sordomuda", "Charly García", 235));
-        biblioteca.añadirCancion(new Cancion("¿Qué se puede hacer salvo ver películas?", "La máquina de hacer pájaros", 325));
+        biblioteca.añadirCancion(new Cancion("Dead in the water", "James Gillespie", 258));
+        biblioteca.añadirCancion(new Cancion("Always been you", "Chris Grey", 234));
+        biblioteca.añadirCancion(new Cancion("Bad Habits", "Ed Sheeran", 285));
+        biblioteca.añadirCancion(new Cancion("Stay For A While", "Victor Ray", 342));
+        biblioteca.añadirCancion(new Cancion("My Home", "Myles Smith", 295));
+        biblioteca.añadirCancion(new Cancion("O Sol e a Lua", "Pequeno Cidadao", 238));
+        biblioteca.añadirCancion(new Cancion("Night Dancer", "Imase", 243));
+        biblioteca.añadirCancion(new Cancion("I'd Rather Pretend", "Bryant Barnes", 266));
+        biblioteca.añadirCancion(new Cancion("It's You", "Ali Gatie", 235));
+        biblioteca.añadirCancion(new Cancion("I Wanna Be Yours", "Artic Monkeys", 325));
+        biblioteca.añadirCancion(new Cancion("All Of Me", "Jonh Legend", 325));
+        biblioteca.añadirCancion(new Cancion("Left Of Me", "Johnny Huynh", 325));
 
         boolean salir = false;
 
@@ -75,7 +76,7 @@ public class Main {
                 System.out.println("Seleccione canción para eliminar de favoritos:");
                 biblioteca.mostrarFavoritas();
                 int cancionFavoritaEliminarIndex = scanner.nextInt() - 1;
-                biblioteca.eliminarDeFavoritos(biblioteca.favoritas.obtener(cancionFavoritaEliminarIndex));
+                biblioteca.eliminarDeFavoritos(biblioteca.getCancionesFavoritas().obtener(cancionFavoritaEliminarIndex));
             } else if (opcionBiblioteca == 3) {
                 biblioteca.mostrarFavoritas();
             } else if (opcionBiblioteca == 4) {
