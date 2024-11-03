@@ -1,9 +1,9 @@
 class Cancion {
 
     private String nombre;
-    private int duracion;    
+    private int duracion;
     private Cancion next;
-    
+
     public Cancion(String nombre, int duracion) {
         this.nombre = nombre;
         this.duracion = duracion;

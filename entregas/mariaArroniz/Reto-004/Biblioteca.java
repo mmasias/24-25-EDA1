@@ -2,14 +2,13 @@ import java.util.Scanner;
 
 class Biblioteca {
 
-    private Playlist playlist;
     private Playlist primera = null;
 
     public int tamañoBiblioteca() {
-
         if (this.primera == null) {
             return 0;
         }
+
         int contador = 1;
         Playlist iterador = primera;
         while (iterador.getNext() != null) {
@@ -18,52 +17,98 @@ class Biblioteca {
         }
         return contador;
     }
-    
+
     public void crearPlaylist() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nombre de la nueva playlist: ");
         String nombre = scanner.nextLine();
 
-        this.playlist = new Playlist(nombre);
-        this.primera = playlist;
+        Playlist nuevaPlaylist = new Playlist(nombre);
 
         if (this.primera == null) {
-            this.primera = playlist;
+            this.primera = nuevaPlaylist;
         } else {
             Playlist iterador = this.primera;
             while (iterador.getNext() != null) {
                 iterador = (Playlist) iterador.getNext();
             }
-            iterador.setNext(playlist);
+            iterador.setNext(nuevaPlaylist);
         }
     }
 
-    public String[] imprimirBiblioteca() {
-        String[] biblioteca = new String[this.tamañoBiblioteca()];
-        Playlist iterador = this.primera;
-        
-        if (tamañoBiblioteca() == 0) {
+    public void imprimirBiblioteca() {
+        int tamaño = this.tamañoBiblioteca();
+
+        if (tamaño == 0) {
             System.out.println("Todavía no hay playlists en la biblioteca");
+            return;
         }
-        int contador = 0;
+
+        Playlist iterador = this.primera;
+        System.out.println("Playlists:");
         while (iterador != null) {
-            biblioteca[contador] = iterador.getNombre();
-            contador++;
+            System.out.println("- " + iterador.getNombre());
             iterador = (Playlist) iterador.getNext();
         }
-        return biblioteca;
     }
-    
+
     public void añadirCancionPlaylist() {
-        playlist.añadirCancion();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Pon el nombre de la playlist a la que quieres añadir la cancion:");
+        String nombre = scanner.nextLine();
+
+        Playlist playlist = buscarPlaylist(nombre);
+        if (playlist != null) {
+            playlist.añadirCancion();
+        } else {
+            System.out.println("Playlist no encontrada");
+        }
     }
 
     public void eliminarCancionPlaylist() {
-        playlist.eliminarCancion();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Pon el nombre de la playlist a la que quieres eliminar la cancion:");
+        String nombre = scanner.nextLine();
+
+        Playlist playlist = buscarPlaylist(nombre);
+        if (playlist != null) {
+            playlist.eliminarCancion();
+        } else {
+            System.out.println("Playlist no encontrada");
+        }
     }
 
     public void imprimirPlaylist() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el nombre de la playlist que quiere ver:");
+        String nombre = scanner.nextLine();
+
+        Playlist playlist = buscarPlaylist(nombre);
+        if (playlist != null) {
+            String[] canciones = playlist.length;
+            if (canciones.length == 0) {
+                System.out.println("La playlist está vacía.");
+            } else {
+                System.out.println("Canciones en la playlist " + nombre + ":");
+                for (String cancion : canciones) {
+                    System.out.println("- " + cancion);
+                }
+            }
+        } else {
+            System.out.println("Playlist no encontrada");
+        }
         playlist.imprimir();
+    }
+
+    private Playlist buscarPlaylist(String nombre) {
+        Playlist iterador = this.primera;
+        while (iterador != null) {
+            if (iterador.getNombre().equals(nombre)) {
+                return iterador;
+            }
+            iterador = iterador.getNext();
+        }
+        return null;
     }
 
 }

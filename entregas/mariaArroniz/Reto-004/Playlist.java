@@ -5,16 +5,17 @@ class Playlist {
     private String nombre;
     private Playlist next;
     private Cancion primera = null;
+    public String[] length;
 
     public Playlist(String nombre) {
         this.setNombre(nombre);
     }
 
     public int tamañoPlaylist() {
-
         if (this.primera == null) {
             return 0;
         }
+
         int contador = 1;
         Cancion iterador = primera;
         while (iterador.getNext() != null) {
@@ -32,7 +33,6 @@ class Playlist {
         int duracion = scanner.nextInt();
 
         Cancion cancion = new Cancion(nombre, duracion);
-        this.primera = cancion;
 
         if (this.primera == null) {
             this.primera = cancion;
@@ -43,7 +43,6 @@ class Playlist {
             }
             iterador.setNext(cancion);
         }
-
     }
 
     public void eliminarCancion() {
@@ -51,32 +50,43 @@ class Playlist {
         System.out.println("Qué canción quiere eliminar: ");
         String nombre = scanner.nextLine();
 
-        Cancion iterador = this.primera;
-        if (iterador == null) {
+        if (this.primera == null) {
             System.out.println("No hay canciones para eliminar");
-        } else if (iterador.getNombre() == nombre) {
-            iterador = null;
-        } else {
-            iterador.getNext();
+            return;
         }
 
+        if (this.primera.getNombre().equals(nombre)) {
+            this.primera = this.primera.getNext();
+            System.out.println("Cancion eliminada");
+            return;
+        }
+
+        Cancion iterador = this.primera;
+        while (iterador.getNext() != null) {
+            if (iterador.getNext().getNombre().equals(nombre)) {
+                iterador.setNext(iterador.getNext().getNext());
+                System.out.println("Cancion eliminada");
+                return;
+            }
+            iterador = iterador.getNext();
+        }
+        System.out.println("Cancion no encontrada");
     }
 
-    public String[] imprimir() {
-        String[] playlist = new String[this.tamañoPlaylist()];
-        Cancion iterador = this.primera;
+    public void imprimir() {
+        int tamaño = this.tamañoPlaylist();
 
-        if (tamañoPlaylist() == 0) {
+        if (tamaño == 0) {
             System.out.println("Todavía no hay canciones en la playlist");
+            return;
         }
-        int contador = 0;
+
+        Cancion iterador = this.primera;
+        System.out.println("Canciones:");
         while (iterador != null) {
-            playlist[contador] = iterador.getNombre();
-            contador++;
+            System.out.println("- " + iterador.getNombre());
             iterador = (Cancion) iterador.getNext();
         }
-        return playlist;
-
     }
 
     public String getNombre() {
