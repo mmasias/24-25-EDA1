@@ -1,46 +1,20 @@
 package entregas.vaqueroInigo.reto004;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        ReproductorMusical reproductor = new ReproductorMusical();
+        Biblioteca biblioteca = new Biblioteca();
+        biblioteca.agregarCancion(new Cancion("Demoliendo Hoteles", "Charly García", 258));
+        biblioteca.agregarCancion(new Cancion("Los Dinosaurios", "Charly García", 234));
+        biblioteca.agregarCancion(new Cancion("Rasguña Las Piedras", "Sui Generis", 285));
+        biblioteca.agregarCancion(new Cancion("Canción Para Mi Muerte", "Sui Generis", 342));
+        biblioteca.agregarCancion(new Cancion("No Soy Un Extraño", "Charly García", 295));
+        biblioteca.agregarCancion(new Cancion("Seminare", "Serú Girán", 238));
+        biblioteca.agregarCancion(new Cancion("Promesas Sobre El Bidet", "Charly García", 243));
+        biblioteca.agregarCancion(new Cancion("Rezo Por Vos", "Charly García & Luis Alberto Spinetta", 266));
+        biblioteca.agregarCancion(new Cancion("Película sordomuda", "Charly García", 235));
+        biblioteca.agregarCancion(new Cancion("¿Qué se puede hacer salvo ver películas?", "La máquina de hacer pájaros", 325));
 
-        while (true) {
-            System.out.println("Seleccione una opción:");
-            System.out.println("1. Agregar canción a biblioteca");
-            System.out.println("2. Mostrar biblioteca");
-            System.out.println("3. Agregar canción a favoritos");
-            System.out.println("4. Mostrar canciones favoritas");
-            System.out.println("5. Reproducir siguiente canción");
-            System.out.println("0. Salir");
-
-            int opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1:
-                    System.out.println("Ingrese título de la canción:");
-                    String titulo = scanner.nextLine();
-                    System.out.println("Ingrese artista:");
-                    String artista = scanner.nextLine();
-                    System.out.println("Ingrese duración en segundos:");
-                    int duracion = scanner.nextInt();
-                    reproductor.agregarCancionABiblioteca(new Cancion(titulo, artista, duracion));
-                    break;
-                case 2:
-                    reproductor.mostrarBiblioteca();
-                    break;
-                case 5:
-                    reproductor.reproducirSiguiente();
-                    break;
-                case 0:
-                    System.out.println("Saliendo...");
-                    return;
-                default:
-                    System.out.println("Opción no válida");
-            }
-        }
+        Reproductor reproductor = new Reproductor(biblioteca);
+        reproductor.iniciar();
     }
 }

@@ -1,23 +1,30 @@
 package entregas.vaqueroInigo.reto004;
 
-public class Cola {
-    private Nodo frente, fondo;
+import java.util.LinkedList;
 
-    public void encolar(Cancion dato) {
-        Nodo nuevoNodo = new Nodo(dato);
-        if (fondo == null) {
-            frente = fondo = nuevoNodo;
-        } else {
-            fondo.siguiente = nuevoNodo;
-            fondo = nuevoNodo;
+public class Cola {
+    private LinkedList<Cancion> cola;
+
+    public Cola() {
+        cola = new LinkedList<>();
+    }
+
+    public void agregar(Cancion cancion) {
+        cola.add(cancion);
+    }
+
+    public Cancion sacar() {
+        return cola.poll();
+    }
+
+    public void mostrarCola() {
+        for (int i = 0; i < cola.size(); i++) {
+            Cancion cancion = cola.get(i);
+            System.out.println((i + 1) + ". " + cancion);
         }
     }
 
-    public void mostrar() {
-        Nodo actual = frente;
-        while (actual != null) {
-            System.out.println(actual.dato);
-            actual = actual.siguiente;
-        }
+    public boolean isEmpty() {
+        return cola.isEmpty();
     }
 }
