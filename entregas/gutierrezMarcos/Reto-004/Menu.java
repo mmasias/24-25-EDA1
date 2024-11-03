@@ -192,6 +192,14 @@ public class Menu {
         menuReproduccion();
     }
 
+    private void toggleRepeticion() {
+        repetirActivado = !repetirActivado;
+        System.out.println("Repetición " + (repetirActivado ? "activada" : "desactivada"));
+        pause(2);
+        cleanScreen();
+        menuReproduccion();
+    }
+
     public void menuBiblioteca() {
 
     }
