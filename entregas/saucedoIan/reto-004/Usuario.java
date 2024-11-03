@@ -13,6 +13,14 @@ public class Usuario {
     return nombre;
   }
 
+  public NodoDoble getCancionesFavoritas() {
+    return cancionesFavoritas;
+  }
+
+  public NodoPlaylist getPlaylists() {
+    return playlists;
+  }
+
   public void añadirCancionAFavoritos(Cancion cancion) {
     NodoDoble nuevoNodo = new NodoDoble(cancion);
     nuevoNodo.siguiente = cancionesFavoritas;

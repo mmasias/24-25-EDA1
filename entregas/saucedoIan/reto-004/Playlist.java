@@ -1,4 +1,3 @@
-
 public class Playlist {
   private String nombre;
   private ListaDobleCancion canciones;
@@ -10,6 +9,10 @@ public class Playlist {
 
   public String getNombre() {
     return nombre;
+  }
+
+  public ListaDobleCancion getCanciones() {
+    return canciones;
   }
 
   public void añadirCancion(Cancion cancion) {
