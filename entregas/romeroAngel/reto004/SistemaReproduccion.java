@@ -146,7 +146,7 @@ public class SistemaReproduccion {
             int indiceAleatorio;
             do{
                 indiceAleatorio = (int)(Math.random()*canciones.size());
-            } while();
+            } while(historial.contains(canciones.obtener(indiceAleatorio)));
         }
 
 

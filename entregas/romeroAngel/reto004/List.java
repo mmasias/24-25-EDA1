@@ -148,4 +148,18 @@ public class List {
     public Node getFirst() {
         return this.first; 
     }
+
+    public boolean contains(Cancion cancion) {
+        Node iterator = this.first;
+        while (iterator != null) { 
+            if (iterator.getCancion().equals(cancion)) { 
+                return true; 
+            }
+            iterator = iterator.getNext(); 
+        }
+        return false; 
+    }
+
 }
+
+
