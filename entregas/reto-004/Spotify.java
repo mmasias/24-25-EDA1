@@ -87,4 +87,109 @@ class Historial {
         }
     }
 }
+class ColaReproduccion {
+    public NodoCancion frente; // Cambiar a público para acceso en Reproductor
+    private NodoCancion fin;
 
+    public ColaReproduccion() {
+        this.frente = null;
+        this.fin = null;
+    }
+
+    public void agregarCancion(Cancion cancion) {
+        NodoCancion nuevoNodo = new NodoCancion(cancion);
+        if (fin != null) {
+            fin.siguiente = nuevoNodo;
+        }
+        fin = nuevoNodo;
+        if (frente == null) {
+            frente = nuevoNodo;
+        }
+    }
+
+    public Cancion siguienteCancion() {
+        if (frente == null) return null;
+        Cancion cancion = frente.cancion;
+        frente = frente.siguiente;
+        if (frente == null) {
+            fin = null;
+        }
+        return cancion;
+    }
+
+    public boolean estaVacia() {
+        return frente == null;
+    }
+}
+class Reproductor {
+    private ColaReproduccion cola;
+    private Historial historial;
+    private boolean modoAleatorio;
+    private boolean modoRepetir;
+    public Cancion cancionActual; // Cambiado a público para acceso directo
+    private Playlist[] playlists;
+    private int numPlaylists;
+
+    public Reproductor() {
+        this.cola = new ColaReproduccion();
+        this.historial = new Historial();
+        this.modoAleatorio = false;
+        this.modoRepetir = false;
+        this.playlists = new Playlist[10]; // Limite de 10 playlists
+        this.numPlaylists = 0;
+    }
+
+    public void reproducir() {
+        if (cola.estaVacia()) {
+            System.out.println("No hay canciones en la cola.");
+            return;
+        }
+        cancionActual = cola.siguienteCancion();
+        historial.agregarCancion(cancionActual);
+        System.out.println("▶ Reproduciendo: " + cancionActual);
+    }
+
+    public void siguiente() {
+        if (modoRepetir) {
+            cola.agregarCancion(cancionActual);
+        }
+        reproducir();
+    }
+
+    public void anterior() {
+        // Implementa aquí la lógica para manejar la canción anterior
+    }
+
+    public void activarModoAleatorio() {
+        modoAleatorio = !modoAleatorio;
+        System.out.println("Modo aleatorio: " + (modoAleatorio ? "Activado" : "Desactivado"));
+    }
+
+    public void activarModoRepetir() {
+        modoRepetir = !modoRepetir;
+        System.out.println("Modo repetir: " + (modoRepetir ? "Activado" : "Desactivado"));
+    }
+
+    public void mostrarHistorial() {
+        historial.mostrarHistorial();
+    }
+
+    public void agregarCancionACola(Cancion cancion) {
+        cola.agregarCancion(cancion);
+    }
+
+    public void crearPlaylist(String nombre) {
+        if (numPlaylists < playlists.length) {
+            playlists[numPlaylists++] = new Playlist(nombre);
+            System.out.println("Playlist \"" + nombre + "\" creada con éxito.");
+        } else {
+            System.out.println("No se pueden crear más playlists.");
+        }
+    }
+
+    public void verPlaylists() {
+        System.out.println("Playlists disponibles:");
+        for (int i = 0; i < numPlaylists; i++) {
+            System.out.println((i + 1) + ". " + playlists[i].getNombre());
+        }
+    }
