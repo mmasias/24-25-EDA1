@@ -14,8 +14,7 @@ public class Playlist {
         return songs.size();
     }
 
-    public void insertEnd(String titulo, String artista, int duracion, String value) {
-        Song newSong = new Song(titulo, artista, duracion, value);
+    public void insertEnd(Song newSong) {
         songs.inserEnd(newSong);
     }
 

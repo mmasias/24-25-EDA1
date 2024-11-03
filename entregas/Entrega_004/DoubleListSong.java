@@ -51,12 +51,12 @@ public class DoubleListSong {
     }
 
     public String listAll() {
-        String result = "";  // Inicializamos una cadena vacía
+        String result = "";  
         Song iterator = first;
         
         while (iterator != null) {
-            result += iterator.toString() + "\n";  // Concatenamos cada canción y un salto de línea
-            iterator = iterator.getNext();  // Avanzamos al siguiente nodo
+            result += iterator.toString() + "\n";  
+            iterator = iterator.getNext();  
         }
         
         return result;
@@ -73,5 +73,12 @@ public class DoubleListSong {
         }
         size++;
     }
-
+    public void showSongs() {
+        Song iterator = first;
+        System.out.println("Canciones en la biblioteca:");
+        while(iterator != null){
+            System.out.println(iterator);
+            iterator = iterator.getNext;
+        }
+    }
 }
