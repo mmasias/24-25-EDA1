@@ -1,43 +1,56 @@
 package entregas.atecaAlejandro.reto004;
 
-public class Cola {
+class Cola {
     private Nodo frente;
-    private Nodo fondo;
+    private Nodo finalCola;
+
     public Cola() {
-        frente = null;
-        fondo = null;
+        this.frente = null;
+        this.finalCola = null;
     }
+
     public void agregar(Cancion cancion) {
-        Nodo nuevo = new Nodo(cancion);
-        if (fondo != null) {
-            fondo.siguiente = nuevo;
-        }
-        fondo = nuevo;
-        if (frente == null) {
-            frente = nuevo;
+        Nodo nuevoNodo = new Nodo(cancion);
+        if (finalCola == null) { 
+            frente = nuevoNodo;
+            finalCola = nuevoNodo;
+        } else {
+            finalCola.siguiente = nuevoNodo;
+            finalCola = nuevoNodo;
         }
     }
+
     public Cancion siguiente() {
-        if (frente == null) {
-            return null;
-        }
-        Cancion cancion = frente.cancion;
-        frente = frente.siguiente;
-        if (frente == null) {
-            fondo = null;
-        }
-        return cancion;
+        if (frente == null) return null; 
+        Cancion cancionActual = frente.cancion;
+        frente = frente.siguiente; 
+        return cancionActual;
     }
-    public boolean estaVacia() {
-        return frente == null;
-    }
+
     public void mostrarCola() {
         Nodo actual = frente;
         int index = 1;
         while (actual != null) {
-            System.out.println(index + ". " + actual.cancion);
+            System.out.println(index++ + ". " + actual.cancion);
             actual = actual.siguiente;
-            index++;
         }
+    }
+
+    public boolean estaVacia() {
+        return frente == null;
+    }
+
+    public int size() {
+        int count = 0;
+        Nodo actual = frente;
+        while (actual != null) {
+            count++;
+            actual = actual.siguiente;
+        }
+        return count;
+    }
+
+    public Nodo getFrente() {
+        return frente;
     }
 }

@@ -1,16 +1,38 @@
 package entregas.atecaAlejandro.reto004;
 
-public class Album {
-    private String titulo;
+class Album {
+    private String nombre;
     private String artista;
-    private int año;
-    public Album(String titulo, String artista, int año) {
-        this.titulo = titulo;
+    private Nodo canciones;
+
+    public Album(String nombre, String artista) {
+        this.nombre = nombre;
         this.artista = artista;
-        this.año = año;
+        this.canciones = null;
     }
-    @Override
-    public String toString() {
-        return titulo + " - " + artista + " (" + año + ")";
+
+    public void agregarCancion(Cancion cancion) {
+        Nodo nuevoNodo = new Nodo(cancion);
+        nuevoNodo.siguiente = canciones; // Agregar al principio de la lista
+        canciones = nuevoNodo;
+    }
+
+    public void mostrarCanciones() {
+        Nodo actual = canciones;
+        int index = 1;
+        while (actual != null) {
+            System.out.println(index++ + ". " + actual.cancion);
+            actual = actual.siguiente;
+        }
+    }
+
+    public int size() {
+        int count = 0;
+        Nodo actual = canciones;
+        while (actual != null) {
+            count++;
+            actual = actual.siguiente;
+        }
+        return count;
     }
 }
