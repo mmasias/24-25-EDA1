@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Spotify",
+      "request": "launch",
+      "mainClass": "reto004.Spotify",
+      "projectName": "24-25-EDA1_6c336b04"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "reto004.Main",
+      "projectName": "24-25-EDA1_6c336b04"
+    },
+    {
+      "type": "java",
       "name": "Compresor",
       "request": "launch",
       "mainClass": "entregas.martinezDiego.reto003.Compresor",
