@@ -9,12 +9,11 @@ class Ejemplo {
         nephews.insertEnd("Juanito");
         nephews.insertEnd("Pepito");
         nephews.insertEnd("Anita");
+        nephews.insertEnd("Luisito");
 
         System.out.println("Esta vacia? " + nephews.isEmpty());
 
         viewLine(nephews);
-
-        nephews.insertEnd("Luisito");
 
         System.out.println("Tamaño: " + nephews.size());
 
