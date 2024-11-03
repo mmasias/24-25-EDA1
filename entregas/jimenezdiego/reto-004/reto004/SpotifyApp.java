@@ -6,6 +6,7 @@ public class SpotifyApp {
     private static Scanner scanner = new Scanner(System.in);
     private static ListaCanciones biblioteca = new ListaCanciones();
     private static ColaReproduccion colaReproduccion = new ColaReproduccion();
+    private static ListaCanciones favoritos = new ListaCanciones();
     private static PilaHistorial historial = new PilaHistorial();
 
     public static void main(String[] args) {
@@ -51,10 +52,194 @@ public class SpotifyApp {
         biblioteca.agregarCancion(new Cancion("Bloody Valentine", "MGK", 325));
     }
 
-    private static void mostrarBibliotecaInicial() {
-        System.out.println("\n=== SPOTIFY  ===");
-        System.out.println("\nBIBLIOTECA INICIAL\n");
-        System.out.println("Canciones disponibles:\n");
+    private static void menuBiblioteca() {
+        int opcionBiblioteca;
+        do {
+            System.out.println("\n=== MENÚ BIBLIOTECA ===");
+            System.out.println("1. Añadir canción a favoritos");
+            System.out.println("2. Eliminar canción de favoritos");
+            System.out.println("3. Ver canciones favoritas");
+            System.out.println("4. Crear nueva playlist");
+            System.out.println("5. Añadir canción a playlist");
+            System.out.println("6. Eliminar canción de playlist");
+            System.out.println("7. Ver playlists");
+            System.out.println("8. Ver canciones de una playlist");
+            System.out.println("9. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            opcionBiblioteca = scanner.nextInt();
+            scanner.nextLine(); // Limpiar buffer
+
+            switch (opcionBiblioteca) {
+                case 1:
+                    añadirCancionAFavoritos();
+                    break;
+                case 2:
+                    eliminarCancionDeFavoritos();
+                    break;
+                case 3:
+                    verCancionesFavoritas();
+                    break;
+                case 4:
+                    crearPlaylist();
+                    break;
+                case 5:
+                    añadirCancionAPlaylist();
+                    break;
+                case 6:
+                    eliminarCancionDePlaylist();
+                    break;
+                case 7:
+                    verPlaylists();
+                    break;
+                case 8:
+                    verCancionesDePlaylist();
+                    break;
+                case 9:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
+        } while (opcionBiblioteca != 9);
+    }
+
+    private static void añadirCancionAFavoritos() {
+        System.out.println("Canciones en la biblioteca:");
         biblioteca.mostrarCanciones();
+        System.out.print("Seleccione la canción para añadir a favoritos: ");
+        int cancionIndex = scanner.nextInt() - 1;
+        scanner.nextLine();
+        NodoCancion nodo = biblioteca.getNodo(cancionIndex);
+        if (nodo != null) {
+            favoritos.agregarCancion(nodo.cancion);
+            System.out.println("Canción añadida a favoritos.");
+        } else {
+            System.out.println("Selección inválida.");
+        }
+    }
+
+    private static void eliminarCancionDeFavoritos() {
+        System.out.println("Canciones favoritas:");
+        favoritos.mostrarCanciones();
+        System.out.print("Seleccione la canción para eliminar de favoritos: ");
+        int cancionIndex = scanner.nextInt() - 1;
+        scanner.nextLine();
+        NodoCancion nodo = favoritos.getNodo(cancionIndex);
+        if (nodo != null) {
+            favoritos.eliminarCancion(nodo.cancion.getTitulo());
+            System.out.println("Canción eliminada de favoritos.");
+        } else {
+            System.out.println("Selección inválida.");
+        }
+    }
+
+    private static void verCancionesFavoritas() {
+        System.out.println("Canciones favoritas:");
+        favoritos.mostrarCanciones();
+    }
+
+    private static void crearPlaylist() {
+        System.out.print("Nombre de la nueva playlist: ");
+        String nombrePlaylist = scanner.nextLine();
+        Playlist nuevaPlaylist = new Playlist(nombrePlaylist);
+        playlists.add(nuevaPlaylist);
+        System.out.println("Playlist \"" + nombrePlaylist + "\" creada con éxito.");
+    }
+
+    private static void añadirCancionAPlaylist() {
+        if (playlists.isEmpty()) {
+            System.out.println("No hay playlists disponibles. Cree una playlist primero.");
+            return;
+        }
+
+        System.out.println("Playlists disponibles:");
+        for (int i = 0; i < playlists.size(); i++) {
+            System.out.println((i + 1) + ". " + playlists.get(i).getNombre());
+        }
+
+        System.out.print("Seleccione playlist: ");
+        int playlistIndex = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if (playlistIndex < 0 || playlistIndex >= playlists.size()) {
+            System.out.println("Playlist no válida.");
+            return;
+        }
+
+        System.out.println("Canciones disponibles:");
+        biblioteca.mostrarCanciones();
+        System.out.print("Seleccione canción a añadir: ");
+        int cancionIndex = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        NodoCancion nodo = biblioteca.getNodo(cancionIndex);
+        if (nodo != null) {
+            playlists.get(playlistIndex).agregarCancion(nodo.cancion);
+        } else {
+            System.out.println("Canción no válida.");
+        }
+    }
+
+    private static void eliminarCancionDePlaylist() {
+        if (playlists.isEmpty()) {
+            System.out.println("No hay playlists disponibles.");
+            return;
+        }
+
+        System.out.println("Playlists disponibles:");
+        for (int i = 0; i < playlists.size(); i++) {
+            System.out.println((i + 1) + ". " + playlists.get(i).getNombre());
+        }
+
+        System.out.print("Seleccione playlist: ");
+        int playlistIndex = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if (playlistIndex < 0 || playlistIndex >= playlists.size()) {
+            System.out.println("Playlist no válida.");
+            return;
+        }
+
+        Playlist selectedPlaylist = playlists.get(playlistIndex);
+        selectedPlaylist.mostrarCanciones();
+        System.out.print("Seleccione canción a eliminar: ");
+        int cancionIndex = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        NodoCancion nodo = biblioteca.getNodo(cancionIndex);
+        if (nodo != null) {
+            selectedPlaylist.eliminarCancion(nodo.cancion.getTitulo());
+        } else {
+            System.out.println("Canción no válida.");
+        }
+    }
+
+    private static void verPlaylists() {
+        System.out.println("Playlists disponibles:");
+        for (int i = 0; i < playlists.size(); i++) {
+            System.out.println((i + 1) + ". " + playlists.get(i).getNombre());
+        }
+    }
+
+    private static void verCancionesDePlaylist() {
+        if (playlists.isEmpty()) {
+            System.out.println("No hay playlists disponibles.");
+            return;
+        }
+
+        System.out.println("Playlists disponibles:");
+        for (int i = 0; i < playlists.size(); i++) {
+            System.out.println((i + 1) + ". " + playlists.get(i).getNombre());
+        }
+
+        System.out.print("Seleccione playlist: ");
+        int playlistIndex = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if (playlistIndex >= 0 && playlistIndex < playlists.size()) {
+            playlists.get(playlistIndex).mostrarCanciones();
+        } else {
+            System.out.println("Playlist no válida.");
+        }
     }
 }
