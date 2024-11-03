@@ -1,13 +1,23 @@
 class Album {
-    private String titulo;
-    private String artista;
-    private int año;
+    private String nombre;
+    private ListaCanciones canciones;
 
-    public Album(String titulo, String artista, int año) {
-        this.titulo = titulo;
-        this.artista = artista;
-        this.año = año;
+    public Album(String nombre) {
+        this.nombre = nombre;
+        this.canciones = new ListaCanciones();
     }
 
-    public String toString()
+    public void agregarCancion(Cancion cancion) {
+        canciones.agregar(cancion);
+    }
+
+    public void mostrarCanciones() {
+        System.out.println("Canciones en el álbum \"" + nombre + "\":");
+        canciones.mostrar();
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

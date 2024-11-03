@@ -1,15 +1,19 @@
 class Cancion {
-    private String titulo;
+    private String nombre;
     private String artista;
-    private int duracion;    
-    private boolean favorita;
-    
-    public Cancion(String titulo, String artista, int duracion) {
-        this.titulo = titulo;
+    private int duracion;
+
+    public Cancion(String nombre, String artista, int duracion) {
+        this.nombre = nombre;
         this.artista = artista;
         this.duracion = duracion;
-        this.favorita = false;
-    }    
+    }
 
-    public String toString()
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String toString() {
+        return nombre + " - " + artista + " [" + duracion + "s]";
+    }
 }
