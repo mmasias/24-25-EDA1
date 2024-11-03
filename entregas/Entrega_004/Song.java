@@ -39,8 +39,6 @@ public Song getNext() {
     return next;
 }
 
-
-
 public void setNext(Song newSong) {
     this.next = next;
 }
