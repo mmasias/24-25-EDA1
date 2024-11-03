@@ -8,6 +8,7 @@ public class SpotifyApp {
     private static ColaReproduccion colaReproduccion = new ColaReproduccion();
     private static ListaCanciones favoritos = new ListaCanciones();
     private static PilaHistorial historial = new PilaHistorial();
+    private static ListaPlaylists playlists = new ListaPlaylists();
 
     public static void main(String[] args) {
         inicializarBiblioteca();
@@ -142,26 +143,25 @@ public class SpotifyApp {
         System.out.print("Nombre de la nueva playlist: ");
         String nombrePlaylist = scanner.nextLine();
         Playlist nuevaPlaylist = new Playlist(nombrePlaylist);
-        playlists.add(nuevaPlaylist);
+        playlists.agregarPlaylist(nuevaPlaylist);
         System.out.println("Playlist \"" + nombrePlaylist + "\" creada con éxito.");
     }
 
     private static void añadirCancionAPlaylist() {
-        if (playlists.isEmpty()) {
+        if (playlists.getTamaño() == 0) {
             System.out.println("No hay playlists disponibles. Cree una playlist primero.");
             return;
         }
 
         System.out.println("Playlists disponibles:");
-        for (int i = 0; i < playlists.size(); i++) {
-            System.out.println((i + 1) + ". " + playlists.get(i).getNombre());
-        }
+        playlists.mostrarPlaylists();
 
         System.out.print("Seleccione playlist: ");
         int playlistIndex = scanner.nextInt() - 1;
         scanner.nextLine();
 
-        if (playlistIndex < 0 || playlistIndex >= playlists.size()) {
+        Playlist selectedPlaylist = playlists.obtenerPlaylist(playlistIndex);
+        if (selectedPlaylist == null) {
             System.out.println("Playlist no válida.");
             return;
         }
@@ -174,33 +174,31 @@ public class SpotifyApp {
 
         NodoCancion nodo = biblioteca.getNodo(cancionIndex);
         if (nodo != null) {
-            playlists.get(playlistIndex).agregarCancion(nodo.cancion);
+            selectedPlaylist.agregarCancion(nodo.cancion);
         } else {
             System.out.println("Canción no válida.");
         }
     }
 
     private static void eliminarCancionDePlaylist() {
-        if (playlists.isEmpty()) {
+        if (playlists.getTamaño() == 0) {
             System.out.println("No hay playlists disponibles.");
             return;
         }
 
         System.out.println("Playlists disponibles:");
-        for (int i = 0; i < playlists.size(); i++) {
-            System.out.println((i + 1) + ". " + playlists.get(i).getNombre());
-        }
+        playlists.mostrarPlaylists();
 
         System.out.print("Seleccione playlist: ");
         int playlistIndex = scanner.nextInt() - 1;
         scanner.nextLine();
 
-        if (playlistIndex < 0 || playlistIndex >= playlists.size()) {
+        Playlist selectedPlaylist = playlists.obtenerPlaylist(playlistIndex);
+        if (selectedPlaylist == null) {
             System.out.println("Playlist no válida.");
             return;
         }
 
-        Playlist selectedPlaylist = playlists.get(playlistIndex);
         selectedPlaylist.mostrarCanciones();
         System.out.print("Seleccione canción a eliminar: ");
         int cancionIndex = scanner.nextInt() - 1;
@@ -215,29 +213,25 @@ public class SpotifyApp {
     }
 
     private static void verPlaylists() {
-        System.out.println("Playlists disponibles:");
-        for (int i = 0; i < playlists.size(); i++) {
-            System.out.println((i + 1) + ". " + playlists.get(i).getNombre());
-        }
+        playlists.mostrarPlaylists();
     }
 
     private static void verCancionesDePlaylist() {
-        if (playlists.isEmpty()) {
+        if (playlists.getTamaño() == 0) {
             System.out.println("No hay playlists disponibles.");
             return;
         }
 
         System.out.println("Playlists disponibles:");
-        for (int i = 0; i < playlists.size(); i++) {
-            System.out.println((i + 1) + ". " + playlists.get(i).getNombre());
-        }
+        playlists.mostrarPlaylists();
 
         System.out.print("Seleccione playlist: ");
         int playlistIndex = scanner.nextInt() - 1;
         scanner.nextLine();
 
-        if (playlistIndex >= 0 && playlistIndex < playlists.size()) {
-            playlists.get(playlistIndex).mostrarCanciones();
+        Playlist selectedPlaylist = playlists.obtenerPlaylist(playlistIndex);
+        if (selectedPlaylist != null) {
+            selectedPlaylist.mostrarCanciones();
         } else {
             System.out.println("Playlist no válida.");
         }

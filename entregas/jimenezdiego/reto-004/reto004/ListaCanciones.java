@@ -53,9 +53,16 @@ public class ListaCanciones {
         }
     }
 
-    public NodoCancion getNodo(int cancionIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getNodo'");
+    public NodoCancion getNodo(int index) {
+        if (index < 0 || index >= tamaño) {
+            return null; // Índice fuera de rango
+        }
+    
+        NodoCancion actual = inicio;
+        for (int i = 0; i < index; i++) {
+            actual = actual.siguiente;
+        }
+        return actual;
     }
 }
 
