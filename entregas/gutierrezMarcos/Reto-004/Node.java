@@ -3,13 +3,25 @@ public class Node {
     private String value;
     private int indice;
     private Node next;
-    private Node previous; // Enlace al nodo anterior
+    private Node previous;
+    private List playlist;
     private Cancion cancion;
 
     public Node(Cancion cancion, int indice) {
         this.cancion = cancion;
         this.setValue(cancion.toString());
         this.indice = indice;
+    }
+
+    public Node(List playlist) {
+        this.cancion = null;
+        this.playlist = playlist;
+        this.next = null;
+    }
+
+    public Node(Cancion cancion) {
+        this.cancion = cancion;
+        this.next = null;
     }
 
     public String getValue() {
@@ -43,4 +55,9 @@ public class Node {
     public Cancion getSong() {
         return cancion;
     }
+
+    public List getPlaylist() {
+        return playlist;
+    }
+
 }

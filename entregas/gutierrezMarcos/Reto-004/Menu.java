@@ -11,6 +11,7 @@ public class Menu {
     String eleccionString;
     boolean aleatorioActivado = false;
     boolean repetirActivado = false;
+    private List playlists = new List();
 
     public Menu(Cancion currentSong, List canciones) {
         this.canciones = canciones;
@@ -238,7 +239,7 @@ public class Menu {
                 break;
             case 5:
                 cleanScreen();
-                añadirCancionAPlaylist();
+                agregarCancionAPlaylist();
                 break;
             case 6:
                 cleanScreen();
@@ -250,7 +251,7 @@ public class Menu {
                 break;
             case 8:
                 cleanScreen();
-                verCancionesDePlaylist();
+                verCancionesEnPlaylist();
                 break;
             case 9:
                 cleanScreen();
@@ -299,6 +300,102 @@ public class Menu {
         try {
             Thread.sleep(1000 * segundos);
         } catch (InterruptedException e) {
+        }
+    }
+
+    private void crearPlaylist() {
+        System.out.print("Ingrese el nombre de la nueva playlist: ");
+        String nombrePlaylist = scanner.nextLine();
+        playlists.crearPlaylist(new List(nombrePlaylist));
+        System.out.println("Playlist creada.");
+    }
+    
+    private void agregarCancionAPlaylist() {
+        System.out.print("Ingrese el nombre de la playlist: ");
+        String nombrePlaylist = scanner.nextLine();
+        List playlist = encontrarPlaylist(nombrePlaylist);
+        if (playlist != null) {
+            System.out.print("Ingrese el título de la canción: ");
+            eleccion = scanner.nextInt();
+            Cancion cancion = canciones.getCancion(eleccion);
+            if (cancion != null) {
+                playlist.add(cancion);
+                System.out.println("Canción añadida a la playlist.");
+            } else {
+                System.out.println("Canción no encontrada.");
+            }
+        } else {
+            System.out.println("Playlist no encontrada.");
+        }
+    }
+    
+    private void eliminarCancionDePlaylist() {
+        System.out.print("Ingrese el nombre de la playlist: ");
+        String nombrePlaylist = scanner.nextLine();
+        List playlist = encontrarPlaylist(nombrePlaylist);
+        if (playlist != null) {
+            System.out.print("Ingrese el título de la canción a eliminar: ");
+            eleccion = scanner.nextInt();
+            playlist.remove(eleccion);
+            System.out.println("Canción eliminada de la playlist.");
+        } else {
+            System.out.println("Playlist no encontrada.");
+        }
+    }
+    
+    private void verPlaylists() {
+        System.out.println("=== Playlists ===");
+        Node current = playlists.getFirst();
+        int indice = 1;
+        while (current != null) {
+            System.out.println(indice + ". " + current.getPlaylist().getName());
+            current = current.getNext();
+            indice++;
+        }
+    }
+    
+    private void verCancionesEnPlaylist() {
+        System.out.print("Ingrese el nombre de la playlist: ");
+        String nombrePlaylist = scanner.nextLine();
+        List playlist = encontrarPlaylist(nombrePlaylist);
+        if (playlist != null) {
+            System.out.println(playlist.mostrarCanciones());
+        } else {
+            System.out.println("Playlist no encontrada.");
+        }
+    }
+    
+    private List encontrarPlaylist(String nombre) {
+        Node current = playlists.getFirst();
+        while (current != null) {
+            if (current.getPlaylist().getName().equalsIgnoreCase(nombre)) {
+                return current.getPlaylist();
+            }
+            current = current.getNext();
+        }
+        return null;
+    }
+
+    private void eliminarCancionDeFavoritos() {
+        System.out.println("=== Canciones Favoritas ===");
+        String cancionesFavoritas = canciones.mostrarFavoritas();
+    
+        if (cancionesFavoritas.isEmpty()) {
+            System.out.println("No hay canciones favoritas para eliminar.");
+            return;
+        }
+    
+        System.out.print("Seleccione el índice de la canción a eliminar de favoritos: ");
+        int indice = scanner.nextInt();
+        scanner.nextLine();
+    
+        Cancion cancion = canciones.getCancion(indice);
+    
+        if (cancion != null) {
+            cancion.setFavorita(false);
+            System.out.println("Canción eliminada de favoritos.");
+        } else {
+            System.out.println("Índice no válido.");
         }
     }
 }

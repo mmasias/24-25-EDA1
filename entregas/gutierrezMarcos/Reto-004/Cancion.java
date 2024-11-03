@@ -22,4 +22,12 @@ public class Cancion {
     public boolean isFavorita() {
         return favorita;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getArtista(){
+        return artista;
+    }
 }
