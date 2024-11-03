@@ -1,40 +1,61 @@
 package entregas.nevesKelvia.Reto_004;
 
-public class Reproductor {
-    private ColaReproduccion cola = new ColaReproduccion();
-    private HistorialReproduccion historial = new HistorialReproduccion();
+class Reproductor {
+    private ListaEnlazada<Cancion> colaReproduccion;
+    private ListaEnlazada<Cancion> historial;
     private Cancion cancionActual;
+    private boolean modoAleatorio;
+    private boolean modoRepetir;
 
-    public void reproducirSiguiente() {
-        cancionActual = cola.desencolar();
-        if (cancionActual != null) {
-            System.out.println("Reproduciendo: " + cancionActual);
-            historial.agregar(cancionActual);
-        } else {
-            System.out.println("No hay más canciones en la cola.");
+    public Reproductor() {
+        colaReproduccion = new ListaEnlazada<>();
+        historial = new ListaEnlazada<>();
+        modoAleatorio = false;
+        modoRepetir = false;
+    }
+
+    public void añadirACola(Cancion cancion) {
+        colaReproduccion.añadir(cancion);
+    }
+
+    public void reproducir() {
+        if (colaReproduccion.estaVacia()) {
+            System.out.println("La cola de reproducción está vacía.");
+            return;
         }
+        cancionActual = colaReproduccion.obtener(0);
+        historial.añadir(cancionActual);
+        System.out.println("▶ Reproduciendo: " + cancionActual.toString());
     }
 
-    public void mostrarCola() {
-        cola.mostrarCola();
+    public void siguiente() {
+        if (colaReproduccion.estaVacia()) {
+            System.out.println("No hay más canciones en la cola.");
+            return;
+        }
+        historial.añadir(cancionActual);
+        cancionActual = colaReproduccion.obtener(1);
+        System.out.println("▶ Reproduciendo: " + cancionActual.toString());
     }
 
-    public void mostrarHistorial() {
-        historial.mostrarHistorial();
+    public void activarAleatorio() {
+        modoAleatorio = !modoAleatorio;
+        System.out.println("Modo aleatorio: " + (modoAleatorio ? "ON" : "OFF"));
     }
 
-    public void agregarCancionCola(Cancion cancion) {
-        cola.encolar(cancion);
+    public void activarRepetir() {
+        modoRepetir = !modoRepetir;
+        System.out.println("Modo repetición: " + (modoRepetir ? "ON" : "OFF"));
     }
 
-    public void verCancionActual() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verCancionActual'");
+    public Cancion getCancionActual() {
+        return cancionActual;
     }
-
-    public void verColaReproduccion() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verColaReproduccion'");
+    
+    public ListaEnlazada<Cancion> getColaReproduccion() {
+        return colaReproduccion;
     }
+    
 }
+
 

@@ -3,54 +3,146 @@ package entregas.nevesKelvia.Reto_004;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         Biblioteca biblioteca = new Biblioteca();
         Reproductor reproductor = new Reproductor();
-        Scanner scanner = new Scanner(System.in);
 
-        int opcion = 0;
-        do {
-            System.out.println("\n=== MENÚ PRINCIPAL ===");
-            System.out.println("1. Biblioteca");
-            System.out.println("2. Reproducción");
+        // Ejemplo de canciones en la biblioteca
+        biblioteca.añadirCancion(new Cancion("Demoliendo Hoteles", "Charly García", 258));
+        biblioteca.añadirCancion(new Cancion("Los Dinosaurios", "Charly García", 234));
+        biblioteca.añadirCancion(new Cancion("Rasguña Las Piedras", "Sui Generis", 285));
+        biblioteca.añadirCancion(new Cancion("Canción Para Mi Muerte", "Sui Generis", 342));
+        biblioteca.añadirCancion(new Cancion("No Soy Un Extraño", "Charly García", 295));
+        biblioteca.añadirCancion(new Cancion("Seminare", "Serú Girán", 238));
+        biblioteca.añadirCancion(new Cancion("Promesas Sobre El Bidet", "Charly García", 243));
+        biblioteca.añadirCancion(new Cancion("Rezo Por Vos", "Charly García & Luis Alberto Spinetta", 266));
+        biblioteca.añadirCancion(new Cancion("Película sordomuda", "Charly García", 235));
+        biblioteca.añadirCancion(new Cancion("¿Qué se puede hacer salvo ver películas?", "La máquina de hacer pájaros", 325));
+
+        boolean salir = false;
+
+        while (!salir) {
+            System.out.println("=== SPOTIFY ===");
+            System.out.println("=== MENÚ PRINCIPAL ===");
+            System.out.println("1. Reproducción");
+            System.out.println("2. Biblioteca");
             System.out.println("3. Salir");
-
             System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
+            int opcionPrincipal = scanner.nextInt();
             scanner.nextLine();
 
-            if (opcion == 1) {
-            } else if (opcion == 2) {
-                int opcionReproduccion = 0;
-                do {
-                    System.out.println("\n=== MENÚ REPRODUCCIÓN ===");
-                    System.out.println("1. Ver canción actual");
-                    System.out.println("2. Reproducir siguiente");
-                    System.out.println("3. Ver cola de reproducción");
-                    System.out.println("4. Ver historial");
-                    System.out.println("5. Volver al menú principal");
-
-                    System.out.print("Seleccione una opción: ");
-                    opcionReproduccion = scanner.nextInt();
-                    scanner.nextLine();
-
-                    if (opcionReproduccion == 1) {
-                        reproductor.verCancionActual();
-                    } else if (opcionReproduccion == 2) {
-                        reproductor.reproducirSiguiente();
-                    } else if (opcionReproduccion == 3) {
-                        reproductor.verColaReproduccion();
-                    } else if (opcionReproduccion == 4) {
-                        reproductor.mostrarHistorial();
-                    } else if (opcionReproduccion != 5) {
-                        System.out.println("Opción inválida, intente de nuevo.");
-                    }
-                } while (opcionReproduccion != 5);
-            } else if (opcion != 3) {
-                System.out.println("Opción inválida, intente de nuevo.");
+            if (opcionPrincipal == 1) {
+                menuReproduccion(scanner, reproductor, biblioteca);
+            } else if (opcionPrincipal == 2) {
+                menuBiblioteca(scanner, biblioteca);
+            } else if (opcionPrincipal == 3) {
+                salir = true;
+                System.out.println("Saliendo de Spotify. ¡Hasta luego!");
+            } else {
+                System.out.println("Opción no válida.");
             }
-        } while (opcion != 3);
+        }
 
         scanner.close();
+    }
+
+    private static void menuBiblioteca(Scanner scanner, Biblioteca biblioteca) {
+        boolean volver = false;
+
+        while (!volver) {
+            System.out.println("=== MENÚ BIBLIOTECA ===");
+            System.out.println("1. Añadir canción a favoritos");
+            System.out.println("2. Eliminar canción de favoritos");
+            System.out.println("3. Ver canciones favoritas");
+            System.out.println("4. Crear nueva playlist");
+            System.out.println("5. Añadir canción a playlist");
+            System.out.println("6. Eliminar canción de playlist");
+            System.out.println("7. Ver playlists");
+            System.out.println("8. Ver canciones de una playlist");
+            System.out.println("9. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            int opcionBiblioteca = scanner.nextInt();
+            scanner.nextLine();
+
+            if (opcionBiblioteca == 1) {
+                System.out.println("Seleccione canción para añadir a favoritos:");
+                biblioteca.mostrarCanciones();
+                int cancionFavoritaIndex = scanner.nextInt() - 1;
+                biblioteca.añadirAFavoritos(biblioteca.getCanciones().obtener(cancionFavoritaIndex));
+            } else if (opcionBiblioteca == 2) {
+                System.out.println("Seleccione canción para eliminar de favoritos:");
+                biblioteca.mostrarFavoritas();
+                int cancionFavoritaEliminarIndex = scanner.nextInt() - 1;
+                biblioteca.eliminarDeFavoritos(biblioteca.favoritas.obtener(cancionFavoritaEliminarIndex));
+            } else if (opcionBiblioteca == 3) {
+                biblioteca.mostrarFavoritas();
+            } else if (opcionBiblioteca == 4) {
+                System.out.print("Nombre de la nueva playlist: ");
+                String nombrePlaylist = scanner.nextLine();
+                biblioteca.crearPlaylist(nombrePlaylist);
+            } else if (opcionBiblioteca == 5) {
+                System.out.println("Playlists disponibles:");
+                biblioteca.obtenerPlaylists().mostrarElementos();
+                System.out.print("Seleccione playlist: ");
+                int playlistIndex = scanner.nextInt() - 1;
+                Playlist playlist = biblioteca.obtenerPlaylists().obtener(playlistIndex);
+                biblioteca.mostrarCanciones();
+                System.out.print("Seleccione canción a añadir: ");
+                int cancionPlaylistIndex = scanner.nextInt() - 1;
+                playlist.añadirCancion(biblioteca.getCanciones().obtener(cancionPlaylistIndex));
+            } else if (opcionBiblioteca == 9) {
+                volver = true;
+            } else {
+                System.out.println("Opción no válida.");
+            }
+        }
+    }
+
+    private static void menuReproduccion(Scanner scanner, Reproductor reproductor, Biblioteca biblioteca) {
+        boolean volver = false;
+
+        while (!volver) {
+            System.out.println("=== MENÚ REPRODUCCIÓN ===");
+            System.out.println("1. Ver canción actual");
+            System.out.println("2. Reproducir siguiente");
+            System.out.println("3. Ver cola de reproducción");
+            System.out.println("4. Activar/desactivar aleatorio");
+            System.out.println("5. Activar/desactivar repetición");
+            System.out.println("6. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            int opcionReproduccion = scanner.nextInt();
+            scanner.nextLine();
+
+            if (opcionReproduccion == 1) {
+                if (reproductor.getCancionActual() == null) {
+                    System.out.println("No hay canción en reproducción.");
+                    System.out.print("¿Desea comenzar a reproducir? (S/N): ");
+                    String respuesta = scanner.nextLine();
+                    if (respuesta.equalsIgnoreCase("S")) {
+                        biblioteca.mostrarCanciones();
+                        System.out.print("Seleccione canción (1-" + biblioteca.getCanciones().tamaño() + "): ");
+                        int seleccionCancion = scanner.nextInt() - 1;
+                        reproductor.añadirACola(biblioteca.getCanciones().obtener(seleccionCancion));
+                        reproductor.reproducir();
+                    }
+                } else {
+                    System.out.println("Canción en reproducción: " + reproductor.getCancionActual());
+                }
+            } else if (opcionReproduccion == 2) {
+                reproductor.siguiente();
+            } else if (opcionReproduccion == 3) {
+                reproductor.getColaReproduccion().mostrarElementos();
+            } else if (opcionReproduccion == 4) {
+                reproductor.activarAleatorio();
+            } else if (opcionReproduccion == 5) {
+                reproductor.activarRepetir();
+            } else if (opcionReproduccion == 6) {
+                volver = true;
+            } else {
+                System.out.println("Opción no válida.");
+            }
+        }
     }
 }
