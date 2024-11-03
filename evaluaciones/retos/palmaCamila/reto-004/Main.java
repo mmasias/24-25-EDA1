@@ -70,6 +70,19 @@ public class Main {
 
             switch (option) {
                 case 1:
+                    if (!player.isPlaying()) {
+                        System.out.println("No hay canciones en reproducción.");
+                        System.out.println("Deseas comenzar a reproducir? (s/n)");
+                        String response = scanner.nextLine();
+                        if (response.equals("s")) {
+                            System.out.println("Selecciona una canción para comenzar a reproducir:");
+                            System.out.println(library.listAvailableSongs());
+                            int songIndex = scanner.nextInt();
+                            scanner.nextLine();
+                            PlayList playList = buildPlayList(songIndex);
+                            player.play(playList);
+                        }
+                    }
                     System.out.println(player.toString());
                     break;
                 case 2:
@@ -79,10 +92,10 @@ public class Main {
                     player.previous();
                     break;
                 case 4:
-                    System.out.println(player.toString());
+                    System.out.println(player.listQueue());
                     break;
                 case 5:
-                    System.out.println(player.toString());
+                    System.out.println(player.listHistory());
                     break;
                 case 6:
                     player.toggleShuffle();
@@ -96,6 +109,7 @@ public class Main {
                     System.out.println("Opción inválida. Intente nuevamente.");
             }
         }
+
     }
 
     private static void displayLibraryMenu(Scanner scanner) {
@@ -223,5 +237,16 @@ public class Main {
         scanner.nextLine();
         System.out.println("Canciones en la playlist:");
         System.out.println(library.getPlayList(playListIndex).toString());
+    }
+
+    private static PlayList buildPlayList(int songIndex) {
+        PlayList playList = new PlayList("Reproducción actual");
+        playList.addSong(library.getSong(songIndex));
+        for (int i = 0; i < library.getAllSongs().length; i++) {
+            if (i != songIndex) {
+                playList.addSong(library.getSong(i));
+            }
+        }
+        return playList;
     }
 }

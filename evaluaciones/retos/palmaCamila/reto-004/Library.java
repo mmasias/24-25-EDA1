@@ -21,6 +21,10 @@ class Library {
         return availableSongs.get(index);
     }
 
+    public Song[] getAllSongs() {
+        return availableSongs.listAll();
+    }
+
     public void addPlayList(String name) {
         userPlayLists.addPlayList(new PlayList(name));
     }

@@ -23,6 +23,10 @@ class PlayList {
         return songs.get(index);
     }
 
+    public Song[] getSongs() {
+        return songs.listAll();
+    }
+
     @Override
     public String toString() {
         String data = this.name + "\n";
