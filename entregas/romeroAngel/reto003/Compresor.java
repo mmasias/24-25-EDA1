@@ -8,6 +8,16 @@ class Compresor {
         this.diccionario = new Diccionario();
     }
 
+    public void esperar(int segundos){
+        try {
+            
+            Thread.sleep(segundos * 1000);
+        } catch (InterruptedException e) {
+            
+            e.printStackTrace();
+        }
+    }
+
     public String[][] comprime(String cadena) {
         String resultadoComprimido = "";
         String letraActual;
@@ -20,22 +30,22 @@ class Compresor {
                 diccionario.agregar(letraActual);
                 resultadoComprimido += "(0," + letraActual + ")";
             } else {
-                String subcadena = letraActual; // Comenzamos con la letra actual
+                String subcadena = letraActual;
 
                 while (i + 1 < cadena.length()) {
-                    letraActual = cadena.substring(i + 1, i + 2); // Obtenemos la siguiente letra
-                    subcadena += letraActual; // Añadimos la letra a la subcadena
+                    letraActual = cadena.substring(i + 1, i + 2); 
+                    subcadena += letraActual; 
 
-                    int subIndice = diccionario.estaEnDiccionario(subcadena); // Verificamos si la subcadena existe
+                    int subIndice = diccionario.estaEnDiccionario(subcadena); 
                     if (subIndice == -1) {
-                        // Agregar la nueva subcadena al diccionario
+                       
                         diccionario.agregar(subcadena);
-                        // Añadir el resultado comprimido usando el último carácter añadido
+                        
                         resultadoComprimido += "(" + diccionario.estaEnDiccionario(subcadena.substring(0, subcadena.length() - 1)) + "," + letraActual + ")";
-                        break; // Salimos del bucle una vez que agregamos
+                        break; 
                     }
 
-                    i++; // Avanzamos al siguiente índice
+                    i++; 
                 }
             }
         }
