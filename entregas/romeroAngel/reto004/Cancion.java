@@ -26,7 +26,7 @@ class Cancion {
     }
 
     public String toString(){
-        return "Titulo: '" + titulo + "' | Artista: " + artista + "\nDuración: " + duracion + "s";
+        return titulo + " - " + artista + " [" + duracion + "]s";
     }
 
     public String getArtista() {
@@ -36,7 +36,7 @@ class Cancion {
     public String getTitulo() {
         return titulo;
     }
-    
+
     public int getDuracion() {
         return duracion;
     }

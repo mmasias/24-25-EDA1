@@ -147,15 +147,28 @@ public class SistemaReproduccion {
             do{
                 indiceAleatorio = (int)(Math.random()*canciones.size());
             } while(historial.contains(canciones.obtener(indiceAleatorio)));
+
+            historial.insertEnd(canciones.obtener(indiceAleatorio));
+            cancionActual = canciones.obtener(indiceAleatorio);
+        } else {
+            if (indiceCancionActual < canciones.size()-1) {
+                indiceCancionActual++;
+                cancionActual = canciones.obtener(indiceCancionActual);
+            } else if (repeticion) {
+                indiceCancionActual = 0;
+                cancionActual = canciones.obtener(indiceCancionActual);
+            } else {
+                System.out.println("Ya estas en la ultima cancion de la playlist");
+                return;
+            }
         }
 
-
-
+        System.out.println("▶ Reproduciendo siguiente: " + cancionActual.toString());
     }
 
     private void verCancionActual() {
         if (cancionActual != null) {
-            System.out.println("▶ Reproduciendo: " + cancionActual.getArtista() + " - " + cancionActual.getTitulo() + "[" + cancionActual.getDuracion() + "s]" );
+            System.out.println("▶ Reproduciendo: " + cancionActual.toString());
         }
     }
 }
