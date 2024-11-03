@@ -13,8 +13,15 @@ class Cancion {
         this.favorita = false;
     }    
 
+    public String getTitulo() {return titulo;}
+    public String getArtista() {return artista;}
+    public int getDuracion() {return duracion;}
+    public boolean isFavorita() {return favorita;}
+
+    public void setFavorita(boolean favorita) {this.favorita = favorita;}
+
     public String toString(){
-        return artista;
+        return "Titulo: " +  titulo + ", Artista: " + artista + ", Duracion" + duracion + (favorita ? "Si" : "No");
 
     }
 }
@@ -30,8 +37,12 @@ class Album {
         this.año = año;
     }
 
+    public String getTitulo() {return titulo;}
+    public String getArtista() {return artista;}
+    public int getAño(){return año;}
+
     public String toString(){
-        return artista;
+        return "Album: " + titulo + ", Artista: " + artista + ", Año: " + año;
         
     }
 }
