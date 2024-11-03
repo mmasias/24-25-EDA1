@@ -37,4 +37,17 @@ public class SpotifyApp {
             }
         } while (opcionPrincipal != 3);
     }
+
+    private static void inicializarBiblioteca() {
+        biblioteca.agregarCancion(new Cancion("Smell like teen spirit", "Nirvana", 290));
+        biblioteca.agregarCancion(new Cancion("Bleed it out", "Linkin Park", 277));
+        biblioteca.agregarCancion(new Cancion("505", "Artic Monkeys", 344));
+        biblioteca.agregarCancion(new Cancion("Highway to hell", "AC/DC", 392));
+        biblioteca.agregarCancion(new Cancion("I was made for lovin you", "Kiss", 275));
+        biblioteca.agregarCancion(new Cancion("Livin’ on a Prayer", "Bon Jovi", 222));
+        biblioteca.agregarCancion(new Cancion("Immigrant Song", "Led Zeppelin", 273));
+        biblioteca.agregarCancion(new Cancion("Welcome to the jungle", "Guns n Roses", 266));
+        biblioteca.agregarCancion(new Cancion("American Idiot", "Green Day", 235));
+        biblioteca.agregarCancion(new Cancion("Bloody Valentine", "MGK", 325));
+    }
 }
