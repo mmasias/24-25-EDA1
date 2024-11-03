@@ -24,8 +24,8 @@ class Biblioteca {
         while (iterator != null) {
             if (count == indiceCancion) {
                 Cancion cancionAEliminar = (Cancion) iterator.getValue();
-                // Aquí puedes implementar la lógica para eliminar de la lista
-                cancionesFavoritas.deleteNode(iterator); // Asumiendo que tienes este método
+                
+                cancionesFavoritas.deleteNode(iterator);
                 System.out.println("Canción eliminada de favoritos: " + cancionAEliminar);
                 return;
             }
@@ -151,7 +151,7 @@ class Biblioteca {
         while (iterator != null) {
             if (count == indicePlaylist) {
                 Playlist playlist = (Playlist) iterator.getValue();
-                return playlist.toString(); // Asegúrate de que Playlist tenga este método
+                return playlist.toString();
             }
             count++;
             iterator = iterator.getNext();

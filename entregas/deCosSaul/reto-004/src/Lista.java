@@ -52,9 +52,8 @@ public class Lista {
     }
 
     public void deleteNode(Node nodeToDelete) {
-        if (first == null || nodeToDelete == null) return; // Lista vacía o nodo nulo
-
-        // Si el nodo a eliminar es el primero
+        if (first == null || nodeToDelete == null) return;
+        
         if (first == nodeToDelete) {
             first = first.getNext();
             size--;

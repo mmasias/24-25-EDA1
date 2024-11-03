@@ -17,12 +17,12 @@ class Playlist {
 
         while (iterator != null) {
             if (count == index) {
-                return (Cancion) iterator.getValue(); // Asegúrate de que el valor sea de tipo Cancion
+                return (Cancion) iterator.getValue();
             }
             count++;
             iterator = iterator.getNext();
         }
-        return null; // Retorna null si no encuentra la canción
+        return null;
     }
     
     public Lista getCanciones() {

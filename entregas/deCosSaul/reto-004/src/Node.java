@@ -1,5 +1,5 @@
 public class Node {
-    private Object value;  // Cambiado a Object para almacenar cualquier tipo
+    private Object value;
     private Node next;
 
     public Node(Object value) {
