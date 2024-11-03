@@ -1,30 +1,34 @@
 package romeroAngel.reto004;
 public class Node {
 
-    private String value;
-    private Node next;
+    private Cancion cancion;
+    private Node siguiente;
 
-    public Node(String value) {
-        this.setValue(value);
+    public Node(Cancion cancion) {
+        this.cancion = cancion;
+        this.siguiente = null;
     }
 
-    public String getValue() {
-        return value;
+    public Cancion getCancion() {
+        return cancion;
     }
 
-    public void setValue(String newValue) {
-        this.value = newValue;
+    public void setCancion(Cancion nuevaCancion) {
+        this.cancion = nuevaCancion;
     }
 
     public Node getNext() {
-        return next;
+        return siguiente;
     }
 
-    public void setNext(Node next) {
-        this.next = next;
+    public void setNext(Node siguiente) {
+        this.siguiente = siguiente;
     }
 
+
+    ///REVISAR///
     public void showInConsole(){
-        System.out.println(value);
+        System.out.println(cancion);
     }
+
 }

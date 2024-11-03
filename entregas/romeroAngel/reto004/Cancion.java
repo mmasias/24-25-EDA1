@@ -28,4 +28,17 @@ class Cancion {
     public String toString(){
         return "Titulo: '" + titulo + "' | Artista: " + artista + "\nDuración: " + duracion + "s";
     }
+
+    public String getArtista() {
+        return artista;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+    
+    public int getDuracion() {
+        return duracion;
+    }
+
 }

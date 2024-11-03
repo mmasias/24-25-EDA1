@@ -2,22 +2,22 @@ package romeroAngel.reto004;
 public class List {
 
     private Node first;
-    private int size;
+    private int tamaño;
 
     public List() {
         this.clear();
     }
 
     public int size() {
-        return size;
+        return tamaño;
     }
 
     public boolean isEmpty() {
-        return this.size <= 0;
+        return this.tamaño <= 0;
     }
 
-    public void insertEnd(String value) {
-        Node newNode = new Node(value);
+    public void insertEnd(Cancion cancion) {
+        Node newNode = new Node(cancion);
         if (this.first == null)
             this.first = newNode;
         else {
@@ -27,18 +27,14 @@ public class List {
             }
             iterator.setNext(newNode);
         }
-        size++;
+        tamaño++;
     }
 
-    public void insertFront(String value) {
-        Node newNode = new Node(value);
-        if (this.first == null)
-            this.first = newNode;
-        else {
+    public void insertFront(Cancion cancion) {
+        Node newNode = new Node(cancion);
             newNode.setNext(this.first);
             this.first = newNode;
-        }
-        size++;
+            tamaño++;
     }
 
     public void deleteEnd() {
@@ -51,13 +47,13 @@ public class List {
             }
             previous.setNext(null);
         }
-        size--;
+        tamaño--;
     }
 
     public void deleteFront() {
         if (this.first != null) {
             this.first = this.first.getNext();
-            size--;
+            tamaño--;
         }
     }
 
@@ -65,9 +61,20 @@ public class List {
         this.clear();
     }
 
-    private void clear() {
+    public void clear() {
         this.first = null;
-        this.size = 0;
+        this.tamaño = 0;
+    }
+
+    public Cancion obtener(int index) {
+        if (index < 0 || index >= tamaño) {
+            System.out.println("Indice '" + index + "'invalido.");
+        }
+        Node iterator = first;
+        for (int i = 0; i < index; i++) {
+            iterator = iterator.getNext();
+        }
+        return iterator.getCancion();
     }
 
     public String[] listAll() {
@@ -77,7 +84,7 @@ public class List {
             return list;
         int count = 0;
         while (iterator != null) {
-            list[count] = iterator.getValue();
+            list[count] = iterator.getCancion().toString();
             count++;
             iterator = iterator.getNext();
         }
@@ -86,14 +93,12 @@ public class List {
 
     public void showInConsole() {
         System.out.println("=".repeat(25));
-        System.out.println("Fila de " + this.size());
+        System.out.println("Lista de " + this.size() + " canciones");
         System.out.println("-".repeat(25));
-        if (this.first != null) {
-            Node iterator = this.first;
-            while (iterator != null) {
-                System.out.print("[" + iterator.getValue() + "]" + iterator + " / ");
-                iterator = iterator.getNext();
-            }
+        Node iterator = this.first;
+        while (iterator != null) {
+            System.out.print("[" + iterator.getCancion().toString() + "] / ");
+            iterator = iterator.getNext();            
         }
         System.out.println();
     }
@@ -103,7 +108,7 @@ public class List {
         if (this.first != null) {
             Node node = this.first;
             while (node != null) {
-                if (node.getValue().equals(value)) {
+                if (node.getCancion().equals(value)) {
                     resultList.add(node);
                 }
                 node = node.getNext();
@@ -116,7 +121,7 @@ public class List {
         Node actual = this.first;
 
         while (actual!=null) {
-            if (actual.getValue().equals(letra)) {
+            if (actual.getCancion().equals(letra)) {
                 return actual;
             }
             actual = actual.getNext();

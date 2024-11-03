@@ -1,7 +1,5 @@
 package romeroAngel.reto004;
 
-import romeroAngel.reto004.Node;
-
 class FoundNodeWrapper {
     
     private Node foundNode;

@@ -14,6 +14,7 @@ public class SistemaReproduccion {
     private List historial;
     private boolean aleatorio;
     private boolean repeticion;
+    private int indiceCancionActual;
 
     public SistemaReproduccion(){
         this.canciones = new List();
@@ -22,6 +23,7 @@ public class SistemaReproduccion {
         this.cancionActual = null;
         this.aleatorio = false;
         this.repeticion = false;
+        indiceCancionActual = -1;
     }
 
     public void mostrarMenuPrincipal(){
@@ -103,5 +105,57 @@ public class SistemaReproduccion {
             }
             
         } while(opcion != 8);
+    }
+
+    private void verHistorial() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'verHistorial'");
+    }
+
+    private void verColaReproduccion() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'verColaReproduccion'");
+    }
+
+    private void reproducirAnterior() {
+        if (indiceCancionActual > 0) {
+            indiceCancionActual--;
+        } else if (repeticion) {
+            indiceCancionActual = canciones.size()-1;
+        } else {
+            System.out.println("Estas al inicio de la lista.");
+            return;
+        }
+
+        cancionActual = canciones.obtener(indiceCancionActual);
+        System.out.println("▶ Reproduciendo anterior: " + cancionActual.toString());
+    }
+
+    private void reproducirSiguiente() {
+        if (canciones.isEmpty()) {
+            System.out.println("No hay canciones en la cola.");
+            return;
+        }
+
+        if (aleatorio){
+            if (historial.size() >= canciones.size()) {
+                System.out.println("Todas las canciones han sido reproducidas. Reiniciando el historial.");
+                historial.clear(); 
+            }
+
+            int indiceAleatorio;
+            do{
+                indiceAleatorio = (int)(Math.random()*canciones.size());
+            } while();
+        }
+
+
+
+    }
+
+    private void verCancionActual() {
+        if (cancionActual != null) {
+            System.out.println("▶ Reproduciendo: " + cancionActual.getArtista() + " - " + cancionActual.getTitulo() + "[" + cancionActual.getDuracion() + "s]" );
+        }
     }
 }
