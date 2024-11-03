@@ -13,6 +13,7 @@ public class Menu {
 
     public Menu(Cancion currentSong, List canciones) {
         this.canciones = canciones;
+        this.historial = new List();
         this.currentSong = currentSong;
         cleanScreen();
         mainMenu();
