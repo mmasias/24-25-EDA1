@@ -14,4 +14,12 @@ public class Cancion {
     public String toString(){
         return titulo + " " + duracion + "s"; 
     }
+
+    public void setFavorita(boolean favorita) {
+        this.favorita = favorita;
+    }
+
+    public boolean isFavorita() {
+        return favorita;
+    }
 }

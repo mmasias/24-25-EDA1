@@ -261,6 +261,26 @@ public class Menu {
         }
     }
 
+    private void añadirCancionAFavoritos() {
+        System.out.println("Seleccione una canción para añadir a favoritos:");
+        System.out.println(canciones.mostrar());
+
+        eleccion = scanner.nextInt();
+        scanner.nextLine();
+
+        Cancion seleccionada = canciones.getCancion(eleccion);
+        if (seleccionada != null && !seleccionada.isFavorita()) {
+            seleccionada.setFavorita(true);
+            System.out.println("Canción añadida a favoritos: " + seleccionada);
+        } else {
+            System.out.println("La canción ya está en favoritos o no es válida.");
+        }
+
+        pause(2);
+        cleanScreen();
+        menuBiblioteca();
+    }
+
     static void cleanScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
