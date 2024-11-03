@@ -5,40 +5,59 @@ class MenuReproduccion {
     public void imprimir() {
         System.out.print("""
                 === MENÚ REPRODUCCIÓN ===
-                1. Ver canción actual
-                2. Reproducir siguiente
-                3. Reproducir anterior
-                4. Ver cola de reproducción
-                5. Ver historial
-                6. Activar/desactivar aleatorio
-                7. Activar/desactivar repetición
-                8. Volver al menú principal
+                1.Añadir cancion a cola
+                2. Ver canción actual
+                3. Reproducir siguiente
+                4. Reproducir anterior
+                5. Ver cola de reproducción
+                6. Ver historial
+                7. Activar/desactivar aleatorio
+                8. Activar/desactivar repetición
+                9. Volver al menú principal
                 """);
     }
 
     public void seleccionar() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Seleccione una opcion: ");
-        int seleccion = scanner.nextInt();
-        switch(seleccion){
-            case 1:
-            break;
-            case 2:
-            break;
-            case 3:
-            break;
-            case 4:
-            break;
-            case 5:
-            break;
-            case 6:
-            break;
-            case 7:
-            break;
-            case 8:
-            break;
-        }
-    }    
+        Cola cola = new Cola();
+        Playlist playlistPrueba = new Playlist("Mac de Marco");
+        Cancion cancionPrueba = new Cancion("Moonlight on the river", 422);
+        int seleccion;
 
+        do {
+            System.out.println("Seleccione una opcion: ");
+            seleccion = scanner.nextInt();
+
+            switch (seleccion) {
+                case 1:
+                    cola.añadirCancion();
+                case 2:
+                    cola.getFirst();
+                    break;
+                case 3:
+                    cola.getNext();
+                    break;
+                case 4:
+                    cola.getPrevious();
+                    break;
+                case 5:
+                    cola.imprimir();
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+                    playlistPrueba.aleatorio();
+                    break;
+                case 8:
+                    cancionPrueba.aleatorio();
+                    break;
+                case 9:
+                    break;
+            }
+
+        } while (seleccion != 9);
+
+    }
 
 }
