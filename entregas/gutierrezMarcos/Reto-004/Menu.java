@@ -6,7 +6,10 @@ public class Menu {
     int eleccion;
     Cancion currentSong;
     List canciones;
+    List historial;
     String eleccionString;
+    boolean aleatorioActivado = false;
+    boolean repetirActivado = false;
 
     public Menu(Cancion currentSong, List canciones) {
         this.canciones = canciones;
@@ -75,15 +78,15 @@ public class Menu {
                 break;
             case 5:
                 cleanScreen();
-                menuBiblioteca();
+                verHistorial();
                 break;
             case 6:
                 cleanScreen();
-                menuBiblioteca();
+                toggleAleatorio();
                 break;
             case 7:
                 cleanScreen();
-                menuBiblioteca();
+                toggleRepeticion();
                 break;
             case 8:
                 cleanScreen();
@@ -124,6 +127,7 @@ public class Menu {
         currentSong = canciones.getCancion(eleccion);
 
         System.out.println("Estas reproduciendo " + currentSong.toString());
+        historial.insertEnd(currentSong);
         pause(3);
         cleanScreen();
         menuReproduccion();
@@ -134,6 +138,7 @@ public class Menu {
         if (currentSong != null) {
             currentSong = canciones.next(currentSong);
             System.out.println("Estas reproduciendo " + currentSong.toString());
+            historial.insertEnd(currentSong);
         } else {
             System.out.println("No hay más canciones en la lista.");
         }
@@ -155,15 +160,28 @@ public class Menu {
     }
 
     private void mostrarCola() {
-        if(currentSong != null){
+        if (currentSong != null) {
             System.out.println(canciones.mostrarDesde(currentSong.toString()));
             scanner.nextLine();
-        }else{
+        } else {
             System.out.println("No tienes ninguna canción ni ninguna lista en reproducción");
             pause(3);
         }
         cleanScreen();
         menuReproduccion();
+    }
+
+    private void verHistorial() {
+        if(historial != null){
+            System.out.println("=== Historial de Canciones Reproducidas ===");
+            System.out.println(historial.mostrar());
+            scanner.nextLine();
+            cleanScreen();
+            menuReproduccion();
+        }
+        else{
+            System.out.println("No tienes historial de reproduccion");
+        }
     }
 
     public void menuBiblioteca() {
