@@ -92,6 +92,3 @@ public class List {
         return list;
     }
 }
-
-
-//lista wraper y nodo wraper
