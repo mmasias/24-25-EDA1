@@ -26,5 +26,15 @@ public class Reproductor {
     public void agregarCancionCola(Cancion cancion) {
         cola.encolar(cancion);
     }
+
+    public void verCancionActual() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'verCancionActual'");
+    }
+
+    public void verColaReproduccion() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'verColaReproduccion'");
+    }
 }
 

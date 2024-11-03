@@ -1,11 +1,11 @@
 package entregas.nevesKelvia.Reto_004;
 
-public class Cancion {
+class Cancion {
     private String titulo;
     private String artista;
     private int duracion;
     private boolean favorita;
-
+    
     public Cancion(String titulo, String artista, int duracion) {
         this.titulo = titulo;
         this.artista = artista;
@@ -13,20 +13,16 @@ public class Cancion {
         this.favorita = false;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public void marcarComoFavorita() {
+        this.favorita = true;
     }
 
-    public void setFavorita(boolean favorita) {
-        this.favorita = favorita;
-    }
-
-    public boolean isFavorita() {
-        return favorita;
+    public void desmarcarComoFavorita() {
+        this.favorita = false;
     }
 
     @Override
     public String toString() {
-        return titulo + " - " + artista + " [" + duracion + "s]";
+        return titulo + " - " + artista + " (" + duracion + "s)";
     }
 }
