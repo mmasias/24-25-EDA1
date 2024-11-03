@@ -57,7 +57,7 @@ public class List {
         if (iterator == null)
             return list;
         while (iterator != null) {
-            list += "" + iterator.getIndice() + ". " + iterator.getValue() + "\n";
+            list += "" + (iterator.getIndice()+1) + ". " + iterator.getValue() + "\n";
             iterator = iterator.getNext();
         }
         return list;
