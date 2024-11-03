@@ -23,5 +23,5 @@ public class Cancion {
     public void setFavorita(boolean favorita) {
         this.favorita = favorita;
     }
-
 }
+

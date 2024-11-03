@@ -1,156 +1,137 @@
 
 public class Reproductor {
-    private ColaReproduccion cola;
-    private Historial historial;
-    private boolean modoAleatorio;
-    private boolean modoRepetir;
     public Cancion cancionActual;
+    public ColaReproduccion cola;
+    public Historial historial;
+    public boolean modoAleatorio;
+    public boolean modoRepetir;
     public Playlist[] playlists;
     public int numPlaylists;
-    private Cancion[] cancionesFavoritas;
+    public Cancion[] cancionesFavoritas;
     public int numFavoritas;
-    private Cancion cancionAnterior;
 
     public Reproductor() {
-        this.cola = new ColaReproduccion();
-        this.historial = new Historial();
-        this.modoAleatorio = false;
-        this.modoRepetir = false;
-        this.playlists = new Playlist[10];
-        this.numPlaylists = 0;
-        this.cancionesFavoritas = new Cancion[20];
-        this.numFavoritas = 0;
-        this.cancionAnterior = null;
+        cola = new ColaReproduccion();
+        historial = new Historial();
+        modoAleatorio = false;
+        modoRepetir = false;
+        playlists = new Playlist[10];  // Capacidad inicial
+        numPlaylists = 0;
+        cancionesFavoritas = new Cancion[10];  // Capacidad inicial
+        numFavoritas = 0;
     }
 
     public void reproducir() {
         if (cola.estaVacia()) {
-            System.out.println("No hay canciones en la cola.");
+            System.out.println("La cola de reproducción está vacía.");
             return;
         }
-        cancionAnterior = cancionActual;
-        cancionActual = cola.siguienteCancion();
-        historial.agregarCancion(cancionActual);
-        System.out.println("▶ Reproduciendo: " + cancionActual);
+        cancionActual = cola.obtenerSiguiente();
+        historial.agregar(cancionActual);
+        System.out.println("Reproduciendo: " + cancionActual);
     }
 
     public void siguiente() {
-        if (modoRepetir) {
-            cola.agregarCancion(cancionActual);
+        if (modoRepetir && cancionActual != null) {
+            System.out.println("Reproduciendo de nuevo: " + cancionActual);
+        } else if (!cola.estaVacia()) {
+            reproducir();
+        } else {
+            System.out.println("No hay más canciones en la cola.");
         }
-        reproducir();
     }
 
     public void anterior() {
-        if (cancionAnterior != null) {
-            System.out.println("▶ Reproduciendo: " + cancionAnterior);
-            cancionActual = cancionAnterior;
-            cancionAnterior = null;
-            historial.agregarCancion(cancionActual);
+        Cancion anterior = historial.obtenerAnterior();
+        if (anterior != null) {
+            cancionActual = anterior;
+            System.out.println("Reproduciendo: " + cancionActual);
         } else {
-            System.out.println("No hay canción anterior para reproducir.");
-        }
-    }
-
-    public void activarModoAleatorio() {
-        modoAleatorio = !modoAleatorio;
-        System.out.println("Modo aleatorio: " + (modoAleatorio ? "Activado" : "Desactivado"));
-    }
-
-    public void activarModoRepetir() {
-        modoRepetir = !modoRepetir;
-        System.out.println("Modo repetir: " + (modoRepetir ? "Activado" : "Desactivado"));
-    }
-
-    public void mostrarHistorial() {
-        historial.mostrarHistorial();
-    }
-
-    public void agregarCancionACola(Cancion cancion) {
-        cola.agregarCancion(cancion);
-    }
-
-    public void crearPlaylist(String nombre) {
-        if (numPlaylists < playlists.length) {
-            playlists[numPlaylists++] = new Playlist(nombre);
-            System.out.println("Playlist \"" + nombre + "\" creada con éxito.");
-        } else {
-            System.out.println("No se pueden crear más playlists.");
-        }
-    }
-
-    public void verPlaylists() {
-        System.out.println("Playlists disponibles:");
-        for (int i = 0; i < numPlaylists; i++) {
-            System.out.println((i + 1) + ". " + playlists[i].getNombre());
-        }
-    }
-
-    public void añadirCancionAPlaylist(int indicePlaylist, Cancion cancion) {
-        if (indicePlaylist >= 0 && indicePlaylist < numPlaylists) {
-            playlists[indicePlaylist].agregarCancion(cancion);
-            System.out.println("\"" + cancion + "\" añadida a " + playlists[indicePlaylist].getNombre());
-        } else {
-            System.out.println("Playlist no válida.");
-        }
-    }
-
-    public void mostrarCancionesDisponibles() {
-        System.out.println("Canciones disponibles:");
-        for (int i = 0; i < Main.cancionesDisponibles.length; i++) {
-            System.out.println((i + 1) + ". " + Main.cancionesDisponibles[i]);
+            System.out.println("No hay canciones en el historial.");
         }
     }
 
     public void mostrarCola() {
-        if (cola.estaVacia()) {
-            System.out.println("La cola de reproducción está vacía.");
-            return;
-        }
-        NodoCancion actual = cola.frente;
-        int i = 1;
-        while (actual != null) {
-            System.out.println(i + ". " + actual.cancion + (actual == cola.frente ? " (ACTUAL)" : ""));
-            actual = actual.siguiente;
-            i++;
-        }
+        cola.mostrar();
+    }
+
+    public void mostrarHistorial() {
+        historial.mostrar();
+    }
+
+    public void activarModoAleatorio() {
+        modoAleatorio = !modoAleatorio;
+        System.out.println("Modo aleatorio " + (modoAleatorio ? "activado" : "desactivado"));
+    }
+
+    public void activarModoRepetir() {
+        modoRepetir = !modoRepetir;
+        System.out.println("Modo repetir " + (modoRepetir ? "activado" : "desactivado"));
     }
 
     public void añadirCancionAFavoritos(Cancion cancion) {
-        if (numFavoritas < cancionesFavoritas.length) {
-            cancionesFavoritas[numFavoritas++] = cancion;
-            cancion.setFavorita(true);
-            System.out.println("\"" + cancion + "\" añadida a favoritos.");
-        } else {
-            System.out.println("No se pueden añadir más canciones a favoritos.");
+        if (numFavoritas >= cancionesFavoritas.length) {
+            System.out.println("Lista de favoritas llena.");
+            return;
         }
+        cancionesFavoritas[numFavoritas++] = cancion;
+        cancion.setFavorita(true);
+        System.out.println("Añadida a favoritos: " + cancion);
     }
 
     public void eliminarCancionDeFavoritos(Cancion cancion) {
+        boolean encontrada = false;
         for (int i = 0; i < numFavoritas; i++) {
             if (cancionesFavoritas[i].equals(cancion)) {
-                cancionesFavoritas[i].setFavorita(false);
-                cancionesFavoritas[i] = cancionesFavoritas[numFavoritas - 1];
-                cancionesFavoritas[numFavoritas - 1] = null;
-                numFavoritas--;
-                System.out.println("\"" + cancion + "\" eliminada de favoritos.");
-                return;
+                encontrada = true;
+                cancionesFavoritas[i] = cancionesFavoritas[--numFavoritas];
+                cancionesFavoritas[numFavoritas] = null;
+                cancion.setFavorita(false);
+                break;
             }
         }
-        System.out.println("La canción no está en favoritos.");
-    }
-
-    public Cancion[] getCancionesFavoritas() {
-        Cancion[] favoritas = new Cancion[numFavoritas];
-        System.arraycopy(cancionesFavoritas, 0, favoritas, 0, numFavoritas);
-        return favoritas;
+        if (encontrada) {
+            System.out.println("Eliminada de favoritos: " + cancion);
+        } else {
+            System.out.println("Canción no encontrada en favoritos.");
+        }
     }
 
     public void verCancionesFavoritas() {
-        System.out.println("Canciones favoritas:");
+        if (numFavoritas == 0) {
+            System.out.println("No hay canciones en la lista de favoritos.");
+            return;
+        }
         for (int i = 0; i < numFavoritas; i++) {
             System.out.println((i + 1) + ". " + cancionesFavoritas[i]);
         }
     }
 
+    public void crearPlaylist(String nombre) {
+        if (numPlaylists >= playlists.length) {
+            System.out.println("Capacidad máxima de playlists alcanzada.");
+            return;
+        }
+        playlists[numPlaylists++] = new Playlist(nombre);
+        System.out.println("Playlist creada: " + nombre);
+    }
+
+    public void verPlaylists() {
+        if (numPlaylists == 0) {
+            System.out.println("No hay playlists disponibles.");
+            return;
+        }
+        for (int i = 0; i < numPlaylists; i++) {
+            System.out.println((i + 1) + ". " + playlists[i].getNombre());
+        }
+    }
+
+    public void añadirCancionAPlaylist(int indexPlaylist, Cancion cancion) {
+        if (indexPlaylist < 0 || indexPlaylist >= numPlaylists) {
+            System.out.println("Índice de playlist no válido.");
+            return;
+        }
+        playlists[indexPlaylist].agregarCancion(cancion);
+        System.out.println("Canción añadida a la playlist: " + cancion);
+    }
 }

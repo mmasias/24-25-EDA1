@@ -7,5 +7,5 @@ public class NodoCancion {
         this.cancion = cancion;
         this.siguiente = null;
     }
-
 }
+
