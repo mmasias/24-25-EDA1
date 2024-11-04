@@ -1,4 +1,4 @@
-package entregas.lopesBrenda.reto004;
+package entregas.lopesBrenda.reto004.version1;
 
 class NodoGenerico<T> {
     T dato;

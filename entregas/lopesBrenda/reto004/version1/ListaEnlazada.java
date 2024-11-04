@@ -1,4 +1,4 @@
-package entregas.lopesBrenda.reto004;
+package entregas.lopesBrenda.reto004.version1;
 
 public class ListaEnlazada<T> {
     private Nodo<T> cabeza;
