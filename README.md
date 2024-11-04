@@ -11,7 +11,7 @@ Repo de materiales y proyectos de la asignatura **Estructura de datos y algoritm
 - Evaluaciones
   - Evaluación continua: [Retos!](evaluaciones/retos/README.md)
   - Exámenes
-    - Parcial: [Enunciado](evaluaciones/examenes/examenParcial/README.md) | Repositorio de trabajo y entrega.
+    - Parcial: [Enunciado](evaluaciones/examenes/examenParcial/README.md) | [Repositorio de trabajo y entrega](https://classroom.github.com/a/gGsPO6qv).
     - Final: [Enunciado](evaluaciones/examenes/examenFinal/README.md) | Repositorio de trabajo y entrega.
     - Extraordinario: [Enunciado](evaluaciones/examenes/examenExtraordinario/README.md) | Repositorio de trabajo y entrega.
 
