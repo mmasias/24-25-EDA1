@@ -3,10 +3,16 @@ package entregas.lopesBrenda.reto004;
 public class Reproductor {
         private ColaReproduccion cola;
         private PilaCanciones historial;
+        private Cancion cancionActual;
     
         public Reproductor() {
             cola = new ColaReproduccion();
             historial = new PilaCanciones();
+            cancionActual = null;
+        }
+
+        public Cancion verCancionActual() {
+            return cancionActual;
         }
     
         public void reproducirCancion(Cancion cancion) {

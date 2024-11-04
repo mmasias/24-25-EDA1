@@ -34,6 +34,20 @@ public class ListaEnlazada<T> {
         return temp.elemento;
     }
 
+    public T buscarPorNombre(String nombre) {
+        Nodo<T> actual = cabeza;
+        while (actual != null) {
+            if (actual.getDato() instanceof Playlist) {
+                Playlist playlist = (Playlist) actual.getDato();
+                if (playlist.getNombre().equals(nombre)) {
+                    return (T) playlist;
+                }
+            }
+            actual = actual.getSiguiente();
+        }
+        return null; 
+    }
+
     public int size() {
         return tamaño;
     }
@@ -63,7 +77,7 @@ public class ListaEnlazada<T> {
     }
 
     public T obtener(int index) {
-        return get(index); // Alias para acceder al método get
+        return get(index); 
     }
 
     public void mostrar() {

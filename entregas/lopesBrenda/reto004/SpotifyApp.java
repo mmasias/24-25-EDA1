@@ -114,7 +114,7 @@ public class SpotifyApp {
         biblioteca.mostrarCancionesDePlaylist(nombrePlaylist);
         System.out.print("Seleccione el número de la canción a eliminar: ");
         int numeroCancion = scanner.nextInt() - 1;
-        scanner.nextLine(); 
+        scanner.nextLine();
         Cancion cancion = biblioteca.getPlaylists().get(nombrePlaylist).getCanciones().get(numeroCancion);
         biblioteca.eliminarCancionDePlaylist(nombrePlaylist, cancion);
     }
@@ -140,20 +140,18 @@ public class SpotifyApp {
             System.out.println("8. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
-            scanner.nextLine(); // limpiar buffer
+            scanner.nextLine(); 
 
             switch (opcion) {
                 case 1 -> verCancionActual();
                 case 2 -> reproductor.siguienteCancion();
-                case 3 -> reproductor.anteriorCancion();();
+                case 3 -> reproductor.anteriorCancion();
                 case 4 -> reproductor.verColaReproduccion();
                 case 5 -> reproductor.verHistorial();
-                case 6 -> toggleAleatorio();
-                case 7 -> toggleRepeticion();
-                case 8 -> System.out.println("Volviendo al menú principal...");
+                case 6 -> System.out.println("Volviendo al menú principal...");
                 default -> System.out.println("Opción no válida.");
             }
-        } while (opcion != 8);
+        } while (opcion != 6);
     }
 
     private void verCancionActual() {
@@ -164,9 +162,9 @@ public class SpotifyApp {
             if (respuesta.equalsIgnoreCase("S")) {
                 System.out.println("Seleccione canción (1-" + biblioteca.getCancionesDisponibles().size() + "): ");
                 int numeroCancion = scanner.nextInt() - 1;
-                scanner.nextLine(); // limpiar buffer
+                scanner.nextLine(); 
                 Cancion cancion = biblioteca.getCancionesDisponibles().get(numeroCancion);
-                reproductor.reproducirCancion(cancionActual);(cancion);
+                reproductor.reproducirCancion(cancionActual);
             }
         } else {
             System.out.println("▶ Reproduciendo: " + cancionActual);
