@@ -1,27 +1,29 @@
-class Playlist {
+
+public class Playlist {
     private String nombre;
-    private ListaEnlazada canciones; // Lista enlazada para almacenar las canciones en la playlist
+    private ListaCanciones canciones;
 
     public Playlist(String nombre) {
         this.nombre = nombre;
-        this.canciones = new ListaEnlazada(); // Inicializamos la lista de canciones
+        this.canciones = new ListaCanciones();
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public void agregarCancion(Cancion cancion) {
-        canciones.insertarAlFinal(cancion); // Agregamos la canción a la lista
+        canciones.agregarCancion(cancion);
+        System.out.println("\"" + cancion.getTitulo() + "\" añadida a la playlist " + nombre);
     }
 
-    public void eliminarCancion(Cancion cancion) {
-        canciones.eliminar(cancion); // Eliminamos la canción de la lista
+    public void eliminarCancion(String titulo) {
+        canciones.eliminarCancion(titulo);
+        System.out.println("Canción \"" + titulo + "\" eliminada de la playlist " + nombre);
     }
 
     public void mostrarCanciones() {
-        System.out.println("Canciones en la playlist " + nombre + ":");
-        canciones.imprimirLista(); // Imprimimos las canciones en la playlist
-    }
-
-    @Override
-    public String toString() {
-        return nombre; 
+        System.out.println("Canciones en la playlist \"" + nombre + "\":");
+        canciones.mostrarCanciones();
     }
 }
