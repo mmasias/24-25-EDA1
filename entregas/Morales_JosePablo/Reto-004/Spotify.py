@@ -256,3 +256,6 @@ playlist_predeterminada.agregar_cancion("Rasputin - Boney M.", "3:41")
 playlist_predeterminada.agregar_cancion("Born In The U.S.A - Bruce Springsteen", "4:39")
 playlist_predeterminada.agregar_cancion("Eye Of The Tiger - Survivor", "4:04")
 playlist_predeterminada.agregar_cancion("Thank You For The Music - ABBA", "3:49")
+
+sistema = SistemaReproduccionMusica()
+sistema.agregar_playlist(playlist_predeterminada)
