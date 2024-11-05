@@ -68,19 +68,72 @@ class Playlist:
         print(f"Canción '{titulo}' no encontrada en la playlist.")
         return False
 
-    def reproducir_cancion(self, titulo):
-        cancion = self.buscar_cancion(titulo)
-        if cancion:
-            print(f"Reproduciendo: {cancion}")
-        else:
-            print(f"La canción '{titulo}' no se encuentra en esta playlist.")
-
     def __str__(self):
         return f"{self.nombre} - {self.artista} (Duración total: {self.duracion_total})"
+
+class NodoCola:
+    def __init__(self, cancion):
+        self.cancion = cancion
+        self.siguiente = None
+
+class ColaReproduccion:
+    def __init__(self):
+        self.frente = None
+        self.final = None
+
+    def encolar(self, cancion):
+        nuevo_nodo = NodoCola(cancion)
+        if not self.frente:
+            self.frente = nuevo_nodo
+            self.final = nuevo_nodo
+        else:
+            self.final.siguiente = nuevo_nodo
+            self.final = nuevo_nodo
+
+    def desencolar(self):
+        if not self.frente:
+            return None
+        cancion = self.frente.cancion
+        self.frente = self.frente.siguiente
+        if not self.frente:
+            self.final = None
+        return cancion
+
+    def esta_vacia(self):
+        return self.frente is None
+
+class NodoPila:
+    def __init__(self, cancion):
+        self.cancion = cancion
+        self.siguiente = None
+
+class PilaHistorial:
+    def __init__(self):
+        self.tope = None
+
+    def apilar(self, cancion):
+        nuevo_nodo = NodoPila(cancion)
+        nuevo_nodo.siguiente = self.tope
+        self.tope = nuevo_nodo
+
+    def desapilar(self):
+        if not self.tope:
+            return None
+        cancion = self.tope.cancion
+        self.tope = self.tope.siguiente
+        return cancion
+
+    def esta_vacia(self):
+        return self.tope is None
 
 class SistemaReproduccionMusica:
     def __init__(self):
         self.playlists = []
+        self.cola_reproduccion = ColaReproduccion()
+        self.historial_reproduccion = PilaHistorial()
+        self.repetir_playlist = False
+        self.repetir_cancion = False
+        self.favoritos = []
 
     def agregar_playlist(self, playlist):
         self.playlists.append(playlist)
@@ -100,11 +153,41 @@ class SistemaReproduccionMusica:
     def reproducir_playlist(self, indice):
         playlist = self.seleccionar_playlist(indice)
         if playlist:
-            print(f"\nReproduciendo todas las canciones de la playlist '{playlist.nombre}':")
             actual = playlist.canciones
             while actual:
-                print(f"Reproduciendo: {actual}")
+                self.cola_reproduccion.encolar(actual)
                 actual = actual.siguiente
+
+            while not self.cola_reproduccion.esta_vacia():
+                cancion_actual = self.cola_reproduccion.desencolar()
+                print(f"Reproduciendo: {cancion_actual}")
+                self.historial_reproduccion.apilar(cancion_actual)
+                if self.repetir_cancion:
+                    self.cola_reproduccion.encolar(cancion_actual)
+                if self.repetir_playlist and self.cola_reproduccion.esta_vacia():
+                    actual = playlist.canciones
+                    while actual:
+                        self.cola_reproduccion.encolar(actual)
+                        actual = actual.siguiente
+
+    def agregar_favorito(self, cancion):
+        if cancion not in self.favoritos:
+            self.favoritos.append(cancion)
+            print(f"Canción '{cancion}' añadida a favoritos.")
+        else:
+            print("La canción ya está en favoritos.")
+
+    def eliminar_favorito(self, cancion):
+        if cancion in self.favoritos:
+            self.favoritos.remove(cancion)
+            print(f"Canción '{cancion}' eliminada de favoritos.")
+        else:
+            print("La canción no está en favoritos.")
+
+    def ver_favoritos(self):
+        print("Canciones favoritas:")
+        for cancion in self.favoritos:
+            print(cancion)
 
     def iniciar(self):
         while True:
@@ -121,7 +204,7 @@ class SistemaReproduccionMusica:
                     playlist.mostrar_canciones()
                     accion = input("¿Quieres reproducir (r), buscar (b), o eliminar (e) una canción? (Enter para volver): ").lower()
                     if accion == 'r':
-                        playlist.reproducir_playlist()
+                        self.reproducir_playlist(indice)
                     elif accion == 'b':
                         titulo = input("Ingresa el título de la canción que deseas buscar: ")
                         cancion = playlist.buscar_cancion(titulo)
@@ -132,6 +215,15 @@ class SistemaReproduccionMusica:
                     elif accion == 'e':
                         titulo = input("Ingresa el título de la canción que deseas eliminar: ")
                         playlist.eliminar_cancion(titulo)
+                    elif accion == 'f':
+                        titulo = input("Ingresa el título de la canción que deseas marcar como favorito: ")
+                        cancion = playlist.buscar_cancion(titulo)
+                        if cancion:
+                            self.agregar_favorito(cancion)
+                        else:
+                            print("Canción no encontrada.")
+                    elif accion == 'v':
+                        self.ver_favoritos()
                     input("\nPresiona Enter para volver al menú principal.")
             except ValueError:
                 print("Por favor, ingresa un número válido.")
