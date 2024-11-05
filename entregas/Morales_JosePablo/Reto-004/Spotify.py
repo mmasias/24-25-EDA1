@@ -13,7 +13,6 @@ class Playlist:
         self.artista = artista
         self.canciones = None
         self.duracion_total = "0:00"
-
     def agregar_cancion(self, titulo, duracion):
         nueva_cancion = Cancion(titulo, duracion)
         if not self.canciones:
@@ -23,7 +22,6 @@ class Playlist:
             while actual.siguiente:
                 actual = actual.siguiente
             actual.siguiente = nueva_cancion
-
     def mostrar_canciones(self):
         actual = self.canciones
         while actual:
@@ -67,7 +65,6 @@ class Playlist:
             actual = actual.siguiente
         print(f"Canción '{titulo}' no encontrada en la playlist.")
         return False
-
     def __str__(self):
         return f"{self.nombre} - {self.artista} (Duración total: {self.duracion_total})"
 
@@ -162,14 +159,18 @@ class SistemaReproduccionMusica:
         if playlist:
             canciones_a_reproducir = []
             actual = playlist.canciones
+            
             while actual:
                 canciones_a_reproducir.append(actual)
                 actual = actual.siguiente
+                
             if aleatorio:
                 import random
                 random.shuffle(canciones_a_reproducir)
+                
             for cancion in canciones_a_reproducir:
                 self.cola_reproduccion.encolar(cancion)
+                
             while not self.cola_reproduccion.esta_vacia():
                 cancion_actual = self.cola_reproduccion.desencolar()
                 print(f"Reproduciendo: {cancion_actual}")
@@ -250,7 +251,28 @@ class SistemaReproduccionMusica:
 
             elif seleccion == '4':
                 self.repetir_playlist = not self.repetir_playlist
-                estado = "activada" if self.repetir_playlist else "desactivada
+                estado = "activada" if self.repetir_playlist else "desactivada"
+                print(f"Repetición de playlist {estado}.")
+
+            elif seleccion == '5':
+                self.repetir_cancion = not self.repetir_cancion
+                estado = "activada" if self.repetir_cancion else "desactivada"
+                print(f"Repetición de canción {estado}.")
+
+            elif seleccion == '6':
+                self.mostrar_playlists()
+                try:
+                    indice = int(input("Selecciona el número de la playlist para reproducir en modo aleatorio: ")) - 1
+                    self.reproducir_playlist(indice, aleatorio=True)
+                except ValueError:
+                    print("Por favor, ingresa un número válido.")
+
+            elif seleccion.lower() == 'q':
+                print("Saliendo del sistema de reproducción de música.")
+                break
+
+            else:
+                print("Opción no válida, intenta de nuevo.")
 
 playlist_predeterminada = Playlist("Predeterminada", "Varios")
 playlist_predeterminada.duracion_total = "1 hora, 35 minutos"
