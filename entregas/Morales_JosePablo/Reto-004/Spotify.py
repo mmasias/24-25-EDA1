@@ -289,46 +289,38 @@ def ejecutar_menu_reproduccion():
         opcion = mostrar_menu_reproduccion()
         
         if opcion == 1:
-            # Ver canción actual
             if player.cancion_actual:
                 print(f"▶ Reproduciendo: {player.cancion_actual}")
             else:
                 iniciar_reproduccion()
         
         elif opcion == 2:
-            # Reproducir siguiente
             player.siguiente_cancion()
             print(f"▶ Reproduciendo siguiente: {player.cancion_actual}")
         
         elif opcion == 3:
-            # Reproducir anterior
             player.cancion_anterior()
             print(f"▶ Reproduciendo anterior: {player.cancion_actual}")
         
         elif opcion == 4:
-            # Ver cola de reproducción
             print("COLA DE REPRODUCCIÓN:")
             player.mostrar_cola()
         
         elif opcion == 5:
-            # Ver historial
             print("HISTORIAL DE REPRODUCCIÓN:")
             player.mostrar_historial()
         
         elif opcion == 6:
-            # Activar/desactivar aleatorio
             player.toggle_shuffle()
             estado = "ON" if player.shuffle else "OFF"
             print(f"Modo aleatorio: {estado}")
         
         elif opcion == 7:
-            # Activar/desactivar repetición
             player.toggle_repeat()
             estado = "ON" if player.repeat else "OFF"
             print(f"Modo repetición: {estado}")
         
         elif opcion == 8:
-            # Volver al menú principal
             break
         else:
             print("Opción no válida. Intente nuevamente.")
