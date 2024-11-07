@@ -208,7 +208,7 @@ class SistemaReproduccionMusica:
             print("3. Reproducir siguiente canción")
             print("4. Ver cola de reproducción")
             print("5. Ver favoritos")
-            print("q. Salir")
+            print("6. Salir")
             seleccion = input("Elige una opción: ")
 
             if seleccion == '1':
@@ -218,23 +218,18 @@ class SistemaReproduccionMusica:
                     self.reproducir_playlist(indice)
                 except ValueError:
                     print("Por favor, ingresa un número válido.")
-
+                    
             elif seleccion == '2':
                 self.ver_cancion_actual()
-
             elif seleccion == '3':
                 self.reproducir_siguiente()
-
             elif seleccion == '4':
                 self.ver_cola_reproduccion()
-
             elif seleccion == '5':
                 self.ver_favoritos()
-
             elif seleccion.lower() == 'q':
                 print("Saliendo del sistema de reproducción de música.")
                 break
-
             else:
                 print("Opción no válida, intenta de nuevo.")
 
