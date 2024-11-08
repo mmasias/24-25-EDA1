@@ -2,7 +2,7 @@ package entregas.lopesBrenda.reto004.version2;
 
 import java.util.Scanner;
 
-public class Main {
+public class App {
     public static Cancion[] cancionesDisponibles = {
         new Cancion("Demoliendo Hoteles", "Charly García", 258),
         new Cancion("Los Dinosaurios", "Charly García", 234),
