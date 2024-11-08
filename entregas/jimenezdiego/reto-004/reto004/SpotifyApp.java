@@ -77,7 +77,7 @@ public class SpotifyApp {
             System.out.println("9. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             opcionBiblioteca = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
+            scanner.nextLine(); 
 
             switch (opcionBiblioteca) {
                 case 1:
@@ -261,7 +261,7 @@ public class SpotifyApp {
             System.out.println("9. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             opcionReproduccion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar buffer
+            scanner.nextLine(); 
     
             switch (opcionReproduccion) {
                 case 1:
@@ -353,7 +353,7 @@ public class SpotifyApp {
     
     private static void verColaReproduccion() {
         System.out.println("COLA DE REPRODUCCIÓN:");
-        colaReproduccion.mostrarCola(cancionActual);  // Pasar cancionActual como parámetro
+        colaReproduccion.mostrarCola(cancionActual); 
         System.out.println("Estado: Reproducción normal | Repetición: " + (modoRepeticion ? "ON" : "OFF") + " | Aleatorio: " + (modoAleatorio ? "ON" : "OFF"));
     }
     
@@ -382,7 +382,6 @@ public class SpotifyApp {
             scanner.nextLine();
     
             if (index == -1) {
-                // Salir del bucle si el usuario elige 0
                 System.out.println("Finalizando adición a la cola de reproducción.");
                 break;
             }

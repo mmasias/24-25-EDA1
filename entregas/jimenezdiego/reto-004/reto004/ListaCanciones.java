@@ -55,7 +55,7 @@ public class ListaCanciones {
 
     public NodoCancion getNodo(int index) {
         if (index < 0 || index >= tamaño) {
-            return null; // Índice fuera de rango
+            return null; 
         }
     
         NodoCancion actual = inicio;
