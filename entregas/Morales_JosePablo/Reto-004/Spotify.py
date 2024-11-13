@@ -105,3 +105,26 @@ class NodoPila:
     def __init__(self, cancion):
         self.cancion = cancion
         self.siguiente = None
+
+class PilaHistorial:
+    def __init__(self):
+        self.tope = None
+
+    def apilar(self, cancion):
+        nuevo_nodo = NodoPila(cancion)
+        nuevo_nodo.siguiente = self.tope
+        self.tope = nuevo_nodo
+
+    def desapilar(self):
+        if not self.tope:
+            return None
+        cancion = self.tope.cancion
+        self.tope = self.tope.siguiente
+        return cancion
+
+    def mostrar_historial(self):
+        actual = self.tope
+        print("Historial de reproducción:")
+        while actual:
+            print(actual.cancion)
+            actual = actual.siguiente
