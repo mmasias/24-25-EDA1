@@ -54,3 +54,54 @@ class Playlist:
 
     def __str__(self):
         return f"{self.nombre} - {self.artista}"
+
+class NodoCola:
+    def __init__(self, cancion):
+        self.cancion = cancion
+        self.siguiente = None
+
+class ColaReproduccion:
+    def __init__(self):
+        self.frente = None
+        self.final = None
+        self.cancion_actual = None
+
+    def encolar(self, cancion):
+        nuevo_nodo = NodoCola(cancion)
+        if not self.frente:
+            self.frente = nuevo_nodo
+            self.final = nuevo_nodo
+        else:
+            self.final.siguiente = nuevo_nodo
+            self.final = nuevo_nodo
+
+    def desencolar(self):
+        if not self.frente:
+            return None
+        cancion = self.frente.cancion
+        self.frente = self.frente.siguiente
+        if not self.frente:
+            self.final = None
+        return cancion
+
+    def siguiente_cancion(self):
+        self.cancion_actual = self.desencolar()
+        return self.cancion_actual
+
+    def esta_vacia(self):
+        return self.frente is None
+
+    def ver_cancion_actual(self):
+        return self.cancion_actual
+
+    def mostrar_cola(self):
+        actual = self.frente
+        print("Cola de reproducción:")
+        while actual:
+            print(actual.cancion)
+            actual = actual.siguiente
+
+class NodoPila:
+    def __init__(self, cancion):
+        self.cancion = cancion
+        self.siguiente = None
