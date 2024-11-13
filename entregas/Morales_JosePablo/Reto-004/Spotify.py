@@ -12,7 +12,8 @@ class Playlist:
         self.nombre = nombre
         self.artista = artista
         self.canciones = None
-         def agregar_cancion(self, titulo, duracion):
+
+    def agregar_cancion(self, titulo, duracion):
         nueva_cancion = Cancion(titulo, duracion)
         if not self.canciones:
             self.canciones = nueva_cancion
