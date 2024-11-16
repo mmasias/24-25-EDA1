@@ -30,7 +30,7 @@ Secuencia de inserción: `[2, 6, 5, 3, 7, 1, 9, 10]`
 |Consideraciones|Se explicitó la condición que gobierna el control del flujo.|Se aplicó recursividad para gestionar la inserción.
 ||Limpia el código de impresión|Ya en este punto, también se aplicó recursividad a la impresión.
 
-### [v001](v001r)
+### [v001r](v001r)
 
 Clases [Tree](v001r/Tree.java), [Node](v001r/Node.java) y [Jardinero](v001r/Jardinero.java)
 
@@ -50,7 +50,7 @@ Misma estructura base que v000r (recursiva), cambiando solo la estrategia de ins
         10
 ```
 
-|Consideraciones|Evolución
+|Consideraciones|Evolución|
 |-|-|
 |Mantiene la clase Node sin modificar|Partimos de v000r (versión recursiva limpia)
 |Añade método auxiliar para tomar decisiones de inserción|Solo cambiamos la lógica de inserción
@@ -66,3 +66,34 @@ Misma estructura base que v000r (recursiva), cambiando solo la estrategia de ins
 |Mantener Node simple y reutilizable.|Claridad sobre rendimiento en esta fase.|**Ganamos**: mejor distribución espacial.|
 |Preparar para la abstracción de reglas.|Valor didáctico del proceso.|**Perdemos**: ordenación y eficiencia.|
 |Permitir cambiar estrategias fácilmente.|Simplicidad de implementación.|**Mantenemos**: código limpio y extensible.|
+
+### [v002r](v002r)
+
+Clases [Tree](v002r/Tree.java), [Node](v002r/Node.java) y [Jardinero](v002r/Jardinero.java)
+
+Implementación que invierte la regla del BST: mayores a la izquierda, menores a la derecha.
+
+Misma estructura base que v000r (recursiva), cambiando solo la regla de comparación.
+
+La secuencia de inserción se mantiene.
+
+```
+Árbol resultante:
+    1
+2
+            3
+        5
+    6
+        7
+            9
+                10
+```
+
+|Consideraciones|Evolución|
+|-|-|
+|Mantiene la clase Node sin modificar|Partimos de v000r (versión recursiva limpia)
+|Solo invierte la condición de comparación en la inserción|Único cambio: la condición de inserción
+|Produce un árbol que es imagen en espejo del BST normal|Mantenemos todo lo demás idéntico
+|Mantiene las propiedades de BST pero en orden inverso|
+
+> ***#2think:*** La simplicidad del cambio produce una estructura completamente diferente!!!
