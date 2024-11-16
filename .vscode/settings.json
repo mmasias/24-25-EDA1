@@ -1,6 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "entregas/masiasManuel/src/reto003",
-        "entregas/masiasManuel/src/ejercicio-02"
-    ]
+        "entregas/masiasManuel/src"
+    ],
+    "java.project.referencedLibraries": []
 }
