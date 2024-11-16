@@ -1,0 +1,20 @@
+@startuml
+
+    node "2" as I1
+    node "7" as I5
+    node "6" as I2
+    node "5" as I4
+    node "3" as I6
+    node "1" as I3
+    node "9" as I7
+    node "10" as I8
+
+    I1 -- I3
+    I1 -- I2
+    I2 -- I4
+    I2 -- I5
+    I4 -- I6
+    I5 -- I7
+    I7 -- I8
+
+@enduml

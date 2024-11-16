@@ -1,0 +1,20 @@
+@startuml
+
+    node "2" as N2
+    node "1" as N1
+    node "5" as N5 
+    node "7" as N7
+    node "6" as N6
+    node "3" as N3
+    node "9" as N9
+    node "10" as N10
+
+    N2 -- N6
+    N2 -- N1
+    N6 -- N5
+    N6 -- N7
+    N5 -- N3
+    N7 -- N9
+    N9 -- N10
+
+@enduml
