@@ -128,7 +128,10 @@ class Jardinero {
 
 <div align=center>
 
-![](/images/modelosUML/DdC-EstrategiasComoInterfaces.svg)
+|![](/images/modelosUML/DdC-EstrategiasComoInterfaces.svg)
+|:-:
+|[Código plantUML](/modelosUML/DdC-EstrategiasComoInterfaces.puml)
+|[Diagrama completo](/images/modelosUML/DdC-EstrategiasComoInterfaces-Completo.puml) / [Código plantUML](/modelosUML/DdC-EstrategiasComoInterfaces-Completo.puml)
 
 </div>
 
@@ -136,7 +139,9 @@ class Jardinero {
 
 <div align=center>
 
-![](/images/modelosUML/DdO-EstrategiasComoInterfaces-EI.svg)
+|![](/images/modelosUML/DdO-EstrategiasComoInterfaces-EI.svg)
+|:-:
+|[Código plantUML](/modelosUML/DdO-EstrategiasComoInterfaces-EI.puml)
 
 </div>
 
@@ -144,6 +149,8 @@ class Jardinero {
 
 <div align=center>
 
-![](/images/modelosUML/DdO-EstrategiasComoInterfaces-EF.svg)
+|![](/images/modelosUML/DdO-EstrategiasComoInterfaces-EF.svg)
+|:-:
+|[Código plantUML](/modelosUML/DdO-EstrategiasComoInterfaces-EF.puml)
 
 </div>
