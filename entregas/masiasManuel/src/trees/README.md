@@ -104,7 +104,7 @@ La secuencia de inserción se mantiene.
 |-|-|-|-|
 |**Estrategia**|Menores a la izquierda, mayores a la derecha|Inserción basada en conteo de nodos para mantener balance|Mayores a la izquierda, menores a la derecha|
 |**Ordenación resultante**|Inorden produce secuencia ascendente|No garantiza ninguna ordenación específica|Inorden produce secuencia descendente|
-|**Secuencia de inserción:**<br>**[2,6,5,3,7,1,9,10]**|![](/images/entregas/masiasManuel/src/trees/arbolesBST.svg)|![](/images/entregas/masiasManuel/src/trees/arbolesBalanceado.svg)|![](/images/entregas/masiasManuel/src/trees/arbolesBSTInvertido.svg)|
+|**Secuencia de inserción:**<br>**[2,6,5,3,7,1,9,10]**|![](/images/modelosUML/arbolesBST.svg)|![](/images/modelosUML/arbolesBalanceado.svg)|![](/images/modelosUML/arbolesBSTInvertido.svg)|
 |**Peor caso**|Degenera en lista si los datos vienen ordenados|No degenera en lista aunque los datos vengan ordenados|Degenera en lista si los datos vienen ordenados|
 |**Mejor caso**|Árbol perfectamente balanceado si los datos vienen alternados|Siempre tiende al balance|Árbol perfectamente balanceado si los datos vienen alternados|
 |**Uso de memoria**|No requiere información adicional|Requiere recálculo constante de conteos|No requiere información adicional|
@@ -117,3 +117,5 @@ La secuencia de inserción se mantiene.
 |**Observaciones**|Subárboles son BSTs. Inorden = ordenado|Diferencia máxima de nodos entre ramas minimizada|Subárboles son BSTs invertidos. Inorden = ordenado inversamente|
 |**Complejidad búsqueda**|O(h) donde h es altura, O(n) en peor caso|O(h) pero h más controlada, cerca a O(log n)|O(h) donde h es altura, O(n) en peor caso|
 |**Complejidad inserción**|O(h) donde h es altura|O(h) pero con overhead por contar nodos|O(h) donde h es altura|
+
+> *Continúa en la* [***Parte II***](2Think.md)
