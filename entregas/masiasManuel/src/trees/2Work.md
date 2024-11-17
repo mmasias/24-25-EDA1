@@ -121,3 +121,29 @@ class Jardinero {
     }
 }
 ```
+
+## Un diagrama, mil palabras
+
+### Diagrama de clases
+
+<div align=center>
+
+![](/images/modelosUML/DdC-EstrategiasComoInterfaces.svg)
+
+</div>
+
+### Diagrama de objetos, al inicio
+
+<div align=center>
+
+![](/images/modelosUML/DdO-EstrategiasComoInterfaces-EI.svg)
+
+</div>
+
+### Diagrama de objetos, al final
+
+<div align=center>
+
+![](/images/modelosUML/DdO-EstrategiasComoInterfaces-EF.svg)
+
+</div>
