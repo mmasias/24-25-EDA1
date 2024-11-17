@@ -1,11 +1,7 @@
 @startuml
-skinparam objectAttributeIconSize 0
-skinparam nodesep 100
-skinparam ranksep 80
+object ":Jardinero" as jardinero
 
-object "jardinero:Jardinero" as jardinero
-
-object "normalTree:Tree" as tree1 
+object "normalTree:Tree" as tree1
 object "balancedTree:Tree" as tree2
 object "invertedTree:Tree" as tree3
 
@@ -13,13 +9,13 @@ object ":NormalBSTStrategy" as strat1
 object ":BalancedStrategy" as strat2
 object ":InvertedBSTStrategy" as strat3
 
-jardinero ..> tree1
-jardinero ..> tree2
-jardinero ..> tree3
+jardinero --> tree1
+jardinero --> tree2
+jardinero --> tree3
 
-tree1 --> strat1 : strategy
-tree2 --> strat2 : strategy
-tree3 --> strat3 : strategy
+tree1 --> strat1
+tree2 --> strat2
+tree3 --> strat3
 
 note right of jardinero
   Aquí sí vemos las instancias

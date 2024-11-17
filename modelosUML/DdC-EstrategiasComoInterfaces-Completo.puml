@@ -1,0 +1,52 @@
+@startuml
+
+class Node {
+    -int value
+    -Node left
+    -Node right
+    +Node(int value)
+}
+
+class Tree {
+    -Node root
+    -InsertionStrategy strategy
+    +Tree(InsertionStrategy strategy)
+    +void insert(int value)
+    -Node recursiveInsert(Node node, int value)
+    +void print()
+    -void recursivePrint(Node node, int nivel)
+}
+
+interface InsertionStrategy {
+    +boolean goLeft(Node current, int value)
+}
+
+class NormalBSTStrategy {
+    +boolean goLeft(Node current, int value)
+}
+
+class BalancedStrategy {
+    +boolean goLeft(Node current, int value)
+    -int countNodes(Node node)
+}
+
+class InvertedBSTStrategy {
+    +boolean goLeft(Node current, int value)
+}
+
+class Jardinero {
+    +{static} void main(String[] args)
+    -{static} void insertValues(Tree tree, int[] values)
+}
+
+Tree o-- Node : tiene >
+Tree o-- InsertionStrategy : usa >
+
+InsertionStrategy <|.. NormalBSTStrategy
+InsertionStrategy <|.. BalancedStrategy
+InsertionStrategy <|.. InvertedBSTStrategy
+
+Jardinero --> Tree : usa
+Jardinero --> InsertionStrategy : usa
+
+@enduml

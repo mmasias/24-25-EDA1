@@ -1,5 +1,7 @@
 @startuml
 
+interface InsertionStrategy
+
 Tree o-- Node : tiene >
 Tree o-- InsertionStrategy : usa >
 
@@ -7,7 +9,7 @@ InsertionStrategy <|.. NormalBSTStrategy
 InsertionStrategy <|.. BalancedStrategy
 InsertionStrategy <|.. InvertedBSTStrategy
 
-Jardinero ..> Tree : usa
-Jardinero ..> InsertionStrategy : usa
+Jardinero --> Tree : usa
+Jardinero --> InsertionStrategy : usa
 
 @enduml

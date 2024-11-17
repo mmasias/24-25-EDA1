@@ -1,102 +1,98 @@
 @startuml
 
-object "jardinero:Jardinero" as jardinero
+object ":Jardinero" as jardinero
 
 object "normalTree:Tree" as tree1 
 object "balancedTree:Tree" as tree2 
 object "invertedTree:Tree" as tree3 
 
-object "strategy1:NormalBSTStrategy" as strat1
-object "strategy2:BalancedStrategy" as strat2
-object "strategy3:InvertedBSTStrategy" as strat3
+object ":NormalBSTStrategy" as strat1
+object ":BalancedStrategy" as strat2
+object ":InvertedBSTStrategy" as strat3
 
-object "node1_1:Node" as n1_1 {
+object ":Node" as n1_1 {
     value = 2
 }
-object "node1_2:Node" as n1_2 {
+object ":Node" as n1_2 {
     value = 1
 }
-object "node1_3:Node" as n1_3 {
+object ":Node" as n1_3 {
     value = 6
 }
-object "node1_4:Node" as n1_4 {
+object ":Node" as n1_4 {
     value = 5
 }
-object "node1_5:Node" as n1_5 {
+object ":Node" as n1_5 {
     value = 7
 }
-object "node1_6:Node" as n1_6 {
+object ":Node" as n1_6 {
     value = 3
 }
-object "node1_7:Node" as n1_7 {
+object ":Node" as n1_7 {
     value = 9
 }
-object "node1_8:Node" as n1_8 {
+object ":Node" as n1_8 {
     value = 10
 }
 
-' Nodes for balancedTree
-object "node2_1:Node" as n2_1 {
+object ":Node" as n2_1 {
     value = 2
 }
-object "node2_2:Node" as n2_2 {
+object ":Node" as n2_2 {
     value = 6
 }
-object "node2_3:Node" as n2_3 {
+object ":Node" as n2_3 {
     value = 5
 }
-object "node2_4:Node" as n2_4 {
+object ":Node" as n2_4 {
     value = 3
 }
-object "node2_5:Node" as n2_5 {
+object ":Node" as n2_5 {
     value = 7
 }
-object "node2_6:Node" as n2_6 {
+object ":Node" as n2_6 {
     value = 1
 }
-object "node2_7:Node" as n2_7 {
+object ":Node" as n2_7 {
     value = 9
 }
-object "node2_8:Node" as n2_8 {
+object ":Node" as n2_8 {
     value = 10
 }
 
-' Nodes for invertedTree
-object "node3_1:Node" as n3_1 {
+object ":Node" as n3_1 {
     value = 2
 }
-object "node3_2:Node" as n3_2 {
+object ":Node" as n3_2 {
     value = 6
 }
-object "node3_3:Node" as n3_3 {
+object ":Node" as n3_3 {
     value = 1
 }
-object "node3_4:Node" as n3_4 {
+object ":Node" as n3_4 {
     value = 7
 }
-object "node3_5:Node" as n3_5 {
+object ":Node" as n3_5 {
     value = 5
 }
-object "node3_6:Node" as n3_6 {
+object ":Node" as n3_6 {
     value = 9
 }
-object "node3_7:Node" as n3_7 {
+object ":Node" as n3_7 {
     value = 3
 }
-object "node3_8:Node" as n3_8 {
+object ":Node" as n3_8 {
     value = 10
 }
 
-' Relationships
-jardinero ..> tree1
-jardinero ..> tree2
-jardinero ..> tree3
+jardinero --> tree1
+jardinero --> tree2
+jardinero --> tree3
 
 tree1 --> strat1 : strategy
 tree2 --> strat2 : strategy
 tree3 --> strat3 : strategy
 
-' Normal tree structure
 tree1 --> n1_1 : root
 n1_1 --> n1_2 : left
 n1_1 --> n1_3 : right
@@ -106,7 +102,6 @@ n1_3 --> n1_5 : right
 n1_5 --> n1_7 : right
 n1_7 --> n1_8 : right
 
-' Balanced tree structure
 tree2 --> n2_1 : root
 n2_1 --> n2_2 : left
 n2_2 --> n2_4 : left
@@ -116,7 +111,6 @@ n2_3 --> n2_5 : left
 n2_3 --> n2_7 : right
 n2_7 --> n2_8 : right
 
-' Inverted tree structure
 tree3 --> n3_1 : root
 n3_1 --> n3_2 : left
 n3_2 --> n3_4 : left
@@ -131,5 +125,5 @@ note right of jardinero
   estructura según su estrategia
   de inserción
 end note
-@enduml
+
 @enduml
