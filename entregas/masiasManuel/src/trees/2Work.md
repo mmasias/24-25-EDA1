@@ -131,7 +131,7 @@ class Jardinero {
 |![](/images/modelosUML/DdC-EstrategiasComoInterfaces.svg)
 |:-:
 |[Código plantUML](/modelosUML/DdC-EstrategiasComoInterfaces.puml)
-|[Diagrama completo](/images/modelosUML/DdC-EstrategiasComoInterfaces-Completo.puml) / [Código plantUML](/modelosUML/DdC-EstrategiasComoInterfaces-Completo.puml)
+|[Diagrama completo](/images/modelosUML/DdC-EstrategiasComoInterfaces-Completo.svg) / [Código plantUML](/modelosUML/DdC-EstrategiasComoInterfaces-Completo.puml)
 
 </div>
 
