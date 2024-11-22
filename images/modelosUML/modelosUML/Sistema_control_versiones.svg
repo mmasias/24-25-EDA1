@@ -1,0 +1,34 @@
+@startuml
+class Node {
+    +id: String
+    +data: String[]
+    +parent: Node
+    +children: CustomList
+    +addChild(id: String, additionalData: String[]): Node
+}
+
+class CustomList {
+    -nodes: Node[]
+    -size: int
+    +add(node: Node): void
+    +get(index: int): Node
+    +getSize(): int
+}
+
+class VersionControlTree {
+    +root: Node
+    +VersionControlTree(rootId: String, rootData: String[])
+    +createBranch(parentNode: Node, id: String, additionalData: String[]): Node
+    +printTree(node: Node, level: int): void
+    +findNode(node: Node, id: String): Node
+}
+
+class VersionControlSystem {
+    +main(args: String[]): void
+}
+
+Node --> CustomList : children
+CustomList o--> Node : nodes
+VersionControlTree --> Node : root
+VersionControlSystem ..> VersionControlTree : <<use>>
+@enduml
