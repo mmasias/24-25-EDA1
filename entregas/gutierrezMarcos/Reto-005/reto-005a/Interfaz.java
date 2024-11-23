@@ -33,18 +33,22 @@ public class Interfaz {
 
                 case 2:
                     tree.moverseVersionAnterior();
+                    cleanScreen();
                     break;
 
                 case 3:
                     tree.moversePrimeraRama();
+                    cleanScreen();
                     break;
 
                 case 4:
                     tree.moverseRamaDerecha();
+                    cleanScreen();
                     break;
                     
                 case 5: 
                     tree.moverseRamaIzquierda();
+                    cleanScreen();
                     break;
 
                 case 6:
