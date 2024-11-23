@@ -34,4 +34,8 @@ public class Lista {
 
     }
 
+    public Node getPrimero(){
+        return this.primero;
+    }
+
 }

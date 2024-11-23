@@ -15,12 +15,13 @@ public class Interfaz {
         System.out.println("--SISTEMA DE CONTROL DE VERSIONES-- \n");
         while(ejecutando){
             System.out.println("Versión actual: " + tree.mostrarVersionActual());
-            System.out.println("1. Añadir nueva versión estableciendo un número de archivos");
-            System.out.println("2. Moverse a la versión anterior");
-            System.out.println("3. Cambiarse a la rama anterior");
-            System.out.println("4. Cambiarse a la siguiente rama");
-            System.out.println("5. Ver diagrama de versiones");
-            System.out.println("6. Salir");
+            System.out.println("1. Añadir nueva versión");
+            System.out.println("2. Volver a la versión anterior");
+            System.out.println("3. Moverse a la primera rama de esta versión");
+            System.out.println("4. Cambiarse a la siguiente version hermana");
+            System.out.println("5. Cambiarse a la anterior version hermana");
+            System.out.println("6. Ver diagrama de versiones");
+            System.out.println("7. Salir");
             int eleccionMenu = sc.nextInt();
             switch (eleccionMenu) {
                 case 1:
@@ -35,18 +36,22 @@ public class Interfaz {
                     break;
 
                 case 3:
+                    tree.moversePrimeraRama();
+                    break;
+
+                case 4:
+                    tree.moverseRamaDerecha();
+                    break;
+                    
+                case 5: 
                     tree.moverseRamaIzquierda();
                     break;
 
-                case 4: 
-                    tree.moverseRamaDerecha();
-                    break;
-
-                case 5:
+                case 6:
                     tree.print();
                     break;
 
-                case 6:
+                case 7:
                     ejecutando = false;
                     break;
             

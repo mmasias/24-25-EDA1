@@ -79,4 +79,12 @@ public class Tree {
         }
     }
 
+    public void moversePrimeraRama(){
+        if (versionActual.getLista().getPrimero()!=null) {
+            versionActual = versionActual.getLista().getPrimero();
+        }else{
+            System.out.println("No existen versiones a partir de esta");
+        }
+    }
+
 }
