@@ -25,7 +25,7 @@ public class Tree {
             return;
         }
         System.out.println("Árbol:");
-        //TODO
+        printRecursive(root, "", true);
     }
     
 
@@ -61,6 +61,21 @@ public class Tree {
             versionActual = versionActual.getSiguiente();
         }else{
             System.out.println("No existe una rama a la derecha, muevete a la version anterior y crea una versión.");
+        }
+    }
+
+    private void printRecursive(Node node, String prefix, boolean isLast) {
+
+        String representacion = (node == versionActual) ? "[" + node.getNumberFiles() + "]" : String.valueOf(node.getNumberFiles());
+
+        System.out.println(prefix + (isLast ? "└── " : "├── ") + representacion);
+    
+        prefix += isLast ? "    " : "│   ";
+    
+        Node hijo = node.getLista().getUltimo();
+        while (hijo != null) {
+            printRecursive(hijo, prefix, hijo.getAnterior() == null);
+            hijo = hijo.getAnterior();
         }
     }
 
