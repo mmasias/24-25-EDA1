@@ -35,8 +35,8 @@ public class Node extends Estado{
         return this.lista;
     }
 
-    public void setSiguiente(int value, Node padre) {
-        this.siguiente = new Node(value, padre, null, this);
+    public void setSiguiente(int value, Node padre, Node anterior) {
+        this.siguiente = new Node(value, padre, null, anterior);
     }
 
     public Node getAnterior() {

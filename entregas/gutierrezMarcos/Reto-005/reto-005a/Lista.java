@@ -12,15 +12,10 @@ public class Lista {
             primero = new Node(value, padre, null, null);
         }else{
             Node current = primero;
-            while(current!=null){
-
-                if (current.getSiguiente()==null) {
-                    current.setSiguiente(value, padre);
-                }else{
-                    current = current.getSiguiente();
-                }
-                
+            while(current.getSiguiente()!=null){
+                current = current.getSiguiente();
             }
+            current.setSiguiente(value, padre, current);
         }
          
     }
@@ -31,16 +26,10 @@ public class Lista {
             return null;
         }else{
             Node current = primero;
-            while(current!=null){
-
-                if (current.getSiguiente()==null) {
-                    return current;
-                }else{
-                    current = current.getSiguiente();
-                }
-                
+            while(current.getSiguiente()!=null){
+                current = current.getSiguiente();
             }
-            return null;
+            return current;
         }
 
     }
