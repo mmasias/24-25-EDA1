@@ -3,7 +3,6 @@ package entregas.Vinas_Alejandro.Reto_005;
 import java.util.Scanner;
 
 public class SistemaControlVersiones {
-    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -17,32 +16,31 @@ public class SistemaControlVersiones {
 
         while (true) {
             System.out.println("\nOpciones:");
-            System.out.println("1. Añadir rama");
-            System.out.println("2. Mostrar árbol");
-            System.out.println("3. Salir");
+            System.out.println("1. Crear nueva rama");
+            System.out.println("2. Cambiar rama de trabajo");
+            System.out.println("3. Mostrar árbol");
+            System.out.println("4. Salir");
             System.out.print("Seleccione una opción: ");
             int option = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine(); 
 
             if (option == 1) {
-                System.out.print("Ingrese el ID del nodo padre: ");
-                String parentId = scanner.nextLine();
-                Node parentNode = vcs.findNode(vcs.root, parentId);
-
-                if (parentNode != null) {
-                    System.out.print("Ingrese el ID de la nueva rama: ");
-                    String branchId = scanner.nextLine();
-                    System.out.print("Ingrese los datos de la nueva rama (separados por comas): ");
-                    String[] branchData = scanner.nextLine().split(",");
-                    vcs.createBranch(parentNode, branchId, branchData);
-                    System.out.println("Rama creada exitosamente.");
-                } else {
-                    System.out.println("Nodo padre no encontrado.");
-                }
+                System.out.print("Ingrese los datos de la nueva rama (separados por comas): ");
+                String[] branchData = scanner.nextLine().split(",");
+                Node newBranch = vcs.createBranch(branchData);
+                System.out.println("Nueva rama creada con ID: " + newBranch.id);
             } else if (option == 2) {
+                System.out.print("Ingrese el ID de la rama a la que desea cambiar: ");
+                String branchId = scanner.nextLine();
+                if (vcs.switchBranch(branchId)) {
+                    System.out.println("Cambiado a la rama: " + branchId);
+                } else {
+                    System.out.println("Rama no encontrada.");
+                }
+            } else if (option == 3) {
                 System.out.println("Árbol de control de versiones:");
                 vcs.printTree(vcs.root, 0);
-            } else if (option == 3) {
+            } else if (option == 4) {
                 System.out.println("Saliendo del sistema. ¡Adiós!");
                 break;
             } else {
@@ -51,5 +49,5 @@ public class SistemaControlVersiones {
         }
 
         scanner.close();
-}
+    }
 }

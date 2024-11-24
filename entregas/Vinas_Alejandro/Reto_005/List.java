@@ -1,16 +1,15 @@
 package entregas.Vinas_Alejandro.Reto_005;
 
 class List {
-    Node[] nodes; // Almacena los nodos
-    int size; // Número actual de nodos almacenados
-
-    // Constructor
+    Node[] nodes; 
+    int size; 
+    
     public List() {
-        this.nodes = new Node[10]; // Capacidad inicial
+        this.nodes = new Node[10]; 
         this.size = 0;
     }
 
-    // Añadir un nodo a la lista
+    
     public void add(Node node) {
         if (size == nodes.length) {
             

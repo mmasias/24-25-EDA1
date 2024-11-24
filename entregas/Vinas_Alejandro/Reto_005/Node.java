@@ -6,7 +6,7 @@ class Node {
     Node parent; 
     List children; 
 
-    // Constructor
+   
     public Node(String id, String[] data, Node parent) {
         this.id = id;
         this.data = data;
@@ -15,13 +15,16 @@ class Node {
     }
 
     
-    public Node addChild(String id, String[] additionalData) {
+    public Node addChild(String[] additionalData) {
         
+        String childId = this.id + "." + (this.children.getSize() + 1);
+
+       
         String[] childData = new String[this.data.length + additionalData.length];
         System.arraycopy(this.data, 0, childData, 0, this.data.length);
         System.arraycopy(additionalData, 0, childData, this.data.length, additionalData.length);
 
-        Node childNode = new Node(id, childData, this);
+        Node childNode = new Node(childId, childData, this);
         this.children.add(childNode); 
         return childNode;
     }
