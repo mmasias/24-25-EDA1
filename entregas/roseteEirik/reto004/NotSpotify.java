@@ -8,16 +8,16 @@ public class NotSpotify {
         int option;
 
         do {
-            
-            Menu.display();
+
+            MainMenu.display();
             option = scanner.nextInt();
 
             switch (option) {
                 case 1:
-                    System.out.println("Playing music...");
+                    MusicPlayerMenu.display();
                     break;
                 case 2:
-                    System.out.println("Library...");
+                    LibraryMenu.display();
                     break;
                 case 3:
                     System.out.println("Exiting...");
@@ -26,6 +26,6 @@ public class NotSpotify {
                     System.out.println("Invalid option");
             }
 
-        } while (option != 3);
+        } while (true);
     }
 }

@@ -1,0 +1,35 @@
+@startuml
+class SistemaDeControlDeVersiones {
+}
+
+abstract class Repositorio {
+}
+
+class RepositorioLocal {
+}
+
+class RepositorioRemoto {
+}
+
+class Rama {
+}
+
+class Commit {
+}
+
+class Archivo {
+}
+
+SistemaDeControlDeVersiones "gestiona" --> Repositorio : "1 a muchos"
+
+Repositorio <|-- RepositorioLocal : "es un tipo de"
+Repositorio <|-- RepositorioRemoto : "es un tipo de"
+
+Repositorio "contiene" --> Rama : "1 a muchas"
+Rama "apunta a" --> Commit : "1 (último) en su línea"
+
+Commit "tiene como padre" --> Commit : "1 a 1"
+Commit "contiene" --> Archivo : "0..*"
+
+RepositorioLocal "sincroniza con" --> RepositorioRemoto : "pull/push"
+@enduml

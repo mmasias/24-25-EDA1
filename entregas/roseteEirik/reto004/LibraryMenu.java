@@ -1,11 +1,6 @@
 package entregas.roseteEirik.reto004;
 
 public class LibraryMenu extends Menu {
-
-    public LibraryMenu() {
-        super(9);
-    }
-
     public static void display() {
         System.out.println("1. Add song to favorites");
         System.out.println("2. Remove song from favorites");

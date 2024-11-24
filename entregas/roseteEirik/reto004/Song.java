@@ -13,15 +13,15 @@ class Song {
         this.starred = false;
     }
 
-    public void starred(){
-        this.starred = true;
+    public void changeStarred(){
+        this.starred = !this.starred;
     }
 
-    public void unstarred(){
-        this.starred = false;
+    public boolean isStarred(){
+        return this.starred;
     }
 
     public String toString(){
-        
+        return this.title + " - " + this.author + " (" + this.length + "s)";
     }
 }
