@@ -1,0 +1,26 @@
+@startuml
+class SistemaControlVersiones{
+  Lista ramas;
+  String nombreRepo;
+  cambiarNombre(String nombre)
+  nuevaRama(String nombre)
+}
+class Lista{
+  String nombreRama;
+  Arbol versiones;
+  cambiarNombre(String nombre)
+  nuevaVersion()
+}
+class Arbol{
+  String nombre;
+  String descripcion;
+  Int cantidadArchivos;
+  cambiarNombre(String nombre)
+  cambiarDescripcion(String descripcion)
+  anadirArchivo()
+  eliminarArchivo()
+  commit()
+}
+SistemaControlVersiones --> Lista
+Lista --> Arbol
+@enduml
