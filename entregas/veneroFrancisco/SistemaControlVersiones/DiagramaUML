@@ -1,0 +1,37 @@
+@startuml
+hide circle
+
+class SistemaControlVersiones {
+    + raiz: Nodo
+    + SistemaControlVersiones(nombreRaiz: String)
+    + crearNuevaRama(nombre: String, padre: String): boolean
+    + hacerCommit(archivo: String, mensaje: String, rama: String): boolean
+    + mostrarArbol(): void
+    + mostrarCommits(rama: String): void
+    + eliminarRama(nombreRama: String): boolean
+    + buscarNodo(nombre: String): Nodo
+}
+
+class Nodo {
+    + nombre: String
+    + commits: String[]
+    + numCommits: int
+    + primerHijo: Nodo
+    + siguienteHermano: Nodo
+    + Nodo(nombre: String)
+    + agregarHijo(hijo: Nodo): void
+    + agregarCommit(commit: String): boolean
+    + eliminarCommit(indice: int): boolean
+}
+
+class Commit {
+    + archivo: String
+    + mensaje: String
+    + Commit(archivo: String, mensaje: String)
+}
+
+SistemaControlVersiones --> "1" Nodo : posee
+Nodo "1" --> "*" Commit : contiene
+Nodo "1" --> "*" Nodo : hijos
+Nodo --> Nodo : siguienteHermano
+@enduml
