@@ -50,7 +50,7 @@ El sistema está compuesto por tres módulos principales:
 
 El siguiente diagrama representa la arquitectura del sistema:
 
-![Diagrama UML](path/to/uml-diagram.png)
+![Diagrama UML](./imagenes/UML.png)
 
 ## Estructura de Clases
 
