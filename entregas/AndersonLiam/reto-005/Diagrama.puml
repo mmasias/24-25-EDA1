@@ -1,0 +1,37 @@
+@startuml
+class Biblioteca {
+}
+
+class Libro {
+  +Título: String
+  +ISBN: String
+  +Año: Integer
+}
+
+class Usuario {
+  +Nombre: String
+  +ID: Integer
+  +Membresía: String
+}
+
+class Autor {
+  +Nombre: String
+}
+
+class Préstamo {
+  +FechaInicio: Date
+  +FechaFin: Date
+}
+
+class Categoría {
+  +Nombre: String
+}
+
+Biblioteca "1" -- "0..*" Libro : tiene
+Biblioteca "1" -- "0..*" Usuario : tiene
+Libro "1" -- "0..*" Autor : escrito por
+Libro "1" -- "0..*" Categoría : pertenece a
+Usuario "1" -- "0..*" Préstamo : realiza
+Préstamo "1" -- "1" Libro : incluye
+Préstamo "1" -- "1" Usuario : asocia
+@enduml
