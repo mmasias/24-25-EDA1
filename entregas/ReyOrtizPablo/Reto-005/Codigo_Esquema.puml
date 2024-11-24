@@ -17,4 +17,32 @@ Incidencia "1" --> "1" Usuario : reportada
 
 RepositorioRemoto "1" --> "*" PullRequest
 
+
+class Repositorio  {
+  + Nombre : String
+  + Descripción: String
+  + Acceso: TipoAcceso
+}
+
+class Version {
+  + Estado: String
+}
+
+class Commit {
+  + Asunto: String
+  + Estado: EstadoSolicitud
+}
+class Usuario {
+  + Nombre: String
+  + Correo: String
+}
+
+class Incidencia {
+  + Descripción: String
+  + Estado: EstadoIncidencia
+}
+
+class Rama
+class RepositorioRemoto
+class PullRequest
 @enduml
