@@ -1,0 +1,65 @@
+@startuml Repositorio
+hide empty members
+
+title Sistema de Gestión de Repositorios y Ramas
+
+class Repositorio {
+    + nombre: String
+    + crearRama(nombre: String)
+    + fusionarRama(origen: Rama, destino: Rama)
+}
+
+class Rama {
+    + nombre: String
+    + commits: List<Commit>
+    + agregarCommit(mensaje: String, cambios: List<Archivo>)
+}
+
+class Commit {
+    + id: String
+    + mensaje: String
+    + autor: Usuario
+    + archivosCambiados: List<Archivo>
+}
+
+class Archivo {
+    + nombre: String
+    + estado: EstadoArchivo
+}
+
+class Usuario {
+    + nombre: String
+    + email: String
+    + hacerPullRequest(ramaOrigen: Rama, ramaDestino: Rama)
+}
+
+class PullRequest {
+    + id: String
+    + estado: EstadoPullRequest
+    + ramaOrigen: Rama
+    + ramaDestino: Rama
+    + autor: Usuario
+}
+
+enum EstadoArchivo {
+    Nuevo
+    Modificado
+    Eliminado
+}
+
+enum EstadoPullRequest {
+    Abierto
+    Aprobado
+    Rechazado
+}
+
+Repositorio "1" --> "*" Rama : contiene
+Rama "1" --> "*" Commit : historial
+Commit "1" --> "*" Archivo : modifica
+Archivo --> EstadoArchivo : tiene
+Repositorio --> "1" Usuario : gestiona
+Usuario --> PullRequest : crea
+PullRequest "1" --> "1" Rama : conecta
+PullRequest --> EstadoPullRequest : tiene estado
+
+@enduml

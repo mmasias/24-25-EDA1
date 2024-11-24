@@ -1,0 +1,59 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "ControlDeVersionesUI",
+      "request": "launch",
+      "mainClass": "reto005.ControlDeVersionesUI",
+      "projectName": "24-25-EDA1_6c336b04"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "reto005.Main",
+      "projectName": "24-25-EDA1_6c336b04"
+    },
+    {
+      "type": "java",
+      "name": "Spotify",
+      "request": "launch",
+      "mainClass": "reto004.Spotify",
+      "projectName": "24-25-EDA1_6c336b04"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "reto004.Main",
+      "projectName": "24-25-EDA1_6c336b04"
+    },
+    {
+      "type": "java",
+      "name": "Compresor",
+      "request": "launch",
+      "mainClass": "entregas.martinezDiego.reto003.Compresor",
+      "projectName": "24-25-EDA1_6c336b04"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/home/diegomartinez/EDA1/repos/24-25-EDA1/entregas/martinezDiego/reto002",
+      "program": "/home/diegomartinez/EDA1/repos/24-25-EDA1/entregas/martinezDiego/reto002/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
