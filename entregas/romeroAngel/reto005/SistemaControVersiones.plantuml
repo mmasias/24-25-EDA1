@@ -1,0 +1,82 @@
+    @startuml
+' Declaración de la clase principal primero
+class User {
+    +username: String
+    +email: String
+    +createRepository(name: String): Repository
+    +submitPullRequest(repo: Repository, pullRequest: PullRequest): void
+    +syncWithRemoteRepo(repo: Repository): void  ' Sincroniza con el repositorio remoto
+}
+
+class Repository {
+    +name: String
+    +description: String
+    +isVisible: Boolean
+    +status: Status  ' Referencia a la clase Estado
+    +createBranch(name: String): Branch
+    +commitChange(branch: Branch, commit: Commit): void
+    +mergeBranches(base: Branch, target: Branch): PullRequest
+    +addFile(file: File): void
+    +removeFile(file: File): void
+    +changeStatus(): void  ' Invoca el cambio de estado
+    +pushToRemote(remoteRepo: RemoteRepository): void  ' Enviar cambios al repositorio remoto
+    +pullFromRemote(remoteRepo: RemoteRepository): void  ' Traer cambios del repositorio remoto
+}
+
+class Status {
+    +name: String
+    +description: String
+    +changeStatus(repo: Repository): void  ' Actualiza el estado del repositorio
+}
+
+class Branch {
+    +name: String
+    +commits: List<Commit>
+    +files: List<Archivo>  ' Archivos asociados a la rama
+    +addCommit(commit: Commit): void
+}
+
+class Commit {
+    +id: String
+    +message: String
+    +timeStamp: Date
+    +author: User
+}
+
+class PullRequest {
+    +id: String
+    +title: String
+    +description: String
+    +status: String
+    +reviewers: List<User>
+    +merge(): void
+}
+
+class File{
+    +name: String
+    +content: String
+}
+
+class RemoteRepository {
+    +url: String
+    +name: String
+    +sync(): void  ' Sincronización con el repositorio remoto
+    +pushChanges(repo: Repository): void  ' Enviar cambios desde el repositorio local
+    +pullChanges(repo: Repository): void  ' Traer cambios al repositorio local
+}
+
+' Relaciones
+User "1" -- "n" Repository : owns
+Repository "1" -- "n" Branch : contains
+Branch "1" -- "n" Commit : has
+Branch "1" -- "n" File : contains
+Commit "1" -- "1" User : authored by
+Repository "1" -- "n" PullRequest : manages
+PullRequest "n" -- "n" User : reviewed by
+Repository "1" -- "1" Status : has
+Repository "1" -- "n" File : manages
+Repository "1" -- "1" RemoteRepository : syncs with
+Repository "1" --> Status: changeStatus()
+File "1" --> Repository : modifies
+User "1" --> RemoteRepository : syncs with
+@enduml
