@@ -1,56 +1,30 @@
-import java.lang.classfile.components.ClassPrinter.Node;
 
-class Cola {
-    private Node frente;
-    private Node finalCola;
+
+import java.util.LinkedList;
+
+public class Cola {
+    private LinkedList<Cancion> cola;
 
     public Cola() {
-        this.frente = null;
-        this.finalCola = null;
+        cola = new LinkedList<>();
     }
 
     public void agregar(Cancion cancion) {
-        Node nuevoNodo = new Nodo(cancion);
-        if (finalCola == null) { 
-            frente = nuevoNodo;
-            finalCola = nuevoNodo;
-        } else {
-            finalCola.siguiente = nuevoNodo;
-            finalCola = nuevoNodo;
-        }
+        cola.add(cancion);
     }
 
-    public Cancion siguiente() {
-        if (frente == null) return null; 
-        Cancion cancionActual = frente.cancion;
-        frente = frente.siguiente; 
-        return cancionActual;
+    public Cancion sacar() {
+        return cola.poll();
     }
 
     public void mostrarCola() {
-        Nodo actual = frente;
-        int index = 1;
-        while (actual != null) {
-            System.out.println(index++ + ". " + actual.cancion);
-            actual = actual.siguiente;
+        for (int i = 0; i < cola.size(); i++) {
+            Cancion cancion = cola.get(i);
+            System.out.println((i + 1) + ". " + cancion);
         }
     }
 
-    public boolean estaVacia() {
-        return frente == null;
-    }
-
-    public int size() {
-        int count = 0;
-        Nodo actual = frente;
-        while (actual != null) {
-            count++;
-            actual = actual.siguiente;
-        }
-        return count;
-    }
-
-    public Nodo getFrente() {
-        return frente;
+    public boolean isEmpty() {
+        return cola.isEmpty();
     }
 }

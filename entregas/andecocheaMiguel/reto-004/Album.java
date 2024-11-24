@@ -1,36 +1,16 @@
-class Album<Cancion> {
-    private String nombre;
+public class Album {
+    private String titulo;
     private String artista;
-    private Node canciones;
+    private int año;
 
-    public Album(String nombre, String artista) {
-        this.nombre = nombre;
+    public Album(String titulo, String artista, int año) {
+        this.titulo = titulo;
         this.artista = artista;
-        this.canciones = null;
+        this.año = año;
     }
 
-    public void agregarCancion(Cancion cancion) {
-        Node nuevoNodo = new Node(cancion);
-        nuevoNodo.siguiente = canciones; 
-        canciones = nuevoNodo;
-    }
-
-    public void mostrarCanciones() {
-        Node actual = canciones;
-        int index = 1;
-        while (actual != null) {
-            System.out.println(index + ". " + actual.cancion);
-            actual = actual.siguiente;
-        }
-    }
-
-    public int size() {
-        int count = 0;
-        Node actual = canciones;
-        while (actual != null) {
-            count++;
-            actual = actual.siguiente;
-        }
-        return count;
+    @Override
+    public String toString() {
+        return titulo + " - " + artista + " (" + año + ")";
     }
 }
