@@ -1,0 +1,37 @@
+@startuml GitHub
+hide circle 
+
+class Repositorio 
+class Rama
+class Commit
+class Archivo
+class Usuario
+class PullRequest
+class ArchivoCambiado
+class DirectorioTrabajo
+class RepositorioRemoto
+class RamaRemota
+enum EstadoArchivo {
+    Nuevo
+    Modificado
+    Eliminado
+    SinCambios
+}
+
+Repositorio "1" --> "*" Rama
+Repositorio "1" --> "*" Usuario
+Repositorio --> "1" RepositorioRemoto : tiene
+Rama "1" --> "*" Commit
+Commit "1" --> "*" ArchivoCambiado
+Rama "1" --> "*" PullRequest
+ArchivoCambiado "1" --> "1" Archivo
+ArchivoCambiado --> EstadoArchivo
+PullRequest "1" --> "*" Commit
+PullRequest "1" --> "1" Usuario
+DirectorioTrabajo "1" --> "*" Archivo
+RepositorioRemoto "1" --> "*" RamaRemota
+Rama --> RamaRemota : sincroniza
+RamaRemota "1" --> "*" PullRequest
+Usuario "1" --> "1" DirectorioTrabajo
+
+@enduml
