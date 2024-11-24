@@ -18,8 +18,8 @@ public class Interfaz {
             System.out.println("1. Añadir nueva versión");
             System.out.println("2. Volver a la versión anterior");
             System.out.println("3. Moverse a la primera rama de esta versión");
-            System.out.println("4. Cambiarse a la siguiente version hermana");
-            System.out.println("5. Cambiarse a la anterior version hermana");
+            System.out.println("4. Cambiarse a la siguiente rama hermana");
+            System.out.println("5. Cambiarse a la anterior rama hermana");
             System.out.println("6. Ver diagrama de versiones");
             System.out.println("7. Salir");
             int eleccionMenu = sc.nextInt();
