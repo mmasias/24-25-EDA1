@@ -1,37 +1,43 @@
 @startuml
-class Biblioteca {
+class Repositorio {
+  +Nombre: String
+  +Descripción: String
+  +Visibilidad: Enum {Público, Privado}
 }
 
-class Libro {
+class Rama {
+  +Nombre: String
+  +Estado: String
+}
+
+class PullRequest {
   +Título: String
-  +ISBN: String
-  +Año: Integer
+  +Estado: Enum {Abierto, Cerrado, Fusionado}
+}
+
+class Commit {
+  +Hash: String
+  +Mensaje: String
+  +Fecha: Date
 }
 
 class Usuario {
   +Nombre: String
-  +ID: Integer
-  +Membresía: String
+  +Email: String
 }
 
-class Autor {
-  +Nombre: String
+class Issue {
+  +Título: String
+  +Estado: Enum {Abierto, Cerrado}
 }
 
-class Préstamo {
-  +FechaInicio: Date
-  +FechaFin: Date
-}
-
-class Categoría {
-  +Nombre: String
-}
-
-Biblioteca "1" -- "0..*" Libro 
-Biblioteca "1" -- "0..*" Usuario 
-Libro "1" -- "0..*" Autor 
-Libro "1" -- "0..*" Categoría
-Usuario "1" -- "0..*" Préstamo
-Préstamo "1" -- "1" Libro
-Préstamo "1" -- "1" Usuario
+Repositorio "1" -- "0..*" Rama : contiene
+Repositorio "1" -- "0..*" Commit : almacena
+Repositorio "1" -- "0..*" Issue : incluye
+Rama "1" -- "0..*" Commit : tiene
+Rama "1" -- "0..*" PullRequest : participa en
+PullRequest "1" -- "0..*" Commit : incluye
+PullRequest "1" -- "1..*" Rama : fusiona con
+Commit "1" -- "1" Usuario : creado por
+Issue "1" -- "0..1" Usuario : asignado a
 @enduml
