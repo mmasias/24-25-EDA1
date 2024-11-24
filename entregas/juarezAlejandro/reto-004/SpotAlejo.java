@@ -31,6 +31,23 @@ public class SpotAlejo {
         } while (opcion != 3);
     }
 
+    // Estos dos menús, lo mejor sería que se encargara la Biblioteca
+    // (menuBiblioteca) y el sistemaReproduccion (menuReproduccion)
+    // Por ejemplo, poner:
+    /*
+     * En vez de esto:
+     * case 1:
+     * menuBiblioteca();
+     * break;
+     */
+
+    /*
+     * Colocar:
+     * case 1:
+     * biblioteca.menu();
+     * break;
+     */
+    // De esta manera, la biblioteca se encarga de mostrar ese menú
     private static void menuBiblioteca() {
         int opcion;
         do {
