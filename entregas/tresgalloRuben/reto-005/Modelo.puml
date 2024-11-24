@@ -1,0 +1,69 @@
+@startuml
+title Sistema de Control de Versiones - Modelo Alternativo
+
+' Clase principal del sistema
+class SistemaDeControlDeVersiones {
+    - usuarios: List<Usuario>
+    - repositorios: List<Repositorio>
+    + iniciarSesion(usuario: String, contrasena: String): Usuario
+    + crearRepositorio(nombre: String): Repositorio
+    + listarRepositorios(): List<Repositorio>
+}
+
+' Clase para repositorios
+class Repositorio {
+    - nombre: String
+    - ramas: List<Rama>
+    + crearRama(nombre: String): Rama
+    + obtenerRama(nombre: String): Rama
+    + listarRamas(): List<Rama>
+}
+
+SistemaDeControlDeVersiones --> Repositorio : "gestiona"
+
+' Clase para manejar ramas
+class Rama {
+    - nombre: String
+    - commits: List<Commit>
+    + agregarCommit(commit: Commit): void
+    + listarCommits(): List<Commit>
+    + obtenerUltimoCommit(): Commit
+}
+
+Repositorio --> Rama : "contiene"
+
+' Clase para commits
+class Commit {
+    - id: String
+    - mensaje: String
+    - timestamp: Date
+    - cambios: List<Cambio>
+    + Commit(id: String, mensaje: String, cambios: List<Cambio>)
+    + obtenerDetalles(): String
+}
+
+Rama --> Commit : "almacena"
+
+' Clase para cambios dentro de un commit
+class Cambio {
+    - archivo: String
+    - tipoCambio: String
+    - contenido: String
+    + Cambio(archivo: String, tipoCambio: String, contenido: String)
+    + mostrarDetalles(): String
+}
+
+Commit --> Cambio : "incluye"
+
+' Clase para manejar usuarios
+class Usuario {
+    - nombre: String
+    - contrasena: String
+    - rol: String
+    + Usuario(nombre: String, contrasena: String, rol: String)
+    + autenticar(contrasena: String): boolean
+}
+
+SistemaDeControlDeVersiones --> Usuario : "gestiona"
+
+@enduml
