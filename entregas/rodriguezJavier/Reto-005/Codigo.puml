@@ -1,0 +1,48 @@
+@startuml DiagramaSistema
+Repositorio --> "*" Usuario : gestiona
+Repositorio --> "*" Rama
+Repositorio --> "1" RepositorioRemoto : contiene
+Repositorio --> "*" Incidencia : controla
+
+Rama --> "*" Commit : tiene
+Rama --> "*" PullRequest : incluye
+
+Commit --> "*" Cambios : introduce
+Cambios --> "1" Version : pertenece
+
+PullRequest --> "1" Usuario : creadoPor
+PullRequest --> "*" Commit : incluye
+
+Incidencia --> "1" Usuario : reportadaPor
+
+RepositorioRemoto --> "*" PullRequest : recibe
+
+class Repositorio {
+  + Nombre : String
+  + Descripción: String
+  + Acceso: TipoAcceso
+}
+
+class Version {
+  + Estado: String
+}
+
+class Commit {
+  + Asunto: String
+  + Estado: EstadoSolicitud
+}
+
+class Usuario {
+  + Nombre: String
+  + Correo: String
+}
+
+class Incidencia {
+  + Descripción: String
+  + Estado: EstadoIncidencia
+}
+
+class Rama
+class RepositorioRemoto
+class PullRequest
+@enduml
