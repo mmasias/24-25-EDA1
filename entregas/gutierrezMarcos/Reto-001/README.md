@@ -1,1 +1,0 @@
-# Codigo realizado en equipo por Martín López de Novales Gurruchaga y Marcos Gutiérrez Delgado.

@@ -1,1 +1,0 @@
-# Reto realiazdo con Martín López de Novales Gurruchaga
