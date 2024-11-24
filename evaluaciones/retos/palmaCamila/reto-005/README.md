@@ -19,7 +19,7 @@ Se divide en varios componentes, cada uno presentando un aspecto diferente del m
 
 | Descripción | Diagrama | Enlace PUML |
 | :---: | :---: | :---: |
-| Control de versiones | ![alt text](image-1.png) | [Código PUML](./git1.plantuml) |
+| Control de versiones | ![Diagrama de Objetos](./objetos.png) | [Código PUML](./git1.plantuml) |
 
 ----
 
