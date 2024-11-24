@@ -1,0 +1,38 @@
+@startuml
+class Node {
+    - String id
+    - String[] data
+    - Node parent
+    - List children
+    + Node(String id, String[] data, Node parent)
+    + Node addChild(String[] additionalData)
+}
+
+class List {
+    - Node[] nodes
+    - int size
+    + List()
+    + void add(Node node)
+    + Node get(int index)
+    + int getSize()
+}
+
+class ControlVersion {
+    - Node root
+    - Node currentBranch
+    + ControlVersion(String rootId, String[] rootData)
+    + Node createBranch(String[] additionalData)
+    + boolean switchBranch(String branchId)
+    + void printTree(Node node, int level)
+    + Node findNode(Node node, String id)
+}
+
+class VersionControlSystem {
+    {static} + void main(String[] args)
+}
+
+Node "1" *-- "1..*" List
+ControlVersion "1" *-- "1" Node
+VersionControlSystem ..> ControlVersion : uses
+
+@enduml
