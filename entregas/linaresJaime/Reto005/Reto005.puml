@@ -1,0 +1,51 @@
+@startuml GitSystem
+hide circle
+
+class Usuario {
+    - username: String
+    - email: String
+}
+
+class Repositorio {
+    - name: String
+    - description: String
+}
+
+class Commit {
+    - id: String
+    - message: String
+    - timestamp: String
+}
+
+class Rama {
+    - name: String
+    - isDefault: Boolean
+}
+
+class PullRequest {
+    - id: String
+    - title: String
+    - description: String
+}
+
+class Issue {
+    - id: String
+    - title: String
+    - description: String
+}
+
+class Comentario {
+    - content: String
+    - timestamp: String
+    - author: String
+}
+
+Usuario "1" -- "1..*" Repositorio : posee
+Repositorio "1" -- "1..*" Rama : contiene
+Rama "1" -- "1..*" Commit : contiene
+Rama "1" <-- "1..*" PullRequest : contiene
+Issue "1" <-- "1..*" Comentario : tiene
+Commit "1" <-- "1..*" Comentario : tiene
+PullRequest "1" <-- "1..*" Comentario : tiene
+
+@enduml
