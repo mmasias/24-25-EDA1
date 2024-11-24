@@ -31,13 +31,13 @@ class Issue {
   +Estado: Enum {Abierto, Cerrado}
 }
 
-Repositorio "1" -- "0..*" Rama : contiene
-Repositorio "1" -- "0..*" Commit : almacena
-Repositorio "1" -- "0..*" Issue : incluye
-Rama "1" -- "0..*" Commit : tiene
-Rama "1" -- "0..*" PullRequest : participa en
-PullRequest "1" -- "0..*" Commit : incluye
-PullRequest "1" -- "1..*" Rama : fusiona con
-Commit "1" -- "1" Usuario : creado por
-Issue "1" -- "0..1" Usuario : asignado a
+Repositorio "1" -- "0..*" Rama
+Repositorio "1" -- "0..*" Commit
+Repositorio "1" -- "0..*" Issue 
+Rama "1" -- "0..*" Commit
+Rama "1" -- "0..*" PullRequest
+PullRequest "1" -- "0..*" Commit
+PullRequest "1" -- "1..*" Rama
+Commit "1" -- "1" Usuario
+Issue "1" -- "0..1" Usuario
 @enduml
