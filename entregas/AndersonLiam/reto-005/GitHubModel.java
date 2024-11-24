@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 class Commit {
     String hash;
@@ -82,18 +83,70 @@ class Repositorio {
 
 public class GitHubModel {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         Repositorio repo = new Repositorio("MiProyecto");
+        boolean salir = false;
 
-        Rama main = repo.obtenerRama("main");
-        main.agregarCommit("a1b2c3", "Commit inicial");
-        main.agregarCommit("d4e5f6", "Añadida funcionalidad básica");
+        while (!salir) {
+            System.out.println("\n--- Menú ---");
+            System.out.println("1. Crear rama");
+            System.out.println("2. Agregar commit a una rama");
+            System.out.println("3. Mostrar ramas");
+            System.out.println("4. Mostrar historial de una rama");
+            System.out.println("5. Salir");
+            System.out.print("Elige una opción: ");
 
-        repo.crearRama("feature-arboles");
-        Rama feature = repo.obtenerRama("feature-arboles");
-        feature.agregarCommit("g7h8i9", "Inicio de desarrollo en feature-arboles");
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir salto de línea
 
-        repo.mostrarRamas();
-        main.mostrarHistorial();
-        feature.mostrarHistorial();
+            switch (opcion) {
+                case 1:
+                    System.out.print("Introduce el nombre de la nueva rama: ");
+                    String nombreRama = scanner.nextLine();
+                    repo.crearRama(nombreRama);
+                    break;
+
+                case 2:
+                    System.out.print("Introduce el nombre de la rama: ");
+                    String ramaCommit = scanner.nextLine();
+                    Rama rama = repo.obtenerRama(ramaCommit);
+                    if (rama != null) {
+                        System.out.print("Introduce el hash del commit: ");
+                        String hash = scanner.nextLine();
+                        System.out.print("Introduce el mensaje del commit: ");
+                        String mensaje = scanner.nextLine();
+                        rama.agregarCommit(hash, mensaje);
+                        System.out.println("Commit añadido a la rama '" + ramaCommit + "'.");
+                    } else {
+                        System.out.println("La rama '" + ramaCommit + "' no existe.");
+                    }
+                    break;
+
+                case 3:
+                    repo.mostrarRamas();
+                    break;
+
+                case 4:
+                    System.out.print("Introduce el nombre de la rama: ");
+                    String ramaHistorial = scanner.nextLine();
+                    Rama ramaParaHistorial = repo.obtenerRama(ramaHistorial);
+                    if (ramaParaHistorial != null) {
+                        ramaParaHistorial.mostrarHistorial();
+                    } else {
+                        System.out.println("La rama '" + ramaHistorial + "' no existe.");
+                    }
+                    break;
+
+                case 5:
+                    salir = true;
+                    System.out.println("Saliendo del programa...");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida. Intenta de nuevo.");
+            }
+        }
+
+        scanner.close();
     }
 }
