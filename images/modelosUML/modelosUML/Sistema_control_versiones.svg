@@ -1,34 +1,38 @@
 @startuml
 class Node {
-    +id: String
-    +data: String[]
-    +parent: Node
-    +children: CustomList
-    +addChild(id: String, additionalData: String[]): Node
+    - String id
+    - String[] data
+    - Node parent
+    - List children
+    + Node(String id, String[] data, Node parent)
+    + Node addChild(String[] additionalData)
 }
 
-class CustomList {
-    -nodes: Node[]
-    -size: int
-    +add(node: Node): void
-    +get(index: int): Node
-    +getSize(): int
+class List {
+    - Node[] nodes
+    - int size
+    + List()
+    + void add(Node node)
+    + Node get(int index)
+    + int getSize()
 }
 
-class VersionControlTree {
-    +root: Node
-    +VersionControlTree(rootId: String, rootData: String[])
-    +createBranch(parentNode: Node, id: String, additionalData: String[]): Node
-    +printTree(node: Node, level: int): void
-    +findNode(node: Node, id: String): Node
+class ControlVersion {
+    - Node root
+    - Node currentBranch
+    + ControlVersion(String rootId, String[] rootData)
+    + Node createBranch(String[] additionalData)
+    + boolean switchBranch(String branchId)
+    + void printTree(Node node, int level)
+    + Node findNode(Node node, String id)
 }
 
 class VersionControlSystem {
-    +main(args: String[]): void
+    {static} + void main(String[] args)
 }
 
-Node --> CustomList : children
-CustomList o--> Node : nodes
-VersionControlTree --> Node : root
-VersionControlSystem ..> VersionControlTree : <<use>>
+Node "1" *-- "1..*" List
+ControlVersion "1" *-- "1" Node
+VersionControlSystem ..> ControlVersion : uses
+
 @enduml
