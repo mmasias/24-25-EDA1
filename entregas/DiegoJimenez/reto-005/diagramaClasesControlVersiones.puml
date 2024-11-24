@@ -1,0 +1,24 @@
+@startuml diagramaClasesControlVersiones
+
+hide empty members
+hide circle
+class RepositorioLocal
+class RepositorioRemoto
+class RamaLocal
+class RamaRemota
+class Commit
+class Archivo
+class Usuario
+class ValidacionCambios
+
+RepositorioLocal --> RamaLocal : contiene
+RepositorioRemoto -->  RamaRemota : contiene
+RepositorioLocal --> RepositorioRemoto : conecta a
+RamaLocal --> RamaRemota : sigue a
+RamaLocal -->  Commit : contiene
+RamaRemota -->  Commit : contiene
+Commit -->  Archivo : modifica
+Usuario -->  Commit : autor de
+Commit --> ValidacionCambios : valida cambios
+
+@enduml
