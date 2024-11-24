@@ -1,0 +1,58 @@
+@startuml controladorVersiones
+
+hide circle
+
+class Repositorio {
+}
+
+class Rama {
+}
+
+class Commit {
+}
+
+class Archivo {
+}
+
+class Contribuyente {
+}
+
+class PullRequest {
+}
+
+class ArchivoCambiado {
+}
+
+class EspacioTrabajo {
+}
+
+class RepositorioRemoto {
+}
+
+class RamaRemota {
+}
+
+enum EstadoArchivo {
+    Agregado
+    Actualizado
+    Eliminado
+    SinCambios
+}
+
+Repositorio "1" --> "*" Rama
+Repositorio "1" --> "*" Contribuyente
+Repositorio --> "1" RepositorioRemoto : contiene
+Rama "1" --> "*" Commit
+Commit "1" --> "*" ArchivoCambiado
+Rama "1" --> "*" PullRequest
+ArchivoCambiado "1" --> "1" Archivo
+ArchivoCambiado --> EstadoArchivo
+PullRequest "1" --> "*" Commit
+PullRequest "1" --> "1" Contribuyente
+EspacioTrabajo "1" --> "*" Archivo
+RepositorioRemoto "1" --> "*" RamaRemota
+Rama --> RamaRemota : se sincroniza con
+RamaRemota "1" --> "*" PullRequest
+Contribuyente "1" --> "1" EspacioTrabajo
+
+@enduml
