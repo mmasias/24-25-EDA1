@@ -1,0 +1,62 @@
+@startuml
+' Definición de clases
+class Repositorio {
+    - id: String
+    - nombre: String
+    - descripcion: String
+    - arbolRamas: NodoRama
+    + agregarRama(nombre: String): NodoRama
+    + eliminarRama(nombre: String): void
+
+}
+
+class NodoRama {
+    - nombre: String
+    - hijos: List<NodoRama>
+    - raizCommits: NodoCommit
+
+}
+
+class NodoCommit {
+    - id: String
+    - mensaje: String
+    - autor: String
+    - fecha: Date
+    - cambios: List<Cambio>
+    - hijos: List<NodoCommit>
+    + agregarHijo(commit: NodoCommit): void
+}
+
+class Cambio {
+    - archivo: String
+    - tipo: String
+    - contenido: String
+}
+
+class ArchivoFinal {
+    - nombre: String
+    - ubicacion: String
+
+}
+
+class Usuario {
+    - id: String
+    - nombre: String
+    - email: String
+    + realizarCommit(mensaje: String, cambios: List<Cambio>, nodoRama: NodoRama): NodoCommit
+}
+
+class SistemaControlVersiones {
+    - repositorios: List<Repositorio>
+    + crearRepositorio(nombre: String, descripcion: String): Repositorio
+    + listarRepositorios(): List<Repositorio>
+}
+
+' Relación entre clases simplificadas
+Repositorio --> NodoRama
+NodoRama --> NodoCommit
+NodoCommit --> Cambio
+Cambio --> ArchivoFinal
+Usuario --> NodoCommit
+SistemaControlVersiones --> Repositorio
+@enduml
