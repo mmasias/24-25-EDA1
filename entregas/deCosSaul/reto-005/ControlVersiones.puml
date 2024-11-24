@@ -16,6 +16,6 @@ class Commit{
   String descripcion;
   archivos String[];
 }
-SistemaControlVersiones --> Lista
-Lista --> Arbol
+SistemaControlVersiones --> Rama
+Rama --> Commit
 @enduml
