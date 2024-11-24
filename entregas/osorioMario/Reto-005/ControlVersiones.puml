@@ -1,0 +1,59 @@
+@startuml
+class Commit {
+    + commitID: String
+    + message: String
+}
+
+Commit "Root Commit" --> Commit "Commit 1"
+Commit "Root Commit" --> Commit "Commit 2"
+Commit "Commit 1" --> Commit "Commit 3"
+Commit "Commit 1" --> Commit "Commit 4"
+Commit "Commit 2" --> Commit "Commit 5"
+Commit "Commit 2" --> Commit "Commit 6"
+
+@enduml
+@startuml
+hide circle
+
+class Repositorio {
+    + nombre: String
+    + crearRama()
+}
+
+class Rama {
+    + nombre: String
+    + commits: List
+    + fusionarRama(rama: Rama): Rama
+}
+
+class Commit {
+    + id: String
+    + mensaje: String
+    + fecha: Date
+}
+
+class Archivo {
+    + nombre: String
+    + contenido: String
+}
+
+class Usuario {
+    + nombre: String
+    + correo: String
+}
+
+enum EstadoArchivo {
+    Nuevo
+    Modificado
+    Eliminado
+    SinCambios
+}
+
+Repositorio "1" --> "*" Rama : contiene
+Rama "1" --> "*" Commit : tiene
+Commit "1" --> "*" Archivo : modifica
+Archivo --> EstadoArchivo : estado
+Repositorio "1" --> "*" Usuario : administrado por
+
+@enduml
+
