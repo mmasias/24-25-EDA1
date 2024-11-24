@@ -1,0 +1,36 @@
+@startuml
+class SistemaVersiones
+class NodoPrincipal
+class NodoSecundario
+class ArchivoBase
+class ArchivosRama
+class Cambios
+class Agregado
+class Borrado
+class RamaPrincipal
+class RamaSecundaria
+class RevisiónActual
+class SolicitudCambios
+class EstadosVersiones
+class Subida
+class SinModificaciones
+class AgregadoNuevo
+class EliminadoAntiguo
+
+SistemaVersiones --> NodoPrincipal
+SistemaVersiones --> NodoSecundario
+NodoPrincipal --> RamaPrincipal
+NodoPrincipal --> RamaSecundaria
+NodoSecundario --> SolicitudCambios
+NodoSecundario --> RevisiónActual
+RamaPrincipal --> ArchivoBase
+ArchivoBase --> Agregado
+ArchivoBase --> Borrado
+RamaSecundaria --> ArchivosRama
+ArchivosRama --> Cambios
+Cambios --> AgregadoNuevo
+Cambios --> EliminadoAntiguo
+SolicitudCambios --> EstadosVersiones
+EstadosVersiones --> Subida
+EstadosVersiones --> SinModificaciones
+@enduml
