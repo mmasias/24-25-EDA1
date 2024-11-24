@@ -1,0 +1,31 @@
+@startuml Diagrama de clases
+class Repositorio{
+    + Lista de ramas
+    + Nombre
+
+}
+class Rama{
+    + Head
+    + Nombre
+}
+class Commit{
+    + Padre
+    + Hijo
+    + Descripción
+    + Fecha
+    + Autor
+    + Hora
+}
+
+class Cambio{
+    + Archivo
+    + Tipo: Enum ("Eliminado", "Actualizado", "Creado")
+
+}
+
+Repositorio -- Rama : Se devide en
+Rama .. Commit : Contiene
+Commit .. Commit : Se relaciona con
+Commit -- Cambio : Verifica
+
+@enduml
