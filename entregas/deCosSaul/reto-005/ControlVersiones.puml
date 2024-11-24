@@ -1,25 +1,20 @@
 @startuml
 class SistemaControlVersiones{
-  Lista ramas;
+  Lista<Ramas>;
   String nombreRepo;
   cambiarNombre(String nombre)
   nuevaRama(String nombre)
 }
-class Lista{
+class Rama{
   String nombreRama;
-  Arbol versiones;
+  versiones Lista<Commit>;
   cambiarNombre(String nombre)
   nuevaVersion()
 }
-class Arbol{
+class Commit{
   String nombre;
   String descripcion;
-  Int cantidadArchivos;
-  cambiarNombre(String nombre)
-  cambiarDescripcion(String descripcion)
-  anadirArchivo()
-  eliminarArchivo()
-  commit()
+  archivos String[];
 }
 SistemaControlVersiones --> Lista
 Lista --> Arbol
