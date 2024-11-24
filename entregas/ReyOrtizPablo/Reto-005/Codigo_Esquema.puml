@@ -1,0 +1,20 @@
+@startuml DiagramaSistema
+Repositorio "1" --> "*" Usuario
+Repositorio "1" --> "*" Rama 
+Repositorio "1" --> "1" RepositorioRemoto : contiene
+Repositorio "1" --> "*" Incidencia : gestiona
+
+Rama "1" --> "*" Commit
+Rama "1" --> "*" PullRequest
+
+Commit "1" --> "*" Cambios
+Cambios "1" --> "1" Version
+
+PullRequest "1" --> "1" Usuario : realizado
+PullRequest "1" --> "*" Commit 
+
+Incidencia "1" --> "1" Usuario : reportada
+
+RepositorioRemoto "1" --> "*" PullRequest
+
+@enduml
