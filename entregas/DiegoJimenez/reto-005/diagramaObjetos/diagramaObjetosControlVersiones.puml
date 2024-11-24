@@ -1,0 +1,67 @@
+
+@startuml diagramaObjetosControlVersiones
+
+hide empty members
+hide circle
+
+object RepositorioLocal {
+    nombre = "EDA1"
+    urlRemoto = "https://repositorioRemoto.git"
+}
+object RepositorioRemoto {
+    nombre = "EDA1"
+    ubicacion = "Servidor Central"
+}
+object RamaLocal {
+    nombre = "main"
+    punteroCommit = Commit1
+}
+object RamaRemota {
+    nombre = "origin/main"
+    punteroCommit = Commit2
+}
+object Commit1 {
+    idUnico = "123abc"
+    mensaje = "Primer Commit Local"
+    autor = Usuario1
+    timestamp = "2024-11-24"
+    archivosModificados = [Archivo1, Archivo2]
+}
+object Commit2 {
+    idUnico = "456def"
+    mensaje = "Commit en Remoto"
+    autor = Usuario1
+    timestamp = "2024-11-23"
+    archivosModificados = [Archivo1]
+}
+object Archivo1 {
+    nombre = "index.html"
+    contenido = "<html>...</html>"
+}
+object Archivo2 {
+    nombre = "style.css"
+    contenido = "body { margin: 0; }"
+}
+object Usuario1 {
+    nombre = "Diego Jimenez"
+    correo = "diego.jimenez@me.es"
+}
+object ValidacionCambios {
+    numArchivosModificados = 2
+    esValido = true
+}
+
+RepositorioLocal --> RamaLocal : contiene
+RepositorioRemoto -->  RamaRemota : contiene
+RepositorioLocal --> RepositorioRemoto : conecta a
+RamaLocal --> RamaRemota : sigue a
+RamaLocal -->  Commit1 : contiene
+RamaRemota -->  Commit2 : contiene
+Commit1 -->  Archivo1 : modifica
+Commit1 -->  Archivo2 : modifica
+Commit2 -->  Archivo1 : modifica
+Usuario1 -->  Commit1 : autor de
+Usuario1 -->  Commit2 : autor de
+Commit1 --> ValidacionCambios : valida cambios
+
+@enduml
