@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ControlDeVersionesUI",
+      "request": "launch",
+      "mainClass": "reto005.ControlDeVersionesUI",
+      "projectName": "24-25-EDA1_6c336b04"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "reto005.Main",
+      "projectName": "24-25-EDA1_6c336b04"
+    },
+    {
+      "type": "java",
       "name": "Spotify",
       "request": "launch",
       "mainClass": "reto004.Spotify",
