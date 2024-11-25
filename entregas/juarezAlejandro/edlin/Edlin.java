@@ -12,16 +12,18 @@ class Edlin {
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
                 "[D] deshace la última acción de la activa",
+                "[R] rehacer la última acción deshecha",
                 "[S] sale del programa",
                 "",
                 ""
         };
 
         String lastContent[] = { "" };
+        String redoContent[] = { "" };
 
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine, lastContent));
+        } while (processActions(document, activeLine, lastContent, redoContent));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -46,8 +48,9 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine, String[] lastContent) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [D]eshacer | [B]orrar | [S]alir");
+    static boolean processActions(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
+        System.out.println(
+                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [D]eshacer | [R]ehacer | [B]orrar | [S]alir");
 
         switch (askChar()) {
             case 'S':
@@ -59,7 +62,7 @@ class Edlin {
                 break;
             case 'E':
             case 'e':
-                edit(document, activeLine, lastContent);
+                edit(document, activeLine, lastContent, redoContent);
                 break;
             case 'I':
             case 'i':
@@ -67,11 +70,15 @@ class Edlin {
                 break;
             case 'B':
             case 'b':
-                delete(document, activeLine, lastContent);
+                delete(document, activeLine, lastContent, redoContent);
                 break;
             case 'D':
             case 'd':
-                undo(document, activeLine, lastContent);
+                undo(document, activeLine, lastContent, redoContent);
+                break;
+            case 'R':
+            case 'r':
+                redo(document, activeLine, lastContent, redoContent);
                 break;
         }
         return true;
@@ -82,10 +89,11 @@ class Edlin {
         return input.next().charAt(0);
     }
 
-    static void delete(String[] document, int[] activeLine, String[] lastContent) {
+    static void delete(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
         System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["
                 + activeLine[0] + "]");
         if (askInt() == activeLine[0]) {
+            redoContent[0] = "";
             lastContent[0] = document[activeLine[0]];
             document[activeLine[0]] = "";
         }
@@ -113,8 +121,9 @@ class Edlin {
         document[originLine] = temporaryLine;
     }
 
-    static void edit(String[] document, int[] activeLine, String[] lastContent) {
+    static void edit(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
         System.out.println("EDITANDO> " + document[activeLine[0]]);
+        redoContent[0] = "";
         lastContent[0] = document[activeLine[0]];
         document[activeLine[0]] = askString();
     }
@@ -138,11 +147,24 @@ class Edlin {
         return input.nextInt();
     }
 
-    static void undo(String[] document, int[] activeLine, String[] lastContent) {
+    static void undo(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
         System.out.println("DESHACIENDO> Línea activa: " + activeLine[0]);
-        String temp = document[activeLine[0]];
+        redoContent[0] = document[activeLine[0]];
         document[activeLine[0]] = lastContent[0];
-        lastContent[0] = temp;
+        lastContent[0] = redoContent[0];
         System.out.println("La acción está deshecha");
+    }
+
+    static void redo(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
+        if (redoContent[0].isEmpty()) {
+            System.out.println("No hay acción para rehacer.");
+            return;
+        }
+        System.out.println("REHACIENDO> Línea activa: " + activeLine[0]);
+        String temp = document[activeLine[0]];
+        document[activeLine[0]] = redoContent[0];
+        redoContent[0] = lastContent[0];
+        lastContent[0] = temp;
+        System.out.println("La acción ha sido rehecha");
     }
 }
