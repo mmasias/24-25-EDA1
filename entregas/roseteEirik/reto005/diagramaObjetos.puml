@@ -1,0 +1,59 @@
+
+@startuml
+object SistemaDeControlDeVersiones {
+    repositorios = ["LocalRepo1", "RemoteRepo1"]
+}
+
+object RepositorioLocal {
+    nombre = "LocalRepo1"
+}
+
+object RepositorioRemoto {
+    nombre = "RemoteRepo1"
+}
+
+object RamaMain {
+    nombre = "main"
+}
+
+object RamaFeature {
+    nombre = "feature"
+}
+
+object Commit1 {
+    id = 1
+    cantidadArchivos = 3
+    mensaje = "Commit inicial"
+}
+
+object Commit2 {
+    id = 2
+    cantidadArchivos = 4
+    mensaje = "Archivo añadido"
+    parent = Commit1
+}
+
+object Commit3 {
+    id = 3
+    cantidadArchivos = 5
+    mensaje = "Modificación en rama main"
+    parent = Commit1
+}
+
+object Commit4 {
+    id = 4
+    cantidadArchivos = 6
+    mensaje = "Nueva rama desde Commit2"
+    parent = Commit3
+}
+
+SistemaDeControlDeVersiones "gestiona" --> RepositorioLocal
+SistemaDeControlDeVersiones "gestiona" --> RepositorioRemoto
+RepositorioLocal "contiene" --> RamaMain
+
+RamaMain "apunta a" --> Commit1
+Commit1 "Se crea una nueva rama" --> RamaFeature
+Commit1 "tiene como hijo" --> Commit2
+RamaFeature "apunta a" --> Commit3
+Commit3 "tiene como hijo" --> Commit4
+@enduml
