@@ -2,6 +2,10 @@ import java.util.Scanner;
 
 class Edlin {
     private static final Scanner input = new Scanner(System.in);
+    private static final int MAX_UNDO = 10;
+    private static String[][] undoMatrix = new String[MAX_UNDO][];
+    private static int undoIndex = 0;
+    private static int undoCount = 0;
 
     public static void main(String[] args) {
         int activeLine[] = { 1 };
@@ -14,6 +18,7 @@ class Edlin {
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
                 "[S] sale del programa",
+                "[Z] deshacer la última acción",
                 "",
                 ""
         };
@@ -50,7 +55,7 @@ class Edlin {
     }
 
     static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir");
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [Z] deshacer");
 
         switch (askChar()) {
             case 'S':
@@ -72,6 +77,10 @@ class Edlin {
             case 'b':
                 delete(document, activeLine);
                 break;
+            case 'Z':
+            case 'z':
+                undo(document);
+                break;
         }
         return true;
     }
@@ -84,6 +93,7 @@ class Edlin {
         System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["
                 + activeLine[0] + "]");
         if (askInt() == activeLine[0]) {
+            saveState(document);
             document[activeLine[0]] = "";
         }
     }
@@ -104,6 +114,7 @@ class Edlin {
             validLine = destinationLine >= 0 && destinationLine < document.length;
         } while (!validLine);
 
+        saveState(document);
         String temp = document[originLine];
         document[originLine] = document[destinationLine];
         document[destinationLine] = temp;
@@ -111,10 +122,12 @@ class Edlin {
 
     static void edit(String[] document, int[] activeLine) {
         System.out.println("EDITANDO> " + document[activeLine[0]]);
+        saveState(document);
         document[activeLine[0]] = askString();
     }
 
     static String askString() {
+        input.nextLine();
         return input.nextLine();
     }
 
@@ -129,5 +142,24 @@ class Edlin {
 
     static int askInt() {
         return input.nextInt();
+    }
+
+    static void saveState(String[] document) {
+        undoMatrix[undoIndex] = document.clone();
+        undoIndex = (undoIndex + 1) % MAX_UNDO;
+        if (undoCount < MAX_UNDO) {
+            undoCount++;
+        }
+    }
+
+    static void undo(String[] document) {
+        if (undoCount > 0) {
+            undoIndex = (undoIndex - 1 + MAX_UNDO) % MAX_UNDO;
+            String[] previousState = undoMatrix[undoIndex];
+            System.arraycopy(previousState, 0, document, 0, document.length);
+            undoCount--;
+        } else {
+            System.out.println("No hay acciones para deshacer.");
+        }
     }
 }
