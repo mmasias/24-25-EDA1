@@ -51,6 +51,5 @@ public class InterfazUsuario {
                     System.out.println("Opción inválida. Intenta nuevamente.");
             }
         }
-        sc.close();
     }
 }

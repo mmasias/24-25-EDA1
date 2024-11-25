@@ -1,62 +1,48 @@
 @startuml
-class ControlDeVersiones {
-    + main(String[] args) : void
+class SistemaControlVersiones {
+    +main(String[]): void
 }
 
-class Estado {
-    - numberFiles : int
-    + Estado(int numberFiles)
-    + getNumberFiles() : int
+class ArbolVersiones {
+    - NodoVersion raiz
+    - NodoVersion versionActual
+    + ArbolVersiones()
+    + agregarVersion(cantidadArchivos: int): void
+    + obtenerVersionActual(): String
+    + moverAPadre(): void
+    + moverAPrimerHijo(): void
+    + moverASiguienteHermano(): void
+    + moverAAnteriorHermano(): void
+    + mostrarArbol(): void
+    - mostrarArbolRecursivo(nodo: NodoVersion, prefijo: String, esUltimo: boolean): void
 }
 
-class Interfaz {
-    - tree : Tree
-    + Interfaz(Tree tree)
-    + mostrar() : void
-    - cleanScreen() : void
+class NodoVersion {
+    - int cantidadArchivos
+    - NodoVersion padre
+    - NodoVersion hermanoAnterior
+    - NodoVersion hermanoSiguiente
+    - NodoVersion primerHijo
+    + NodoVersion(cantidadArchivos: int, padre: NodoVersion)
+    + getCantidadArchivos(): int
+    + getPadre(): NodoVersion
+    + getHermanoAnterior(): NodoVersion
+    + getHermanoSiguiente(): NodoVersion
+    + getPrimerHijo(): NodoVersion
+    + setHermanoSiguiente(hermanoSiguiente: NodoVersion): void
+    + setHermanoAnterior(hermanoAnterior: NodoVersion): void
+    + agregarHijo(hijo: NodoVersion): void
+    + mostrar(): String
 }
 
-class Lista {
-    - primero : Node
-    + Lista()
-    + insertar(int value, Node padre) : void
-    + getUltimo() : Node
-    + getPrimero() : Node
+class InterfazUsuario {
+    - ArbolVersiones arbolVersiones
+    + InterfazUsuario(arbolVersiones: ArbolVersiones)
+    + iniciar(): void
 }
 
-class Node {
-    - padre : Node
-    - lista : Lista
-    - siguiente : Node
-    - anterior : Node
-    + Node(int value, Node padre, Node siguiente, Node anterior)
-    + mostrar() : String
-    + añadirVersion(int value, Node padre) : void
-    + getPadre() : Node
-    + getSiguiente() : Node
-    + getLista() : Lista
-    + setSiguiente(int value, Node padre, Node anterior) : void
-    + getAnterior() : Node
-}
-
-class Tree {
-    - root : Node
-    - versionActual : Node
-    + Tree()
-    + insert(int value) : void
-    + print() : void
-    + mostrarVersionActual() : String
-    + moverseVersionAnterior() : void
-    + moverseRamaIzquierda() : void
-    + moverseRamaDerecha() : void
-    + moversePrimeraRama() : void
-    - printRecursive(Node node, String prefix, boolean isLast) : void
-}
-
-ControlDeVersiones --> Interfaz : usa
-Interfaz --> Tree : tiene
-Tree --> Node : contiene
-Node --> Lista : maneja
-Lista --> Node : contiene
-Node --> Estado : hereda
+SistemaControlVersiones --> InterfazUsuario
+InterfazUsuario --> ArbolVersiones
+ArbolVersiones --> NodoVersion
+NodoVersion --> NodoVersion : relaciones padre/hijo/hermano
 @enduml
