@@ -174,7 +174,7 @@ class Edlin {
     }
 
     static void saveState(String[] document) {
-        undoMatrix[undoIndex] = document.clone();
+        undoMatrix[undoIndex] = cloneDocument(document);
         undoIndex = (undoIndex + 1) % MAX_UNDO;
         if (undoCount < MAX_UNDO) {
             undoCount++;
@@ -186,12 +186,14 @@ class Edlin {
         if (undoCount > 0) {
             undoIndex = (undoIndex - 1 + MAX_UNDO) % MAX_UNDO;
             String[] previousState = undoMatrix[undoIndex];
-            redoMatrix[redoIndex] = document.clone();
+            redoMatrix[redoIndex] = cloneDocument(document);
             redoIndex = (redoIndex + 1) % MAX_UNDO;
             if (redoCount < MAX_UNDO) {
                 redoCount++;
             }
-            System.arraycopy(previousState, 0, document, 0, document.length);
+            for (int i = 0; i < document.length; i++) {
+                document[i] = previousState[i];
+            }
             undoCount--;
         } else {
             System.out.println("No hay acciones para deshacer.");
@@ -202,12 +204,14 @@ class Edlin {
         if (redoCount > 0) {
             redoIndex = (redoIndex - 1 + MAX_UNDO) % MAX_UNDO;
             String[] nextState = redoMatrix[redoIndex];
-            undoMatrix[undoIndex] = document.clone();
+            undoMatrix[undoIndex] = cloneDocument(document);
             undoIndex = (undoIndex + 1) % MAX_UNDO;
             if (undoCount < MAX_UNDO) {
                 undoCount++;
             }
-            System.arraycopy(nextState, 0, document, 0, document.length);
+            for (int i = 0; i < document.length; i++) {
+                document[i] = nextState[i];
+            }
             redoCount--;
         } else {
             System.out.println("No hay acciones para rehacer.");
@@ -227,5 +231,13 @@ class Edlin {
         } else {
             System.out.println("No hay línea copiada para pegar.");
         }
+    }
+
+    static String[] cloneDocument(String[] document) {
+        String[] clone = new String[document.length];
+        for (int i = 0; i < document.length; i++) {
+            clone[i] = document[i];
+        }
+        return clone;
     }
 }
