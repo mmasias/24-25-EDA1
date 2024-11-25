@@ -4,8 +4,11 @@ class Edlin {
     private static final Scanner input = new Scanner(System.in);
     private static final int MAX_UNDO = 10;
     private static String[][] undoMatrix = new String[MAX_UNDO][];
+    private static String[][] redoMatrix = new String[MAX_UNDO][];
     private static int undoIndex = 0;
     private static int undoCount = 0;
+    private static int redoIndex = 0;
+    private static int redoCount = 0;
 
     public static void main(String[] args) {
         int activeLine[] = { 1 };
@@ -19,6 +22,7 @@ class Edlin {
                 "[B] borra el contenido de la linea activa",
                 "[S] sale del programa",
                 "[Z] deshacer la última acción",
+                "[Y] rehacer la última acción",
                 "",
                 ""
         };
@@ -55,7 +59,8 @@ class Edlin {
     }
 
     static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [Z] deshacer");
+        System.out.println(
+                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [Z] deshacer | [Y] rehacer");
 
         switch (askChar()) {
             case 'S':
@@ -80,6 +85,10 @@ class Edlin {
             case 'Z':
             case 'z':
                 undo(document);
+                break;
+            case 'Y':
+            case 'y':
+                redo(document);
                 break;
         }
         return true;
@@ -150,16 +159,38 @@ class Edlin {
         if (undoCount < MAX_UNDO) {
             undoCount++;
         }
+        redoCount = 0;
     }
 
     static void undo(String[] document) {
         if (undoCount > 0) {
             undoIndex = (undoIndex - 1 + MAX_UNDO) % MAX_UNDO;
             String[] previousState = undoMatrix[undoIndex];
+            redoMatrix[redoIndex] = document.clone();
+            redoIndex = (redoIndex + 1) % MAX_UNDO;
+            if (redoCount < MAX_UNDO) {
+                redoCount++;
+            }
             System.arraycopy(previousState, 0, document, 0, document.length);
             undoCount--;
         } else {
             System.out.println("No hay acciones para deshacer.");
+        }
+    }
+
+    static void redo(String[] document) {
+        if (redoCount > 0) {
+            redoIndex = (redoIndex - 1 + MAX_UNDO) % MAX_UNDO;
+            String[] nextState = redoMatrix[redoIndex];
+            undoMatrix[undoIndex] = document.clone();
+            undoIndex = (undoIndex + 1) % MAX_UNDO;
+            if (undoCount < MAX_UNDO) {
+                undoCount++;
+            }
+            System.arraycopy(nextState, 0, document, 0, document.length);
+            redoCount--;
+        } else {
+            System.out.println("No hay acciones para rehacer.");
         }
     }
 }
