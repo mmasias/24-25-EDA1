@@ -1,0 +1,49 @@
+@startuml
+class Edlin {
+  +main(args: String[]): void
+  -pedirNumeroLineas(): int
+}
+
+class Editor {
+  -documento: String[]
+  -lineaActiva: int
+  -portapapeles: String
+  -pilaDeshacer: String[][]
+  -pilaRehacer: String[][]
+  -indiceDeshacer: int
+  -indiceRehacer: int
+
+  +imprimir(): void
+  +establecerLineaActiva(nuevaLinea: int): void
+  +getLineaActiva(): int
+  +guardarEstadoDeshacer(): void
+  +editar(nuevoTexto: String): void
+  +borrar(): void
+  +copiar(): void
+  +pegar(): void
+  +intercambiarLineas(lineaDestino: int): void
+  +deshacer(): void
+  +rehacer(): void
+}
+
+class Menu {
+  -ejecutando: boolean
+  -editor: Editor
+
+  +procesarAccion(): void
+  +estaEjecutando(): boolean
+  -pedirCaracter(): char
+  -establecerLineaActiva(): void
+  -editar(): void
+  -borrar(): void
+  -copiar(): void
+  -pegar(): void
+  -intercambiarLineas(): void
+  -pedirEntero(): int
+  -pedirString(): String
+}
+
+Edlin --> Editor
+Edlin --> Menu
+Menu --> Editor
+@enduml
