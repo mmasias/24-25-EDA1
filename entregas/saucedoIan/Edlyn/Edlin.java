@@ -26,10 +26,14 @@ class Edlin {
     static void print(String[] document, int[] activeLine) {
         clearScreen();
         printHorizontalLine();
+        showLines(document, activeLine);
+        printHorizontalLine();
+    }
+
+    static void showLines(String[] document, int[] activeLine) {
         for (int line = 0; line < document.length; line++) {
             System.out.println(line + separator(line, activeLine[0]) + document[line]);
         }
-        printHorizontalLine();
     }
 
     static String separator(int line, int activeLine) {
