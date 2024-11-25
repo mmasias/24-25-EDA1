@@ -36,10 +36,18 @@ public class Edlin {
                     System.out.println("Número de línea inválido.");
                 }
                 break;
+            case 'P': case 'p':
+                System.out.print("Ingrese el número de línea donde desea pegar: ");
+                int pasteLineNumber = UserInput.askInt();
+                document.setLine(pasteLineNumber, UserInput.pasteFromClipboard());
+                break;
+            case 'Z': case 'z':
+                document.undo();
+                break;
             default:
                 System.out.println("Comando no reconocido.");
         }
-        document.printDocument(); 
+        document.printDocument(); // Mostrar el contenido del documento después de cada comando
         return true;
     }
 
@@ -51,6 +59,8 @@ public class Edlin {
         System.out.println("[B] borra el contenido de la linea activa");
         System.out.println("[S] sale del programa");
         System.out.println("[C] copia el contenido de una línea");
+        System.out.println("[P] pega el contenido copiado en una línea");
+        System.out.println("[Z] deshacer la última operación");
     }
 
     public static void main(String[] args) {
@@ -58,7 +68,7 @@ public class Edlin {
         boolean continueEditing = true;
 
         edlin.printCommands();
-        edlin.document.printDocument(); 
+        edlin.document.printDocument(); // Mostrar el contenido del documento al inicio
 
         while (continueEditing) {
             char command = UserInput.askChar();

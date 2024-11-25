@@ -1,15 +1,32 @@
 package Reto006;
 
+import java.util.Stack;
+import java.util.Arrays;
+
 public class Document {
     private static final int MAX_LINES = 10;
     private String[] lines;
+    private Stack<String[]> undoStack;
 
     public Document() {
         this.lines = new String[MAX_LINES];
         for (int i = 0; i < MAX_LINES; i++) {
-            lines[i] = ""; 
+            lines[i] = ""; // Inicializar todas las líneas como cadenas vacías
         }
-        
+        this.undoStack = new Stack<>();
+    }
+
+    private void saveStateForUndo() {
+        undoStack.push(Arrays.copyOf(lines, lines.length));
+    }
+
+    public void undo() {
+        if (!undoStack.isEmpty()) {
+            lines = undoStack.pop();
+            System.out.println("Deshacer realizado.");
+        } else {
+            System.out.println("No hay nada que deshacer.");
+        }
     }
 
     public void setActiveLine(int activeLine) {
@@ -22,6 +39,7 @@ public class Document {
 
     public void edit(int lineNumber) {
         if (lineNumber >= 0 && lineNumber < lines.length) {
+            saveStateForUndo();
             System.out.println("Editar línea [" + lineNumber + "]: " + lines[lineNumber]);
             System.out.print("Nueva línea: ");
             lines[lineNumber] = UserInput.askString();
@@ -31,6 +49,7 @@ public class Document {
     }
 
     public void delete(int activeLine) {
+        saveStateForUndo();
         System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo [" + activeLine + "]");
         if (UserInput.askInt() == activeLine) {
             lines[activeLine] = "";
@@ -41,6 +60,7 @@ public class Document {
     }
 
     public void exchangeLines() {
+        saveStateForUndo();
         System.out.print("Ingrese el número de la primera línea a intercambiar: ");
         int line1 = UserInput.askInt();
         System.out.print("Ingrese el número de la segunda línea a intercambiar: ");
@@ -61,6 +81,15 @@ public class Document {
             return lines[lineNumber];
         } else {
             return "Número de línea inválido.";
+        }
+    }
+
+    public void setLine(int lineNumber, String text) {
+        if (lineNumber >= 0 && lineNumber < lines.length) {
+            saveStateForUndo();
+            lines[lineNumber] = text;
+        } else {
+            System.out.println("Número de línea inválido.");
         }
     }
 
