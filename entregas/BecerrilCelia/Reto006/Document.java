@@ -7,25 +7,39 @@ public class Document {
     private static final int MAX_LINES = 10;
     private String[] lines;
     private Stack<String[]> undoStack;
+    private Stack<String[]> redoStack;
 
     public Document() {
         this.lines = new String[MAX_LINES];
         for (int i = 0; i < MAX_LINES; i++) {
-            lines[i] = ""; // Inicializar todas las líneas como cadenas vacías
+            lines[i] = ""; 
         }
         this.undoStack = new Stack<>();
+        this.redoStack = new Stack<>();
     }
 
     private void saveStateForUndo() {
         undoStack.push(Arrays.copyOf(lines, lines.length));
+        redoStack.clear(); 
     }
 
     public void undo() {
         if (!undoStack.isEmpty()) {
+            redoStack.push(Arrays.copyOf(lines, lines.length));
             lines = undoStack.pop();
             System.out.println("Deshacer realizado.");
         } else {
             System.out.println("No hay nada que deshacer.");
+        }
+    }
+
+    public void redo() {
+        if (!redoStack.isEmpty()) {
+            undoStack.push(Arrays.copyOf(lines, lines.length));
+            lines = redoStack.pop();
+            System.out.println("Rehacer realizado.");
+        } else {
+            System.out.println("No hay nada que rehacer.");
         }
     }
 

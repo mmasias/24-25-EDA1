@@ -44,10 +44,13 @@ public class Edlin {
             case 'Z': case 'z':
                 document.undo();
                 break;
+            case 'Y': case 'y':
+                document.redo();
+                break;
             default:
                 System.out.println("Comando no reconocido.");
         }
-        document.printDocument(); // Mostrar el contenido del documento después de cada comando
+        document.printDocument(); 
         return true;
     }
 
@@ -61,6 +64,7 @@ public class Edlin {
         System.out.println("[C] copia el contenido de una línea");
         System.out.println("[P] pega el contenido copiado en una línea");
         System.out.println("[Z] deshacer la última operación");
+        System.out.println("[Y] rehacer la última operación deshecha");
     }
 
     public static void main(String[] args) {
@@ -68,7 +72,7 @@ public class Edlin {
         boolean continueEditing = true;
 
         edlin.printCommands();
-        edlin.document.printDocument(); // Mostrar el contenido del documento al inicio
+        edlin.document.printDocument(); 
 
         while (continueEditing) {
             char command = UserInput.askChar();
