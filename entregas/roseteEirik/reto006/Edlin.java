@@ -15,9 +15,9 @@ class Edlin {
                 "[E] permite editar la linea activa",
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
-                "[S] sale del programa",
-                "",
-                ""
+                "[C] copia la linea activa",
+                "[V] pega la linea copiada",
+                "[S] sale del programa"
         };
 
         do {
@@ -48,7 +48,7 @@ class Edlin {
     }
 
     static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir");
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [C]opiar | [V] Pegar");
 
         switch (askChar()) {
             case 'S':   case 's':
@@ -64,6 +64,12 @@ class Edlin {
                 break;
             case 'B':   case 'b':
                 delete(document, activeLine);
+                break;
+            case 'C':   case 'c':
+                ctrlC(document);
+                break;
+            case 'V':   case 'v':
+                ctrlV(document);
                 break;
         }
         return true;
