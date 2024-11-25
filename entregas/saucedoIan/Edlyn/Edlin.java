@@ -90,7 +90,6 @@ class Edlin {
 
     static void exchangeLines(String[] document) {
         int originLine, destinationLine;
-        String temporaryLine;
         boolean validLine;
 
         do {
@@ -105,9 +104,9 @@ class Edlin {
             validLine = destinationLine >= 0 && destinationLine < document.length;
         } while (!validLine);
 
-        temporaryLine = document[destinationLine];
-        document[destinationLine] = document[originLine];
-        document[originLine] = temporaryLine;
+        String temp = document[originLine];
+        document[originLine] = document[destinationLine];
+        document[destinationLine] = temp;
     }
 
     static void edit(String[] document, int[] activeLine) {
