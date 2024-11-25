@@ -1,5 +1,3 @@
-package pyEdlin;
-
 import java.util.Scanner;
 
 class Edlin {
@@ -13,14 +11,17 @@ class Edlin {
                 "[E] permite editar la linea activa",
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
+                "[D] deshace la última acción de la activa",
                 "[S] sale del programa",
                 "",
                 ""
         };
 
+        String lastContent[] = { "" };
+
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine));
+        } while (processActions(document, activeLine, lastContent));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -45,8 +46,8 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir");
+    static boolean processActions(String[] document, int[] activeLine, String[] lastContent) {
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [D]eshacer | [B]orrar | [S]alir");
 
         switch (askChar()) {
             case 'S':
@@ -58,7 +59,7 @@ class Edlin {
                 break;
             case 'E':
             case 'e':
-                edit(document, activeLine);
+                edit(document, activeLine, lastContent);
                 break;
             case 'I':
             case 'i':
@@ -66,7 +67,11 @@ class Edlin {
                 break;
             case 'B':
             case 'b':
-                delete(document, activeLine);
+                delete(document, activeLine, lastContent);
+                break;
+            case 'D':
+            case 'd':
+                undo(document, activeLine, lastContent);
                 break;
         }
         return true;
@@ -77,10 +82,11 @@ class Edlin {
         return input.next().charAt(0);
     }
 
-    static void delete(String[] document, int[] activeLine) {
+    static void delete(String[] document, int[] activeLine, String[] lastContent) {
         System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["
                 + activeLine[0] + "]");
         if (askInt() == activeLine[0]) {
+            lastContent[0] = document[activeLine[0]];
             document[activeLine[0]] = "";
         }
     }
@@ -107,8 +113,9 @@ class Edlin {
         document[originLine] = temporaryLine;
     }
 
-    static void edit(String[] document, int[] activeLine) {
+    static void edit(String[] document, int[] activeLine, String[] lastContent) {
         System.out.println("EDITANDO> " + document[activeLine[0]]);
+        lastContent[0] = document[activeLine[0]];
         document[activeLine[0]] = askString();
     }
 
@@ -129,5 +136,13 @@ class Edlin {
     static int askInt() {
         Scanner input = new Scanner(System.in);
         return input.nextInt();
+    }
+
+    static void undo(String[] document, int[] activeLine, String[] lastContent) {
+        System.out.println("DESHACIENDO> Línea activa: " + activeLine[0]);
+        String temp = document[activeLine[0]];
+        document[activeLine[0]] = lastContent[0];
+        lastContent[0] = temp;
+        System.out.println("La acción está deshecha");
     }
 }
