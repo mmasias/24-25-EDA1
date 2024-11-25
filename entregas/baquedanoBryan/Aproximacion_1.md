@@ -18,3 +18,8 @@ Ramas
 
 ---
 
+### Primera Aproximación
+ 
+![Texto alternativo](Src/Aproximacion.png)
+
+Comentario: Después de un análisis, me he dado cuenta de que he tomado una decisión incorrecta, no es un árbol, o un diagrama que represente de verdad lo qué es un control de versiones, es más bien un diagrama que representa los commits, y como es su flujo. Así que paso a una representación más adecuada.
