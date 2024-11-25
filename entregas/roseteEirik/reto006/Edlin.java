@@ -6,6 +6,7 @@ class Edlin {
 
     private static String copiedString;
     private static int ctrlSaved;
+    private static String[][] history;
     
     public static void main(String[] args) {
         int activeLine[] = { 1 };
@@ -26,12 +27,13 @@ class Edlin {
             ""
         };
 
-        String[][] history = new String[document.length][100];
+        history = new String[document.length][100];
         
         clearScreen();
+        updateHistory(document);
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine, history));
+        } while (processActions(document, activeLine));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -61,7 +63,7 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine, String[][] history) {
+    static boolean processActions(String[] document, int[] activeLine) {
         System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [V] Pegar | [Y] Rehacer | [Z] Deshacer | [S]alir");
 
         switch (askChar()) {
@@ -71,25 +73,25 @@ class Edlin {
                 setActiveLine(document, activeLine);
                 break;
             case 'E':   case 'e':
-                edit(document, activeLine, history);
+                edit(document, activeLine);
                 break;
             case 'I':   case 'i':
-                exchangeLines(document, history);
+                exchangeLines(document);
                 break;
             case 'B':   case 'b':
-                delete(document, activeLine, history);
+                delete(document, activeLine);
                 break;
             case 'C':   case 'c':
                 ctrlC(document);
                 break;
             case 'V':   case 'v':
-                ctrlV(document, history);
+                ctrlV(document);
                 break;
             case 'Z':   case 'z':
-                ctrlZ(history, document);
+                ctrlZ(document);
                 break;
             case 'Y':   case 'y':
-                ctrlY(history, document);
+                ctrlY(document);
                 break;
         }
         return true;
@@ -100,15 +102,15 @@ class Edlin {
         return input.next().charAt(0);
     }
 
-    static void delete(String[] document, int[] activeLine, String[][] history) {
+    static void delete(String[] document, int[] activeLine) {
         System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["+activeLine[0]+"]");
         if (askInt()==activeLine[0]) {
             document[activeLine[0]]="";
         }
-        updateHistory(document, history);
+        updateHistory( document);
     }
 
-    static void exchangeLines(String[] document, String[][] history) {
+    static void exchangeLines(String[] document) {
         int originLine, destinationLine;
         String temporaryLine;
         boolean validLine = true;
@@ -128,7 +130,7 @@ class Edlin {
         temporaryLine = document[destinationLine];
         document[destinationLine]=document[originLine];
         document[originLine]=temporaryLine;
-        updateHistory(document, history);
+        updateHistory( document);
     }
 
     static void ctrlC(String[] document){
@@ -144,7 +146,7 @@ class Edlin {
         copiedString = document[copiedLine];
     }
 
-    static void ctrlV(String[] document, String[][] history){
+    static void ctrlV(String[] document){
         int pasteLine;
         boolean validLine = true;
         
@@ -155,12 +157,13 @@ class Edlin {
         } while (!validLine);
 
         document[pasteLine] = copiedString;
-        updateHistory(document, history);
+        updateHistory( document);
     }
 
-    static void ctrlY(String[][] history, String[] document){
-        if (history == null) {
+    static void ctrlY(String[] document){
+        if (isNull(document, ctrlSaved+1)) {
             System.out.println("No hay acciones para rehacer");
+            askString();
         } else {
             ctrlSaved++;
             for (int i = 0; i < document.length; i++) {
@@ -169,9 +172,10 @@ class Edlin {
         }
     }
 
-    static void ctrlZ(String[][] history, String[] document){
-        if (history == null) {
+    static void ctrlZ(String[] document){
+        if (isNull(document, ctrlSaved-1)) {
             System.out.println("No hay acciones para deshacer");
+            askString();
         } else {
             ctrlSaved--;
             for (int i = 0; i < document.length; i++) {
@@ -180,18 +184,35 @@ class Edlin {
         }
     }
 
-    private static String[][] updateHistory(String[] document, String[][] history) {
+    static boolean isNull(String[] document, int position) {
+        if (position <= 0) {
+            return true;
+        }
+        for (int i = 0; i < document.length; i++) {
+            if (history[i][position] == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static String[][] updateHistory(String[] document) {
+        ctrlSaved++;
         for (int i = 0; i < document.length; i++) {
             history[i][ctrlSaved] = document[i];
         }
-        ctrlSaved++;
+        for (int i = 0; i < document.length; i++) {
+            for (int j = ctrlSaved+1; j < history[i].length; j++) {
+                history[i][j] = null;
+            }
+        }
         return history;
     }
 
-    static void edit(String[] document, int[] activeLine, String[][] history) {
+    static void edit(String[] document, int[] activeLine) {
         System.out.println("EDITANDO> " + document[activeLine[0]]);
         document[activeLine[0]] = askString();
-        updateHistory(document, history);
+        updateHistory(document);
     }
 
     static String askString() {
