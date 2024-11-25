@@ -5,24 +5,33 @@ import java.util.Scanner;
 class Edlin {
 
     private static String copiedString;
+    private static int ctrlSaved;
+    
     public static void main(String[] args) {
         int activeLine[] = { 1 };
         String document[] = {
-                "Bienvenidos al editor EDLIN",
-                "Utilice el menu inferior para editar el texto",
-                "------",
-                "[L] permite definir la linea activa",
-                "[E] permite editar la linea activa",
-                "[I] permite intercambiar dos lineas",
-                "[B] borra el contenido de la linea activa",
-                "[C] copia la linea activa",
-                "[V] pega la linea copiada",
-                "[S] sale del programa"
+            "Bienvenidos al editor EDLIN",
+            "Utilice el menu inferior para editar el texto",
+            "------",
+            "[L] permite definir la linea activa",
+            "[E] permite editar la linea activa",
+            "[I] permite intercambiar dos lineas",
+            "[B] borra el contenido de la linea activa",
+            "[C] copia la linea activa",
+            "[V] pega la linea copiada",
+            "[Y] rehace la ultima accion",
+            "[Z] deshace la ultima accion",
+            "[S] sale del programa",
+            "",
+            ""
         };
 
+        String[][] history = new String[document.length][100];
+        
+        clearScreen();
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine));
+        } while (processActions(document, activeLine, history));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -35,7 +44,12 @@ class Edlin {
     }
 
     static String separator(int line, int activeLine) {
-        return line == activeLine ? ":*| " : ": | ";
+        final int SPACE = 3;
+        int length = line / 10;
+        final String ACTIVE_LINE = ":" + "*".repeat(SPACE - length) + "| ";
+        final String OTHER_LINE = ":" + " ".repeat(SPACE - length) + "| ";
+
+        return line == activeLine ? ACTIVE_LINE : OTHER_LINE;
     }
 
     static void printHorizontalLine() {
@@ -47,8 +61,8 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [C]opiar | [V] Pegar");
+    static boolean processActions(String[] document, int[] activeLine, String[][] history) {
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [V] Pegar | [Y] Rehacer | [Z] Deshacer | [S]alir");
 
         switch (askChar()) {
             case 'S':   case 's':
@@ -57,19 +71,25 @@ class Edlin {
                 setActiveLine(document, activeLine);
                 break;
             case 'E':   case 'e':
-                edit(document, activeLine);
+                edit(document, activeLine, history);
                 break;
             case 'I':   case 'i':
-                exchangeLines(document);
+                exchangeLines(document, history);
                 break;
             case 'B':   case 'b':
-                delete(document, activeLine);
+                delete(document, activeLine, history);
                 break;
             case 'C':   case 'c':
                 ctrlC(document);
                 break;
             case 'V':   case 'v':
-                ctrlV(document);
+                ctrlV(document, history);
+                break;
+            case 'Z':   case 'z':
+                ctrlZ(history, document);
+                break;
+            case 'Y':   case 'y':
+                ctrlY(history, document);
                 break;
         }
         return true;
@@ -80,14 +100,15 @@ class Edlin {
         return input.next().charAt(0);
     }
 
-    static void delete(String[] document, int[] activeLine) {
+    static void delete(String[] document, int[] activeLine, String[][] history) {
         System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["+activeLine[0]+"]");
         if (askInt()==activeLine[0]) {
             document[activeLine[0]]="";
         }
+        updateHistory(document, history);
     }
 
-    static void exchangeLines(String[] document) {
+    static void exchangeLines(String[] document, String[][] history) {
         int originLine, destinationLine;
         String temporaryLine;
         boolean validLine = true;
@@ -107,6 +128,7 @@ class Edlin {
         temporaryLine = document[destinationLine];
         document[destinationLine]=document[originLine];
         document[originLine]=temporaryLine;
+        updateHistory(document, history);
     }
 
     static void ctrlC(String[] document){
@@ -122,7 +144,7 @@ class Edlin {
         copiedString = document[copiedLine];
     }
 
-    static void ctrlV(String[] document){
+    static void ctrlV(String[] document, String[][] history){
         int pasteLine;
         boolean validLine = true;
         
@@ -133,11 +155,43 @@ class Edlin {
         } while (!validLine);
 
         document[pasteLine] = copiedString;
+        updateHistory(document, history);
     }
 
-    static void edit(String[] document, int[] activeLine) {
+    static void ctrlY(String[][] history, String[] document){
+        if (history == null) {
+            System.out.println("No hay acciones para rehacer");
+        } else {
+            ctrlSaved++;
+            for (int i = 0; i < document.length; i++) {
+                document[i] = history[i][ctrlSaved];
+            }
+        }
+    }
+
+    static void ctrlZ(String[][] history, String[] document){
+        if (history == null) {
+            System.out.println("No hay acciones para deshacer");
+        } else {
+            ctrlSaved--;
+            for (int i = 0; i < document.length; i++) {
+                document[i] = history[i][ctrlSaved];
+            }
+        }
+    }
+
+    private static String[][] updateHistory(String[] document, String[][] history) {
+        for (int i = 0; i < document.length; i++) {
+            history[i][ctrlSaved] = document[i];
+        }
+        ctrlSaved++;
+        return history;
+    }
+
+    static void edit(String[] document, int[] activeLine, String[][] history) {
         System.out.println("EDITANDO> " + document[activeLine[0]]);
         document[activeLine[0]] = askString();
+        updateHistory(document, history);
     }
 
     static String askString() {
