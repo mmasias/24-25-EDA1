@@ -27,10 +27,19 @@ public class Edlin {
             case 'B': case 'b':
                 document.delete(activeLine);
                 break;
+            case 'C': case 'c':
+                System.out.print("Ingrese el número de línea que desea copiar: ");
+                int lineNumber = UserInput.askInt();
+                if (lineNumber >= 0 && lineNumber < 10) {
+                    UserInput.copyToClipboard(document.getLine(lineNumber));
+                } else {
+                    System.out.println("Número de línea inválido.");
+                }
+                break;
             default:
                 System.out.println("Comando no reconocido.");
         }
-        document.printDocument(); // Mostrar el contenido del documento después de cada comando
+        document.printDocument(); 
         return true;
     }
 
@@ -41,6 +50,7 @@ public class Edlin {
         System.out.println("[I] permite intercambiar dos lineas");
         System.out.println("[B] borra el contenido de la linea activa");
         System.out.println("[S] sale del programa");
+        System.out.println("[C] copia el contenido de una línea");
     }
 
     public static void main(String[] args) {
@@ -48,7 +58,7 @@ public class Edlin {
         boolean continueEditing = true;
 
         edlin.printCommands();
-        edlin.document.printDocument(); // Mostrar el contenido del documento al inicio
+        edlin.document.printDocument(); 
 
         while (continueEditing) {
             char command = UserInput.askChar();

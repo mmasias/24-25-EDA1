@@ -1,8 +1,10 @@
 package Reto006;
+
 import java.util.Scanner;
 
 public class UserInput {
     private static Scanner input = new Scanner(System.in);
+    private static String clipboard = ""; 
 
     public static char askChar() {
         System.out.print("Ingrese un comando: ");
@@ -15,7 +17,16 @@ public class UserInput {
     }
 
     public static String askString() {
-        input.nextLine(); // Consumir la nueva línea pendiente
+        input.nextLine(); 
         return input.nextLine();
+    }
+
+    public static void copyToClipboard(String text) {
+        clipboard = text;
+        System.out.println("Texto copiado.");
+    }
+
+    public static String getClipboard() {
+        return clipboard;
     }
 }

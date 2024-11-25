@@ -7,8 +7,9 @@ public class Document {
     public Document() {
         this.lines = new String[MAX_LINES];
         for (int i = 0; i < MAX_LINES; i++) {
-            lines[i] = ""; // Inicializar todas las líneas como cadenas vacías
+            lines[i] = ""; 
         }
+        
     }
 
     public void setActiveLine(int activeLine) {
@@ -52,6 +53,14 @@ public class Document {
             System.out.println("Líneas " + line1 + " y " + line2 + " intercambiadas.");
         } else {
             System.out.println("Número de línea inválido.");
+        }
+    }
+
+    public String getLine(int lineNumber) {
+        if (lineNumber >= 0 && lineNumber < lines.length) {
+            return lines[lineNumber];
+        } else {
+            return "Número de línea inválido.";
         }
     }
 
