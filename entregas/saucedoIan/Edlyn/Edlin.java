@@ -2,30 +2,42 @@ import java.util.Scanner;
 
 class Edlin {
     private static final Scanner input = new Scanner(System.in);
-    private static final int MAX_UNDO = 10;
-    private static String[][] undoMatrix = new String[MAX_UNDO][];
-    private static String[][] redoMatrix = new String[MAX_UNDO][];
+    private static int MAX_UNDO;
+    private static String[][] undoMatrix;
+    private static String[][] redoMatrix;
     private static int undoIndex = 0;
     private static int undoCount = 0;
     private static int redoIndex = 0;
     private static int redoCount = 0;
+    private static String copiedLine = null;
 
     public static void main(String[] args) {
+        System.out.print("Ingrese el tamaño del documento: ");
+        int documentSize = askInt();
+        System.out.print("Ingrese el número máximo de deshacer/rehacer: ");
+        MAX_UNDO = askInt();
+
+        undoMatrix = new String[MAX_UNDO][];
+        redoMatrix = new String[MAX_UNDO][];
+
         int activeLine[] = { 1 };
-        String document[] = {
-                "Bienvenidos al editor EDLIN",
-                "Utilice el menu inferior para editar el texto",
-                "------",
-                "[L] permite definir la linea activa",
-                "[E] permite editar la linea activa",
-                "[I] permite intercambiar dos lineas",
-                "[B] borra el contenido de la linea activa",
-                "[S] sale del programa",
-                "[Z] deshacer la última acción",
-                "[Y] rehacer la última acción",
-                "",
-                ""
-        };
+        String document[] = new String[documentSize];
+        for (int i = 0; i < documentSize; i++) {
+            document[i] = "";
+        }
+
+        document[0] = "Bienvenidos al editor EDLIN";
+        document[1] = "Utilice el menu inferior para editar el texto";
+        document[2] = "------";
+        document[3] = "[L] permite definir la linea activa";
+        document[4] = "[E] permite editar la linea activa";
+        document[5] = "[I] permite intercambiar dos lineas";
+        document[6] = "[B] borra el contenido de la linea activa";
+        document[7] = "[C] copiar la linea activa";
+        document[8] = "[P] pegar en la linea activa";
+        document[9] = "[S] sale del programa";
+        document[10] = "[Z] deshacer la última acción";
+        document[11] = "[Y] rehacer la última acción";
 
         do {
             print(document, activeLine);
@@ -60,7 +72,7 @@ class Edlin {
 
     static boolean processActions(String[] document, int[] activeLine) {
         System.out.println(
-                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [Z] deshacer | [Y] rehacer");
+                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir | [Z] deshacer | [Y] rehacer");
 
         switch (askChar()) {
             case 'S':
@@ -81,6 +93,14 @@ class Edlin {
             case 'B':
             case 'b':
                 delete(document, activeLine);
+                break;
+            case 'C':
+            case 'c':
+                copy(document, activeLine);
+                break;
+            case 'P':
+            case 'p':
+                paste(document, activeLine);
                 break;
             case 'Z':
             case 'z':
@@ -191,6 +211,21 @@ class Edlin {
             redoCount--;
         } else {
             System.out.println("No hay acciones para rehacer.");
+        }
+    }
+
+    static void copy(String[] document, int[] activeLine) {
+        copiedLine = document[activeLine[0]];
+        System.out.println("Línea copiada: " + copiedLine);
+    }
+
+    static void paste(String[] document, int[] activeLine) {
+        if (copiedLine != null) {
+            saveState(document);
+            document[activeLine[0]] = copiedLine;
+            System.out.println("Línea pegada: " + copiedLine);
+        } else {
+            System.out.println("No hay línea copiada para pegar.");
         }
     }
 }
