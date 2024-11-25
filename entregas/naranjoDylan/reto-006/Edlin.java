@@ -4,7 +4,7 @@ import java.util.Scanner;
 class Edlin {
 
     public static void main(String[] args) {
-        int numLineas = pedirNumeroLineas(); // Solicita al usuario el número de líneas
+        int numLineas = pedirNumeroLineas();
         Editor editor = new Editor(numLineas);
         Menu menu = new Menu(editor);
 
@@ -21,7 +21,7 @@ class Edlin {
         do {
             System.out.print("Ingrese el número de líneas para el bloc de notas (mínimo 1): ");
             numLineas = entrada.nextInt();
-        } while (numLineas < 1); // Asegura que sea al menos 1 línea
+        } while (numLineas < 1);
 
         return numLineas;
     }
@@ -40,14 +40,14 @@ class Editor {
     public Editor(int numLineas) {
         documento = new String[numLineas];
         for (int i = 0; i < numLineas; i++) {
-            documento[i] = ""; // Inicializa líneas vacías
+            documento[i] = "";
         }
-        lineaActiva = 0; // Línea activa inicial
-        portapapeles = ""; // Inicializa el portapapeles
-        pilaDeshacer = new String[100][]; // Pila para deshacer
-        pilaRehacer = new String[100][]; // Pila para rehacer
-        indiceDeshacer = -1; // Índice actual de deshacer
-        indiceRehacer = -1; // Índice actual de rehacer
+        lineaActiva = 0;
+        portapapeles = "";
+        pilaDeshacer = new String[100][];
+        pilaRehacer = new String[100][];
+        indiceDeshacer = -1;
+        indiceRehacer = -1;
     }
 
     public void imprimir() {
@@ -73,8 +73,8 @@ class Editor {
 
     public void guardarEstadoDeshacer() {
         if (indiceDeshacer < pilaDeshacer.length - 1) {
-            pilaDeshacer[++indiceDeshacer] = documento.clone(); // Guarda el estado actual en la pila de deshacer
-            indiceRehacer = -1; // Resetea la pila de rehacer al hacer una nueva acción
+            pilaDeshacer[++indiceDeshacer] = documento.clone();
+            indiceRehacer = -1;
         }
     }
 
@@ -115,8 +115,8 @@ class Editor {
 
     public void deshacer() {
         if (indiceDeshacer >= 0) {
-            pilaRehacer[++indiceRehacer] = documento.clone(); // Guarda el estado actual en la pila de rehacer
-            documento = pilaDeshacer[indiceDeshacer--]; // Restaura el estado anterior
+            pilaRehacer[++indiceRehacer] = documento.clone();
+            documento = pilaDeshacer[indiceDeshacer--];
             System.out.println("Deshecho.");
         } else {
             System.out.println("No hay más acciones para deshacer.");
@@ -125,8 +125,8 @@ class Editor {
 
     public void rehacer() {
         if (indiceRehacer >= 0) {
-            pilaDeshacer[++indiceDeshacer] = documento.clone(); // Guarda el estado actual en la pila de deshacer
-            documento = pilaRehacer[indiceRehacer--]; // Restaura el estado siguiente
+            pilaDeshacer[++indiceDeshacer] = documento.clone();
+            documento = pilaRehacer[indiceRehacer--];
             System.out.println("Rehecho.");
         } else {
             System.out.println("No hay más acciones para rehacer.");
