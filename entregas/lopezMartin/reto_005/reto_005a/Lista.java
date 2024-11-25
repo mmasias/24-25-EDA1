@@ -1,3 +1,4 @@
+package entregas.lopezMartin.reto_005.reto_005a;
 public class Lista {
 
     private Node primero; 

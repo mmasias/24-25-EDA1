@@ -1,4 +1,4 @@
-
+package entregas.lopezMartin.reto_005.reto_005a;
 public class Node extends Estado{
 
     private Node padre;
