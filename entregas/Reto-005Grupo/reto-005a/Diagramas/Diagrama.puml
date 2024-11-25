@@ -1,0 +1,62 @@
+@startuml
+class ControlDeVersiones {
+    + main(String[] args) : void
+}
+
+class Estado {
+    - numberFiles : int
+    + Estado(int numberFiles)
+    + getNumberFiles() : int
+}
+
+class Interfaz {
+    - tree : Tree
+    + Interfaz(Tree tree)
+    + mostrar() : void
+    - cleanScreen() : void
+}
+
+class Lista {
+    - primero : Node
+    + Lista()
+    + insertar(int value, Node padre) : void
+    + getUltimo() : Node
+    + getPrimero() : Node
+}
+
+class Node {
+    - padre : Node
+    - lista : Lista
+    - siguiente : Node
+    - anterior : Node
+    + Node(int value, Node padre, Node siguiente, Node anterior)
+    + mostrar() : String
+    + añadirVersion(int value, Node padre) : void
+    + getPadre() : Node
+    + getSiguiente() : Node
+    + getLista() : Lista
+    + setSiguiente(int value, Node padre, Node anterior) : void
+    + getAnterior() : Node
+}
+
+class Tree {
+    - root : Node
+    - versionActual : Node
+    + Tree()
+    + insert(int value) : void
+    + print() : void
+    + mostrarVersionActual() : String
+    + moverseVersionAnterior() : void
+    + moverseRamaIzquierda() : void
+    + moverseRamaDerecha() : void
+    + moversePrimeraRama() : void
+    - printRecursive(Node node, String prefix, boolean isLast) : void
+}
+
+ControlDeVersiones --> Interfaz : usa
+Interfaz --> Tree : tiene
+Tree --> Node : contiene
+Node --> Lista : maneja
+Lista --> Node : contiene
+Node --> Estado : hereda
+@enduml
