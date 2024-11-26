@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 class Edlin {
     public static void main(String[] args) {
@@ -16,9 +17,12 @@ class Edlin {
                 ""
         };
 
+        Stack<String[]> history = new Stack<>();
+        saveState(history, document);
+
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine));
+        } while (processActions(document, activeLine, history));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -43,23 +47,30 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir");
+    static boolean processActions(String[] document, int[] activeLine, Stack<String[]> history) {
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [Z]Control Z | [S]alir");
 
         switch (askChar()) {
-            case 'S':   case 's':
+            case 'S': case 's':
                 return false;
-            case 'L':   case 'l':
+            case 'L': case 'l':
+                saveState(history, document);
                 setActiveLine(document, activeLine);
                 break;
-            case 'E':   case 'e':
+            case 'E': case 'e':
+                saveState(history, document);
                 edit(document, activeLine);
                 break;
-            case 'I':   case 'i':
+            case 'I': case 'i':
+                saveState(history, document);
                 exchangeLines(document);
                 break;
-            case 'B':   case 'b':
+            case 'B': case 'b':
+                saveState(history, document);
                 delete(document, activeLine);
+                break;
+            case 'Z': case 'z':
+                undo(document, history);
                 break;
         }
         return true;
@@ -71,16 +82,16 @@ class Edlin {
     }
 
     static void delete(String[] document, int[] activeLine) {
-        System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["+activeLine[0]+"]");
-        if (askInt()==activeLine[0]) {
-            document[activeLine[0]]="";
+        System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo [" + activeLine[0] + "]");
+        if (askInt() == activeLine[0]) {
+            document[activeLine[0]] = "";
         }
     }
 
     static void exchangeLines(String[] document) {
         int originLine, destinationLine;
         String temporaryLine;
-        boolean validLine = true;
+        boolean validLine;
 
         do {
             System.out.print("Indique primera línea a intercambiar: ");
@@ -93,10 +104,10 @@ class Edlin {
             destinationLine = askInt();
             validLine = destinationLine >= 0 && destinationLine < document.length;
         } while (!validLine);
-        
+
         temporaryLine = document[destinationLine];
-        document[destinationLine]=document[originLine];
-        document[originLine]=temporaryLine;
+        document[destinationLine] = document[originLine];
+        document[originLine] = temporaryLine;
     }
 
     static void edit(String[] document, int[] activeLine) {
@@ -110,7 +121,7 @@ class Edlin {
     }
 
     static void setActiveLine(String[] document, int[] activeLine) {
-        boolean validLine = true;
+        boolean validLine;
         do {
             System.out.print("Indique la nueva línea activa: ");
             activeLine[0] = askInt();
@@ -121,5 +132,22 @@ class Edlin {
     static int askInt() {
         Scanner input = new Scanner(System.in);
         return input.nextInt();
+    }
+
+    static void saveState(Stack<String[]> history, String[] document) {
+        history.push(document.clone());
+    }
+
+    static void undo(String[] document, Stack<String[]> history) {
+        if (history.size() > 1) { 
+            history.pop(); 
+            String[] previousState = history.peek(); 
+            for (int i = 0; i < document.length; i++) {
+                document[i] = previousState[i];
+            }
+            System.out.println("Última acción deshecha.");
+        } else {
+            System.out.println("No hay más acciones para deshacer.");
+        }
     }
 }
