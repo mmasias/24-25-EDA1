@@ -18,11 +18,12 @@ class Edlin {
         };
 
         Stack<String[]> history = new Stack<>();
-        saveState(history, document);
+        Stack<String[]> redoStack = new Stack<>();
+        saveState(history, document); 
 
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine, history));
+        } while (processActions(document, activeLine, history, redoStack));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -47,30 +48,33 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine, Stack<String[]> history) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [Z]Control Z | [S]alir");
+    static boolean processActions(String[] document, int[] activeLine, Stack<String[]> history, Stack<String[]> redoStack) {
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [Z]Control Z | [Y]Control Y | [S]alir");
 
         switch (askChar()) {
             case 'S': case 's':
                 return false;
             case 'L': case 'l':
-                saveState(history, document);
+                saveState(history, redoStack, document);
                 setActiveLine(document, activeLine);
                 break;
             case 'E': case 'e':
-                saveState(history, document);
+                saveState(history, redoStack, document);
                 edit(document, activeLine);
                 break;
             case 'I': case 'i':
-                saveState(history, document);
+                saveState(history, redoStack, document);
                 exchangeLines(document);
                 break;
             case 'B': case 'b':
-                saveState(history, document);
+                saveState(history, redoStack, document);
                 delete(document, activeLine);
                 break;
             case 'Z': case 'z':
-                undo(document, history);
+                undo(document, history, redoStack);
+                break;
+            case 'Y': case 'y':
+                redo(document, history, redoStack);
                 break;
         }
         return true;
@@ -134,13 +138,18 @@ class Edlin {
         return input.nextInt();
     }
 
+    static void saveState(Stack<String[]> history, Stack<String[]> redoStack, String[] document) {
+        history.push(document.clone());
+        redoStack.clear();
+    }
+
     static void saveState(Stack<String[]> history, String[] document) {
         history.push(document.clone());
     }
 
-    static void undo(String[] document, Stack<String[]> history) {
+    static void undo(String[] document, Stack<String[]> history, Stack<String[]> redoStack) {
         if (history.size() > 1) { 
-            history.pop(); 
+            redoStack.push(history.pop()); 
             String[] previousState = history.peek(); 
             for (int i = 0; i < document.length; i++) {
                 document[i] = previousState[i];
@@ -148,6 +157,19 @@ class Edlin {
             System.out.println("Última acción deshecha.");
         } else {
             System.out.println("No hay más acciones para deshacer.");
+        }
+    }
+
+    static void redo(String[] document, Stack<String[]> history, Stack<String[]> redoStack) {
+        if (!redoStack.isEmpty()) {
+            history.push(redoStack.pop()); 
+            String[] nextState = history.peek();
+            for (int i = 0; i < document.length; i++) {
+                document[i] = nextState[i];
+            }
+            System.out.println("Última acción rehecha.");
+        } else {
+            System.out.println("No hay acciones para rehacer.");
         }
     }
 }
