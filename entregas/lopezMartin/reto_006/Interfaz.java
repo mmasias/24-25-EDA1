@@ -27,7 +27,6 @@ public class Interfaz {
                 case "L":
                     System.out.println("Introduce el índice de la linea: ");
                     int indiceLinea = sc.nextInt();
-                    sc.nextLine();
                     lineasTexto.cambiarLineaActiva(indiceLinea);
                     break;
     
@@ -39,13 +38,14 @@ public class Interfaz {
                     break;
     
                 case "I": 
-    
-                    
+                    System.out.println("Introduce los índices de las lineas que deseas intercambiar");
+                    int indiceL1= sc.nextInt();
+                    int indiceL2= sc.nextInt();
+                    lineasTexto.intercambiarLineas(indiceL1, indiceL2);
                     break;
     
                 case "B":
-    
-                    
+                    lineasTexto.borrarLineaActiva();
                     break;
     
                 case "D":

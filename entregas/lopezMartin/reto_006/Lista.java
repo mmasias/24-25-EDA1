@@ -58,4 +58,16 @@ public class Lista {
         lineaActiva.setContenido(contenido);
     }
 
+    public void intercambiarLineas(int indiceL1, int indiceL2) {
+        assert (indiceL1 >= 1 && indiceL1 <= 10) && (indiceL2 >= 1 && indiceL2 <= 10);
+
+        
+
+    }
+
+    public void borrarLineaActiva() {
+        lineaActiva.setContenido("");
+    }
+     
+
 }
