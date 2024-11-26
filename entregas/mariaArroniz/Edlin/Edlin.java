@@ -14,12 +14,11 @@ class Edlin {
                 "",
                 ""
         };
-        String history[] = {null};
-        int historySize = 0;
-
+        String history[] = new String[100];
+        int historyIndex = 0;
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine, history, historySize));
+        } while (processActions(document, activeLine, history, historyIndex));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -44,9 +43,8 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine, String[] history, int historySize) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [Z] Control Z | [Y] Control Y | [C] Control C | [V] Control V");
-
+    static boolean processActions(String[] document, int[] activeLine, String[] history, int historyIndex) {
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [Z] Control Z | [Y] Control Y | [C] Control C y Control V");
         switch (askChar()) {
             case 'S':   case 's':
                 return false;
@@ -54,28 +52,28 @@ class Edlin {
                 setActiveLine(document, activeLine);
                 break;
             case 'E':   case 'e':
-                save(document, history, historySize);
                 edit(document, activeLine);
+                save(document, activeLine, history, historyIndex);
                 break;
             case 'I':   case 'i':
-                save(document, history, historySize);
                 exchangeLines(document);
+                save(document,activeLine,  history, historyIndex);
                 break;
             case 'B':   case 'b':
-                save(document, history, historySize);
                 delete(document, activeLine);
+                save(document, activeLine, history, historyIndex);
                 break;
             case 'Z': case 'z':
-                undo(document, history, historySize);
+                undo(document,activeLine, history, historyIndex);
+                save(document, activeLine, history, historyIndex);
                 break;
             case 'Y': case 'y':
-                next(document, history, historySize);
+                next(document, history, historyIndex);
+                save(document, activeLine, history, historyIndex);
                 break;
             case 'C': case 'c':
-                copy(document, activeLine);
-                break;
-            case 'V': case 'v':
-                paste(document, activeLine);
+                copyPaste(document);
+                save(document,activeLine,  history, historyIndex);
                 break;
         }
         return true;
@@ -97,13 +95,11 @@ class Edlin {
         int originLine, destinationLine;
         String temporaryLine;
         boolean validLine = true;
-
         do {
             System.out.print("Indique primera línea a intercambiar: ");
             originLine = askInt();
             validLine = originLine >= 0 && originLine < document.length;
         } while (!validLine);
-
         do {
             System.out.print("Indique segunda línea a intercambiar: ");
             destinationLine = askInt();
@@ -117,8 +113,7 @@ class Edlin {
 
     static void edit(String[] document, int[] activeLine) {
         System.out.println("EDITANDO> " + document[activeLine[0]]);
-        document[activeLine[0]] = askString();
-        
+        document[activeLine[0]] = askString();   
     }
 
     static String askString() {
@@ -140,23 +135,42 @@ class Edlin {
         return input.nextInt();
     }
 
-    static void save(String[] document, String[] history, int historySize){
+    static void save(String[] document,int[] activeLine, String[] history, int historyIndex){
+        if (historyIndex < history.length) {
+            history[historyIndex] = document[activeLine[0]];
+            historyIndex++;
+        }
 
     }
 
-    static void undo(String [] document, String[] history, int historySize ){
-
+    static void undo(String [] document, int[] activeLine, String[] history, int historyIndex){
+        if (historyIndex > 0) {
+            historyIndex--;
+            document[activeLine[0]] = history[historyIndex];
+        } else {
+            System.out.println("No hay más cambios para deshacer.");
+        }
     }
 
     static void next(String [] document, String[] history, int historySize){
         
     }
 
-    static void copy(String[] document, int[] activeLine){
-        
+    static void copyPaste(String[] document){
+        int copiedLine, pastedLine;
+        boolean validLine = true;
+        do {
+            System.out.print("Indique la línea que quiere copiar: ");
+            copiedLine = askInt();
+            validLine = copiedLine >= 0 && copiedLine < document.length;
+        } while (!validLine);
+        do {
+            System.out.print("Indique la línea donde lo quiere pegar: ");
+            pastedLine = askInt();
+            validLine = pastedLine >= 0 && pastedLine < document.length;
+        } while (!validLine);
+
+        document[pastedLine] = document[copiedLine];
     }
 
-    static void paste(String[] document, int[] activeLine){
-        
-    }
 }
