@@ -1,0 +1,33 @@
+@startuml
+hide circle
+
+object eda2425
+object ramaReto005
+object commit1
+object diagrama
+object celiabecerril
+object reto005Celia
+object diagramaCambiado
+object directorioReto005
+object eda2425Remoto
+object ramaReto005Remota
+
+eda2425 --> ramaReto005
+eda2425 --> celiabecerril
+eda2425 --> eda2425Remoto
+eda2425Remoto --> ramaReto005Remota
+ramaReto005 --> commit1
+ramaReto005 --> reto005Celia
+commit1 --> diagramaCambiado : "registro del cambio"
+diagramaCambiado --> diagrama : "modifica este archivo"
+diagramaCambiado --> estadoArchivo : "estado actual"
+reto005Celia --> commit1 
+celiabecerril --> directorioReto005
+reto005Celia --> celiabecerril : "creado por"
+directorioReto005 --> diagrama : "almacenado localmente"
+ramaReto005 --> ramaReto005Remota : "sincroniza con"
+
+
+note right of  estadoArchivo : EstadoArchivo "Modificado"
+
+@enduml
