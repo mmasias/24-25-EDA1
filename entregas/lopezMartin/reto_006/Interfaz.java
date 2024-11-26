@@ -29,11 +29,12 @@ public class Interfaz {
                     int indiceLinea = sc.nextInt();
                     sc.nextLine();
                     lineasTexto.cambiarLineaActiva(indiceLinea);
-                    
                     break;
     
                 case "E":
-                    
+                    System.out.println("Introduce el contenido nuevo: ");
+                    String contenido = sc.nextLine();
+                    lineasTexto.editarLinea(contenido);
                     
                     break;
     

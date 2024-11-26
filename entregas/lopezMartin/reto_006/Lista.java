@@ -54,4 +54,8 @@ public class Lista {
         
     }
 
+    public void editarLinea(String contenido) {
+        lineaActiva.setContenido(contenido);
+    }
+
 }

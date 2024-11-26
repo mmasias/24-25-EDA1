@@ -19,5 +19,9 @@ public class Linea {
         return this.indice;
     }
 
+    public void setContenido(String contenido){
+        this.contenido = contenido;
+    }
+
     
 }
