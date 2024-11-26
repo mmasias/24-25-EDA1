@@ -1,0 +1,47 @@
+@startuml
+
+class GestorVersiones {
+    - ramas: List<Rama>
+    - pullRequests: List<PullRequest>
+    + crearRama(nombre: String): Rama
+    + obtenerRama(nombre: String): Rama
+    + realizarPullRequest(origen: Rama, destino: Rama): PullRequest
+}
+
+class Rama {
+    - nombre: String
+    - commits: List<Commit>
+    + agregarCommit(commit: Commit)
+    + obtenerUltimoCommit(): Commit
+}
+
+class Commit {
+    - id: String
+    - mensaje: String
+    - timestamp: Date
+    - archivos: List<Archivo>
+}
+
+class Archivo {
+    - nombre: String
+    - contenido: String
+}
+
+class PullRequest {
+    - id: String
+    - origen: Rama
+    - destino: Rama
+    - estado: String
+    + aceptar()
+    + rechazar()
+}
+
+GestorVersiones "1" *-- "n" Rama
+GestorVersiones "1" *-- "n" PullRequest
+Rama "1" *-- "n" Commit
+Commit "1" *-- "n" Archivo
+PullRequest "1" --> "1" Rama : origen
+PullRequest "1" --> "1" Rama : destino
+
+@enduml
+
