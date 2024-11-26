@@ -61,7 +61,29 @@ public class Lista {
     public void intercambiarLineas(int indiceL1, int indiceL2) {
         assert (indiceL1 >= 1 && indiceL1 <= 10) && (indiceL2 >= 1 && indiceL2 <= 10);
 
-        
+        String contenidoL1 = "";
+        String contenidoL2 = "";
+
+        Nodo currentL1 = primero;
+        while(currentL1!=null){
+            if (currentL1.obtenerIndice()==indiceL1) {
+                contenidoL1 = currentL1.obtenerContenido();
+                break;
+            }
+            currentL1 = currentL1.getSiguiente();
+        }
+
+        Nodo currentL2 = primero;
+        while(currentL2!=null){
+            if (currentL2.obtenerIndice()==indiceL2) {
+                contenidoL2 = currentL2.obtenerContenido();
+                break;
+            }
+            currentL2 = currentL2.getSiguiente();
+        }
+
+        currentL1.setContenido(contenidoL2);
+        currentL2.setContenido(contenidoL1);
 
     }
 
