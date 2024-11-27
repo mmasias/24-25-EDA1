@@ -6,13 +6,13 @@ public class Linea {
     private int indice;
 
     public Linea(int indice){
-        this.contenido = "";
+        this.contenido = null;
         this.indice = indice;
 
     }
 
     public String obtenerContenido(){
-        return this.contenido;
+         return this.contenido;
     }
 
     public int obtenerIndice(){

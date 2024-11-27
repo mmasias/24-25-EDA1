@@ -32,9 +32,9 @@ public class Lista {
         Nodo current = primero;
         while (current!=null) {
             if (current == lineaActiva) {
-                System.out.println(current.obtenerIndice() + ":*|" + current.obtenerContenido());
+                System.out.println(current.obtenerIndice() + ":*|" + ((current.obtenerContenido() == null) ? "" : current.obtenerContenido()));
             }else{
-                System.out.println(current.obtenerIndice() + ": |" + current.obtenerContenido());
+                System.out.println(current.obtenerIndice() + ": |" + ((current.obtenerContenido() == null) ? "" : current.obtenerContenido()));
             }
             current = current.getSiguiente();
         }
@@ -55,7 +55,11 @@ public class Lista {
     }
 
     public void editarLinea(String contenido) {
-        lineaActiva.setContenido(contenido);
+        if(contenido!=null){
+            lineaActiva.setContenido(contenido);
+        }else{
+            System.out.println("No tienes nada en el portapapeles");
+        }
     }
 
     public void intercambiarLineas(int indiceL1, int indiceL2) {
@@ -87,9 +91,11 @@ public class Lista {
 
     }
 
+    public Nodo obtenerLineaActiva(){
+        return this.lineaActiva;
+    }
+
     public void borrarLineaActiva() {
         lineaActiva.setContenido("");
-    }
-     
-
+    }    
 }

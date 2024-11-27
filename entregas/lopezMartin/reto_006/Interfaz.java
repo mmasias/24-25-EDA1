@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Interfaz {
 
     private Lista lineasTexto;
+    private String portapapeles;
     private Pila versionesAnteriores;
     private Pila versionesPosteriores;
 
@@ -12,6 +13,7 @@ public class Interfaz {
         this.lineasTexto = lineasTexto;
         this.versionesAnteriores = versionesAnteriores;
         this.versionesPosteriores = versionesPosteriores;
+        this.portapapeles = null;
 
     }
 
@@ -33,8 +35,8 @@ public class Interfaz {
                 case "E":
                     System.out.println("Introduce el contenido nuevo: ");
                     String contenido = sc.nextLine();
+                    versionesAnteriores.apilar(lineasTexto.obtenerLineaActiva().obtenerIndice(), lineasTexto.obtenerLineaActiva().obtenerContenido());
                     lineasTexto.editarLinea(contenido);
-                    
                     break;
     
                 case "I": 
@@ -45,27 +47,31 @@ public class Interfaz {
                     break;
     
                 case "B":
+                    versionesAnteriores.apilar(lineasTexto.obtenerLineaActiva().obtenerIndice(), lineasTexto.obtenerLineaActiva().obtenerContenido());
                     lineasTexto.borrarLineaActiva();
                     break;
     
                 case "D":
-    
-                    
+                    String contenidoAnterior = versionesAnteriores.desapilar();
+                    lineasTexto.editarLinea(contenidoAnterior);
+                    versionesPosteriores.apilarVersion(versionesAnteriores.obtenerCima());
+                    versionesAnteriores.reordenarCima();
                     break;
     
                 case "R":
-    
-                    
+                    String contenidoPosterior = versionesPosteriores.desapilar();
+                    lineasTexto.editarLinea(contenidoPosterior);
+                    versionesAnteriores.apilarVersion(versionesPosteriores.obtenerCima());
+                    versionesPosteriores.reordenarCima();
                     break;
 
                 case "C":
-    
-                    
+                    portapapeles = lineasTexto.obtenerLineaActiva().obtenerContenido();
                     break;
 
                 case "P":
-
-                    
+                    versionesAnteriores.apilar(lineasTexto.obtenerLineaActiva().obtenerIndice(), lineasTexto.obtenerLineaActiva().obtenerContenido());
+                    lineasTexto.editarLinea(portapapeles);
                     break;
     
                 case "S":
