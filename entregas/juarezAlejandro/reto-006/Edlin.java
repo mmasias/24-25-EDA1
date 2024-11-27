@@ -13,6 +13,8 @@ class Edlin {
                 "[B] borra el contenido de la linea activa",
                 "[D] deshace la última acción de la activa",
                 "[R] rehacer la última acción deshecha",
+                "[C] copia el contenido de la linea activa",
+                "[P] pega el contenido de la linea activa",
                 "[S] sale del programa",
                 "",
                 ""
@@ -20,10 +22,11 @@ class Edlin {
 
         String lastContent[] = { "" };
         String redoContent[] = { "" };
+        String clipboard[] = { "" };
 
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine, lastContent, redoContent));
+        } while (processActions(document, activeLine, lastContent, redoContent, clipboard));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -48,9 +51,10 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
+    static boolean processActions(String[] document, int[] activeLine, String[] lastContent, String[] redoContent,
+            String[] clipboard) {
         System.out.println(
-                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [D]eshacer | [R]ehacer | [B]orrar | [S]alir");
+                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [D]eshacer | [R]ehacer | [C]opiar | [P]egar | [B]orrar | [S]alir");
 
         switch (askChar()) {
             case 'S':
@@ -79,6 +83,14 @@ class Edlin {
             case 'R':
             case 'r':
                 redo(document, activeLine, lastContent, redoContent);
+                break;
+            case 'C':
+            case 'c':
+                copy(document, activeLine, clipboard);
+                break;
+            case 'P':
+            case 'p':
+                paste(document, activeLine, clipboard, lastContent, redoContent);
                 break;
         }
         return true;
@@ -166,5 +178,22 @@ class Edlin {
         redoContent[0] = lastContent[0];
         lastContent[0] = temp;
         System.out.println("La acción ha sido rehecha");
+    }
+
+    static void copy(String[] document, int[] activeLine, String[] clipboard) {
+        clipboard[0] = document[activeLine[0]];
+        System.out.println("Contenido copiado: " + clipboard[0]);
+    }
+
+    static void paste(String[] document, int[] activeLine, String[] clipboard, String[] lastContent,
+            String[] redoContent) {
+        if (clipboard[0].isEmpty()) {
+            System.out.println("El portapapeles está vacío.");
+            return;
+        }
+        redoContent[0] = "";
+        lastContent[0] = document[activeLine[0]];
+        document[activeLine[0]] = clipboard[0];
+        System.out.println("Contenido pegado: " + clipboard[0]);
     }
 }
