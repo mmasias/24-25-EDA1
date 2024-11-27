@@ -1,0 +1,38 @@
+@startuml
+class Repositorio
+class RepositorioRemoto
+class RepositorioLocal
+class Principal
+class Ramas
+class NumeroArchivos
+class 1
+class MásDe1
+class Develop
+class Feature
+class VersiónActual
+class PullRequest
+class Versiones
+class Commit
+class Modificado
+class SinCambios
+class Nuevo
+class Eliminado
+
+Repositorio --> RepositorioRemoto
+Repositorio --> RepositorioLocal
+RepositorioRemoto --> Principal
+RepositorioRemoto --> Ramas
+RepositorioLocal --> PullRequest
+RepositorioLocal --> VersiónActual
+Principal --> NumeroArchivos
+NumeroArchivos --> 1
+NumeroArchivos --> MásDe1
+Ramas --> Develop
+Ramas --> Feature
+PullRequest --> Versiones
+PullRequest --> Commit
+Versiones --> Modificado
+Versiones --> SinCambios
+Commit --> Nuevo
+Commit --> Eliminado
+@enduml
