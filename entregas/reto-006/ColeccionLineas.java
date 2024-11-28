@@ -1,7 +1,7 @@
 public class ColeccionLineas {
+
     private NodoLinea inicio;
-    private PilaHistorial pilaDeshacer = new PilaHistorial();
-    private PilaHistorial pilaRehacer = new PilaHistorial();
+    private NodoLinea lineaActiva;
 
     public ColeccionLineas() {
         inicializarLineas();
@@ -19,12 +19,14 @@ public class ColeccionLineas {
                 actual = nuevoNodo;
             }
         }
+        lineaActiva = inicio;
     }
 
     public void mostrar() {
         NodoLinea actual = inicio;
         while (actual != null) {
-            System.out.println(actual.obtenerNumero() + ": " + actual.obtenerContenido());
+            String marcador = actual == lineaActiva ? "* " : "  ";
+            System.out.println(marcador + actual.obtenerNumero() + ": " + actual.obtenerContenido());
             actual = actual.getSiguiente();
         }
     }
@@ -33,50 +35,63 @@ public class ColeccionLineas {
         NodoLinea actual = inicio;
         while (actual != null) {
             if (actual.obtenerNumero() == numeroLinea) {
-                System.out.println("Línea activa: " + numeroLinea);
+                lineaActiva = actual;
                 return;
             }
             actual = actual.getSiguiente();
         }
-        System.out.println("Número de línea no válido.");
     }
-    
-    public void editarLineaActiva(int numeroLinea, String contenido) {
+
+    public void editarLinea(String contenido) {
+        if (lineaActiva != null) {
+            lineaActiva.establecerContenido(contenido);
+        }
+    }
+
+    public void intercambiarLineas(int numero1, int numero2) {
+        NodoLinea nodo1 = buscarNodo(numero1);
+        NodoLinea nodo2 = buscarNodo(numero2);
+        if (nodo1 != null && nodo2 != null) {
+            String temp = nodo1.obtenerContenido();
+            nodo1.establecerContenido(nodo2.obtenerContenido());
+            nodo2.establecerContenido(temp);
+        }
+    }
+
+    private NodoLinea buscarNodo(int numero) {
         NodoLinea actual = inicio;
         while (actual != null) {
-            if (actual.obtenerNumero() == numeroLinea) {
-                actual.establecerContenido(contenido);
-                System.out.println("Línea " + numeroLinea + " editada con contenido: " + contenido);
-                return;
+            if (actual.obtenerNumero() == numero) {
+                return actual;
             }
             actual = actual.getSiguiente();
         }
-        System.out.println("Número de línea no válido.");
+        return null;
     }
-    
-    public void deshacer() {
-        if (pilaDeshacer.estaVacia()) {
-            System.out.println("No hay acciones para deshacer.");
-            return;
-        }
-        Historial accion = pilaDeshacer.desapilar();
-        NodoLinea linea = buscarNodo(accion.obtenerNumero());
-        if (linea != null) {
-            pilaRehacer.guardar(new Historial(linea.obtenerNumero(), linea.obtenerContenido()));
-            linea.establecerContenido(accion.obtenerContenido());
+
+    public String obtenerContenidoLineaActiva() {
+        return lineaActiva != null ? lineaActiva.obtenerContenido() : "";
+    }
+
+    public int obtenerNumeroLineaActiva() {
+        return lineaActiva != null ? lineaActiva.obtenerNumero() : -1;
+    }
+
+    public void deshacer(PilaHistorial deshacer, PilaHistorial rehacer) {
+        if (!deshacer.estaVacia()) {
+            Historial ultimaAccion = deshacer.desapilar();
+            rehacer.guardar(obtenerNumeroLineaActiva(), obtenerContenidoLineaActiva());
+            seleccionarLineaActiva(ultimaAccion.obtenerNumero());
+            editarLinea(ultimaAccion.obtenerContenido());
         }
     }
-    
-    public void rehacer() {
-        if (pilaRehacer.estaVacia()) {
-            System.out.println("No hay acciones para rehacer.");
-            return;
-        }
-        Historial accion = pilaRehacer.desapilar();
-        NodoLinea linea = buscarNodo(accion.obtenerNumero());
-        if (linea != null) {
-            pilaDeshacer.guardar(new Historial(linea.obtenerNumero(), linea.obtenerContenido()));
-            linea.establecerContenido(accion.obtenerContenido());
+
+    public void rehacer(PilaHistorial rehacer, PilaHistorial deshacer) {
+        if (!rehacer.estaVacia()) {
+            Historial accionRehacer = rehacer.desapilar();
+            deshacer.guardar(obtenerNumeroLineaActiva(), obtenerContenidoLineaActiva());
+            seleccionarLineaActiva(accionRehacer.obtenerNumero());
+            editarLinea(accionRehacer.obtenerContenido());
         }
     }
 }

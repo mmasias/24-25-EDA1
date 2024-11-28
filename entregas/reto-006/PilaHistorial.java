@@ -1,21 +1,31 @@
-import java.util.Stack;
-
 public class PilaHistorial {
-    private Stack<Historial> pila;
+
+    private NodoHistorial cima;
 
     public PilaHistorial() {
-        this.pila = new Stack<>();
+        this.cima = null;
     }
 
-    public void guardar(Historial historial) {
-        pila.push(historial);
+    public void guardar(int numeroLinea, String contenido) {
+        NodoHistorial nuevoNodo = new NodoHistorial(numeroLinea, contenido);
+        nuevoNodo.setSiguiente(cima);
+        cima = nuevoNodo;
     }
 
     public Historial desapilar() {
-        return pila.isEmpty() ? null : pila.pop();
+        if (cima == null) {
+            return null;
+        }
+        Historial historial = new Historial(cima.obtenerNumero(), cima.obtenerContenido());
+        cima = cima.obtenerSiguiente();
+        return historial;
     }
 
     public boolean estaVacia() {
-        return pila.isEmpty();
+        return cima == null;
+    }
+
+    public void limpiar() {
+        cima = null;
     }
 }

@@ -1,4 +1,5 @@
 public class NodoLinea {
+
     private int numero;
     private String contenido;
     private NodoLinea siguiente;
@@ -17,11 +18,15 @@ public class NodoLinea {
         return contenido;
     }
 
-    public void setSiguiente(NodoLinea siguiente) {
-        this.siguiente = siguiente;
+    public void establecerContenido(String contenido) {
+        this.contenido = contenido;
     }
 
     public NodoLinea getSiguiente() {
         return siguiente;
+    }
+
+    public void setSiguiente(NodoLinea siguiente) {
+        this.siguiente = siguiente;
     }
 }

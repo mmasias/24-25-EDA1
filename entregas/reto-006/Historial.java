@@ -1,4 +1,5 @@
 public class Historial {
+
     private int numeroLinea;
     private String contenido;
 
