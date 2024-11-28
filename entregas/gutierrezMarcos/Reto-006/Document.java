@@ -3,7 +3,7 @@ public class Document {
     private int activeLine;
 
     public Document(String[] initialLines) {
-        this.lines = initialLines;
+        this.lines = initialLines.clone();
         this.activeLine = 0;
     }
 
@@ -44,6 +44,14 @@ public class Document {
 
     public String getActiveLineContent() {
         return lines[activeLine];
+    }
+
+    public String[] getLines() {
+        return lines.clone();
+    }
+
+    public void setLines(String[] lines) {
+        this.lines = lines.clone();
     }
 
     private boolean isValidLine(int lineIndex) {
