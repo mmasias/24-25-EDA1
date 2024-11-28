@@ -68,7 +68,7 @@ class Edlin {
                 save(document, activeLine, history, historyIndex);
                 break;
             case 'Y': case 'y':
-                next(document, history, historyIndex);
+                next(document, activeLine, history, historyIndex);
                 save(document, activeLine, history, historyIndex);
                 break;
             case 'C': case 'c':
@@ -140,7 +140,6 @@ class Edlin {
             history[historyIndex] = document[activeLine[0]];
             historyIndex++;
         }
-
     }
 
     static void undo(String [] document, int[] activeLine, String[] history, int historyIndex){
@@ -152,7 +151,13 @@ class Edlin {
         }
     }
 
-    static void next(String [] document, String[] history, int historySize){
+    static void next(String [] document, int[] activeLine,  String[] history, int historyIndex){
+        if (historyIndex < history.length - 1 && history[historyIndex + 1] != null) {
+            historyIndex++;
+            document[activeLine[0]] = history[historyIndex];
+        } else {
+            System.out.println("No hay más cambios para rehacer.");
+        }
         
     }
 
