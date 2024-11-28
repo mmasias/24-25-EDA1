@@ -14,7 +14,7 @@ public class InterfazUsuario {
         System.out.println("¡Bienvenido al Editor de Texto!");
         while (ejecutando) {
             lineas.mostrar();
-        System.out.println("[A] Seleccionar línea activa\n[E] Editar línea activa\n[S] Salir");
+            System.out.println("[A] Seleccionar línea activa\n[E] Editar línea activa\n[D] Deshacer\n[R] Rehacer\n[S] Salir");
         System.out.print("Elige una opción: ");
         String opcion = scanner.nextLine().toUpperCase();
 
@@ -30,6 +30,12 @@ public class InterfazUsuario {
                 System.out.print("Nuevo contenido: ");
                 String contenido = scanner.nextLine();
                 lineas.editarLineaActiva(linea, contenido);
+                break;
+            case "D":
+                lineas.deshacer();
+                break;
+            case "R":
+                lineas.rehacer();
                 break;
             case "S":
                 ejecutando = false;
