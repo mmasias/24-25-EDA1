@@ -5,7 +5,7 @@ public class DocumentEditor {
     private History history;
     private Scanner input;
     private String clipboard;
-    
+
     public DocumentEditor() {
         this.document = new Document(new String[]{
                 "Bienvenidos al editor EDLIN",
@@ -25,7 +25,7 @@ public class DocumentEditor {
         });
         this.history = new History(document);
         this.input = new Scanner(System.in);
-        this.clipboard = ""; // Inicialmente el portapapeles está vacío
+        this.clipboard = "";
     }
 
     public void run() {
@@ -42,15 +42,15 @@ public class DocumentEditor {
             case 's':
                 return false;
             case 'l':
-                history.save(document); // Guardar antes de la acción
+                history.save(document);
                 document.setActiveLine(askInt("Indique la nueva línea activa: "));
                 break;
             case 'e':
-                history.save(document); // Guardar antes de la acción
+                history.save(document);
                 document.editLine(askString("EDITANDO> " + document.getActiveLineContent()));
                 break;
             case 'i':
-                history.save(document); // Guardar antes de la acción
+                history.save(document);
                 int originLine = askInt("Indique primera línea a intercambiar: ");
                 int destinationLine = askInt("Indique segunda línea a intercambiar: ");
                 document.exchangeLines(originLine, destinationLine);
@@ -58,17 +58,17 @@ public class DocumentEditor {
             case 'b':
                 int confirmLine = askInt("Esta acción es irreversible: indique el número de línea activa para confirmarlo [" + document.getActiveLineIndex() + "]: ");
                 if (confirmLine == document.getActiveLineIndex()) {
-                    history.save(document); // Guardar antes de la acción
+                    history.save(document);
                     document.deleteLine();
                 }
                 break;
             case 'c':
-                clipboard = document.getActiveLineContent(); // Copiar el contenido de la línea activa
+                clipboard = document.getActiveLineContent();
                 System.out.println("Línea copiada: \"" + clipboard + "\"");
                 break;
             case 'p':
-                history.save(document); // Guardar antes de la acción
-                document.editLine(clipboard); // Pegar el contenido copiado en la línea activa
+                history.save(document);
+                document.editLine(clipboard);
                 System.out.println("Contenido pegado en la línea activa.");
                 break;
             case 'z':
@@ -92,7 +92,7 @@ public class DocumentEditor {
 
     private String askString(String prompt) {
         System.out.println(prompt);
-        input.nextLine(); // Consumir el salto de línea anterior
+        input.nextLine();
         return input.nextLine();
     }
 }
