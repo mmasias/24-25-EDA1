@@ -25,7 +25,7 @@ class Edlin {
 
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine, history));
+        } while (processActions(document, activeLine, history, redoStack));
     }
 
     static void print(String[] document, int[] activeLine) {
