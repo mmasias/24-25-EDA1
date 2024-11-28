@@ -26,4 +26,29 @@ public class ColeccionLineas {
             actual = actual.getSiguiente();
         }
     }
+    
+    public void seleccionarLineaActiva(int numeroLinea) {
+        NodoLinea actual = inicio;
+        while (actual != null) {
+            if (actual.obtenerNumero() == numeroLinea) {
+                System.out.println("Línea activa: " + numeroLinea);
+                return;
+            }
+            actual = actual.getSiguiente();
+        }
+        System.out.println("Número de línea no válido.");
+    }
+    
+    public void editarLineaActiva(int numeroLinea, String contenido) {
+        NodoLinea actual = inicio;
+        while (actual != null) {
+            if (actual.obtenerNumero() == numeroLinea) {
+                actual.establecerContenido(contenido);
+                System.out.println("Línea " + numeroLinea + " editada con contenido: " + contenido);
+                return;
+            }
+            actual = actual.getSiguiente();
+        }
+        System.out.println("Número de línea no válido.");
+    }
 }
