@@ -12,12 +12,15 @@ class Edlin {
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
                 "[U] deshacer la última acción",
+                "[R] rehacer la última acción",
                 "[S] sale del programa",
                 "",
                 ""
         };
 
         Stack history = new Stack(10, document.length); // Pila con capacidad para 10 estados
+        saveState(history, document);
+        Stack redoStack = new Stack(10, document.length); // Pila para rehacer
         saveState(history, document);
 
         do {
@@ -71,6 +74,9 @@ class Edlin {
                 break;
             case 'U':   case 'u':
                 undo(history, document);
+                break;
+            case 'R':   case 'r':
+                redo(redoStack, history, document);
                 break;
         }
         return true;
@@ -147,6 +153,19 @@ class Edlin {
             System.out.println("Se ha deshecho la última acción.");
         } else {
             System.out.println("No hay acciones para deshacer.");
+        }
+    }
+    
+    static void redo(Stack redoStack, Stack history, String[] document) {
+        String[] nextState = redoStack.pop();
+        if (nextState != null) {
+            history.push(document); // Guardar el estado actual para deshacer
+            for (int i = 0; i < document.length; i++) {
+                document[i] = nextState[i];
+            }
+            System.out.println("Se ha rehecho la última acción.");
+        } else {
+            System.out.println("No hay acciones para rehacer.");
         }
     }
 }
