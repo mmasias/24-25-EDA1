@@ -30,13 +30,7 @@ public class Pila {
     }
 
     public void reordenarCima() {
-
-        if (cima != null && cima.obtenerSiguiente() != null) {
-            cima = cima.obtenerSiguiente();
-        } else {
-            System.out.println("No hay suficientes nodos para reordenar.");
-        }
-        
+        cima = cima.obtenerSiguiente(); 
     }
 
     public void apilarVersion(NodoVersion nodo) {

@@ -58,7 +58,7 @@ public class Lista {
         if(contenido!=null){
             lineaActiva.setContenido(contenido);
         }else{
-            System.out.println("No tienes nada en el portapapeles");
+            lineaActiva.setContenido("");
         }
     }
 
@@ -97,5 +97,36 @@ public class Lista {
 
     public void borrarLineaActiva() {
         lineaActiva.setContenido("");
+    }
+
+    public void deshacerCambios(Pila versionesAnteriores, Pila versionesPosteriores) {
+
+        if (versionesAnteriores.obtenerCima()!=null) {
+            versionesPosteriores.apilar(obtenerLineaActiva().obtenerIndice(), obtenerLineaActiva().obtenerContenido());
+            cambiarLineaActiva(versionesAnteriores.obtenerCima().obtenerIndice());
+            editarLinea(versionesAnteriores.obtenerCima().obtenerContenido());
+            versionesAnteriores.reordenarCima();
+        }else{
+            System.out.println("No hay versiones anteriores");
+        }
+    }
+
+    public void pegar(String portapapeles) {
+        if(portapapeles!=null){
+            lineaActiva.setContenido(portapapeles);
+        }else{
+            System.out.println("No tienes nada en el portapapeles");
+        }
+    }
+
+    public void rehacerCambios(Pila versionesPosteriores, Pila versionesAnteriores) {
+        if (versionesPosteriores.obtenerCima()!=null) {
+            versionesAnteriores.apilar(obtenerLineaActiva().obtenerIndice(), obtenerLineaActiva().obtenerContenido());
+            cambiarLineaActiva(versionesPosteriores.obtenerCima().obtenerIndice());
+            editarLinea(versionesPosteriores.obtenerCima().obtenerContenido());
+            versionesPosteriores.reordenarCima();
+        }else{
+            System.out.println("No hay versiones posteriores");
+        }
     }    
 }

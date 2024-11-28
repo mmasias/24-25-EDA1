@@ -33,9 +33,9 @@ public class Interfaz {
                     break;
     
                 case "E":
+                    versionesAnteriores.apilar(lineasTexto.obtenerLineaActiva().obtenerIndice(), lineasTexto.obtenerLineaActiva().obtenerContenido());
                     System.out.println("Introduce el contenido nuevo: ");
                     String contenido = sc.nextLine();
-                    versionesAnteriores.apilar(lineasTexto.obtenerLineaActiva().obtenerIndice(), lineasTexto.obtenerLineaActiva().obtenerContenido());
                     lineasTexto.editarLinea(contenido);
                     break;
     
@@ -52,17 +52,11 @@ public class Interfaz {
                     break;
     
                 case "D":
-                    String contenidoAnterior = versionesAnteriores.desapilar();
-                    lineasTexto.editarLinea(contenidoAnterior);
-                    versionesPosteriores.apilarVersion(versionesAnteriores.obtenerCima());
-                    versionesAnteriores.reordenarCima();
+                    lineasTexto.deshacerCambios(versionesAnteriores, versionesPosteriores);
                     break;
     
                 case "R":
-                    String contenidoPosterior = versionesPosteriores.desapilar();
-                    lineasTexto.editarLinea(contenidoPosterior);
-                    versionesAnteriores.apilarVersion(versionesPosteriores.obtenerCima());
-                    versionesPosteriores.reordenarCima();
+                    lineasTexto.rehacerCambios(versionesPosteriores, versionesAnteriores);
                     break;
 
                 case "C":
@@ -71,7 +65,7 @@ public class Interfaz {
 
                 case "P":
                     versionesAnteriores.apilar(lineasTexto.obtenerLineaActiva().obtenerIndice(), lineasTexto.obtenerLineaActiva().obtenerContenido());
-                    lineasTexto.editarLinea(portapapeles);
+                    lineasTexto.pegar(portapapeles);
                     break;
     
                 case "S":
