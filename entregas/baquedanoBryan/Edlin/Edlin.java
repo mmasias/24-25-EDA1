@@ -2,124 +2,69 @@ import java.util.Scanner;
 
 public class Edlin {
     public static void main(String[] args) {
-        int activeLine[] = { 1 };
-        String document[] = {
-                "Bienvenidos al editor EDLIN",
-                "Utilice el menu inferior para editar el texto",
-                "------",
-                "[L] permite definir la linea activa",
-                "[E] permite editar la linea activa",
-                "[I] permite intercambiar dos lineas",
-                "[B] borra el contenido de la linea activa",
-                "[S] sale del programa",
-                "",
-                ""
-        };
+        Scanner scanner = new Scanner(System.in);
+        Editor editor = new Editor(10); 
 
-        do {
-            print(document, activeLine);
-        } while (processActions(document, activeLine));
-    }
+        boolean continuar = true;
 
-    static void print(String[] document, int[] activeLine) {
-        clearScreen();
-        printHorizontalLine();
-        for (int line = 0; line < document.length; line++) {
-            System.out.println(line + separator(line, activeLine[0]) + document[line]);
+        while (continuar) {
+            editor.mostrarDocumento(); 
+            continuar = procesarComando(scanner, editor); 
         }
-        printHorizontalLine();
+
+        System.out.println("Programa terminado.");
     }
 
-    static String separator(int line, int activeLine) {
+    public static boolean procesarComando(Scanner scanner, Editor editor) {
+        System.out.println("Comandos disponibles:");
+        System.out.println("[L]ínea activa | [E]ditar | [I]ntercambiar | [B]orrar | [D]eshacer | [R]ehacer | [C]opiar | [P]egar | [S]alir");
+        char comando = scanner.next().charAt(0);
+
+        if (comando == 'L' || comando == 'l') {
+            System.out.print("Indique nueva línea activa: ");
+            int nuevaLinea = scanner.nextInt();
+            editor.setLineaActiva(nuevaLinea); 
+        } else if (comando == 'E' || comando == 'e') {
+            System.out.print("Indique contenido para la línea activa: ");
+            scanner.nextLine(); 
+            String contenido = scanner.nextLine();
+            editor.editar(editor.getLineaActiva(), contenido); 
+        } else if (comando == 'I' || comando == 'i') {
+            System.out.print("Indique la primera línea a intercambiar: ");
+            int linea1 = scanner.nextInt();
+            System.out.print("Indique la segunda línea a intercambiar: ");
+            int linea2 = scanner.nextInt();
+            editor.intercambiar(linea1, linea2);
+        } else if (comando == 'B' || comando == 'b') {
+            System.out.println("Borrando contenido de la línea activa.");
+            editor.borrar(editor.getLineaActiva()); 
+        } else if (comando == 'D' || comando == 'd') {
+            editor.deshacer();
+        } else if (comando == 'R' || comando == 'r') {
+            editor.rehacer();
+        } else if (comando == 'C' || comando == 'c') {
+            editor.copiar();
+        } else if (comando == 'P' || comando == 'p') {
+            editor.pegar();
+        } else if (comando == 'S' || comando == 's') {
+            return false; 
+        } else {
+            System.out.println("Comando no reconocido. Intente nuevamente.");
+        }
+
+        return true; 
+    }
+
+    public static void mostrarDocumento(Editor editor) {
+        editor.mostrarDocumento(); 
+    }
+
+    public static String separator(int line, int activeLine) {
         return line == activeLine ? ":*| " : ": | ";
     }
 
-    static void printHorizontalLine() {
-        System.out.println("-".repeat(50));
-    }
-
-    static void clearScreen() {
+    public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-    }
-
-    static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir");
-
-        switch (askChar()) {
-            case 'S':   case 's':
-                return false;
-            case 'L':   case 'l':
-                setActiveLine(document, activeLine);
-                break;
-            case 'E':   case 'e':
-                edit(document, activeLine);
-                break;
-            case 'I':   case 'i':
-                exchangeLines(document);
-                break;
-            case 'B':   case 'b':
-                delete(document, activeLine);
-                break;
-        }
-        return true;
-    }
-
-    static char askChar() {
-        Scanner input = new Scanner(System.in);
-        return input.next().charAt(0);
-    }
-
-    static void delete(String[] document, int[] activeLine) {
-        System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["+activeLine[0]+"]");
-        if (askInt()==activeLine[0]) {
-            document[activeLine[0]]="";
-        }
-    }
-
-    static void exchangeLines(String[] document) {
-        int originLine, destinationLine;
-        String temporaryLine;
-        boolean validLine = true;
-
-        do {
-            System.out.print("Indique primera línea a intercambiar: ");
-            originLine = askInt();
-            validLine = originLine >= 0 && originLine < document.length;
-        } while (!validLine);
-
-        do {
-            System.out.print("Indique segunda línea a intercambiar: ");
-            destinationLine = askInt();
-            validLine = destinationLine >= 0 && destinationLine < document.length;
-        } while (!validLine);
-        
-        temporaryLine = document[destinationLine];
-        document[destinationLine]=document[originLine];
-        document[originLine]=temporaryLine;
-    }
-
-    static void edit(String[] document, int[] activeLine) {
-        System.out.println("EDITANDO> " + document[activeLine[0]]);
-        document[activeLine[0]] = askString();
-    }
-
-    static String askString() {
-        Scanner input = new Scanner(System.in);
-        return input.nextLine();
-    }
-
-    static void setActiveLine(String[] document, int[] activeLine) {
-        boolean validLine = true;
-        do {
-            System.out.print("Indique la nueva línea activa: ");
-            activeLine[0] = askInt();
-            validLine = activeLine[0] >= 0 && activeLine[0] < document.length;
-        } while (!validLine);
-    }
-
-    static int askInt() {
-        Scanner input = new Scanner(System.in);
-        return input.nextInt();
     }
 }
