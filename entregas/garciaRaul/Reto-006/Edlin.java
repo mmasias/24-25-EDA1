@@ -11,6 +11,7 @@ class Edlin {
                 "[E] permite editar la linea activa",
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
+                "[C] permite copiar el contenido de una línea a otra",
                 "[S] sale del programa",
                 "",
                 ""
@@ -44,7 +45,7 @@ class Edlin {
     }
 
     static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir");
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [S]alir");
 
         switch (askChar()) {
             case 'S':   case 's':
@@ -61,6 +62,9 @@ class Edlin {
             case 'B':   case 'b':
                 delete(document, activeLine);
                 break;
+            case 'C':   case 'c':
+                copy(document);
+                break;
         }
         return true;
     }
@@ -72,15 +76,15 @@ class Edlin {
 
     static void delete(String[] document, int[] activeLine) {
         System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["+activeLine[0]+"]");
-        if (askInt()==activeLine[0]) {
-            document[activeLine[0]]="";
+        if (askInt() == activeLine[0]) {
+            document[activeLine[0]] = "";
         }
     }
 
     static void exchangeLines(String[] document) {
         int originLine, destinationLine;
         String temporaryLine;
-        boolean validLine = true;
+        boolean validLine;
 
         do {
             System.out.print("Indique primera línea a intercambiar: ");
@@ -93,10 +97,10 @@ class Edlin {
             destinationLine = askInt();
             validLine = destinationLine >= 0 && destinationLine < document.length;
         } while (!validLine);
-        
+
         temporaryLine = document[destinationLine];
-        document[destinationLine]=document[originLine];
-        document[originLine]=temporaryLine;
+        document[destinationLine] = document[originLine];
+        document[originLine] = temporaryLine;
     }
 
     static void edit(String[] document, int[] activeLine) {
@@ -110,7 +114,7 @@ class Edlin {
     }
 
     static void setActiveLine(String[] document, int[] activeLine) {
-        boolean validLine = true;
+        boolean validLine;
         do {
             System.out.print("Indique la nueva línea activa: ");
             activeLine[0] = askInt();
@@ -121,5 +125,25 @@ class Edlin {
     static int askInt() {
         Scanner input = new Scanner(System.in);
         return input.nextInt();
+    }
+
+    static void copy(String[] document) {
+        int originLine, destinationLine;
+        boolean validLine;
+        do {
+            System.out.print("Indique la línea a copiar: ");
+            originLine = askInt();
+            validLine = originLine >= 0 && originLine < document.length;
+        } while (!validLine);
+
+        do {
+            System.out.print("Indique la línea donde pegar: ");
+            destinationLine = askInt();
+            validLine = destinationLine >= 0 && destinationLine < document.length;
+        } while (!validLine);
+
+        // Copiar el contenido
+        document[destinationLine] = document[originLine];
+        System.out.println("Contenido de la línea " + originLine + " copiado a la línea " + destinationLine);
     }
 }
