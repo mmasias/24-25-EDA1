@@ -1,5 +1,7 @@
 public class ColeccionLineas {
     private NodoLinea inicio;
+    private PilaHistorial pilaDeshacer = new PilaHistorial();
+    private PilaHistorial pilaRehacer = new PilaHistorial();
 
     public ColeccionLineas() {
         inicializarLineas();
@@ -26,7 +28,7 @@ public class ColeccionLineas {
             actual = actual.getSiguiente();
         }
     }
-    
+
     public void seleccionarLineaActiva(int numeroLinea) {
         NodoLinea actual = inicio;
         while (actual != null) {
@@ -50,5 +52,31 @@ public class ColeccionLineas {
             actual = actual.getSiguiente();
         }
         System.out.println("Número de línea no válido.");
+    }
+    
+    public void deshacer() {
+        if (pilaDeshacer.estaVacia()) {
+            System.out.println("No hay acciones para deshacer.");
+            return;
+        }
+        Historial accion = pilaDeshacer.desapilar();
+        NodoLinea linea = buscarNodo(accion.obtenerNumero());
+        if (linea != null) {
+            pilaRehacer.guardar(new Historial(linea.obtenerNumero(), linea.obtenerContenido()));
+            linea.establecerContenido(accion.obtenerContenido());
+        }
+    }
+    
+    public void rehacer() {
+        if (pilaRehacer.estaVacia()) {
+            System.out.println("No hay acciones para rehacer.");
+            return;
+        }
+        Historial accion = pilaRehacer.desapilar();
+        NodoLinea linea = buscarNodo(accion.obtenerNumero());
+        if (linea != null) {
+            pilaDeshacer.guardar(new Historial(linea.obtenerNumero(), linea.obtenerContenido()));
+            linea.establecerContenido(accion.obtenerContenido());
+        }
     }
 }
