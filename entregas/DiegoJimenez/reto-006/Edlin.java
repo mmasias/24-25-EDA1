@@ -10,6 +10,8 @@ class Edlin {
                 "[L] permite definir la linea activa",
                 "[E] permite editar la linea activa",
                 "[I] permite intercambiar dos lineas",
+                "[D] permite deshacer el ultimo cambio",
+                "[R] permite rehacer el ultimo cambio",
                 "[B] borra el contenido de la linea activa",
                 "[S] sale del programa",
                 "",
@@ -57,6 +59,12 @@ class Edlin {
                 break;
             case 'I':   case 'i':
                 exchangeLines(document);
+                break;
+            case 'D':   case 'd':
+                undo(document, activeLine);
+                break;
+            case 'R':   case 'r':
+                redo(document, activeLine);
                 break;
             case 'B':   case 'b':
                 delete(document, activeLine);
