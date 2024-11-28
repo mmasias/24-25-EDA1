@@ -1,9 +1,10 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 class Edlin {
     public static void main(String[] args) {
-        int activeLine[] = { 1 };
-        String document[] = {
+        int[] activeLine = {1};
+        String[] document = {
                 "Bienvenidos al editor EDLIN",
                 "Utilice el menú inferior para editar el texto",
                 "------",
@@ -20,14 +21,14 @@ class Edlin {
                 ""
         };
 
-        // Variables para deshacer, rehacer y portapapeles
-        String lastContent[] = { "" };
-        String redoContent[] = { "" };
-        String clipboard[] = { "" };
+        // Pilas para deshacer y rehacer
+        Stack<String> undoStack = new Stack<>();
+        Stack<String> redoStack = new Stack<>();
+        String[] clipboard = {""};
 
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine, lastContent, redoContent, clipboard));
+        } while (processActions(document, activeLine, undoStack, redoStack, clipboard));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -52,8 +53,8 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine, String[] lastContent, String[] redoContent,
-            String[] clipboard) {
+    static boolean processActions(String[] document, int[] activeLine, Stack<String> undoStack, Stack<String> redoStack,
+                                  String[] clipboard) {
         System.out.println(
                 "Comandos: [L]ínea activa | [E]ditar | [I]ntercambiar | [D]eshacer | [R]ehacer | [C]opiar | [P]egar | [B]orrar | [S]alir");
 
@@ -67,7 +68,7 @@ class Edlin {
                 break;
             case 'E':
             case 'e':
-                edit(document, activeLine, lastContent, redoContent);
+                edit(document, activeLine, undoStack, redoStack);
                 break;
             case 'I':
             case 'i':
@@ -75,15 +76,15 @@ class Edlin {
                 break;
             case 'B':
             case 'b':
-                delete(document, activeLine, lastContent, redoContent);
+                delete(document, activeLine, undoStack, redoStack);
                 break;
             case 'D':
             case 'd':
-                undo(document, activeLine, lastContent, redoContent);
+                undo(document, activeLine, undoStack, redoStack);
                 break;
             case 'R':
             case 'r':
-                redo(document, activeLine, lastContent, redoContent);
+                redo(document, activeLine, undoStack, redoStack);
                 break;
             case 'C':
             case 'c':
@@ -91,7 +92,7 @@ class Edlin {
                 break;
             case 'P':
             case 'p':
-                paste(document, activeLine, clipboard, lastContent, redoContent);
+                paste(document, activeLine, clipboard, undoStack, redoStack);
                 break;
         }
         return true;
@@ -102,12 +103,12 @@ class Edlin {
         return input.next().charAt(0);
     }
 
-    static void delete(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
+    static void delete(String[] document, int[] activeLine, Stack<String> undoStack, Stack<String> redoStack) {
         System.out.println("CONFIRMACIÓN: Indique el número de línea activa [" + activeLine[0] + "] para confirmar borrado");
         if (askInt() == activeLine[0]) {
-            redoContent[0] = "";
-            lastContent[0] = document[activeLine[0]]; // Guardar estado previo
-            document[activeLine[0]] = ""; // Borrar contenido
+            redoStack.clear();
+            undoStack.push(document[activeLine[0]]); 
+            document[activeLine[0]] = "";
             System.out.println("Línea borrada.");
         }
     }
@@ -131,34 +132,32 @@ class Edlin {
         document[originLine] = temporaryLine;
     }
 
-    static void edit(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
+    static void edit(String[] document, int[] activeLine, Stack<String> undoStack, Stack<String> redoStack) {
         System.out.println("EDITANDO> " + document[activeLine[0]]);
-        redoContent[0] = "";
-        lastContent[0] = document[activeLine[0]]; // Guardar estado previo
-        document[activeLine[0]] = askString(); // Actualizar línea activa
+        redoStack.clear();
+        undoStack.push(document[activeLine[0]]); 
+        document[activeLine[0]] = askString(); 
         System.out.println("Edición completada.");
     }
 
-    static void undo(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
-        if (lastContent[0].isEmpty()) {
+    static void undo(String[] document, int[] activeLine, Stack<String> undoStack, Stack<String> redoStack) {
+        if (undoStack.isEmpty()) {
             System.out.println("No hay cambios para deshacer.");
             return;
         }
         System.out.println("DESHACIENDO> Línea activa: " + activeLine[0]);
-        redoContent[0] = document[activeLine[0]]; // Guardar estado actual para rehacer
-        document[activeLine[0]] = lastContent[0]; // Restaurar contenido previo
-        lastContent[0] = ""; // Limpiar estado de deshacer
+        redoStack.push(document[activeLine[0]]); 
+        document[activeLine[0]] = undoStack.pop(); 
     }
 
-    static void redo(String[] document, int[] activeLine, String[] lastContent, String[] redoContent) {
-        if (redoContent[0].isEmpty()) {
+    static void redo(String[] document, int[] activeLine, Stack<String> undoStack, Stack<String> redoStack) {
+        if (redoStack.isEmpty()) {
             System.out.println("No hay cambios para rehacer.");
             return;
         }
         System.out.println("REHACIENDO> Línea activa: " + activeLine[0]);
-        lastContent[0] = document[activeLine[0]]; // Guardar estado actual
-        document[activeLine[0]] = redoContent[0]; // Restaurar contenido rehacer
-        redoContent[0] = ""; // Limpiar estado de rehacer
+        undoStack.push(document[activeLine[0]]); 
+        document[activeLine[0]] = redoStack.pop(); 
     }
 
     static void copy(String[] document, int[] activeLine, String[] clipboard) {
@@ -166,15 +165,14 @@ class Edlin {
         System.out.println("Contenido copiado: " + clipboard[0]);
     }
 
-    static void paste(String[] document, int[] activeLine, String[] clipboard, String[] lastContent,
-            String[] redoContent) {
+    static void paste(String[] document, int[] activeLine, String[] clipboard, Stack<String> undoStack, Stack<String> redoStack) {
         if (clipboard[0].isEmpty()) {
             System.out.println("El portapapeles está vacío.");
             return;
         }
-        redoContent[0] = "";
-        lastContent[0] = document[activeLine[0]]; // Guardar estado previo
-        document[activeLine[0]] = clipboard[0]; // Pegar contenido
+        redoStack.clear();
+        undoStack.push(document[activeLine[0]]); 
+        document[activeLine[0]] = clipboard[0]; 
         System.out.println("Contenido pegado.");
     }
 
