@@ -1,4 +1,4 @@
-class Nodo {
+public class Nodo {
     String[] valor;
     Nodo siguiente;
 

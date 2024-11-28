@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class Edlin {
+public class Edlin {
     public static void main(String[] args) {
         int activeLine[] = { 1 };
         String document[] = {
