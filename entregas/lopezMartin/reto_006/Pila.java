@@ -16,26 +16,11 @@ public class Pila {
         cima = nuevoNodo;
     }
 
-    public String desapilar() {
-        if (cima==null) {
-            return null;
-        }
-        String contenido = cima.obtenerContenido();
-        cima = cima.obtenerSiguiente();
-        return contenido;
-    }
-
     public NodoVersion obtenerCima(){
         return this.cima;
     }
 
     public void reordenarCima() {
         cima = cima.obtenerSiguiente(); 
-    }
-
-    public void apilarVersion(NodoVersion nodo) {
-        NodoVersion nuevoNodo = new NodoVersion(nodo.obtenerIndice(), nodo.obtenerContenido());
-        nuevoNodo.setSiguiente(cima);
-        cima = nuevoNodo;
     }
 }
