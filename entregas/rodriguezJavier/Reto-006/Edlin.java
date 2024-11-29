@@ -4,9 +4,9 @@ import java.util.Stack;
 class Edlin {
     public static void main(String[] args) {
         int activeLine[] = { 1 };
-        String clipboard = ""; // Memoria temporal para almacenar el texto copiado
-        Stack<String[]> history = new Stack<>(); // Pila para almacenar el historial de estados del documento
-        Stack<String[]> redoStack = new Stack<>(); // Pila para almacenar los estados deshechos
+        String clipboard = "";
+        Stack<String[]> history = new Stack<>();
+        Stack<String[]> redoStack = new Stack<>();
 
         String document[] = {
                 "Bienvenidos al editor EDLIN",
@@ -158,13 +158,13 @@ class Edlin {
         return input.nextInt();
     }
 
-    // Función copiar
+
     static String copy(String[] document, int[] activeLine) {
         System.out.println("Copiando el contenido de la línea activa [" + activeLine[0] + "]: " + document[activeLine[0]]);
         return document[activeLine[0]];
     }
 
-    // Función pegar
+
     static void paste(String[] document, String clipboard) {
         if (clipboard.isEmpty()) {
             System.out.println("El portapapeles está vacío. Copie algo antes de pegar.");
@@ -181,31 +181,31 @@ class Edlin {
         }
     }
 
-    // Función guardar estado
+
     static void saveState(String[] document, Stack<String[]> history, Stack<String[]> redoStack) {
-        history.push(document.clone()); // Guardar una copia del documento
-        redoStack.clear(); // Limpiar la pila de rehacer, ya que la historia cambia
+        history.push(document.clone());
+        redoStack.clear();
     }
 
-    // Función deshacer
+
     static String[] undo(Stack<String[]> history, Stack<String[]> redoStack, String[] currentDocument) {
         if (history.isEmpty()) {
             System.out.println("No hay cambios para deshacer.");
             return currentDocument;
         }
         System.out.println("Deshaciendo el último cambio...");
-        redoStack.push(currentDocument.clone()); // Guardar el estado actual en redoStack
-        return history.pop(); // Recuperar el último estado guardado
+        redoStack.push(currentDocument.clone());
+        return history.pop();
     }
 
-    // Función rehacer
+
     static String[] redo(Stack<String[]> history, Stack<String[]> redoStack, String[] currentDocument) {
         if (redoStack.isEmpty()) {
             System.out.println("No hay cambios para rehacer.");
             return currentDocument;
         }
         System.out.println("Rehaciendo el último cambio...");
-        history.push(currentDocument.clone()); // Guardar el estado actual en history
-        return redoStack.pop(); // Recuperar el último estado deshecho
+        history.push(currentDocument.clone());
+        return redoStack.pop();
     }
 }
