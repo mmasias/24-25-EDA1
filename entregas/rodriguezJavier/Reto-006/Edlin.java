@@ -3,6 +3,7 @@ import java.util.Scanner;
 class Edlin {
     public static void main(String[] args) {
         int activeLine[] = { 1 };
+        String clipboard = ""; // Memoria temporal para almacenar el texto copiado
         String document[] = {
                 "Bienvenidos al editor EDLIN",
                 "Utilice el menu inferior para editar el texto",
@@ -12,6 +13,7 @@ class Edlin {
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
                 "[C] copia el contenido de la linea activa a otra",
+                "[P] pega el contenido del portapapeles en una linea",
                 "[S] sale del programa",
                 "",
                 ""
@@ -19,7 +21,7 @@ class Edlin {
 
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine));
+        } while (processActions(document, activeLine, clipboard));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -44,8 +46,8 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [S]alir");
+    static boolean processActions(String[] document, int[] activeLine, String clipboard) {
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir");
 
         switch (askChar()) {
             case 'S':
@@ -69,7 +71,11 @@ class Edlin {
                 break;
             case 'C':
             case 'c':
-                copy(document, activeLine);
+                clipboard = copy(document, activeLine);
+                break;
+            case 'P':
+            case 'p':
+                paste(document, clipboard);
                 break;
         }
         return true;
@@ -134,15 +140,24 @@ class Edlin {
         return input.nextInt();
     }
 
-    // Nueva función: copiar
-    static void copy(String[] document, int[] activeLine) {
+    // Función copiar
+    static String copy(String[] document, int[] activeLine) {
         System.out.println("Copiando el contenido de la línea activa [" + activeLine[0] + "]: " + document[activeLine[0]]);
-        System.out.print("Indique la línea de destino: ");
+        return document[activeLine[0]];
+    }
+
+    // Nueva función pegar
+    static void paste(String[] document, String clipboard) {
+        if (clipboard.isEmpty()) {
+            System.out.println("El portapapeles está vacío. Copie algo antes de pegar.");
+            return;
+        }
+        System.out.print("Indique la línea donde desea pegar: ");
         int destinationLine = askInt();
 
         if (destinationLine >= 0 && destinationLine < document.length) {
-            document[destinationLine] = document[activeLine[0]];
-            System.out.println("Contenido copiado a la línea " + destinationLine);
+            System.out.println("Pegando el contenido: \"" + clipboard + "\" en la línea " + destinationLine);
+            document[destinationLine] = clipboard;
         } else {
             System.out.println("Número de línea inválido.");
         }
