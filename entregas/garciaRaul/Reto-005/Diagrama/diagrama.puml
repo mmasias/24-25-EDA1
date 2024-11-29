@@ -1,0 +1,48 @@
+@startuml
+class SistemaControlVersiones {
+    +main(String[]): void
+}
+
+class ArbolVersiones {
+    - NodoVersion raiz
+    - NodoVersion versionActual
+    + ArbolVersiones()
+    + agregarVersion(cantidadArchivos: int): void
+    + obtenerVersionActual(): String
+    + moverAPadre(): void
+    + moverAPrimerHijo(): void
+    + moverASiguienteHermano(): void
+    + moverAAnteriorHermano(): void
+    + mostrarArbol(): void
+    - mostrarArbolRecursivo(nodo: NodoVersion, prefijo: String, esUltimo: boolean): void
+}
+
+class NodoVersion {
+    - int cantidadArchivos
+    - NodoVersion padre
+    - NodoVersion hermanoAnterior
+    - NodoVersion hermanoSiguiente
+    - NodoVersion primerHijo
+    + NodoVersion(cantidadArchivos: int, padre: NodoVersion)
+    + getCantidadArchivos(): int
+    + getPadre(): NodoVersion
+    + getHermanoAnterior(): NodoVersion
+    + getHermanoSiguiente(): NodoVersion
+    + getPrimerHijo(): NodoVersion
+    + setHermanoSiguiente(hermanoSiguiente: NodoVersion): void
+    + setHermanoAnterior(hermanoAnterior: NodoVersion): void
+    + agregarHijo(hijo: NodoVersion): void
+    + mostrar(): String
+}
+
+class InterfazUsuario {
+    - ArbolVersiones arbolVersiones
+    + InterfazUsuario(arbolVersiones: ArbolVersiones)
+    + iniciar(): void
+}
+
+SistemaControlVersiones --> InterfazUsuario
+InterfazUsuario --> ArbolVersiones
+ArbolVersiones --> NodoVersion
+NodoVersion --> NodoVersion : relaciones padre/hijo/hermano
+@enduml
