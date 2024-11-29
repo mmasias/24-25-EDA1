@@ -90,6 +90,12 @@ class Edlin {
                 paste(document, copiedLine);
                 break;
 
+            case 'D': case 'd':
+                undo(history, redoStack, document);
+                break;
+
+            
+
         }
         return true;
     }
@@ -174,6 +180,17 @@ class Edlin {
             System.out.println("Se pegó la línea copiada en la línea " + destinationLine);
         } else {
             System.out.println("Línea inválida.");
+        }
+    }
+
+    static void undo(Stack<List<String>> history, Stack<List<String>> redoStack, List<String> document) {
+        if (!history.isEmpty()) {
+            redoStack.push(new ArrayList<>(document));
+            List<String> previousState = history.pop();
+            document.clear();
+            document.addAll(previousState);
+        } else {
+            System.out.println("No hay más acciones para deshacer.");
         }
     }
 
