@@ -43,7 +43,7 @@ class Edlin {
     }
 
     static void printHorizontalLine() {
-        System.out.println("-");
+        System.out.println("-".repeat(50));
     }
 
     static void clearScreen() {
@@ -94,7 +94,9 @@ class Edlin {
                 undo(history, redoStack, document);
                 break;
 
-            
+            case 'R': case 'r':
+                redo(redoStack, history, document);
+                break;
 
         }
         return true;
@@ -191,6 +193,17 @@ class Edlin {
             document.addAll(previousState);
         } else {
             System.out.println("No hay más acciones para deshacer.");
+        }
+    }
+
+    static void redo(Stack<List<String>> redoStack, Stack<List<String>> history, List<String> document) {
+        if (!redoStack.isEmpty()) {
+            history.push(new ArrayList<>(document));
+            List<String> nextState = redoStack.pop();
+            document.clear();
+            document.addAll(nextState);
+        } else {
+            System.out.println("No hay más acciones para rehacer.");
         }
     }
 
