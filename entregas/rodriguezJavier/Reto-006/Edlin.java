@@ -1,9 +1,12 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 class Edlin {
     public static void main(String[] args) {
         int activeLine[] = { 1 };
         String clipboard = ""; // Memoria temporal para almacenar el texto copiado
+        Stack<String[]> history = new Stack<>(); // Pila para almacenar el historial de estados del documento
+
         String document[] = {
                 "Bienvenidos al editor EDLIN",
                 "Utilice el menu inferior para editar el texto",
@@ -14,6 +17,7 @@ class Edlin {
                 "[B] borra el contenido de la linea activa",
                 "[C] copia el contenido de la linea activa a otra",
                 "[P] pega el contenido del portapapeles en una linea",
+                "[D] deshacer el último cambio",
                 "[S] sale del programa",
                 "",
                 ""
@@ -21,7 +25,7 @@ class Edlin {
 
         do {
             print(document, activeLine);
-        } while (processActions(document, activeLine, clipboard));
+        } while (processActions(document, activeLine, clipboard, history));
     }
 
     static void print(String[] document, int[] activeLine) {
@@ -46,8 +50,8 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine, String clipboard) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir");
+    static boolean processActions(String[] document, int[] activeLine, String clipboard, Stack<String[]> history) {
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [D]eshacer | [S]alir");
 
         switch (askChar()) {
             case 'S':
@@ -59,14 +63,17 @@ class Edlin {
                 break;
             case 'E':
             case 'e':
+                saveState(document, history);
                 edit(document, activeLine);
                 break;
             case 'I':
             case 'i':
+                saveState(document, history);
                 exchangeLines(document);
                 break;
             case 'B':
             case 'b':
+                saveState(document, history);
                 delete(document, activeLine);
                 break;
             case 'C':
@@ -75,7 +82,12 @@ class Edlin {
                 break;
             case 'P':
             case 'p':
+                saveState(document, history);
                 paste(document, clipboard);
+                break;
+            case 'D':
+            case 'd':
+                document = undo(history, document);
                 break;
         }
         return true;
@@ -146,7 +158,7 @@ class Edlin {
         return document[activeLine[0]];
     }
 
-    // Nueva función pegar
+    // Función pegar
     static void paste(String[] document, String clipboard) {
         if (clipboard.isEmpty()) {
             System.out.println("El portapapeles está vacío. Copie algo antes de pegar.");
@@ -161,5 +173,20 @@ class Edlin {
         } else {
             System.out.println("Número de línea inválido.");
         }
+    }
+
+    // Función guardar estado
+    static void saveState(String[] document, Stack<String[]> history) {
+        history.push(document.clone()); // Guardar una copia del documento
+    }
+
+    // Función deshacer
+    static String[] undo(Stack<String[]> history, String[] currentDocument) {
+        if (history.isEmpty()) {
+            System.out.println("No hay cambios para deshacer.");
+            return currentDocument;
+        }
+        System.out.println("Deshaciendo el último cambio...");
+        return history.pop(); // Recuperar el último estado guardado
     }
 }
