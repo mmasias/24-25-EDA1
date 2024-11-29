@@ -14,6 +14,7 @@ class Edlin {
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
                 "[C] copiar la línea activa",
+                "[P] pegar en la línea activa",
                 "[S] sale del programa",
                 "",
                 ""
@@ -47,7 +48,7 @@ class Edlin {
     }
 
     static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [S]alir");
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir");
 
         switch (askChar()) {
             case 'S':   case 's':
@@ -67,6 +68,9 @@ class Edlin {
             case 'C':   case 'c':
                 copy(document, activeLine);
                 break;
+            case 'P':   case 'p':
+                paste(document, activeLine);
+                break;
         }
         return true;
     }
@@ -78,8 +82,8 @@ class Edlin {
 
     static void delete(String[] document, int[] activeLine) {
         System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["+activeLine[0]+"]");
-        if (askInt()==activeLine[0]) {
-            document[activeLine[0]]="";
+        if (askInt() == activeLine[0]) {
+            document[activeLine[0]] = "";
         }
     }
 
@@ -101,8 +105,8 @@ class Edlin {
         } while (!validLine);
         
         temporaryLine = document[destinationLine];
-        document[destinationLine]=document[originLine];
-        document[originLine]=temporaryLine;
+        document[destinationLine] = document[originLine];
+        document[originLine] = temporaryLine;
     }
 
     static void edit(String[] document, int[] activeLine) {
@@ -132,5 +136,14 @@ class Edlin {
     static void copy(String[] document, int[] activeLine) {
         copyBuffer = document[activeLine[0]]; 
         System.out.println("Línea copiada: " + copyBuffer);
+    }
+
+    static void paste(String[] document, int[] activeLine) {
+        if (copyBuffer.isEmpty()) {
+            System.out.println("El buffer está vacío. Copie una línea antes de pegar.");
+        } else {
+            document[activeLine[0]] = copyBuffer; 
+            System.out.println("Pegado: " + copyBuffer);
+        }
     }
 }
