@@ -4,7 +4,7 @@ import java.util.*;
 
 class Edlin {
     public static void main(String[] args) {
-        int[] activeLine = {1};
+        int[] activeLine = { 1 };
         List<String> document = new ArrayList<>(Arrays.asList(
                 "Bienvenidos al editor EDLIN",
                 "Utilice el menu inferior para editar el texto",
@@ -17,8 +17,7 @@ class Edlin {
                 "[R] rehacer la última acción",
                 "[C] copiar la línea activa",
                 "[P] pegar en otra línea",
-                "[S] sale del programa"
-        ));
+                "[S] sale del programa"));
 
         Stack<List<String>> history = new Stack<>();
         Stack<List<String>> redoStack = new Stack<>();
@@ -52,8 +51,10 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(List<String> document, int[] activeLine, Stack<List<String>> history, Stack<List<String>> redoStack, String copiedLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [D]eshacer | [R]ehacer | [S]alir");
+    static boolean processActions(List<String> document, int[] activeLine, Stack<List<String>> history,
+            Stack<List<String>> redoStack, String copiedLine) {
+        System.out.println(
+                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [D]eshacer | [R]ehacer | [S]alir");
 
         switch (askChar()) {
             case 'S': case 's':
@@ -78,11 +79,17 @@ class Edlin {
                 redoStack.clear();
                 delete(document, activeLine);
                 break;
-           
+
             case 'C': case 'c':
                 copiedLine = copy(document, activeLine);
                 break;
-            
+
+            case 'P': case 'p':
+                saveState(history, document);
+                redoStack.clear();
+                paste(document, copiedLine);
+                break;
+
         }
         return true;
     }
@@ -93,7 +100,8 @@ class Edlin {
     }
 
     static void delete(List<String> document, int[] activeLine) {
-        System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo [" + activeLine[0] + "]");
+        System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["
+                + activeLine[0] + "]");
         if (askInt() == activeLine[0]) {
             document.set(activeLine[0], "");
         }
@@ -154,5 +162,19 @@ class Edlin {
         return document.get(activeLine[0]);
     }
 
+    static void paste(List<String> document, String copiedLine) {
+        if (copiedLine == null) {
+            System.out.println("No hay ninguna línea copiada.");
+            return;
+        }
+        System.out.print("Indique la línea donde pegar: ");
+        int destinationLine = askInt();
+        if (destinationLine >= 0 && destinationLine < document.size()) {
+            document.set(destinationLine, copiedLine);
+            System.out.println("Se pegó la línea copiada en la línea " + destinationLine);
+        } else {
+            System.out.println("Línea inválida.");
+        }
+    }
 
 }
