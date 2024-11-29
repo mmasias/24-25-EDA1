@@ -1,0 +1,112 @@
+@startuml SistemaDeVersiones
+hide circle
+
+class Usuario {
+    - id: String
+    - username: String
+    - email: String
+    - repositorios: List<Repositorio>
+    + Usuario(id: String, username: String, email: String)
+    + crearRepositorio(name: String, description: String): Repositorio
+    + getRepositorios(): List<Repositorio>
+}
+
+class Repositorio {
+    - id: String
+    - name: String
+    - description: String
+    - owner: Usuario
+    - ramas: List<Rama>
+    + Repositorio(id: String, name: String, description: String, owner: Usuario)
+    + crearRama(name: String, isDefault: Boolean): Rama
+    + getRamas(): List<Rama>
+    + getName(): String
+    + getDescription(): String
+}
+
+class Rama {
+    - id: String
+    - name: String
+    - isDefault: Boolean
+    - commits: List<Commit>
+    - pullRequests: List<PullRequest>
+    + Rama(id: String, name: String, isDefault: Boolean)
+    + agregarCommit(message: String): Commit
+    + crearPullRequest(title: String, description: String): PullRequest
+    + getCommits(): List<Commit>
+    + getName(): String
+}
+
+class Commit {
+    - id: String
+    - message: String
+    - timestamp: Date
+    - comentarios: List<Comentario>
+    + Commit(id: String, message: String)
+    + agregarComentario(content: String, author: String): Comentario
+    + getMessage(): String
+    + getComentarios(): List<Comentario>
+}
+
+class PullRequest {
+    - id: String
+    - title: String
+    - description: String
+    - comentarios: List<Comentario>
+    + PullRequest(id: String, title: String, description: String)
+    + agregarComentario(content: String, author: String): Comentario
+    + getComentarios(): List<Comentario>
+    + getTitle(): String
+}
+
+class Issue {
+    - id: String
+    - title: String
+    - description: String
+    - comentarios: List<Comentario>
+    + Issue(id: String, title: String, description: String)
+    + agregarComentario(content: String, author: String): Comentario
+    + getTitle(): String
+    + getComentarios(): List<Comentario>
+}
+
+class ComentarioCommit {
+    - id: String
+    - content: String
+    - timestamp: Date
+    - author: String
+    + Comentario(id: String, content: String, author: String)
+    + getContent(): String
+    + getAuthor(): String
+}
+
+class ComentarioIssue {
+    - id: String
+    - content: String
+    - timestamp: Date
+    - author: String
+    + Comentario(id: String, content: String, author: String)
+    + getContent(): String
+    + getAuthor(): String
+}
+
+class ComentarioPullRequest {
+    - id: String
+    - content: String
+    - timestamp: Date
+    - author: String
+    + Comentario(id: String, content: String, author: String)
+    + getContent(): String
+    + getAuthor(): String
+}
+
+Usuario "1" --> "1..*" Repositorio : posee
+Repositorio "1" --> "1..*" Rama : contiene
+Rama "1" --> "1..*" Commit : contiene
+Rama "1" --> "1..*" PullRequest : contiene
+Rama "1" --> "1..*" Issue : contiene
+Commit "1" --> "1..*" ComentarioCommit : tiene
+PullRequest "1" --> "1..*" ComentarioPullRequest : tiene
+Issue "1" --> "1..*" ComentarioIssue : tiene
+
+@enduml
