@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 class Edlin {
+    private static String copyBuffer = ""; 
+
     public static void main(String[] args) {
         int activeLine[] = { 1 };
         String document[] = {
@@ -11,6 +13,7 @@ class Edlin {
                 "[E] permite editar la linea activa",
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
+                "[C] copiar la línea activa",
                 "[S] sale del programa",
                 "",
                 ""
@@ -44,7 +47,7 @@ class Edlin {
     }
 
     static boolean processActions(String[] document, int[] activeLine) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir");
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [S]alir");
 
         switch (askChar()) {
             case 'S':   case 's':
@@ -60,6 +63,9 @@ class Edlin {
                 break;
             case 'B':   case 'b':
                 delete(document, activeLine);
+                break;
+            case 'C':   case 'c':
+                copy(document, activeLine);
                 break;
         }
         return true;
@@ -121,5 +127,10 @@ class Edlin {
     static int askInt() {
         Scanner input = new Scanner(System.in);
         return input.nextInt();
+    }
+
+    static void copy(String[] document, int[] activeLine) {
+        copyBuffer = document[activeLine[0]]; 
+        System.out.println("Línea copiada: " + copyBuffer);
     }
 }
