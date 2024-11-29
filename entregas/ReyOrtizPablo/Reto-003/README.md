@@ -1,0 +1,1 @@
+Conversacion con chat gpt : [Comprimir](https://chatgpt.com/share/67124a42-9154-8012-9fd3-05cce4545aaa)
