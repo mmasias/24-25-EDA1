@@ -1,0 +1,84 @@
+@startuml
+' Definición de la clase Edlin
+class Edlin {
+    + String[] document
+    + int[] activeLine
+    + String[][] history
+    + int historyIndex
+}
+
+' Métodos públicos de Edlin
+package "Métodos de Interfaz de Usuario" {
+    class EdlinPublicMethods_UI {
+        + main(args: String[]): void
+        + processActions(document: String[], activeLine: int[]): boolean
+        + askChar(): char
+        + askInt(): int
+        + askString(): String
+    }
+}
+
+package "Métodos de Edición" {
+    class EdlinPublicMethods_Edit {
+        + print(document: String[], activeLine: int[]): void
+        + separator(line: int, activeLine: int): String
+        + printHorizontalLine(): void
+        + clearScreen(): void
+        + edit(document: String[], activeLine: int[]): void
+        + delete(document: String[], activeLine: int[]): void
+        + exchangeLines(document: String[]): void
+        + setActiveLine(document: String[], activeLine: int[]): void
+    }
+}
+
+package "Métodos de Historial" {
+    class EdlinPublicMethods_History {
+        + undo(document: String[]): void
+        + redo(document: String[]): void
+    }
+}
+
+' Métodos privados de Edlin
+package "Métodos Internos" {
+    class EdlinPrivateMethods {
+        - saveState(): void
+        - copyArray(src: String[], dest: String[]): void
+    }
+}
+
+' Relaciones entre clases
+Edlin -down-> EdlinPublicMethods_UI
+Edlin -down-> EdlinPublicMethods_Edit
+Edlin -down-> EdlinPublicMethods_History
+EdlinPublicMethods_UI -down-> EdlinPublicMethods_Edit
+EdlinPublicMethods_Edit -down-> EdlinPublicMethods_History
+EdlinPublicMethods_UI -down-> EdlinPrivateMethods
+EdlinPublicMethods_Edit -down-> EdlinPrivateMethods
+EdlinPublicMethods_History -down-> EdlinPrivateMethods
+
+' Métodos públicos de Edlin - Interfaz de Usuario
+EdlinPublicMethods_UI : + main(args: String[]): void
+EdlinPublicMethods_UI : + processActions(document: String[], activeLine: int[]): boolean
+EdlinPublicMethods_UI : + askChar(): char
+EdlinPublicMethods_UI : + askInt(): int
+EdlinPublicMethods_UI : + askString(): String
+
+' Métodos públicos de Edlin - Edición
+EdlinPublicMethods_Edit : + print(document: String[], activeLine: int[]): void
+EdlinPublicMethods_Edit : + separator(line: int, activeLine: int): String
+EdlinPublicMethods_Edit : + printHorizontalLine(): void
+EdlinPublicMethods_Edit : + clearScreen(): void
+EdlinPublicMethods_Edit : + edit(document: String[], activeLine: int[]): void
+EdlinPublicMethods_Edit : + delete(document: String[], activeLine: int[]): void
+EdlinPublicMethods_Edit : + exchangeLines(document: String[]): void
+EdlinPublicMethods_Edit : + setActiveLine(document: String[], activeLine: int[]): void
+
+' Métodos públicos de Edlin - Historial
+EdlinPublicMethods_History : + undo(document: String[]): void
+EdlinPublicMethods_History : + redo(document: String[]): void
+
+' Métodos privados de Edlin
+EdlinPrivateMethods : - saveState(): void
+EdlinPrivateMethods : - copyArray(src: String[], dest: String[]): void
+
+@enduml
