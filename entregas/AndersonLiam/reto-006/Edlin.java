@@ -47,7 +47,7 @@ class Edlin {
         for (int i = 0; i < 50; i++) {
             System.out.print("-");
         }
-        System.out.println();  // Para terminar la línea con un salto de línea
+        System.out.println(); 
     }
 
     static void clearScreen() {
