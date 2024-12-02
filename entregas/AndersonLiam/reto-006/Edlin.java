@@ -1,6 +1,3 @@
-package vPRG1;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -15,10 +12,10 @@ class Edlin {
                 "[E] permite editar la linea activa",
                 "[I] permite intercambiar dos lineas",
                 "[B] borra el contenido de la linea activa",
-                "[C] copiar línea activa",
-                "[P] pegar en línea activa",
-                "[U] deshacer",
-                "[R] rehacer",
+                "[C] copia la linea activa",
+                "[P] pega en la linea activa",
+                "[Z] deshacer",
+                "[Y] rehacer",
                 "[S] sale del programa",
                 "",
                 ""
@@ -27,7 +24,7 @@ class Edlin {
         String clipboard = "";
         Stack<String[]> undoStack = new Stack<>();
         Stack<String[]> redoStack = new Stack<>();
-        
+
         do {
             print(document, activeLine);
         } while (processActions(document, activeLine, clipboard, undoStack, redoStack));
@@ -47,7 +44,10 @@ class Edlin {
     }
 
     static void printHorizontalLine() {
-        System.out.println("-".repeat(50));
+        for (int i = 0; i < 50; i++) {
+            System.out.print("-");
+        }
+        System.out.println();  // Para terminar la línea con un salto de línea
     }
 
     static void clearScreen() {
@@ -56,42 +56,34 @@ class Edlin {
     }
 
     static boolean processActions(String[] document, int[] activeLine, String clipboard, Stack<String[]> undoStack, Stack<String[]> redoStack) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [U]deshacer | [R]ehacer | [S]alir");
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [Z]deshacer | [Y]rehacer | [S]alir");
 
         char action = askChar();
         switch (action) {
-            case 'S': case 's':
+            case 'S':   case 's':
                 return false;
-            case 'L': case 'l':
+            case 'L':   case 'l':
                 setActiveLine(document, activeLine);
                 break;
-            case 'E': case 'e':
-                undoStack.push(document.clone());
-                edit(document, activeLine);
-                redoStack.clear(); // Limpiar el stack de rehacer
+            case 'E':   case 'e':
+                edit(document, activeLine, undoStack);
                 break;
-            case 'I': case 'i':
-                undoStack.push(document.clone());
-                exchangeLines(document);
-                redoStack.clear(); // Limpiar el stack de rehacer
+            case 'I':   case 'i':
+                exchangeLines(document, undoStack);
                 break;
-            case 'B': case 'b':
-                undoStack.push(document.clone());
-                delete(document, activeLine);
-                redoStack.clear(); // Limpiar el stack de rehacer
+            case 'B':   case 'b':
+                delete(document, activeLine, undoStack);
                 break;
-            case 'C': case 'c':
+            case 'C':   case 'c':
                 clipboard = copy(document, activeLine);
                 break;
-            case 'P': case 'p':
-                undoStack.push(document.clone());
-                paste(document, activeLine, clipboard);
-                redoStack.clear(); // Limpiar el stack de rehacer
+            case 'P':   case 'p':
+                paste(document, activeLine, clipboard, undoStack);
                 break;
-            case 'U': case 'u':
+            case 'Z':   case 'z':
                 undo(document, undoStack, redoStack);
                 break;
-            case 'R': case 'r':
+            case 'Y':   case 'y':
                 redo(document, undoStack, redoStack);
                 break;
         }
@@ -103,17 +95,21 @@ class Edlin {
         return input.next().charAt(0);
     }
 
-    static void delete(String[] document, int[] activeLine) {
-        System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo [" + activeLine[0] + "]");
+    static void delete(String[] document, int[] activeLine, Stack<String[]> undoStack) {
+        String[] previousState = document.clone();
+        System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo ["+activeLine[0]+"]");
         if (askInt() == activeLine[0]) {
             document[activeLine[0]] = "";
+            undoStack.push(previousState);
         }
     }
 
-    static void exchangeLines(String[] document) {
+    static void exchangeLines(String[] document, Stack<String[]> undoStack) {
         int originLine, destinationLine;
         String temporaryLine;
         boolean validLine = true;
+
+        String[] previousState = document.clone();
 
         do {
             System.out.print("Indique primera línea a intercambiar: ");
@@ -126,15 +122,19 @@ class Edlin {
             destinationLine = askInt();
             validLine = destinationLine >= 0 && destinationLine < document.length;
         } while (!validLine);
-        
+
         temporaryLine = document[destinationLine];
         document[destinationLine] = document[originLine];
         document[originLine] = temporaryLine;
+
+        undoStack.push(previousState);
     }
 
-    static void edit(String[] document, int[] activeLine) {
+    static void edit(String[] document, int[] activeLine, Stack<String[]> undoStack) {
+        String[] previousState = document.clone();
         System.out.println("EDITANDO> " + document[activeLine[0]]);
         document[activeLine[0]] = askString();
+        undoStack.push(previousState);
     }
 
     static String askString() {
@@ -160,14 +160,21 @@ class Edlin {
         return document[activeLine[0]];
     }
 
-    static void paste(String[] document, int[] activeLine, String clipboard) {
-        document[activeLine[0]] = clipboard;
+    static void paste(String[] document, int[] activeLine, String clipboard, Stack<String[]> undoStack) {
+        if (!clipboard.isEmpty()) {
+            String[] previousState = document.clone();
+            document[activeLine[0]] = clipboard;
+            undoStack.push(previousState);
+        } else {
+            System.out.println("No hay nada en el portapapeles para pegar.");
+        }
     }
 
     static void undo(String[] document, Stack<String[]> undoStack, Stack<String[]> redoStack) {
         if (!undoStack.isEmpty()) {
+            String[] previousState = undoStack.pop();
             redoStack.push(document.clone());
-            System.arraycopy(undoStack.pop(), 0, document, 0, document.length);
+            System.arraycopy(previousState, 0, document, 0, document.length);
         } else {
             System.out.println("No hay acciones para deshacer.");
         }
@@ -175,8 +182,9 @@ class Edlin {
 
     static void redo(String[] document, Stack<String[]> undoStack, Stack<String[]> redoStack) {
         if (!redoStack.isEmpty()) {
+            String[] previousState = redoStack.pop();
             undoStack.push(document.clone());
-            System.arraycopy(redoStack.pop(), 0, document, 0, document.length);
+            System.arraycopy(previousState, 0, document, 0, document.length);
         } else {
             System.out.println("No hay acciones para rehacer.");
         }
