@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 
 class Edlin {
@@ -14,7 +15,7 @@ class Edlin {
         "[S] sale del programa",
         "[Y] copiar",
         "[U] deshacer",
-        "",
+        "[W] guardar",
     };
 
     String previous[] = document.clone();
@@ -48,7 +49,7 @@ class Edlin {
 
   static boolean processActions(String[] document, int[] activeLine, String[] previous) {
     System.out.println(
-        "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [D]Borrar | [Y]Copiar | [U]Deshacer | [S]alir");
+        "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [D]Borrar | [Y]Copiar | [U]Deshacer | [W]Guardar | [S]alir");
 
     switch (askChar()) {
       case 'S':
@@ -83,6 +84,10 @@ class Edlin {
       case 'u':
         undo(document, previous);
         break;
+      case 'W':
+      case 'w':
+        saveToFile(document);
+        break;
     }
     return true;
   }
@@ -102,7 +107,7 @@ class Edlin {
 
   static void copy(String[] document) {
     int originLine, destinationLine;
-    boolean validLine = true;
+    boolean validLine;
 
     do {
       System.out.print("Indique la linea que desea copiar: ");
@@ -122,7 +127,7 @@ class Edlin {
   static void exchangeLines(String[] document) {
     int originLine, destinationLine;
     String temporaryLine;
-    boolean validLine = true;
+    boolean validLine;
 
     do {
       System.out.print("Indique primera línea a intercambiar: ");
@@ -156,7 +161,7 @@ class Edlin {
   }
 
   static void setActiveLine(String[] document, int[] activeLine) {
-    boolean validLine = true;
+    boolean validLine;
     do {
       System.out.print("Indique la nueva línea activa: ");
       activeLine[0] = askInt();
@@ -167,5 +172,19 @@ class Edlin {
   static int askInt() {
     Scanner input = new Scanner(System.in);
     return input.nextInt();
+  }
+
+  static void saveToFile(String[] document) {
+    try {
+      FileWriter writer = new FileWriter("documento.txt");
+      for (String line : document) {
+        writer.write(line + System.lineSeparator());
+      }
+      writer.close();
+      System.out.println("El documento ha sido guardado en 'documento.txt'.");
+    } catch (IOException e) {
+      System.out.println("Ocurrió un error al guardar el archivo.");
+      e.printStackTrace();
+    }
   }
 }
