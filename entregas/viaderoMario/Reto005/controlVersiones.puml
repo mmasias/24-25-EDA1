@@ -1,0 +1,37 @@
+@startuml GitSystem
+hide circle
+
+class Repository
+class Branch
+class Commit
+class File
+class Contributor
+class MergeRequest
+class ChangedFile
+class Workspace
+class RemoteRepository
+class RemoteBranch
+enum FileStatus {
+    Added
+    Updated
+    Deleted
+    Unchanged
+}
+
+Repository "1" --> "*" Branch
+Repository "1" --> "*" Contributor
+Repository --> "1" RemoteRepository : contains
+Branch "1" --> "*" Commit
+Commit "1" --> "*" ChangedFile
+Branch "1" --> "*" MergeRequest
+ChangedFile "1" --> "1" File
+ChangedFile --> FileStatus
+MergeRequest "1" --> "*" Commit
+MergeRequest "1" --> "1" Contributor
+Workspace "1" --> "*" File
+RemoteRepository "1" --> "*" RemoteBranch
+Branch --> RemoteBranch : syncs with
+RemoteBranch "1" --> "*" MergeRequest
+Contributor "1" --> "1" Workspace
+
+@enduml
