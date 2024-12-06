@@ -1,0 +1,43 @@
+@startuml
+class Repositorio {
+  +Nombre: String
+  +Descripción: String
+  +Visibilidad: Enum {Público, Privado}
+}
+
+class Rama {
+  +Nombre: String
+  +Estado: String
+}
+
+class PullRequest {
+  +Título: String
+  +Estado: Enum {Abierto, Cerrado, Fusionado}
+}
+
+class Commit {
+  +Hash: String
+  +Mensaje: String
+  +Fecha: Date
+}
+
+class Usuario {
+  +Nombre: String
+  +Email: String
+}
+
+class Issue {
+  +Título: String
+  +Estado: Enum {Abierto, Cerrado}
+}
+
+Repositorio "1" -- "0..*" Rama
+Repositorio "1" -- "0..*" Commit
+Repositorio "1" -- "0..*" Issue 
+Rama "1" -- "0..*" Commit
+Rama "1" -- "0..*" PullRequest
+PullRequest "1" -- "0..*" Commit
+PullRequest "1" -- "1..*" Rama
+Commit "1" -- "1" Usuario
+Issue "1" -- "0..1" Usuario
+@enduml
