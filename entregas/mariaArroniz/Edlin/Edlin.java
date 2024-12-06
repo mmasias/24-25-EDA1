@@ -1,19 +1,39 @@
 import java.util.Scanner;
 class Edlin {
     public static void main(String[] args) {
-        int activeLine[] = { 1 };
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Nombre del archivo que se quiere crear: ");
+        String fileName = scanner.nextLine();
+        FileManager manager = new FileManager(fileName);
+        
         String document[] = {
-                "Bienvenidos al editor EDLIN",
-                "Utilice el menu inferior para editar el texto",
-                "------",
-                "[L] permite definir la linea activa",
-                "[E] permite editar la linea activa",
-                "[I] permite intercambiar dos lineas",
-                "[B] borra el contenido de la linea activa",
-                "[S] sale del programa",
-                "",
-                ""
+            "Bienvenidos al editor EDLIN",
+            "Utilice el menu inferior para editar el texto",
+            "------",
+            "[L] permite definir la linea activa",
+            "[E] permite editar la linea activa",
+            "[I] permite intercambiar dos lineas",
+            "[B] borra el contenido de la linea activa",
+            "[S] sale del programa",
+            "",
+            ""
         };
+        
+        String content = manager.readFile();
+        if (content == null) {
+            System.out.println("El archivo no existe o está vacío. Creando archivo nuevo...");
+            manager.createFile("");
+        } else {
+            try (Scanner fileScanner = new Scanner(content)) {
+                int lineIndex = 0;
+                while (fileScanner.hasNextLine() && lineIndex < document.length) {
+                    document[lineIndex] = fileScanner.nextLine();
+                    lineIndex++;
+                }
+            }
+        }
+
+        int activeLine[] = { 1 };
         String history[] = new String[100];
         int historyIndex = 0;
         do {
@@ -44,7 +64,7 @@ class Edlin {
     }
 
     static boolean processActions(String[] document, int[] activeLine, String[] history, int historyIndex) {
-        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [Z] Control Z | [Y] Control Y | [C] Control C y Control V");
+        System.out.println("Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [S]alir | [Z] Control Z | [Y] Control Y | [C] Control C y Control V | [G]uardar en archivo");
         switch (askChar()) {
             case 'S':   case 's':
                 return false;
@@ -74,6 +94,9 @@ class Edlin {
             case 'C': case 'c':
                 copyPaste(document);
                 save(document,activeLine,  history, historyIndex);
+                break;
+            case 'G': case 'g':
+                saveToFile(document, manager);
                 break;
         }
         return true;
@@ -178,4 +201,16 @@ class Edlin {
         document[pastedLine] = document[copiedLine];
     }
 
+    static void saveToFile(String[] document, FileManager manager) {
+        StringBuilder content = new StringBuilder();
+        for (String line : document) {
+            content.append(line).append(System.lineSeparator());
+        }
+        boolean saved = manager.createFile(content.toString());
+        if (saved) {
+            System.out.println("Cambios guardados al archivo.");
+        } else {
+            System.out.println("Error al guardar el archivo.");
+        }
+    }
 }
