@@ -8,6 +8,8 @@ public class Document {
     private String[] lines;
     private Stack<String[]> undoStack;
     private Stack<String[]> redoStack;
+    private String[] savedDocument = null;
+    private String savedDocumentName = null;
 
     public Document() {
         this.lines = new String[MAX_LINES];
@@ -22,6 +24,37 @@ public class Document {
         undoStack.push(Arrays.copyOf(lines, lines.length));
         redoStack.clear(); 
     }
+    public void saveDocument() {
+        if (savedDocument == null) {
+            savedDocument = Arrays.copyOf(lines, lines.length);
+            savedDocumentName = "documento_actual";
+            System.out.println("Documento guardado en memoria con nombre: " + savedDocumentName);
+        } else {
+            System.out.println("El documento ya está guardado en memoria.");
+        }
+    }
+
+    public void loadDocument() {
+        if (savedDocument != null) {
+            saveStateForUndo();
+            lines = Arrays.copyOf(savedDocument, savedDocument.length);
+            System.out.println("Documento '" + savedDocumentName + "' cargado.");
+        } else {
+            System.out.println("No hay documentos guardados en memoria.");
+        }
+    }
+    
+    public void saveAsDocument() {
+        System.out.print("Ingrese un nombre para guardar el documento en memoria: ");
+        String documentName = UserInput.askString();
+        
+        savedDocument = Arrays.copyOf(lines, lines.length);
+        savedDocumentName = documentName;
+        
+        System.out.println("Documento guardado en memoria con nombre: " + savedDocumentName);
+    }
+
+
 
     public void undo() {
         if (!undoStack.isEmpty()) {

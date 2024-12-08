@@ -47,6 +47,15 @@ public class Edlin {
             case 'Y': case 'y':
                 document.redo();
                 break;
+                case 'G': case 'g':
+                document.saveDocument();
+                break;
+            case 'W': case 'w':
+                document.saveAsDocument();
+                break;
+            case 'O': case 'o':
+                document.loadDocument();
+                break;
             default:
                 System.out.println("Comando no reconocido.");
         }
@@ -65,6 +74,9 @@ public class Edlin {
         System.out.println("[P] pega el contenido copiado en una línea");
         System.out.println("[Z] deshacer la última operación");
         System.out.println("[Y] rehacer la última operación deshecha");
+        System.out.println("[G] guarda el documento en memoria");
+        System.out.println("[W] guarda el documento con un nombre en memoria");
+        System.out.println("[O] carga el último documento guardado");
     }
 
     public static void main(String[] args) {
