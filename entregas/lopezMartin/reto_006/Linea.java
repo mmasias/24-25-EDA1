@@ -6,7 +6,7 @@ public class Linea {
     private int indice;
 
     public Linea(int indice){
-        this.contenido = null;
+        this.contenido = "Texto por defecto";
         this.indice = indice;
 
     }

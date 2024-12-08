@@ -4,19 +4,21 @@ public class Lista {
 
     private Nodo primero;
     private Nodo lineaActiva;
+    private int nLineas;
 
-    public Lista(){
+    public Lista(int nLineas){
 
         this.primero = null;
-        inicializar();
+        inicializar(nLineas);
         this.lineaActiva = primero;
+        this.nLineas = nLineas;
 
     }
 
-    private void inicializar() {
+    private void inicializar(int nLineas) {
         Nodo nodoActual = null;
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= nLineas; i++) {
             Nodo nuevoNodo = new Nodo(i);
             if (primero == null) {
                 primero = nuevoNodo;
@@ -41,7 +43,7 @@ public class Lista {
     }
 
     public void cambiarLineaActiva(int numeroLinea) {
-        assert numeroLinea>=1 && numeroLinea<=10;
+        assert numeroLinea>=1 && numeroLinea<=nLineas;
 
         Nodo current = primero;
         while(current!=null){
@@ -62,8 +64,8 @@ public class Lista {
         }
     }
 
-    public void intercambiarLineas(int indiceL1, int indiceL2) {
-        assert (indiceL1 >= 1 && indiceL1 <= 10) && (indiceL2 >= 1 && indiceL2 <= 10);
+    public void intercambiarLineas(int indiceL1, int indiceL2, FileManager manager) {
+        assert (indiceL1 >= 1 && indiceL1 <= nLineas) && (indiceL2 >= 1 && indiceL2 <= nLineas);
 
         String contenidoL1 = "";
         String contenidoL2 = "";
@@ -86,8 +88,8 @@ public class Lista {
             currentL2 = currentL2.getSiguiente();
         }
 
-        currentL1.setContenido(contenidoL2);
-        currentL2.setContenido(contenidoL1);
+        manager.updateLine(indiceL1, contenidoL2);
+        manager.updateLine(indiceL2, contenidoL1);
 
     }
 
@@ -128,5 +130,9 @@ public class Lista {
         }else{
             System.out.println("No hay versiones posteriores");
         }
-    }    
+    }
+
+    public int obtenerNumeroLineas(){
+        return this.nLineas;
+    }
 }
