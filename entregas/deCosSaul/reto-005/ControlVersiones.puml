@@ -1,0 +1,21 @@
+@startuml
+class SistemaControlVersiones{
+  Lista<Ramas>;
+  String nombreRepo;
+  cambiarNombre(String nombre)
+  nuevaRama(String nombre)
+}
+class Rama{
+  String nombreRama;
+  versiones Lista<Commit>;
+  cambiarNombre(String nombre)
+  nuevaVersion()
+}
+class Commit{
+  String nombre;
+  String descripcion;
+  archivos String[];
+}
+SistemaControlVersiones --> Rama
+Rama --> Commit
+@enduml
