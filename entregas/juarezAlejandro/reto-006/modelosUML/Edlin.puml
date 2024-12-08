@@ -1,0 +1,58 @@
+@startuml
+!define ATTR **Atributos**
+!define FUNC **Métodos**
+!define FUNC_PRIVATE **Métodos Privados**
+
+class Edlin {
+    FUNC
+    +main(String[] args): void
+}
+
+class TextEditor {
+    ATTR
+    -filePath: String
+    -activeLine: int
+    -lastContent: String
+    -redoContent: String
+    -clipboard: String
+    
+    FUNC
+    +TextEditor(String filePath)
+    +initialize(): void
+    +print(): void
+    +processActions(): boolean
+
+    FUNC_PRIVATE
+    -deleteFile(): void
+    -waitForEnter(): void
+    -edit(): void
+    -delete(): void
+    -exchangeLines(): void
+    -undo(): void
+    -redo(): void
+    -copy(): void
+    -paste(): void
+    -setActiveLine(): void
+    -isValidLine(int line, String[] document): boolean
+    -readFile(): String[]
+    -writeFile(String[] document): void
+    -askChar(): char
+    -askInt(): int
+    -askString(): String
+    -clearScreen(): void
+    -printHorizontalLine(): void
+    -separator(int line): String
+}
+
+note right of TextEditor::initialize
+Inicializa el archivo base del editor,
+creando un nuevo archivo si no existe.
+end note
+
+note right of TextEditor::processActions
+Permite al usuario seleccionar acciones del editor.
+Devuelve false si se elige salir.
+end note
+
+Edlin --> TextEditor : utiliza
+@enduml
