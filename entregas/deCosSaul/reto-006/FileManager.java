@@ -3,9 +3,24 @@ import java.util.Scanner;
 
 public class FileManager {
   private final String filePath;
+  private String previousState;
 
   public FileManager(String filePath) {
     this.filePath = filePath;
+    previousState = null;
+  }
+
+  public void saveState() {
+    previousState = readFile();
+  }
+
+  public void undo() {
+    if (previousState != null) {
+      createFile(previousState); // Restaurar el contenido previo
+      System.out.println("Se deshizo el último cambio.");
+    } else {
+      System.err.println("No hay cambios para deshacer.");
+    }
   }
 
   public boolean createFile(String content) {
@@ -17,6 +32,28 @@ public class FileManager {
     } catch (IOException e) {
       System.err.println("Error al crear/escribir el archivo: " + e.getMessage());
       return false;
+    }
+  }
+
+  public String readFile() {
+    File archivo = new File(filePath);
+    StringBuilder contenido = new StringBuilder();
+
+    if (!archivo.exists()) {
+      System.err.println("El archivo no existe");
+      return null;
+    }
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+      String linea;
+      while ((linea = reader.readLine()) != null) {
+        contenido.append(linea)
+            .append(System.lineSeparator());
+      }
+      return contenido.toString();
+    } catch (IOException e) {
+      System.err.println("Error al leer el archivo: " + e.getMessage());
+      return null;
     }
   }
 

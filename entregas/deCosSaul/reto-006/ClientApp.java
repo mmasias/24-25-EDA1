@@ -24,6 +24,7 @@ public class ClientApp {
     }
 
     do {
+      clearScreen();
       System.out.println(manager.readFile(activeLine));
     } while (processActions(manager, activeLine));
   }
@@ -58,15 +59,24 @@ public class ClientApp {
         break;
       case 'U':
       case 'u':
-        // undo(manager, previous);
+        undo(manager);
         break;
     }
     return true;
   }
 
+  static void clearScreen() {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+  }
+
   static char askChar() {
     Scanner input = new Scanner(System.in);
     return input.next().charAt(0);
+  }
+
+  static void undo(FileManager manager) {
+    manager.undo();
   }
 
   static int askInt() {
@@ -80,10 +90,12 @@ public class ClientApp {
   }
 
   static void delete(FileManager manager, int[] activeLine) {
+    manager.saveState();
     manager.deleteLine(activeLine[0]);
   }
 
   static void edit(FileManager manager, int[] activeLine) {
+    manager.saveState();
     System.out.print("Introduce el texto modificado: ");
     Scanner scanner = new Scanner(System.in);
     String newLine = scanner.nextLine();
@@ -91,6 +103,7 @@ public class ClientApp {
   }
 
   static void copy(FileManager manager) {
+    manager.saveState();
     int originLine;
     int destinationLine;
     String originText;
@@ -106,6 +119,7 @@ public class ClientApp {
   }
 
   static void exchangeLines(FileManager manager) {
+    manager.saveState();
     int originLine;
     int destinationLine;
     String originText;
