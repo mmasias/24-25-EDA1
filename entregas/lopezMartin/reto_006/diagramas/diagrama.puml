@@ -1,0 +1,86 @@
+@startuml
+
+package "entregas.lopezMartin.reto_006" {
+    
+    class Edlin {
+        +main(args: String[])
+    }
+    
+    class Documento {
+        -lineasTexto: Lista
+        -versionesAnteriores: Pila
+        -versionesPosteriores: Pila
+        -interfaz: Interfaz
+        +Documento()
+        +ejecutar()
+    }
+    
+    class Interfaz {
+        -lineasTexto: Lista
+        -portapapeles: String
+        -versionesAnteriores: Pila
+        -versionesPosteriores: Pila
+        +Interfaz(lineasTexto: Lista, versionesAnteriores: Pila, versionesPosteriores: Pila)
+        +mostrar()
+    }
+    
+    class Lista {
+        -primero: Nodo
+        -lineaActiva: Nodo
+        +Lista()
+        +print()
+        +cambiarLineaActiva(numeroLinea: int)
+        +editarLinea(contenido: String)
+        +intercambiarLineas(indiceL1: int, indiceL2: int)
+        +obtenerLineaActiva(): Nodo
+        +borrarLineaActiva()
+        +deshacerCambios(versionesAnteriores: Pila, versionesPosteriores: Pila)
+        +pegar(portapapeles: String)
+        +rehacerCambios(versionesPosteriores: Pila, versionesAnteriores: Pila)
+    }
+    
+    class Nodo {
+        -siguiente: Nodo
+        +Nodo(indice: int)e
+        +getSiguiente(): Nodo
+        +setSiguiente(siguiente: Nodo)
+    }
+    
+    class Pila {
+        -cima: NodoVersion
+        +Pila()
+        +apilar(indice: int, contenido: String)
+        +obtenerCima(): NodoVersion
+        +reordenarCima()
+    }
+    
+    class NodoVersion {
+        -siguiente: NodoVersion
+        +NodoVersion(indice: int, contenido: String)
+        +setSiguiente(siguiente: NodoVersion)
+        +obtenerSiguiente(): NodoVersion
+    }
+    
+    class Version {
+        -indiceLinea: int
+        -contenido: String
+        +Version(indiceLinea: int, contenido: String)
+        +obtenerIndice(): int
+        +obtenerContenido(): String
+    }
+    
+    Edlin --> Documento
+    Documento --> Lista
+    Documento --> Pila
+    Documento --> Interfaz
+    Interfaz --> Lista
+    Interfaz --> Pila
+    Lista --> Nodo
+    Lista --> Pila
+    NodoVersion --> Version
+    Pila --> NodoVersion
+    Nodo --> NodoVersion
+    
+}
+
+@enduml
