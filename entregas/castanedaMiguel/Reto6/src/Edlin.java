@@ -1,10 +1,13 @@
+import java.io.File;
 import java.util.Scanner;
 
 class Edlin {
+    static FileManager fl=new FileManager("archivo.txt");
     public static void main(String[] args) {
         int activeLine[] = { 1 };
 
 
+        fl.createFile("Bienvenidos al editor EDLIN,\nUtilice el menu inferior para editar el texto, \n------, \n[L] permite definir la linea activa, \n[E] permite editar la linea activa, \n[I] permite intercambiar dos lineas, \n[B] borra el contenido de la linea activa, \n[D] deshace el último cambio, \n[R] retira la línea deshecha, \n[S] sale del programa,\n \n ");
 
         String document[] = {
                 "Bienvenidos al editor EDLIN",
@@ -21,9 +24,15 @@ class Edlin {
                 ""
         };
 
+
+        String file;
         do {
-            print(document, activeLine);
+            //print(document, activeLine);
+            file=fl.readFile();
+            System.out.println(file);
         } while (processActions(document, activeLine));
+
+        fl.deleteFile();
     }
     //private static ListaNodo listaPrincipal=new ListaNodo();
     private static ListaNodo listaDeshacer=new ListaNodo();
@@ -91,10 +100,12 @@ class Edlin {
         System.out.println("EDITANDO> " + document[activeLine[0]]);
         escribeLista(document, activeLine);
         edit(document, activeLine, askString());
+
     }
 
     static void edit(String[] document, int[] activeLine, String nuevaLinea){
         document[activeLine[0]] = nuevaLinea;
+        fl.updateLine(activeLine[0], nuevaLinea);
     }
 
     static void exchangeLines(String[] document){
@@ -129,6 +140,7 @@ class Edlin {
 
     static void delete(String[] document, int[] activeLine) {
             document[activeLine[0]]="";
+            fl.deleteLine(activeLine[0]);
     }
 
     static void deshacer(String[] document, int[] activeLine){
