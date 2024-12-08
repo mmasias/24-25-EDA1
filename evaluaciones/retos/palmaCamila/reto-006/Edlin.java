@@ -3,7 +3,9 @@ import java.util.Stack;
 
 class Edlin {
     public static void main(String[] args) {
-        int activeLine[] = { 1 };
+        FileManager manager = new FileManager("document.txt");
+
+        int activeLine = 1;
         String document[] = {
                 "Bienvenidos al editor EDLIN",
                 "Utilice el menu inferior para editar el texto",
@@ -21,29 +23,40 @@ class Edlin {
                 ""
         };
 
+        String documentString = manager.readFile();
+        if (documentString == null) {
+            documentString = "";
+            for (int i = 0; i < document.length; i++) {
+                documentString += document[i] + "\n";
+            }
+            manager.createFile(documentString);
+        } else {
+            document = documentString.split("\n");
+        }
+
         Stack<String[]> undoStack = new Stack<>();
         Stack<String[]> redoStack = new Stack<>();
 
-        String[] copiedText = { null };
+        String copiedText = null;
 
-        String[] persistentMessage = { "" };
+        String persistentMessage = "";
 
         do {
             print(document, activeLine, persistentMessage);
-        } while (processActions(document, activeLine, undoStack, redoStack, copiedText, persistentMessage));
+        } while (processActions(document, activeLine, undoStack, redoStack, copiedText, persistentMessage, manager));
     }
 
-    static void print(String[] document, int[] activeLine, String[] persistentMessage) {
-        clearScreen();
+    static void print(String[] document, int activeLine, String persistentMessage) {
+        // clearScreen();
         printHorizontalLine();
         for (int line = 0; line < document.length; line++) {
-            System.out.println(line + separator(line, activeLine[0]) + document[line]);
+            System.out.println(line + separator(line, activeLine) + document[line]);
         }
         printHorizontalLine();
 
-        if (!persistentMessage[0].isEmpty()) {
-            System.out.println(persistentMessage[0]);
-            persistentMessage[0] = "";
+        if (!persistentMessage.isEmpty()) {
+            System.out.println(persistentMessage);
+            persistentMessage = "";
         }
     }
 
@@ -60,14 +73,19 @@ class Edlin {
         System.out.flush();
     }
 
-    static boolean processActions(String[] document, int[] activeLine, Stack<String[]> undoStack,
-            Stack<String[]> redoStack, String[] copiedText, String[] persistentMessage) {
+    static boolean processActions(String[] document, int activeLine, Stack<String[]> undoStack,
+            Stack<String[]> redoStack, String copiedText, String persistentMessage, FileManager manager) {
         System.out.println(
-                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [U]ndo | [R]edo | [S]alir");
+                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [U]ndo | [R]edo  | [G]uardar | [S]alir");
 
         switch (askChar()) {
             case 'S':
             case 's':
+                System.out.println("¿Desear guardar los cambios? [S/N]");
+                char save = askChar();
+                if (save == 'S' || save == 's') {
+                    manager.createFile(String.join("\n", document));
+                }
                 return false;
             case 'L':
             case 'l':
@@ -109,6 +127,10 @@ class Edlin {
             case 'r':
                 redo(undoStack, redoStack, document);
                 break;
+            case 'G':
+            case 'g':
+                manager.createFile(String.join("\n", document));
+                break;
         }
         return true;
     }
@@ -118,11 +140,11 @@ class Edlin {
         return input.next().charAt(0);
     }
 
-    static void delete(String[] document, int[] activeLine) {
+    static void delete(String[] document, int activeLine) {
         System.out.println("Esta acción es irreversible: indique el número de línea activa para confirmarlo [" +
-                activeLine[0] + "]");
-        if (askInt() == activeLine[0]) {
-            document[activeLine[0]] = "";
+                activeLine + "]");
+        if (askInt() == activeLine) {
+            document[activeLine] = "";
         }
     }
 
@@ -147,9 +169,9 @@ class Edlin {
         document[originLine] = temporaryLine;
     }
 
-    static void edit(String[] document, int[] activeLine) {
-        System.out.println("EDITANDO> " + document[activeLine[0]]);
-        document[activeLine[0]] = askString();
+    static void edit(String[] document, int activeLine) {
+        System.out.println("EDITANDO> " + document[activeLine]);
+        document[activeLine] = askString();
     }
 
     static String askString() {
@@ -157,12 +179,12 @@ class Edlin {
         return input.nextLine();
     }
 
-    static void setActiveLine(String[] document, int[] activeLine) {
+    static void setActiveLine(String[] document, int activeLine) {
         boolean validLine = true;
         do {
             System.out.print("Indique la nueva línea activa: ");
-            activeLine[0] = askInt();
-            validLine = activeLine[0] >= 0 && activeLine[0] < document.length;
+            activeLine = askInt();
+            validLine = activeLine >= 0 && activeLine < document.length;
         } while (!validLine);
     }
 
@@ -199,17 +221,17 @@ class Edlin {
         }
     }
 
-    static void copy(String[] document, int[] activeLine, String[] copiedText, String[] persistentMessage) {
-        copiedText[0] = document[activeLine[0]];
-        persistentMessage[0] = "Texto copiado: \"" + copiedText[0] + "\"";
+    static void copy(String[] document, int activeLine, String copiedText, String persistentMessage) {
+        copiedText = document[activeLine];
+        persistentMessage = "Texto copiado: \"" + copiedText + "\"";
     }
 
-    static void paste(String[] document, int[] activeLine, String[] copiedText, String[] persistentMessage) {
-        if (copiedText[0] == null) {
-            persistentMessage[0] = "No hay contenido copiado para pegar.";
+    static void paste(String[] document, int activeLine, String copiedText, String persistentMessage) {
+        if (copiedText == null) {
+            persistentMessage = "No hay contenido copiado para pegar.";
             return;
         }
-        document[activeLine[0]] = copiedText[0];
-        persistentMessage[0] = "Texto pegado en la línea " + activeLine[0] + ": \"" + copiedText[0] + "\"";
+        document[activeLine] = copiedText;
+        persistentMessage = "Texto pegado en la línea " + activeLine + ": \"" + copiedText + "\"";
     }
 }
