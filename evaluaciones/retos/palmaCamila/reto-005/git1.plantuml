@@ -1,0 +1,70 @@
+@startuml Control de versiones
+
+object "repositorio1 : Repositorio" as repositorio1 {
+    Nombre = "Eda1"
+}
+
+object "main :Rama" as main {
+    Nombre = "Main"
+}
+
+object "develop :Rama" as develop {
+    Nombre = "Develop"
+}
+
+object "commit1 : Commit" as commit1 {
+    Fecha = "9/11/2023"
+    Hora = "8:00"
+    Descripción = "Primer commit"
+    Autor = "Camila Palma"
+}
+
+object "archivo1 : Cambio" as archivo1 {
+    Tipo = "Creado"
+}
+
+object "commit2 : Commit" as commit2 {
+    Fecha = "9/11/2023"
+    Hora = "10:00"
+    Descripción = "Segundo commit"
+    Autor = "Camila Palma"
+}
+
+object "archivo2 : Cambio" as archivo2 {
+    Tipo = "Actualizado"
+}
+
+object "commit3 : Commit" as commit3 {
+    Fecha = "9/11/2023"
+    Hora = "11:00"
+    Descripción = "Tercer commit"
+    Autor = "Camila Palma"
+}
+
+object "commit4 : Commit" as commit4 {
+    Fecha = "9/11/2023"
+    Hora = "12:00"
+    Descripción = "Final commit"
+    Autor = "Camila Palma"
+}
+
+object "archivo4 : Cambio" as archivo4 {
+    Tipo = "Eliminado"
+}
+
+object "archivo3 : Cambio" as archivo3 {
+    Tipo = "Actualizado"
+}
+
+repositorio1 -- main
+repositorio1 -- develop
+main -- commit1
+develop -- commit3
+commit1 -- archivo1
+commit1 -- commit2
+commit2 -- archivo2
+commit2 -- commit3
+commit2 -- commit4
+commit4 -- archivo4
+commit3 -- archivo3
+@enduml
