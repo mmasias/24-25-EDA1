@@ -154,7 +154,7 @@ class DocumentEditor {
         String temp = document[originLine];
         document[originLine] = document[destinationLine];
         document[destinationLine] = temp;
-        saveDocument();
+
     }
 
     private void edit() {
