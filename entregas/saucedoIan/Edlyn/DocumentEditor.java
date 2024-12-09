@@ -77,7 +77,7 @@ class DocumentEditor {
 
     private boolean processActions() {
         System.out.println(
-                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir | [Z] deshacer | [Y] rehacer | [G]uardar | [D]elete | [O]pen");
+                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir | [Z] deshacer | [Y] rehacer | [G]save | [D]elete | [O]pen");
 
         switch (askChar()) {
             case 'S':
