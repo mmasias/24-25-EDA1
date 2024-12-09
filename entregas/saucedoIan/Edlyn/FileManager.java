@@ -1,19 +1,20 @@
 import java.io.*;
-import java.util.Scanner;
 
 public class FileManager {
     private final String filePath;
-    private static final int MAX_LINES = 1000;
 
     public FileManager(String filePath) {
         this.filePath = filePath;
     }
 
-    public boolean createFile(String content) {
+    public boolean createFile(String[] document) {
         File archivo = new File(filePath);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
-            writer.write(content);
+            for (String line : document) {
+                writer.write(line);
+                writer.newLine();
+            }
             return true;
         } catch (IOException e) {
             System.err.println("Error al crear/escribir el archivo: " + e.getMessage());
@@ -21,72 +22,46 @@ public class FileManager {
         }
     }
 
-    public String readFile() {
+    public String[] readFile() {
         File archivo = new File(filePath);
-        StringBuilder contenido = new StringBuilder();
-
         if (!archivo.exists()) {
             System.err.println("El archivo no existe");
-            return null;
+            return new String[0];
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-            while ((linea = reader.readLine()) != null) {
-                contenido.append(linea);
-                contenido.append(System.lineSeparator());
-            }
-            return contenido.toString();
+            return reader.lines().toArray(String[]::new);
         } catch (IOException e) {
             System.err.println("Error al leer el archivo: " + e.getMessage());
-            return null;
+            return new String[0];
         }
-    }
-
-    private int countLines() {
-        int count = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            while (reader.readLine() != null) {
-                count++;
-            }
-        } catch (IOException e) {
-            System.err.println("Error al contar líneas: " + e.getMessage());
-        }
-        return count;
     }
 
     public boolean updateLine(int lineNumber, String newLine) {
-        int totalLines = countLines();
-        if (lineNumber < 1 || lineNumber > totalLines) {
+        String[] document = readFile();
+        if (lineNumber < 1 || lineNumber > document.length) {
             System.err.println("Número de línea fuera de rango");
             return false;
         }
 
-        String[] lines = new String[totalLines];
+        document[lineNumber - 1] = newLine;
+        return createFile(document);
+    }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            for (int i = 0; i < totalLines; i++) {
-                lines[i] = reader.readLine();
-            }
-        } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+    public boolean deleteLine(int lineNumber) {
+        String[] document = readFile();
+        if (lineNumber < 1 || lineNumber > document.length) {
+            System.err.println("Número de línea fuera de rango");
             return false;
         }
 
-        lines[lineNumber - 1] = newLine;
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (int i = 0; i < lines.length; i++) {
-                writer.write(lines[i]);
-                if (i < lines.length - 1) {
-                    writer.newLine();
-                }
+        String[] newDocument = new String[document.length - 1];
+        for (int i = 0, j = 0; i < document.length; i++) {
+            if (i != lineNumber - 1) {
+                newDocument[j++] = document[i];
             }
-            return true;
-        } catch (IOException e) {
-            System.err.println("Error al escribir el archivo: " + e.getMessage());
-            return false;
         }
+        return createFile(newDocument);
     }
 
     public boolean deleteFile() {
@@ -96,39 +71,5 @@ public class FileManager {
             return false;
         }
         return archivo.delete();
-    }
-
-    public boolean deleteLine(int lineNumber) {
-        int totalLines = countLines();
-        if (lineNumber < 1 || lineNumber > totalLines) {
-            System.err.println("Número de línea fuera de rango");
-            return false;
-        }
-
-        String[] lines = new String[totalLines];
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            for (int i = 0; i < totalLines; i++) {
-                lines[i] = reader.readLine();
-            }
-        } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
-            return false;
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (int i = 0; i < lines.length; i++) {
-                if (i + 1 != lineNumber) {
-                    writer.write(lines[i]);
-                    if (i < lines.length - 1) {
-                        writer.newLine();
-                    }
-                }
-            }
-            return true;
-        } catch (IOException e) {
-            System.err.println("Error al escribir el archivo: " + e.getMessage());
-            return false;
-        }
     }
 }

@@ -7,7 +7,7 @@ class Edlin {
         int documentSize = input.nextInt();
         System.out.print("Ingrese el número máximo de deshacer/rehacer: ");
         int maxUndo = input.nextInt();
-        input.nextLine(); // Consume the newline character
+        input.nextLine();
 
         System.out.print("Ingrese la ruta del archivo: ");
         String filePath = input.nextLine();

@@ -4,28 +4,41 @@ class DocumentEditor {
     private final Scanner input;
     private final String[] document;
     private final UndoRedoManager undoRedoManager;
-    private final FileManager fileManager;
+    private FileManager fileManager;
     private int activeLine = 0;
     private String copiedLine = null;
+    private static final String DEFAULT_FILE_PATH = "default_document.txt";
 
     public DocumentEditor(int documentSize, int maxUndo, Scanner input, String filePath) {
         this.input = input;
         this.document = new String[documentSize];
         this.undoRedoManager = new UndoRedoManager(maxUndo, documentSize);
-        this.fileManager = new FileManager(filePath);
+        this.fileManager = new FileManager(filePath.isEmpty() ? DEFAULT_FILE_PATH : filePath);
         initializeDocument();
     }
 
     private void initializeDocument() {
-        String fileContent = fileManager.readFile();
-        if (fileContent != null) {
-            String[] lines = fileContent.split(System.lineSeparator());
-            for (int i = 0; i < document.length && i < lines.length; i++) {
-                document[i] = lines[i];
+        String[] fileContent = fileManager.readFile();
+        if (fileContent.length == 0) {
+
+            document[0] = "Bienvenidos al editor EDLIN";
+            document[1] = "Utilice el menu inferior para editar el texto";
+            document[2] = "------";
+            document[3] = "[L] permite definir la linea activa";
+            document[4] = "[E] permite editar la linea activa";
+            document[5] = "[I] permite intercambiar dos lineas";
+            document[6] = "[B] borra el contenido de la linea activa";
+            document[7] = "[C] copiar la linea activa";
+            document[8] = "[P] pegar en la linea activa";
+            document[9] = "[S] sale del programa";
+            document[10] = "[Z] deshacer la última acción";
+            document[11] = "[Y] rehacer la última acción";
+            for (int i = 12; i < document.length; i++) {
+                document[i] = "";
             }
         } else {
-            for (int i = 0; i < document.length; i++) {
-                document[i] = "";
+            for (int i = 0; i < document.length && i < fileContent.length; i++) {
+                document[i] = fileContent[i];
             }
         }
     }
@@ -64,11 +77,12 @@ class DocumentEditor {
 
     private boolean processActions() {
         System.out.println(
-                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir | [Z] deshacer | [Y] rehacer | [F]ile operations");
+                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir | [Z] deshacer | [Y] rehacer | [G]uardar | [D]elete | [O]pen");
 
         switch (askChar()) {
             case 'S':
             case 's':
+                saveDocument();
                 return false;
             case 'L':
             case 'l':
@@ -102,9 +116,17 @@ class DocumentEditor {
             case 'y':
                 redo();
                 break;
-            case 'F':
-            case 'f':
-                fileOperations();
+            case 'G':
+            case 'g':
+                saveDocument();
+                break;
+            case 'D':
+            case 'd':
+                deleteFile();
+                break;
+            case 'O':
+            case 'o':
+                openNewFile();
                 break;
         }
         return true;
@@ -120,6 +142,7 @@ class DocumentEditor {
         if (askInt() == activeLine) {
             undoRedoManager.saveState(document);
             document[activeLine] = "";
+            fileManager.deleteLine(activeLine + 1);
         }
     }
 
@@ -131,16 +154,18 @@ class DocumentEditor {
         String temp = document[originLine];
         document[originLine] = document[destinationLine];
         document[destinationLine] = temp;
+        saveDocument();
     }
 
     private void edit() {
         System.out.println("EDITANDO> " + document[activeLine]);
         undoRedoManager.saveState(document);
         document[activeLine] = askString();
+        fileManager.updateLine(activeLine + 1, document[activeLine]); // Line numbers are 1-based in FileManager
     }
 
     private String askString() {
-        input.nextLine();
+        input.nextLine(); // Consume the newline character
         return input.nextLine();
     }
 
@@ -166,6 +191,7 @@ class DocumentEditor {
     private void undo() {
         if (undoRedoManager.undo(document)) {
             System.out.println("Acción deshecha.");
+            saveDocument();
         } else {
             System.out.println("No hay acciones para deshacer.");
         }
@@ -174,6 +200,7 @@ class DocumentEditor {
     private void redo() {
         if (undoRedoManager.redo(document)) {
             System.out.println("Acción rehecha.");
+            saveDocument();
         } else {
             System.out.println("No hay acciones para rehacer.");
         }
@@ -189,65 +216,8 @@ class DocumentEditor {
             undoRedoManager.saveState(document);
             document[activeLine] = copiedLine;
             System.out.println("Línea pegada: " + copiedLine);
-        } else {
+            fileManager.updateLine(activeLine + 1, document[activeLine]);
             System.out.println("No hay línea copiada para pegar.");
-        }
-    }
-
-    private void fileOperations() {
-        System.out.println("Comandos de archivo: [C]rear | [R]ead | [U]pdate | [D]elete | [L]ine delete");
-        switch (askChar()) {
-            case 'C':
-            case 'c':
-                createFile();
-                break;
-            case 'R':
-            case 'r':
-                readFile();
-                break;
-            case 'U':
-            case 'u':
-                updateFile();
-                break;
-            case 'D':
-            case 'd':
-                deleteFile();
-                break;
-            case 'L':
-            case 'l':
-                deleteLine();
-                break;
-        }
-    }
-
-    private void createFile() {
-        System.out.print("Ingrese el contenido del archivo: ");
-        String content = askString();
-        if (fileManager.createFile(content)) {
-            System.out.println("Archivo creado exitosamente.");
-        } else {
-            System.out.println("Error al crear el archivo.");
-        }
-    }
-
-    private void readFile() {
-        String content = fileManager.readFile();
-        if (content != null) {
-            System.out.println("Contenido del archivo:");
-            System.out.println(content);
-        } else {
-            System.out.println("Error al leer el archivo.");
-        }
-    }
-
-    private void updateFile() {
-        int lineNumber = askLine("Ingrese el número de línea a actualizar: ");
-        System.out.print("Ingrese el nuevo contenido de la línea: ");
-        String newLine = askString();
-        if (fileManager.updateLine(lineNumber, newLine)) {
-            System.out.println("Línea actualizada exitosamente.");
-        } else {
-            System.out.println("Error al actualizar la línea.");
         }
     }
 
@@ -259,12 +229,27 @@ class DocumentEditor {
         }
     }
 
-    private void deleteLine() {
-        int lineNumber = askLine("Ingrese el número de línea a eliminar: ");
-        if (fileManager.deleteLine(lineNumber)) {
-            System.out.println("Línea eliminada exitosamente.");
+    private void saveDocument() {
+        fileManager.createFile(document);
+    }
+
+    private void openDocument() {
+        String[] content = fileManager.readFile();
+        if (content.length > 0) {
+            for (int i = 0; i < document.length && i < content.length; i++) {
+                document[i] = content[i];
+            }
+            System.out.println("Archivo abierto exitosamente.");
         } else {
-            System.out.println("Error al eliminar la línea.");
+            System.out.println("Error al abrir el archivo.");
         }
+    }
+
+    private void openNewFile() {
+        System.out.print("Ingrese la ruta del archivo a abrir: ");
+        input.nextLine();
+        String newFilePath = input.nextLine();
+        fileManager = new FileManager(newFilePath);
+        openDocument();
     }
 }
