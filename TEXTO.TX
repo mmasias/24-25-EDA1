@@ -1,0 +1,20 @@
+Bienvenidos al editor EDLIN
+Utilice el menu inferior para editar el texto
+------
+[L] permite definir la linea activa
+[E] permite editar la linea activa
+[I] permite intercambiar dos lineas
+[B] borra el contenido de la linea activa
+[C] copiar la linea activa
+[P] pegar en la linea activa
+[S] sale del programa
+[Z] deshacer la última acción
+[Y] rehacer la última acción
+
+
+
+
+
+
+
+
