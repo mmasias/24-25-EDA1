@@ -1,0 +1,64 @@
+@startuml
+class Documento {
+    - String[] lineas
+    - int lineaActiva
+    + Documento(String[] lineasIniciales)
+    + void imprimir()
+    + void establecerLineaActiva(int indiceLinea)
+    + void editarLinea(String nuevoContenido)
+    + void intercambiarLineas(int linea1, int linea2)
+    + void eliminarLinea()
+    + int obtenerIndiceLineaActiva()
+    + String obtenerContenidoLineaActiva()
+    + String[] obtenerLineas()
+    + void establecerLineas(String[] lineas)
+    - boolean esLineaValida(int indiceLinea)
+    - String separador(int indiceLinea)
+    - void imprimirLineaHorizontal()
+    - void limpiarPantalla()
+}
+
+class Historial {
+    - EstadoDocumento estadoActual
+    - EstadoDocumento estadoUndo
+    - EstadoDocumento estadoRedo
+    + Historial(Documento documento)
+    + void guardar(Documento documento)
+    + void deshacer(Documento documento)
+    + void rehacer(Documento documento)
+    - void aplicarEstado(Documento documento)
+}
+
+class EstadoDocumento {
+    - String[] lineas
+    - int indiceLineaActiva
+    + EstadoDocumento(String[] lineas, int indiceLineaActiva)
+    + EstadoDocumento(EstadoDocumento estado)
+    + String[] obtenerLineas()
+    + int obtenerLineaActiva()
+}
+
+class EditorDocumento {
+    - Documento documento
+    - Historial historial
+    - Scanner entrada
+    - String portapapeles
+    + EditorDocumento()
+    + void ejecutar()
+    - boolean procesarAcciones()
+    - char pedirCaracter()
+    - int pedirEntero(String mensaje)
+    - String pedirString(String mensaje)
+}
+
+class Endlin {
+    + static void main(String[] args)
+}
+
+Documento "1" *-- "*" EstadoDocumento : gestiona >
+Historial "1" *-- "*" EstadoDocumento : almacena >
+EditorDocumento "1" *-- "1" Documento : edita >
+EditorDocumento "1" *-- "1" Historial : sigue >
+
+Endlin "1" --> "1" EditorDocumento : ejecuta >
+@enduml
