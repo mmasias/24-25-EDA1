@@ -161,11 +161,11 @@ class DocumentEditor {
         System.out.println("EDITANDO> " + document[activeLine]);
         undoRedoManager.saveState(document);
         document[activeLine] = askString();
-        fileManager.updateLine(activeLine + 1, document[activeLine]); // Line numbers are 1-based in FileManager
+        fileManager.updateLine(activeLine + 1, document[activeLine]);
     }
 
     private String askString() {
-        input.nextLine(); // Consume the newline character
+        input.nextLine();
         return input.nextLine();
     }
 
