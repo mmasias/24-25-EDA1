@@ -82,7 +82,7 @@ class DocumentEditor {
         switch (askChar()) {
             case 'S':
             case 's':
-                saveDocument();
+
                 return false;
             case 'L':
             case 'l':
