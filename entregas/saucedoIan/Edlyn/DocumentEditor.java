@@ -161,7 +161,6 @@ class DocumentEditor {
         System.out.println("EDITANDO> " + document[activeLine]);
         undoRedoManager.saveState(document);
         document[activeLine] = askString();
-        fileManager.updateLine(activeLine + 1, document[activeLine]);
     }
 
     private String askString() {
