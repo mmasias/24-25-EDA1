@@ -1,0 +1,34 @@
+@startuml
+object "TextEditor" as editor
+
+' Nivel superior
+object "initialize()" as init
+object "print()" as print
+object "processActions()" as actions
+
+' Subfunciones de processActions
+object "deleteFile()" as deleteFile
+object "edit()" as edit
+object "delete()" as delete
+object "exchangeLines()" as exchange
+object "undo()" as undo
+object "redo()" as redo
+object "copy()" as copy
+object "paste()" as paste
+object "setActiveLine()" as setLine
+
+' Estructura de árbol
+editor --> init : Llama a
+editor --> print : Llama a
+editor --> actions : Llama a
+
+actions --> deleteFile : Ejecuta
+actions --> edit : Ejecuta
+actions --> delete : Ejecuta
+actions --> exchange : Ejecuta
+actions --> undo : Ejecuta
+actions --> redo : Ejecuta
+actions --> copy : Ejecuta
+actions --> paste : Ejecuta
+actions --> setLine : Ejecuta
+@enduml
