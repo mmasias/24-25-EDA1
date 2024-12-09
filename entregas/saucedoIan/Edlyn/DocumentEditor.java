@@ -4,44 +4,30 @@ class DocumentEditor {
     private final Scanner input;
     private final String[] document;
     private final UndoRedoManager undoRedoManager;
+    private final FileManager fileManager;
     private int activeLine = 0;
     private String copiedLine = null;
 
-    public DocumentEditor(int documentSize, int maxUndo, Scanner input) {
+    public DocumentEditor(int documentSize, int maxUndo, Scanner input, String filePath) {
         this.input = input;
         this.document = new String[documentSize];
         this.undoRedoManager = new UndoRedoManager(maxUndo, documentSize);
+        this.fileManager = new FileManager(filePath);
         initializeDocument();
     }
 
     private void initializeDocument() {
-        for (int i = 0; i < document.length; i++) {
-            document[i] = "";
+        String fileContent = fileManager.readFile();
+        if (fileContent != null) {
+            String[] lines = fileContent.split(System.lineSeparator());
+            for (int i = 0; i < document.length && i < lines.length; i++) {
+                document[i] = lines[i];
+            }
+        } else {
+            for (int i = 0; i < document.length; i++) {
+                document[i] = "";
+            }
         }
-        if (document.length > 0)
-            document[0] = "Bienvenidos al editor EDLIN";
-        if (document.length > 1)
-            document[1] = "Utilice el menu inferior para editar el texto";
-        if (document.length > 2)
-            document[2] = "------";
-        if (document.length > 3)
-            document[3] = "[L] permite definir la linea activa";
-        if (document.length > 4)
-            document[4] = "[E] permite editar la linea activa";
-        if (document.length > 5)
-            document[5] = "[I] permite intercambiar dos lineas";
-        if (document.length > 6)
-            document[6] = "[B] borra el contenido de la linea activa";
-        if (document.length > 7)
-            document[7] = "[C] copiar la linea activa";
-        if (document.length > 8)
-            document[8] = "[P] pegar en la linea activa";
-        if (document.length > 9)
-            document[9] = "[S] sale del programa";
-        if (document.length > 10)
-            document[10] = "[Z] deshacer la última acción";
-        if (document.length > 11)
-            document[11] = "[Y] rehacer la última acción";
     }
 
     public void run() {
@@ -78,7 +64,7 @@ class DocumentEditor {
 
     private boolean processActions() {
         System.out.println(
-                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir | [Z] deshacer | [Y] rehacer");
+                "Comandos: [L]inea activa | [E]ditar | [I]ntercambiar | [B]orrar | [C]opiar | [P]egar | [S]alir | [Z] deshacer | [Y] rehacer | [F]ile operations");
 
         switch (askChar()) {
             case 'S':
@@ -115,6 +101,10 @@ class DocumentEditor {
             case 'Y':
             case 'y':
                 redo();
+                break;
+            case 'F':
+            case 'f':
+                fileOperations();
                 break;
         }
         return true;
@@ -201,6 +191,80 @@ class DocumentEditor {
             System.out.println("Línea pegada: " + copiedLine);
         } else {
             System.out.println("No hay línea copiada para pegar.");
+        }
+    }
+
+    private void fileOperations() {
+        System.out.println("Comandos de archivo: [C]rear | [R]ead | [U]pdate | [D]elete | [L]ine delete");
+        switch (askChar()) {
+            case 'C':
+            case 'c':
+                createFile();
+                break;
+            case 'R':
+            case 'r':
+                readFile();
+                break;
+            case 'U':
+            case 'u':
+                updateFile();
+                break;
+            case 'D':
+            case 'd':
+                deleteFile();
+                break;
+            case 'L':
+            case 'l':
+                deleteLine();
+                break;
+        }
+    }
+
+    private void createFile() {
+        System.out.print("Ingrese el contenido del archivo: ");
+        String content = askString();
+        if (fileManager.createFile(content)) {
+            System.out.println("Archivo creado exitosamente.");
+        } else {
+            System.out.println("Error al crear el archivo.");
+        }
+    }
+
+    private void readFile() {
+        String content = fileManager.readFile();
+        if (content != null) {
+            System.out.println("Contenido del archivo:");
+            System.out.println(content);
+        } else {
+            System.out.println("Error al leer el archivo.");
+        }
+    }
+
+    private void updateFile() {
+        int lineNumber = askLine("Ingrese el número de línea a actualizar: ");
+        System.out.print("Ingrese el nuevo contenido de la línea: ");
+        String newLine = askString();
+        if (fileManager.updateLine(lineNumber, newLine)) {
+            System.out.println("Línea actualizada exitosamente.");
+        } else {
+            System.out.println("Error al actualizar la línea.");
+        }
+    }
+
+    private void deleteFile() {
+        if (fileManager.deleteFile()) {
+            System.out.println("Archivo eliminado exitosamente.");
+        } else {
+            System.out.println("Error al eliminar el archivo.");
+        }
+    }
+
+    private void deleteLine() {
+        int lineNumber = askLine("Ingrese el número de línea a eliminar: ");
+        if (fileManager.deleteLine(lineNumber)) {
+            System.out.println("Línea eliminada exitosamente.");
+        } else {
+            System.out.println("Error al eliminar la línea.");
         }
     }
 }
