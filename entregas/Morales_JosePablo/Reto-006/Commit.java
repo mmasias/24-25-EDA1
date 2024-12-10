@@ -10,6 +10,7 @@ public class Commit {
     public void mostrarArchivos() {
         archivosGuardados.forEach((nombre, version) -> {
             System.out.println(nombre + ": " + version.contenido);
-        });
+        }
+                                 );
     }
 }
