@@ -1,26 +1,22 @@
 public class Main {
     public static void main(String[] args) {
         CopyPasteManager copyPasteManager = new CopyPasteManager();
-        UndoRedoManager undoRedoManager = new UndoRedoManager();
-        FileManager fileManager = new FileManager();
-        ControlVersiones controlVersiones = new ControlVersiones();
-
         Directorio directorio = new Directorio();
         Archivo archivo = new Archivo();
         archivo.nombre = "documento.txt";
         archivo.contenido = "Este es el contenido del archivo.";
         directorio.agregarArchivo(archivo);
 
-        Archivo copiaArchivo = copyPasteManager.copiar(archivo);
-        copyPasteManager.pegar(copiaArchivo, directorio);
+        String[] document = {
+            "Primera línea del documento",
+            "Segunda línea del documento",
+            "Tercera línea del documento"
+        };
+        int[] activeLine = {1};
+        copyPasteManager.copiarDesdeEditor(document[activeLine[0]]);
+        copyPasteManager.pegarEnArchivo(archivo);
 
-        try {
-            fileManager.guardar(controlVersiones, "control_versiones.json");
-            ControlVersiones leido = fileManager.leer("control_versiones.json");
-        } 
-        
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Contenido del archivo después de pegar desde el editor:");
+        System.out.println(archivo.contenido);
     }
 }
