@@ -1,14 +1,24 @@
+import java.util.Stack;
+
 public class CopyPasteManager {
-    public Archivo copiar(Archivo archivo) {
-        Archivo copia = new Archivo();
-        copia.nombre = archivo.nombre;
-        copia.contenido = archivo.contenido;
-        copia.fechaCreacion = archivo.fechaCreacion;
-        copia.fechaModificacion = archivo.fechaModificacion;
-        return copia;
+    private Stack<String> clipboardHistory = new Stack<>();
+    private String clipboard;
+
+    public void copiarDesdeEditor(String contenido) {
+        clipboard = contenido;
+        clipboardHistory.push(contenido);
     }
 
-    public void pegar(Archivo archivo, Directorio directorio) {
-        directorio.agregarArchivo(archivo);
+    public void pegarEnArchivo(Archivo archivo) {
+        if (clipboard != null) {
+            archivo.contenido = clipboard;
+            archivo.fechaModificacion = new Date();
+        }
+    }
+
+    public void pegarEnEditor(String[] document, int[] activeLine) {
+        if (clipboard != null) {
+            document[activeLine[0]] = clipboard;
+        }
     }
 }
